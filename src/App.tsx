@@ -202,7 +202,7 @@ export default function App() {
                 <article className="security-card critical">
                   <p className="eyebrow">Critical upgrade reason</p>
                   <h3>Unsupported release may contain unpatched vulnerabilities</h3>
-                  <p>No matching product advisory is currently curated. That is not evidence that this release is safe: it no longer receives security fixes, so assume it may contain unpatched vulnerabilities beyond this catalogue and treat upgrading as urgent.</p>
+                  <p>No matching product advisory is currently curated. That is not evidence that this release is safe: it no longer receives security fixes, so assume it may contain unpatched vulnerabilities beyond this catalogue and treat upgrading or replacing with a new version as absolutely critical.</p>
                   <SourceLinks sourceIds={['lifecycle']} />
                 </article>
               ) : <p className="security-empty">Security coverage for this MVP is intentionally partial. This is not a clean bill of health; check Veeam’s security advisories directly.</p>
