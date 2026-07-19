@@ -13,11 +13,12 @@ p { line-height: 1.55; }
 .freshness.stale { color: #986000; }.freshness.outdated { color: #a52a25; }
 .lookup, .result { background: #fff; border: 1px solid #dbe2e5; border-radius: 18px; box-shadow: 0 12px 32px #19343a0a; padding: clamp(1.25rem, 4vw, 2.5rem); }
 .lookup form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 1rem; align-items: end; }
-label { display: grid; gap: .45rem; font-weight: 700; }
+label, .field { display: grid; gap: .45rem; font-weight: 700; }
 input, select, button { border-radius: 9px; font: inherit; padding: .75rem .85rem; }
 input, select { border: 1px solid #b8c5cb; background: white; }
 button { background: #006e6d; border: 1px solid #006e6d; color: white; cursor: pointer; font-weight: 800; }
 button:hover { background: #005a59; }.hint { color: #66747d; font-size: .9rem; }
+.version-picker { min-width: 0; position: relative; }.version-picker input { padding-right: 3rem; width: 100%; }.version-toggle { align-items: center; background: transparent; border: 0; color: #1d2a35; display: flex; font-size: 1.35rem; height: calc(100% - .4rem); justify-content: center; padding: .25rem; position: absolute; right: .2rem; top: .2rem; width: 2.5rem; }.version-toggle:hover { background: #e8f0f0; color: #006e6d; }.version-options { background: white; border: 1px solid #b8c5cb; border-radius: 9px; box-shadow: 0 10px 24px #19343a1f; list-style: none; margin: .35rem 0 0; max-height: 18rem; overflow-y: auto; padding: .3rem; position: absolute; width: 100%; z-index: 10; }.version-option { background: transparent; border: 0; border-radius: 6px; color: #1d2a35; display: block; font-size: .9rem; font-weight: 600; padding: .6rem; text-align: left; width: 100%; }.version-option:hover, .version-option:focus, .version-option[aria-selected="true"] { background: #e8f0f0; color: #005a59; }.version-option-empty { color: #66747d; font-size: .9rem; font-weight: 500; padding: .6rem; }
 .version-help { border-top: 1px solid #e5eaec; margin-top: 1.15rem; padding-top: 1rem; }.version-help summary { color: #006e6d; cursor: pointer; font-size: .9rem; font-weight: 700; width: fit-content; }.version-help > div { color: #53616c; font-size: .9rem; margin-top: .65rem; }.version-help p { margin: .45rem 0; }.version-help code { color: #1d2a35; }
 .result { margin-top: 1.5rem; }.result-title { border-bottom: 1px solid #e5eaec; margin-bottom: 1.5rem; padding-bottom: 1rem; }
 .coverage-warning { background: #fff4d9; border-left: 4px solid #c67e00; margin: 1rem 0 1.5rem; padding: 1rem; }
@@ -30,7 +31,7 @@ button:hover { background: #005a59; }.hint { color: #66747d; font-size: .9rem; }
   .hero { display: grid; gap: 1rem; padding: .5rem 0 2rem; }
   .lede, h1 { white-space: normal; }
   .lookup form { align-items: stretch; display: grid; gap: .85rem; grid-template-columns: minmax(0, 1fr); }
-  .lookup form label, .lookup form button, .lookup form input, .lookup form select { min-width: 0; width: 100%; }
-  .lookup form button { min-height: 3.1rem; }
+  .lookup form label, .lookup form .field, .lookup form button:not(.version-toggle), .lookup form input, .lookup form select { min-width: 0; width: 100%; }
+  .lookup form button:not(.version-toggle) { min-height: 3.1rem; }
   .result-grid { grid-template-columns: 1fr; }
 }

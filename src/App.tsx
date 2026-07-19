@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
@@ -86,10 +86,16 @@ export default function App() {
   const [productId, setProductId] = useState<ProductId>(catalog.products.some((product) => product.id === initialProduct) ? initialProduct : 'vbr')
   const [version, setVersion] = useState(initialVersion)
   const [submitted, setSubmitted] = useState(Boolean(initialVersion))
+  const [versionPickerOpen, setVersionPickerOpen] = useState(false)
+  const versionPickerRef = useRef<HTMLDivElement>(null)
   const product = catalog.products.find((item) => item.id === productId)!
   const upgradeHowTo = upgradeHowToSourceIds(productId)
   const upgradeHowToSource = sourceById(catalog, upgradeHowTo[0])
   const versionOptions = useMemo(() => releaseOptions(catalog.releases.filter((item) => item.productId === productId)), [productId])
+  const matchingVersionOptions = useMemo(() => {
+    const query = version.trim().toLocaleLowerCase()
+    return query ? versionOptions.filter((option) => `${option.value} ${option.label}`.toLocaleLowerCase().includes(query)) : versionOptions
+  }, [version, versionOptions])
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
   const isCurrentCatalogRelease = release ? isRecommendedRelease(catalog, release) : false
@@ -114,6 +120,13 @@ export default function App() {
     setProductId(nextProductId)
     setVersion('')
     setSubmitted(false)
+    setVersionPickerOpen(false)
+  }
+
+  function closeVersionPickerWhenFocusLeaves() {
+    window.setTimeout(() => {
+      if (!versionPickerRef.current?.contains(document.activeElement)) setVersionPickerOpen(false)
+    })
   }
 
   return (
@@ -135,13 +148,39 @@ export default function App() {
               {catalog.products.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
             </select>
           </label>
-          <label>
-            Version or build
-            <input key={productId} list={`version-options-${productId}`} value={version} onChange={(event) => setVersion(event.target.value)} placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Start typing a version or build'} required />
-            <datalist id={`version-options-${productId}`}>
-              {versionOptions.map(({ value, label }) => <option key={value} value={value} label={label} />)}
-            </datalist>
-          </label>
+          <div className="field">
+            <span>Version or build</span>
+            <div className="version-picker" ref={versionPickerRef} onBlur={closeVersionPickerWhenFocusLeaves}>
+              <input
+                key={productId}
+                aria-controls="version-options"
+                aria-expanded={versionPickerOpen}
+                aria-haspopup="listbox"
+                aria-label="Version or build"
+                value={version}
+                onChange={(event) => { setVersion(event.target.value); setVersionPickerOpen(true) }}
+                onFocus={() => setVersionPickerOpen(true)}
+                onKeyDown={(event) => {
+                  if (event.key === 'ArrowDown') setVersionPickerOpen(true)
+                  if (event.key === 'Escape') setVersionPickerOpen(false)
+                }}
+                placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Start typing a version or build'}
+                required
+              />
+              <button className="version-toggle" type="button" aria-label="Show version and build choices" aria-expanded={versionPickerOpen} onClick={() => setVersionPickerOpen((isOpen) => !isOpen)}>
+                <span aria-hidden="true">⌄</span>
+              </button>
+              {versionPickerOpen && (
+                <ul className="version-options" id="version-options" role="listbox" aria-label="Available version and build choices">
+                  {matchingVersionOptions.length > 0 ? matchingVersionOptions.map(({ value, label }) => (
+                    <li key={value} role="presentation">
+                      <button className="version-option" type="button" role="option" aria-selected={value === version} onClick={() => { setVersion(value); setVersionPickerOpen(false) }}>{label}</button>
+                    </li>
+                  )) : <li className="version-option-empty">No matching known version or build.</li>}
+                </ul>
+              )}
+            </div>
+          </div>
           <button type="submit">Build my upgrade brief</button>
         </form>
         <p className="hint">Use the exact release/build when available. Results are limited to the source-backed records shown below.</p>
