@@ -4,7 +4,8 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawn } from 'node:child_process'
 import { mergeVbrBuilds, parseVbrBuilds } from './lib/vbr-builds.mjs'
-import { mergeVbrSecurityBulletin, parseVbrSecurityBulletin } from './lib/vbr-security.mjs'
+import { mergeVbrSecurityBulletin, mergeVeeamOneSecurityBulletin, parseVbrSecurityBulletin, parseVeeamOneSecurityBulletin } from './lib/vbr-security.mjs'
+import { mergeCisaKev, parseCisaKev } from './lib/cisa-kev.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const args = process.argv.slice(2)
@@ -45,7 +46,8 @@ if (!live) {
 const current = JSON.parse(await readFile(snapshot, 'utf8'))
 const buildSource = current.sources.find((item) => item.id === 'kb2680')
 const securitySource = current.sources.find((item) => item.id === 'kb4649')
-if (!buildSource || !securitySource) throw new Error('A required VBR source is missing from the catalog.')
+const kevSource = current.sources.find((item) => item.id === 'cisa-kev')
+if (!buildSource || !securitySource || !kevSource) throw new Error('A required catalog source is missing from the catalog.')
 
 async function fetchSource(source) {
   const response = await fetch(source.url, {
@@ -56,19 +58,23 @@ async function fetchSource(source) {
   return response.text()
 }
 
-const [buildHtml, securityHtml] = await Promise.all([fetchSource(buildSource), fetchSource(securitySource)])
+const [buildHtml, securityHtml, kevPayload] = await Promise.all([fetchSource(buildSource), fetchSource(securitySource), fetchSource(kevSource)])
 const builds = parseVbrBuilds(buildHtml)
-const advisories = parseVbrSecurityBulletin(securityHtml)
+const vbrAdvisories = parseVbrSecurityBulletin(securityHtml)
+const veeamOneAdvisories = parseVeeamOneSecurityBulletin(securityHtml)
+const kevCves = parseCisaKev(JSON.parse(kevPayload))
 if (builds.length < 10) throw new Error(`VBR build-number parser returned only ${builds.length} records; refusing to replace the catalog.`)
-if (advisories.length < 6) throw new Error(`VBR security parser returned only ${advisories.length} advisories; refusing to replace the catalog.`)
+if (vbrAdvisories.length < 6 || veeamOneAdvisories.length < 6) throw new Error(`Security parser returned ${vbrAdvisories.length} VBR and ${veeamOneAdvisories.length} Veeam ONE advisories; refusing to replace the catalog.`)
 
 const buildsMerged = mergeVbrBuilds(current, builds)
-const merged = mergeVbrSecurityBulletin(buildsMerged.catalog, advisories)
+const vbrMerged = mergeVbrSecurityBulletin(buildsMerged.catalog, vbrAdvisories)
+const oneMerged = mergeVeeamOneSecurityBulletin(vbrMerged.catalog, veeamOneAdvisories)
+const merged = mergeCisaKev(oneMerged.catalog, kevCves)
 const refreshedAt = new Date().toISOString()
 merged.catalog.generatedAt = refreshedAt
 merged.catalog.sources = merged.catalog.sources.map((item) =>
-  item.id === buildSource.id || item.id === securitySource.id ? { ...item, checkedAt: refreshedAt } : item,
+  item.id === buildSource.id || item.id === securitySource.id || item.id === kevSource.id ? { ...item, checkedAt: refreshedAt } : item,
 )
 
 await validateThenInstall(merged.catalog)
-console.log(`VBR catalog refresh complete: ${builds.length} build records, ${buildsMerged.additions} releases added, ${merged.findings} advisories refreshed.`)
+console.log(`Catalog refresh complete: ${builds.length} VBR builds, ${buildsMerged.additions} releases added, ${vbrMerged.findings} VBR advisories, ${oneMerged.findings} Veeam ONE advisories, ${merged.matches} KEV matches.`)

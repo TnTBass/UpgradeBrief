@@ -9,4 +9,5 @@ export const sourceManifest = [
   { id: 'security-kb', parser: 'security-index.fixture.html', mode: 'fixture-required' },
   { id: 'kb4771', parser: 'vbr-12.3.2.4165-security.fixture.html', mode: 'fixture-required' },
   { id: 'kb4649', parser: 'vbr-security.fixture.html', mode: 'fixture-required' },
+  { id: 'cisa-kev', parser: 'cisa-kev.fixture.json', mode: 'fixture-required' },
 ] as const

@@ -8,15 +8,15 @@ function decodeHtml(value) {
     .trim()
 }
 
-function vbrSection(html) {
-  const start = html.search(/<h2\b[^>]*>[\s\S]{0,120}?Veeam Backup(?:\s|&nbsp;|&amp;nbsp;)+&(?:amp;)?\s*Replication/i)
+function sectionFor(html, headingPattern, solutionAnchor) {
+  const start = html.search(headingPattern)
   if (start < 0) return ''
-  const solution = html.indexOf('id="vbrsolution"', start)
+  const solution = html.indexOf(`id="${solutionAnchor}"`, start)
   return html.slice(start, solution < 0 ? undefined : solution)
 }
 
-export function parseVbrSecurityBulletin(html) {
-  const section = vbrSection(html)
+function parseSection(html, headingPattern, solutionAnchor) {
+  const section = sectionFor(html, headingPattern, solutionAnchor)
   const headings = [...section.matchAll(/<h5\b[^>]*>[\s\S]*?(CVE-\d{4}-\d+)[\s\S]*?<\/h5>/gi)]
 
   return headings.map((heading, index) => {
@@ -30,6 +30,14 @@ export function parseVbrSecurityBulletin(html) {
   })
 }
 
+export function parseVbrSecurityBulletin(html) {
+  return parseSection(html, /<h2\b[^>]*>[\s\S]{0,120}?Veeam Backup(?:\s|&nbsp;|&amp;nbsp;)+&(?:amp;)?\s*Replication/i, 'vbrsolution')
+}
+
+export function parseVeeamOneSecurityBulletin(html) {
+  return parseSection(html, /<h2\b[^>]*>[\s\S]{0,120}?Veeam ONE/i, 'vonesolution')
+}
+
 const vbrMetadata = {
   productId: 'vbr',
   affectedReleaseIds: ['vbr-11a-p20230227', 'vbr-12.1'],
@@ -39,16 +47,33 @@ const vbrMetadata = {
   sourceIds: ['kb4649'],
 }
 
-export function mergeVbrSecurityBulletin(catalog, records) {
+const veeamOneMetadata = {
+  productId: 'veeam-one',
+  affectedReleaseIds: ['one-12.1'],
+  affectedVersionPrefixes: ['12.0.', '12.1.'],
+  fixedReleaseId: 'one-12.2',
+  conditions: ['Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable.'],
+  sourceIds: ['kb4649'],
+}
+
+function mergeBulletin(catalog, records, metadata, idPrefix) {
   const next = structuredClone(catalog)
-  const retained = next.securityFindings.filter((finding) => !finding.sourceIds.includes('kb4649'))
+  const retained = next.securityFindings.filter((finding) => !(finding.productId === metadata.productId && finding.sourceIds.includes('kb4649')))
   const findings = records.map((record) => ({
-    id: `vbr-${record.cve.toLowerCase()}`,
+    id: `${idPrefix}-${record.cve.toLowerCase()}`,
     title: record.title,
     cves: [record.cve],
     cvssScore: record.cvssScore,
-    ...vbrMetadata,
+    ...metadata,
   }))
   next.securityFindings = [...retained, ...findings]
   return { catalog: next, findings: findings.length }
+}
+
+export function mergeVbrSecurityBulletin(catalog, records) {
+  return mergeBulletin(catalog, records, vbrMetadata, 'vbr')
+}
+
+export function mergeVeeamOneSecurityBulletin(catalog, records) {
+  return mergeBulletin(catalog, records, veeamOneMetadata, 'one')
 }

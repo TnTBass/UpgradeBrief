@@ -13,6 +13,7 @@
     "test": "vitest",
     "test:adapters": "node scripts/test-vbr-build-adapter.mjs",
     "test:security-adapter": "node scripts/test-vbr-security-adapter.mjs",
+    "test:kev-adapter": "node scripts/test-cisa-kev-adapter.mjs",
     "validate:catalog": "node scripts/validate-catalog.mjs",
     "refresh:catalog": "node scripts/refresh-catalog.mjs"
   },
