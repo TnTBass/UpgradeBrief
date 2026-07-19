@@ -25,11 +25,13 @@ function SourceLinks({ sourceIds }: { sourceIds: string[] }) {
 
 function SecurityFindingCard({ finding }: { finding: SecurityFinding }) {
   const urgency = classifyUrgency(finding)
+  const fixedRelease = catalog.releases.find((release) => release.id === finding.fixedReleaseId)
   return (
     <article className={`security-card ${urgency}`}>
       <p className="eyebrow">{urgency} upgrade reason</p>
       <h3>{finding.title}</h3>
       {finding.cves.length > 0 && <p>{finding.cves.join(', ')}</p>}
+      {fixedRelease && <p>Fixed starting in: {fixedRelease.name}</p>}
       {finding.conditions.length > 0 && <p>Verify: {finding.conditions.join(' ')}</p>}
       <SourceLinks sourceIds={finding.sourceIds} />
     </article>

@@ -61,6 +61,12 @@
       "title": "Veeam KB4771: vulnerabilities resolved in VBR 12.3.2.4165",
       "url": "https://www.veeam.com/kb4771",
       "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "kb4649",
+      "title": "Veeam KB4649: security bulletin (September 2024)",
+      "url": "https://www.veeam.com/kb4649",
+      "checkedAt": "2026-07-19T05:20:00.000Z"
     }
   ],
   "products": [
@@ -101,7 +107,10 @@
     }
   ],
   "releases": [
+    { "id": "vbr-11a-p20230227", "productId": "vbr", "name": "11a P20230227 (build 11.0.1.1261)", "aliases": ["11.0.1.1261 p20230227", "11.0.1.1261", "11a p20230227", "11a"], "sourceIds": ["kb2680", "kb2053"] },
+    { "id": "vbr-12.0", "productId": "vbr", "name": "12.0", "aliases": ["12.0", "12.0.0.1420"], "sourceIds": ["kb2053"] },
     { "id": "vbr-12.1", "productId": "vbr", "name": "12.1", "aliases": ["12.1"], "sourceIds": ["kb2053"] },
+    { "id": "vbr-12.2", "productId": "vbr", "name": "12.2 (build 12.2.0.334)", "aliases": ["12.2", "12.2.0.334"], "sourceIds": ["kb2053", "kb4649"] },
     { "id": "vbr-12.3.2", "productId": "vbr", "name": "12.3.2", "aliases": ["12.3.2"], "sourceIds": ["kb2053", "kb2680"] },
     { "id": "vbr-12.3.2.3617", "productId": "vbr", "name": "12.3.2.3617", "aliases": ["12.3.2.3617"], "sourceIds": ["kb4771"] },
     { "id": "vbr-12.3.2.4165", "productId": "vbr", "name": "12.3.2.4165 Patch", "aliases": ["12.3.2.4165", "12.3.2.4165 patch"], "sourceIds": ["kb4771"] },
@@ -120,6 +129,13 @@
   "lifecycleNotices": [
     {
       "productId": "vbr",
+      "releaseId": "vbr-11a-p20230227",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": ["lifecycle"]
+    },
+    {
+      "productId": "vbr",
       "releaseId": "vbr-12.1",
       "state": "end-of-fix",
       "summary": "Veeam Backup & Replication 12 is in the later lifecycle phase. Confirm the exact lifecycle row before scheduling.",
@@ -133,6 +149,7 @@
     }
   ],
   "upgradePaths": [
+    { "id": "vbr-11a-p20230227-to-13.0.2", "productId": "vbr", "fromReleaseId": "vbr-11a-p20230227", "toReleaseId": "vbr-13.0.2", "hopReleaseIds": ["vbr-12.0", "vbr-12.3.2", "vbr-13.0.2"], "notes": ["This 11a path requires version 12.0 before 12.3.2 when Nutanix AHV is present. If the deployment does not interact with Nutanix AHV, Veeam documents that 11a can skip 12.0 and upgrade directly to the latest 12.3 release."], "sourceIds": ["kb2053", "vbr-checklist"] },
     { "id": "vbr-12.1-to-13.0.2", "productId": "vbr", "fromReleaseId": "vbr-12.1", "toReleaseId": "vbr-13.0.2", "hopReleaseIds": ["vbr-12.3.2", "vbr-13.0.2"], "notes": ["Review the VBR upgrade checklist before each hop."], "sourceIds": ["kb2053", "vbr-checklist"] },
     { "id": "vbr-12.3.2-to-13.0.2", "productId": "vbr", "fromReleaseId": "vbr-12.3.2", "toReleaseId": "vbr-13.0.2", "hopReleaseIds": ["vbr-13.0.2"], "notes": ["Review the VBR upgrade checklist before upgrading."], "sourceIds": ["kb2053", "vbr-checklist"] },
     { "id": "vbr-12.3.2.3617-to-13.0.2", "productId": "vbr", "fromReleaseId": "vbr-12.3.2.3617", "toReleaseId": "vbr-13.0.2", "hopReleaseIds": ["vbr-12.3.2.4165", "vbr-13.0.2"], "notes": ["Apply the security patch first, then follow the documented route to version 13."], "sourceIds": ["kb4771", "kb2053", "vbr-checklist"] },
@@ -144,6 +161,17 @@
     { "id": "vspc-9.1-to-9.2", "productId": "vspc", "fromReleaseId": "vspc-9.1", "toReleaseId": "vspc-9.2", "hopReleaseIds": ["vspc-9.2"], "notes": ["Confirm the exact 9.1 build meets the documented in-place requirement."], "sourceIds": ["vspc-upgrade"] }
   ],
   "securityFindings": [
+    {
+      "id": "vbr-cve-2024-40711",
+      "productId": "vbr",
+      "title": "Unauthenticated remote code execution",
+      "cves": ["CVE-2024-40711"],
+      "affectedReleaseIds": ["vbr-11a-p20230227", "vbr-12.1"],
+      "fixedReleaseId": "vbr-12.2",
+      "cvssScore": 9.8,
+      "conditions": ["Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."],
+      "sourceIds": ["kb4649"]
+    },
     {
       "id": "vbr-cve-2025-48984",
       "productId": "vbr",

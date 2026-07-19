@@ -8,4 +8,5 @@ export const sourceManifest = [
   { id: 'vspc-upgrade', parser: 'vspc-upgrade.fixture.html', mode: 'fixture-required' },
   { id: 'security-kb', parser: 'security-index.fixture.html', mode: 'fixture-required' },
   { id: 'kb4771', parser: 'vbr-12.3.2.4165-security.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4649', parser: 'vbr-11a-security.fixture.html', mode: 'fixture-required' },
 ] as const
