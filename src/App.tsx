@@ -69,7 +69,7 @@ export default function App() {
       <header className="hero">
         <div>
           <p className="brand">Upgrade Brief</p>
-          <h1>Make the case for a safer upgrade.</h1>
+          <h1>Upgrade with confidence.</h1>
           <p className="lede">Independent, evidence-based upgrade guidance for Veeam software.</p>
         </div>
         <p className={`freshness ${freshness}`}>Catalog {freshness} · checked {new Date(catalog.generatedAt).toLocaleDateString()}</p>
