@@ -19,6 +19,7 @@ jobs:
       - run: npm test -- --run
       - run: npm run test:adapters
       - run: npm run test:security-adapter
+      - run: npm run test:release-information-adapter
       - run: npm run test:lifecycle-adapter
       - run: npm run test:kev-adapter
       - run: npm run validate:catalog

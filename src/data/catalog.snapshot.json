@@ -201,6 +201,12 @@
       "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
+      "id": "kb4696",
+      "title": "Veeam KB4696: Release Information for Veeam Backup & Replication 12.3 and updates",
+      "url": "https://www.veeam.com/kb4696",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
@@ -597,7 +603,8 @@
         "12.3.2 P2"
       ],
       "sourceIds": [
-        "kb2680"
+        "kb2680",
+        "kb4696"
       ]
     },
     {

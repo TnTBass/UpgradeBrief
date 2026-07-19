@@ -106,6 +106,7 @@ export default function App() {
   const targetRelease = release ? upgradeTargetRelease(catalog, productId, path) : undefined
   const targetMaterialSourceIds = releaseMaterialSourceIds(productId)
   const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
+  const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
   const hasLegacySecurityRisk = lifecycle?.state === 'end-of-support' && findings.length === 0
 
   useEffect(() => {
@@ -273,9 +274,16 @@ export default function App() {
                   <p>No matching product advisory is currently curated. That is not evidence that this release is safe: it no longer receives security fixes, so assume it may contain unpatched vulnerabilities beyond this catalogue and treat upgrading or replacing with a new version as absolutely critical.</p>
                   <SourceLinks sourceIds={['lifecycle']} />
                 </article>
-              ) : <p className="security-empty">Security coverage for this MVP is intentionally partial. This is not a clean bill of health; check Veeam’s security advisories directly.</p>
+              ) : <p className="security-empty">No curated vulnerability currently applies to this installed build. This does not mean the release contains no documented fixes; review the installed-release material below and Veeam’s security advisories directly.</p>
             )}
             <SourceLinks sourceIds={['security-kb']} />
+          </section>
+
+          <section className="resources">
+            <p className="eyebrow">About this installed release</p>
+            <h2>Vendor release notes and documented fixes.</h2>
+            <p>These materials describe changes included in {release.name}; they do not mean every fix affected your environment.</p>
+            <SourceLinks sourceIds={installedReleaseSourceIds} />
           </section>
 
           <section className="resources">
@@ -294,7 +302,7 @@ export default function App() {
           <section className="resources">
             <p className="eyebrow">Plan the change</p>
             <h2>Use the vendor checklist and release notes.</h2>
-            <SourceLinks sourceIds={[...checklistSourceIds(productId), ...release.sourceIds]} />
+            <SourceLinks sourceIds={checklistSourceIds(productId)} />
           </section>
         </section>
       )}

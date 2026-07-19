@@ -16,6 +16,13 @@ describe('catalog lookup', () => {
     expect(findUpgradePath(catalog, release!)?.guidanceNote).toContain('12.3.2.3617')
   })
 
+  it('links vendor release information and documented fixes for the fixed 12.3.2.4465 build', () => {
+    const release = findRelease(catalog, 'vbr', '12.3.2.4465')!
+
+    expect(release.sourceIds).toContain('kb4696')
+    expect(documentedFixSourceIds(catalog, release)).toContain('kb4830')
+  })
+
   it('does not infer an unmatched build from a nearby release', () => {
     expect(findRelease(catalog, 'vbr', '12.3.2.4000')).toBeUndefined()
   })
