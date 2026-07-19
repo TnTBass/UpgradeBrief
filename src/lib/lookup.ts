@@ -1,4 +1,7 @@
 import type { Catalog, LifecycleNotice, ProductId, Release, SecurityFinding, UpgradePath } from './catalog-types'
+import { classifyUrgency } from './urgency'
+
+const urgencyOrder = { critical: 0, high: 1, standard: 2 } as const
 
 export function normalizeInput(value: string): string {
   return value.trim().toLowerCase().replace(/^v(?:eeam)?\s*/i, '').replace(/\s+/g, ' ')
@@ -77,7 +80,11 @@ export function findingAppliesToRelease(finding: SecurityFinding, release: Relea
 }
 
 export function findingsForRelease(catalog: Catalog, release: Release): SecurityFinding[] {
-  return catalog.securityFindings.filter((finding) => finding.productId === release.productId && findingAppliesToRelease(finding, release))
+  return catalog.securityFindings
+    .filter((finding) => finding.productId === release.productId && findingAppliesToRelease(finding, release))
+    .map((finding, index) => ({ finding, index }))
+    .sort((left, right) => urgencyOrder[classifyUrgency(left.finding)] - urgencyOrder[classifyUrgency(right.finding)] || left.index - right.index)
+    .map(({ finding }) => finding)
 }
 
 export function findLifecycleNotice(catalog: Catalog, productId: ProductId, releaseId: string): LifecycleNotice | undefined {

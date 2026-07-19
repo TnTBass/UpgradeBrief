@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
 import { findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, upgradeHowToSourceIds } from './lookup'
+import { classifyUrgency } from './urgency'
 
 describe('catalog lookup', () => {
   it('matches an exact VBR build and gives the source-backed staged path', () => {
@@ -56,6 +57,16 @@ describe('catalog lookup', () => {
   it('never applies another product’s similarly numbered advisory', () => {
     const release = findRelease(catalog, 'veeam-one', '6.5.0.686')!
     expect(findingsForRelease(catalog, release)).toEqual([])
+  })
+
+  it('orders matching security findings from critical to high to standard', () => {
+    const release = findRelease(catalog, 'vbr', '12.3.2.3617')!
+    const urgencyOrder = { critical: 0, high: 1, standard: 2 }
+    const urgencies = findingsForRelease(catalog, release).map(classifyUrgency)
+
+    expect(urgencies).toContain('critical')
+    expect(urgencies).toContain('high')
+    expect(urgencies).toEqual([...urgencies].sort((left, right) => urgencyOrder[left] - urgencyOrder[right]))
   })
 
   it('provides a Help Center how-to link for each product', () => {
