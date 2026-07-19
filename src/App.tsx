@@ -99,6 +99,7 @@ export default function App() {
   }, [versionFilter, versionOptions])
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
+  const showPathGuidance = Boolean(path?.guidanceNote && release && path.fromReleaseId === release.id)
   const isCurrentCatalogRelease = release ? isRecommendedRelease(catalog, release) : false
   const freshness = catalogFreshness(catalog.generatedAt)
   const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
@@ -226,9 +227,9 @@ export default function App() {
               <p className="eyebrow">Upgrade path</p>
               {path ? (
                 <>
-                  {path.guidanceNote && (
+                  {showPathGuidance && (
                     <aside className="path-guidance">
-                      <strong>Build-specific guidance.</strong> {path.guidanceNote}
+                      <strong>{path.fromVersionPrefixes ? 'Version guidance.' : 'Build-specific guidance.'}</strong> {path.guidanceNote}
                     </aside>
                   )}
                   <ol className="route">
