@@ -2,6 +2,13 @@ import type { Catalog, LifecycleNotice, ProductId, Release, SecurityFinding, Upg
 import { classifyUrgency } from './urgency'
 
 const urgencyOrder = { critical: 0, high: 1, standard: 2 } as const
+const releaseMaterialSources: Record<ProductId, string[]> = {
+  vbr: ['vbr-whats-new', 'vbr-release-materials'],
+  'enterprise-manager': ['vdp-release-materials'],
+  'veeam-one': ['one-release-materials'],
+  vro: ['vro-release-materials'],
+  vspc: ['vspc-release-materials'],
+}
 
 export function normalizeInput(value: string): string {
   return value.trim().toLowerCase().replace(/^v(?:eeam)?\s*/i, '').replace(/\s+/g, ' ')
@@ -85,6 +92,23 @@ export function findingsForRelease(catalog: Catalog, release: Release): Security
     .map((finding, index) => ({ finding, index }))
     .sort((left, right) => urgencyOrder[classifyUrgency(left.finding)] - urgencyOrder[classifyUrgency(right.finding)] || left.index - right.index)
     .map(({ finding }) => finding)
+}
+
+export function upgradeTargetRelease(catalog: Catalog, productId: ProductId, path?: UpgradePath): Release | undefined {
+  const product = catalog.products.find((item) => item.id === productId)
+  const targetId = path?.hopReleaseIds.at(-1) ?? product?.recommendedReleaseId
+  return catalog.releases.find((release) => release.id === targetId)
+}
+
+export function releaseMaterialSourceIds(productId: ProductId): string[] {
+  return releaseMaterialSources[productId]
+}
+
+export function documentedFixSourceIds(catalog: Catalog, release: Release): string[] {
+  return [...new Set(catalog.securityFindings
+    .filter((finding) => finding.fixedReleaseId === release.id)
+    .flatMap((finding) => finding.sourceIds)
+    .filter((sourceId) => sourceId !== 'security-kb' && sourceId !== 'cisa-kev'))]
 }
 
 export function findLifecycleNotice(catalog: Catalog, productId: ProductId, releaseId: string): LifecycleNotice | undefined {

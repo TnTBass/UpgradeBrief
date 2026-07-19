@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
-import { findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, upgradeHowToSourceIds } from './lookup'
+import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
 import { classifyUrgency } from './urgency'
 
 describe('catalog lookup', () => {
@@ -78,5 +78,14 @@ describe('catalog lookup', () => {
   it('provides a Help Center how-to link for each product', () => {
     expect(upgradeHowToSourceIds('veeam-one')).toEqual(['one-how-to'])
     expect(upgradeHowToSourceIds('vbr')).toEqual(['vbr-how-to'])
+  })
+
+  it('links target release material and source-backed fixes without treating them as matching advisories', () => {
+    const release = findRelease(catalog, 'vbr', '12.3.2.3617')!
+    const target = upgradeTargetRelease(catalog, 'vbr', findUpgradePath(catalog, release))!
+
+    expect(target.id).toBe('vbr-13.0.2')
+    expect(releaseMaterialSourceIds('vbr')).toEqual(['vbr-whats-new', 'vbr-release-materials'])
+    expect(documentedFixSourceIds(catalog, target)).toContain('kb4852')
   })
 })

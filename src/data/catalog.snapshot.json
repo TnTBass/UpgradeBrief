@@ -87,6 +87,42 @@
       "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
+      "id": "vbr-whats-new",
+      "title": "Veeam Backup & Replication 13 What's New",
+      "url": "https://www.veeam.com/veeam_backup_13_whats_new__wn.pdf",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
+      "id": "vbr-release-materials",
+      "title": "Veeam Backup & Replication 13 release notes and What's New (Help Center)",
+      "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbr",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
+      "id": "vdp-release-materials",
+      "title": "Veeam Data Platform 13 release notes and What's New (Help Center)",
+      "url": "https://helpcenter.veeam.com/category/vdp.html",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
+      "id": "one-release-materials",
+      "title": "Veeam ONE 13 release notes and What's New (Help Center)",
+      "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=one",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
+      "id": "vro-release-materials",
+      "title": "Veeam Recovery Orchestrator 13 release notes and What's New (Help Center)",
+      "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vro",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
+      "id": "vspc-release-materials",
+      "title": "Veeam Service Provider Console release notes and What's New (Help Center)",
+      "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vac",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
       "id": "em-how-to",
       "title": "Enterprise Manager upgrade instructions (Help Center)",
       "url": "https://helpcenter.veeam.com/docs/vbr/em/em_upgrading.html",

@@ -2,7 +2,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { checklistSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, sourceById, upgradeHowToSourceIds } from './lib/lookup'
+import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, sourceById, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
 import { classifyUrgency } from './lib/urgency'
 
@@ -103,6 +103,9 @@ export default function App() {
   const freshness = catalogFreshness(catalog.generatedAt)
   const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
   const findings = release ? findingsForRelease(catalog, release) : []
+  const targetRelease = release ? upgradeTargetRelease(catalog, productId, path) : undefined
+  const targetMaterialSourceIds = releaseMaterialSourceIds(productId)
+  const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
   const hasLegacySecurityRisk = lifecycle?.state === 'end-of-support' && findings.length === 0
 
   useEffect(() => {
@@ -273,6 +276,19 @@ export default function App() {
               ) : <p className="security-empty">Security coverage for this MVP is intentionally partial. This is not a clean bill of health; check Veeam’s security advisories directly.</p>
             )}
             <SourceLinks sourceIds={['security-kb']} />
+          </section>
+
+          <section className="resources">
+            <p className="eyebrow">Explore the target release</p>
+            <h2>Features, release notes, and documented fixes.</h2>
+            <p>Review what Veeam documents for {targetRelease?.name ?? 'the current target release'} before deciding whether a feature or fix matters to your environment. These links are not a finding that every item applies to you.</p>
+            <SourceLinks sourceIds={targetMaterialSourceIds} />
+            {targetFixSourceIds.length > 0 && (
+              <>
+                <p><strong>Vendor-documented fixes in this target release</strong></p>
+                <SourceLinks sourceIds={targetFixSourceIds} />
+              </>
+            )}
           </section>
 
           <section className="resources">
