@@ -31,6 +31,14 @@ describe('catalog lookup', () => {
     expect(documentedFixSourceIds(catalog, release)).toContain('kb4830')
   })
 
+  it('shows the KB4869 critical advisory through 12.3.2.4465 but not on its 12.3.2.4854 fix', () => {
+    const vulnerable = findRelease(catalog, 'vbr', '12.3.2.4465')!
+    const fixed = findRelease(catalog, 'vbr', '12.3.2.4854')!
+
+    expect(findingsForRelease(catalog, vulnerable).some((finding) => finding.cves.includes('CVE-2026-44963'))).toBe(true)
+    expect(findingsForRelease(catalog, fixed).some((finding) => finding.cves.includes('CVE-2026-44963'))).toBe(false)
+  })
+
   it('does not infer an unmatched build from a nearby release', () => {
     expect(findRelease(catalog, 'vbr', '12.3.2.4000')).toBeUndefined()
   })

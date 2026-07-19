@@ -39,7 +39,7 @@ export function parseProductReleaseSecurityArticle(html, article, { productId, p
     const block = html.slice(heading.index, headings[index + 1]?.index)
     const paragraphs = [...block.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((match) => decodeHtml(match[1]))
     const title = paragraphs.find((paragraph) => !/^Severity:/i.test(paragraph) && !/^Please,? try again later\.?$/i.test(paragraph))
-    const score = Number(decodeHtml(block).match(/CVSS\s+v3\.1\s+Score:\s*([0-9]+(?:\.[0-9]+)?)/i)?.[1])
+    const score = Number(decodeHtml(block).match(/CVSS\s+v(?:3\.1|4)\s+Score:\s*([0-9]+(?:\.[0-9]+)?)/i)?.[1])
     const deploymentType = decodeHtml(block).match(/Affected Deployment Type:\s*(.*?)(?:\s+Source:|$)/i)?.[1]
     if (!title || !Number.isFinite(score)) throw new Error(`${article.id} could not parse ${heading[1]} safely.`)
     return {
