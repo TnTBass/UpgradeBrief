@@ -66,6 +66,10 @@ export function findingAppliesToRelease(finding: SecurityFinding, release: Relea
   )
 }
 
+export function findingsForRelease(catalog: Catalog, release: Release): SecurityFinding[] {
+  return catalog.securityFindings.filter((finding) => finding.productId === release.productId && findingAppliesToRelease(finding, release))
+}
+
 export function findLifecycleNotice(catalog: Catalog, productId: ProductId, releaseId: string): LifecycleNotice | undefined {
   return catalog.lifecycleNotices.find((notice) => notice.productId === productId && notice.releaseId === releaseId)
     ?? catalog.lifecycleNotices.find((notice) => notice.productId === productId && !notice.releaseId)

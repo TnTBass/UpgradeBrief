@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-19T06:47:08.600Z",
+  "generatedAt": "2026-07-19T15:31:04.870Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4357",
       "title": "Veeam KB4357: Veeam ONE build numbers",
       "url": "https://www.veeam.com/kb4357",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4358",
       "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
       "url": "https://www.veeam.com/kb4358",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4464",
       "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
       "url": "https://www.veeam.com/kb4464",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4581",
@@ -66,7 +66,7 @@
       "id": "lifecycle",
       "title": "Veeam Product Lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "checkedAt": "2026-07-18T18:00:00.000Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "em-upgrade",
@@ -96,7 +96,7 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4771",
@@ -108,49 +108,49 @@
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
-      "checkedAt": "2026-07-19T06:47:08.600Z"
+      "checkedAt": "2026-07-19T15:31:04.870Z"
     }
   ],
   "products": [
@@ -2309,17 +2309,1539 @@
     },
     {
       "productId": "vbr",
-      "releaseId": "vbr-12.1",
+      "releaseId": "vbr-12.0",
       "state": "end-of-fix",
-      "summary": "Veeam Backup & Replication 12 is in the later lifecycle phase. Confirm the exact lifecycle row before scheduling.",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
       "sourceIds": [
         "lifecycle"
       ]
     },
     {
       "productId": "vbr",
-      "state": "check-source",
-      "summary": "Lifecycle dates are product and release specific. Use the official lifecycle record for the current date.",
+      "releaseId": "vbr-12.1",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-12.2",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-12.3.2",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-12.3.2.3617",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-12.3.2.4165",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-13.0.2",
+      "state": "supported",
+      "summary": "Veeam Backup & Replication 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-13-0-1-2067",
+      "state": "supported",
+      "summary": "Veeam Backup & Replication 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-13-0-1-1071",
+      "state": "supported",
+      "summary": "Veeam Backup & Replication 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-13-0-1-180",
+      "state": "supported",
+      "summary": "Veeam Backup & Replication 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-13-0-0-4967",
+      "state": "supported",
+      "summary": "Veeam Backup & Replication 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-3-2-4854",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-3-2-4465",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-3-1-1139",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-3-0-310",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-1-2-172",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-1-1-56",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-1-0-2131",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-0-0-1420-p20230718",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-0-0-1420-p20230412",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-0-0-1420-p20230223",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-12-0-0-1402",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-1-1261-p20240304",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-1-1261-p20220302",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-1-1261-p20211211",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-1-1261-p20211123",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-0-837-p20210525",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-0-837-p20210507",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-0-837-p20210401",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-0-837-p20210324",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-0-837-p20210319",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-0-837",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-11-0-0-825",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-10-0-1-4854-p20220304",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 10a P20220304 (build 10.0.1.4854 P20220304) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-10-0-1-4854-p20210609",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 10a CU 20210609 (build 10.0.1.4854 P20210609) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-10-0-1-4854-p20201202",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 10a CU 20201202 (build 10.0.1.4854 P20201202) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-10-0-1-4854",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 10a GA (build 10.0.1.4854) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-10-0-1-4848",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 10a RTM (build 10.0.1.4848) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-10-0-0-4461-p2",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 10 P2 (build 10.0.0.4461 P2) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-10-0-0-4461-p1",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 10 P1 (build 10.0.0.4461 P1) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-10-0-0-4461",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 10 GA (build 10.0.0.4461) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-10-0-0-4442",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 10 RTM (build 10.0.0.4442) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-4-2866",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 U4b GA (build 9.5.4.2866) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-4-2753",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 U4a GA (build 9.5.4.2753) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-4-2615",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 U4 GA (build 9.5.4.2615) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-4-2399",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 U4 RTM (build 9.5.4.2399) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-0-1922",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 U3a (build 9.5.0.1922) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-0-1536",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 U3 (build 9.5.0.1536) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-0-1038",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 U2 (build 9.5.0.1038) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-0-823",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 U1 (build 9.5.0.823) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-0-802",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 U1 RC (build 9.5.0.802) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-0-711",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 GA (build 9.5.0.711) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-5-0-580",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.5 RTM (build 9.5.0.580) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-0-0-1715",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.0 U2 (build 9.0.0.1715) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-0-0-1491",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.0 U1 (build 9.0.0.1491) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-0-0-902",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.0 GA (build 9.0.0.902) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-9-0-0-773",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 9.0 RTM (build 9.0.0.773) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-8-0-0-2084",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 8.0 U3 (build 8.0.0.2084) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-8-0-0-2030",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 8.0 U2b (build 8.0.0.2030) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-8-0-0-2029",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 8.0 U2a (build 8.0.0.2029) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-8-0-0-2021",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 8.0 U2 GA (build 8.0.0.2021) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-8-0-0-2018",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 8.0 U2 RTM (build 8.0.0.2018) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-8-0-0-917",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 8.0 P1 (build 8.0.0.917) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-8-0-0-817",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 8.0 GA (build 8.0.0.817) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-8-0-0-807",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 8.0 RTM (build 8.0.0.807) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-7-0-0-871",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 7.0 P4a (build 7.0.0.871) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-7-0-0-870",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 7.0 P4 (build 7.0.0.870) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-7-0-0-839",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 7.0 P3a (build 7.0.0.839) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-7-0-0-833",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 7.0 P3 (build 7.0.0.833) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-7-0-0-771",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 7.0 R2a (build 7.0.0.771) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-7-0-0-764",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 7.0 R2 (build 7.0.0.764) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-7-0-0-715",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 7.0 P1 (build 7.0.0.715) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-7-0-0-690",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 7.0 GA (build 7.0.0.690) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-5-0-144",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.5 P3 (build 6.5.0.144) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-5-0-128",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.5 P1 (build 6.5.0.128) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-5-0-109",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.5 GA (build 6.5.0.109) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-5-0-106",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.5 RTM (build 6.5.0.106) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-1-0-205",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.1 P1a (build 6.1.0.205) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-1-0-204",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.1 P1 (build 6.1.0.204) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-1-0-181",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.1 GA (build 6.1.0.181) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-0-0-181",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.0 P3 (build 6.0.0.181) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-0-0-164",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.0 P2 (build 6.0.0.164) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-0-0-158",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.0 P1 (build 6.0.0.158) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-6-0-0-153",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 6.0 GA (build 6.0.0.153) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-5-0-2-230",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 5.0.2 (build 5.0.2.230) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-5-0-2-224",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 5.0.2 (build 5.0.2.224) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-5-0-1-198",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 5.0.1 (build 5.0.1.198) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-build-5-0-0-179",
+      "state": "end-of-support",
+      "summary": "Veeam Backup & Replication 5.0 (build 5.0.0.179) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-12.1.2.172",
+      "state": "end-of-fix",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 12 lifecycle row as a reference. Veeam Backup Enterprise Manager 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-12.3.1",
+      "state": "end-of-fix",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 12 lifecycle row as a reference. Veeam Backup Enterprise Manager 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-13",
+      "state": "supported",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 13 lifecycle row as a reference. Veeam Backup Enterprise Manager 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "one-10a",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 10a predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "one-12.1",
+      "state": "end-of-fix",
+      "summary": "Veeam ONE 12 reached end of fix in September 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "one-12.2",
+      "state": "end-of-fix",
+      "summary": "Veeam ONE 12 reached end of fix in September 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "one-13.0.2",
+      "state": "supported",
+      "summary": "Veeam ONE 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-13-0-2-6723",
+      "state": "supported",
+      "summary": "Veeam ONE 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-13-0-1-6168",
+      "state": "supported",
+      "summary": "Veeam ONE 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-13-0-1-5924",
+      "state": "supported",
+      "summary": "Veeam ONE 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-13-0-1-5860",
+      "state": "supported",
+      "summary": "Veeam ONE 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-13-0-0-5761",
+      "state": "supported",
+      "summary": "Veeam ONE 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-13-0-0-5729",
+      "state": "supported",
+      "summary": "Veeam ONE 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-13-0-0-5630",
+      "state": "supported",
+      "summary": "Veeam ONE 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-12-3-0-4670",
+      "state": "end-of-fix",
+      "summary": "Veeam ONE 12 reached end of fix in September 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-12-1-0-3208",
+      "state": "end-of-fix",
+      "summary": "Veeam ONE 12 reached end of fix in September 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-12-0-1-2591",
+      "state": "end-of-fix",
+      "summary": "Veeam ONE 12 reached end of fix in September 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-12-0-0-2498",
+      "state": "end-of-fix",
+      "summary": "Veeam ONE 12 reached end of fix in September 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-11-0-1-1880",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-11-0-0-1379",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 11 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-10-0-2-1094",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 10a (build 10.0.2.1094) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-10-0-0-750",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 10 (build 10.0.0.750) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-9-5-4-4587",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 9.5 U4a (build 9.5.4.4587) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-9-5-4-4566",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 9.5 U4 (build 9.5.4.4566) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-9-5-0-3801",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 9.5 U3 (build 9.5.0.3801) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-9-5-0-3254",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 9.5 U1 (build 9.5.0.3254) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-9-5-0-3201",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 9.5 GA (build 9.5.0.3201) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-9-0-0-2088",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 9 U1 (build 9.0.0.2088) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-9-0-0-2062",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 9 GA (build 9.0.0.2062) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-8-0-0-1669",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 8 U2 (build 8.0.0.1669) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-8-0-0-1615",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 8 P1 (build 8.0.0.1615) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-8-0-0-1569",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 8 GA (build 8.0.0.1569) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-8-0-0-1567",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 8 RTM (build 8.0.0.1567) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-7-0-0-949",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 7 P2 (build 7.0.0.949) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-7-0-0-919",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 7 R2 (build 7.0.0.919) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-7-0-0-876",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 7 (build 7.0.0.876) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-6-5-0-686",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 6.5 P1 (build 6.5.0.686) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-6-5-0-676",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 6.5 (build 6.5.0.676) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "veeam-one",
+      "releaseId": "veeam-one-build-6-0-0-520",
+      "state": "end-of-support",
+      "summary": "Veeam ONE 6 (build 6.0.0.520) predates the earliest version (11) in Veeam's current public lifecycle table, whose support and security fixes ended in February 2024. Treat this release as outside the published support window.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-7.2.1",
+      "state": "end-of-fix",
+      "summary": "Veeam Recovery Orchestrator 7 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-13",
+      "state": "supported",
+      "summary": "Veeam Recovery Orchestrator 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-13-0-2-27",
+      "state": "supported",
+      "summary": "Veeam Recovery Orchestrator 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-13-0-0-1167",
+      "state": "supported",
+      "summary": "Veeam Recovery Orchestrator 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-13-0-0-1005",
+      "state": "supported",
+      "summary": "Veeam Recovery Orchestrator 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-7-2-1-290",
+      "state": "end-of-fix",
+      "summary": "Veeam Recovery Orchestrator 7 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-7-2-0-203",
+      "state": "end-of-fix",
+      "summary": "Veeam Recovery Orchestrator 7 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-7-1-0-286",
+      "state": "end-of-fix",
+      "summary": "Veeam Recovery Orchestrator 7 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-7-1-0-278",
+      "state": "end-of-fix",
+      "summary": "Veeam Recovery Orchestrator 7 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-7.1.0.230",
+      "state": "end-of-fix",
+      "summary": "Veeam Recovery Orchestrator 7 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-7.0.0.379",
+      "state": "end-of-fix",
+      "summary": "Veeam Recovery Orchestrator 7 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-7-1-0-205",
+      "state": "end-of-fix",
+      "summary": "Veeam Recovery Orchestrator 7 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-7-0-0-337",
+      "state": "end-of-fix",
+      "summary": "Veeam Recovery Orchestrator 7 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vro",
+      "releaseId": "vro-build-6-0-0-3516",
+      "state": "end-of-support",
+      "summary": "Veeam Recovery Orchestrator 6 reached end of support and security fixes in February 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-8.1",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 8 reached end of fix in September 2025; support and security fixes are listed through December 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-9.1",
+      "state": "supported",
+      "summary": "Veeam Service Provider Console 9 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-9.2",
+      "state": "supported",
+      "summary": "Veeam Service Provider Console 9 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-9-2-1-33875",
+      "state": "supported",
+      "summary": "Veeam Service Provider Console 9 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-9-2-0-33215",
+      "state": "supported",
+      "summary": "Veeam Service Provider Console 9 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-9-1-0-30713",
+      "state": "supported",
+      "summary": "Veeam Service Provider Console 9 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-9-1-0-30345",
+      "state": "supported",
+      "summary": "Veeam Service Provider Console 9 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-9-0-0-29860",
+      "state": "supported",
+      "summary": "Veeam Service Provider Console 9 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-9-0-0-29555",
+      "state": "supported",
+      "summary": "Veeam Service Provider Console 9 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-8-1-0-21999",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 8 reached end of fix in September 2025; support and security fixes are listed through December 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-8-1-0-21377",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 8 reached end of fix in September 2025; support and security fixes are listed through December 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-8-0-0-19552",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 8 reached end of fix in September 2025; support and security fixes are listed through December 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-8-0-0-19236",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 8 reached end of fix in September 2025; support and security fixes are listed through December 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-8-0-0-18054",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 8 reached end of fix in September 2025; support and security fixes are listed through December 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-8-0-0-16877",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 8 reached end of fix in September 2025; support and security fixes are listed through December 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-7-0-0-19551",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 7 reached end of support and security fixes in February 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-7-0-0-18899",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 7 reached end of support and security fixes in February 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-7-0-0-14271",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 7 reached end of support and security fixes in February 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-7-0-0-13157",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 7 reached end of support and security fixes in February 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-7-0-0-12777",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 7 reached end of support and security fixes in February 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-6-0-0-8787",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 6 reached end of support and security fixes in September 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-6-0-0-7739",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 6 reached end of support and security fixes in September 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-5-0-0-7151",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 5 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-5-0-0-6959",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 5 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-5-0-0-6883",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 5 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-5-0-0-6838",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 5 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-5-0-0-6726",
+      "state": "end-of-support",
+      "summary": "Veeam Service Provider Console 5 reached end of support and security fixes in February 2024.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-4-0-0-4914",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 4 reached end of fix in September 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-4-0-0-4911",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 4 reached end of fix in September 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vspc",
+      "releaseId": "vspc-build-4-0-0-4877",
+      "state": "end-of-fix",
+      "summary": "Veeam Service Provider Console 4 reached end of fix in September 2025; support and security fixes are listed through February 2027.",
       "sourceIds": [
         "lifecycle"
       ]

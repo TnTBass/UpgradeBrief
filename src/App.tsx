@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { checklistSourceIds, findingAppliesToRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, sourceById } from './lib/lookup'
+import { checklistSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, sourceById } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
 import { classifyUrgency } from './lib/urgency'
 
@@ -92,7 +92,7 @@ export default function App() {
   const path = release ? findUpgradePath(catalog, release) : undefined
   const isCurrentCatalogRelease = release ? isRecommendedRelease(catalog, release) : false
   const freshness = catalogFreshness(catalog.generatedAt)
-  const findings = release ? catalog.securityFindings.filter((finding) => findingAppliesToRelease(finding, release)) : []
+  const findings = release ? findingsForRelease(catalog, release) : []
   const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
 
   useEffect(() => {
@@ -180,6 +180,13 @@ export default function App() {
                   <SourceLinks sourceIds={path.sourceIds} />
                 </>
               ) : isCurrentCatalogRelease ? <p>This is the latest release currently recorded for this product. Continue to review the linked vendor guidance and security advisories for subsequent patches.</p>
+                : lifecycle?.state === 'end-of-support' && productId === 'veeam-one' ? (
+                  <>
+                    <p>This Veeam ONE release is outside support. Veeam documents that an end-of-support Veeam ONE release without a supported direct path requires a new instance of the latest version.</p>
+                    <SourceLinks sourceIds={['kb4646']} />
+                  </>
+                )
+                : lifecycle?.state === 'end-of-support' ? <p>This release is outside support. No direct route is asserted here without a source-backed path; use the linked vendor guidance to plan a supported migration or new deployment.</p>
                 : <p>No exact path is in the current curated catalog. Use the linked product documentation rather than assuming a direct upgrade is supported.</p>}
             </article>
           </div>

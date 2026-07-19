@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
-import { findingAppliesToRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease } from './lookup'
+import { findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease } from './lookup'
 
 describe('catalog lookup', () => {
   it('matches an exact VBR build and gives the source-backed staged path', () => {
@@ -31,9 +31,9 @@ describe('catalog lookup', () => {
     expect(findUpgradePath(catalog, release)?.id).toBe('vbr-11a-p20230227-to-13.0.2')
   })
 
-  it('does not apply a release-specific lifecycle notice to a different release', () => {
+  it('applies the refreshed lifecycle row to related builds in the same major version', () => {
     const release = findRelease(catalog, 'vbr', '13.0.1.180')!
-    expect(findLifecycleNotice(catalog, 'vbr', release.id)?.state).toBe('check-source')
+    expect(findLifecycleNotice(catalog, 'vbr', release.id)?.state).toBe('supported')
   })
 
   it('applies a documented VBR build range through its final vulnerable build', () => {
@@ -51,5 +51,10 @@ describe('catalog lookup', () => {
 
   it('recognizes the current Enterprise Manager documentation build', () => {
     expect(findRelease(catalog, 'enterprise-manager', '13.0.2.29')?.id).toBe('em-13')
+  })
+
+  it('never applies another product’s similarly numbered advisory', () => {
+    const release = findRelease(catalog, 'veeam-one', '6.5.0.686')!
+    expect(findingsForRelease(catalog, release)).toEqual([])
   })
 })

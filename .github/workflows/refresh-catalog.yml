@@ -22,6 +22,7 @@ jobs:
       - run: npm run test:product-build-adapter
       - run: npm run test:security-adapter
       - run: npm run test:release-security-adapter
+      - run: npm run test:lifecycle-adapter
       - run: npm run test:kev-adapter
       - run: npm run refresh:catalog -- --live
       - name: Commit a validated catalog refresh when data changed
