@@ -591,7 +591,8 @@
         "12.3.2 P3"
       ],
       "sourceIds": [
-        "kb2680"
+        "kb2680",
+        "kb4696"
       ]
     },
     {
@@ -3959,6 +3960,16 @@
         "vbr-13.0.2"
       ],
       "guidanceNote": "Veeam documents 12.3.2 → 13.0.2 directly, but this broad version entry does not identify the installed build. If you are on 12.3.2.3617, the build-specific guidance adds the 12.3.2.4165 security patch first because that build has known vulnerabilities. Enter the exact build for security-first guidance.",
+      "alternatives": [
+        {
+          "releaseId": "vbr-build-12-3-2-4854",
+          "heading": "Alternative if you must remain on VBR 12",
+          "note": "Veeam documents 12.3.2 P3 (build 12.3.2.4854) as an available VBR 12 update. Upgrade Brief recommends 13.0.2 (build 13.0.2.29) as the primary destination.",
+          "sourceIds": [
+            "kb4696"
+          ]
+        }
+      ],
       "notes": [
         "Review the VBR upgrade checklist before upgrading."
       ],

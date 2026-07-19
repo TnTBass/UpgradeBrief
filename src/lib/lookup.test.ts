@@ -16,6 +16,14 @@ describe('catalog lookup', () => {
     expect(findUpgradePath(catalog, release!)?.guidanceNote).toContain('12.3.2.3617')
   })
 
+  it('offers the supported VBR 12 update without displacing the recommended version 13 target', () => {
+    const release = findRelease(catalog, 'vbr', '12.3.2.4165')!
+    const path = findUpgradePath(catalog, release)!
+
+    expect(path.toReleaseId).toBe('vbr-13.0.2')
+    expect(path.alternatives).toEqual([expect.objectContaining({ releaseId: 'vbr-build-12-3-2-4854', sourceIds: ['kb4696'] })])
+  })
+
   it('links vendor release information and documented fixes for the fixed 12.3.2.4465 build', () => {
     const release = findRelease(catalog, 'vbr', '12.3.2.4465')!
 

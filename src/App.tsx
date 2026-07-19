@@ -246,7 +246,19 @@ export default function App() {
                       )
                     })}
                   </ol>
+                  <p className="route-recommendation"><strong>Recommended target:</strong> {targetRelease?.name ?? 'the documented target release'}.</p>
                   {path.notes.map((note) => <p key={note}>{note}</p>)}
+                  {path.alternatives?.filter((alternative) => alternative.releaseId !== release.id).map((alternative) => {
+                    const alternativeRelease = catalog.releases.find((item) => item.id === alternative.releaseId)
+                    return (
+                      <aside className="upgrade-alternative" key={alternative.releaseId}>
+                        <p className="eyebrow">{alternative.heading}</p>
+                        <p><strong>{alternativeRelease?.name}</strong> is an available update, but Upgrade Brief recommends <strong>{targetRelease?.name}</strong> as the primary destination.</p>
+                        <p>{alternative.note}</p>
+                        <SourceLinks sourceIds={alternative.sourceIds} />
+                      </aside>
+                    )
+                  })}
                   <SourceLinks sourceIds={[...new Set([...path.sourceIds, ...upgradeHowTo])]} />
                 </>
               ) : isCurrentCatalogRelease ? <p>This is the latest release currently recorded for this product. Continue to review the linked vendor guidance and security advisories for subsequent patches.</p>

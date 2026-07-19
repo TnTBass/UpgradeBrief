@@ -53,6 +53,12 @@ export interface UpgradePath {
   toReleaseId: string
   hopReleaseIds: string[]
   guidanceNote?: string
+  alternatives?: Array<{
+    releaseId: string
+    heading: string
+    note: string
+    sourceIds: string[]
+  }>
   notes: string[]
   sourceIds: string[]
 }

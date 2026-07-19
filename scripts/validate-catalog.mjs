@@ -27,6 +27,10 @@ for (const path of catalog.upgradePaths) {
   assert(releaseIds.has(path.fromReleaseId) && releaseIds.has(path.toReleaseId), `${path.id} references an unknown endpoint`)
   assert(!path.hopReleaseIds.includes(path.fromReleaseId), `${path.id} includes a route cycle`)
   for (const releaseId of path.hopReleaseIds) assert(releaseIds.has(releaseId), `${path.id} references unknown hop ${releaseId}`)
+  for (const alternative of path.alternatives ?? []) {
+    assert(releaseIds.has(alternative.releaseId), `${path.id} references unknown alternative ${alternative.releaseId}`)
+    for (const sourceId of alternative.sourceIds) assert(sourceIds.has(sourceId), `${path.id} alternative references unknown source ${sourceId}`)
+  }
 }
 
 for (const finding of catalog.securityFindings) {
