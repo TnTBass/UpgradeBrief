@@ -48,4 +48,8 @@ describe('catalog lookup', () => {
   it('identifies a product’s catalog-recommended release without inventing an upgrade route', () => {
     expect(isRecommendedRelease(catalog, findRelease(catalog, 'veeam-one', '13.0.2.6723')!)).toBe(true)
   })
+
+  it('recognizes the current Enterprise Manager documentation build', () => {
+    expect(findRelease(catalog, 'enterprise-manager', '13.0.2.29')?.id).toBe('em-13')
+  })
 })
