@@ -57,7 +57,8 @@ const securityFeedSource = current.sources.find((item) => item.id === 'security-
 const kevSource = current.sources.find((item) => item.id === 'cisa-kev')
 const lifecycleSource = current.sources.find((item) => item.id === 'lifecycle')
 const releaseInformationSource = current.sources.find((item) => item.id === 'kb4696')
-if (!buildSource || !oneBuildSource || !vroBuildSource || !vspcBuildSource || !securitySource || !securityFeedSource || !kevSource || !lifecycleSource || !releaseInformationSource) throw new Error('A required catalog source is missing from the catalog.')
+const releaseInformation13Source = current.sources.find((item) => item.id === 'kb4738')
+if (!buildSource || !oneBuildSource || !vroBuildSource || !vspcBuildSource || !securitySource || !securityFeedSource || !kevSource || !lifecycleSource || !releaseInformationSource || !releaseInformation13Source) throw new Error('A required catalog source is missing from the catalog.')
 
 async function fetchSource(source) {
   const response = await fetch(source.url, {
@@ -68,7 +69,7 @@ async function fetchSource(source) {
   return response.text()
 }
 
-const [buildHtml, oneBuildHtml, vroBuildHtml, vspcBuildHtml, securityHtml, securityFeedPayload, kevPayload, lifecycleHtml, releaseInformationHtml] = await Promise.all([fetchSource(buildSource), fetchSource(oneBuildSource), fetchSource(vroBuildSource), fetchSource(vspcBuildSource), fetchSource(securitySource), fetchSource({ ...securityFeedSource, url: 'https://www.veeam.com/services/kb-articles?type=security&offset=0&limit=100' }), fetchSource(kevSource), fetchSource(lifecycleSource), fetchSource(releaseInformationSource)])
+const [buildHtml, oneBuildHtml, vroBuildHtml, vspcBuildHtml, securityHtml, securityFeedPayload, kevPayload, lifecycleHtml, releaseInformationHtml, releaseInformation13Html] = await Promise.all([fetchSource(buildSource), fetchSource(oneBuildSource), fetchSource(vroBuildSource), fetchSource(vspcBuildSource), fetchSource(securitySource), fetchSource({ ...securityFeedSource, url: 'https://www.veeam.com/services/kb-articles?type=security&offset=0&limit=100' }), fetchSource(kevSource), fetchSource(lifecycleSource), fetchSource(releaseInformationSource), fetchSource(releaseInformation13Source)])
 const builds = parseVbrBuilds(buildHtml)
 const oneBuilds = parseProductBuilds(oneBuildHtml, 'Veeam ONE')
 const vroBuilds = parseProductBuilds(vroBuildHtml, 'Veeam Recovery Orchestrator')
@@ -95,18 +96,21 @@ const discoveredReleaseAdvisories = discoveredResponses.flatMap((response) => {
 const kevCves = parseCisaKev(JSON.parse(kevPayload))
 const lifecyclePolicies = parseLifecyclePolicies(lifecycleHtml)
 const releaseInformationBuilds = parseVbrReleaseInformation(releaseInformationHtml)
+const releaseInformation13Builds = parseVbrReleaseInformation(releaseInformation13Html)
 if (builds.length < 10) throw new Error(`VBR build-number parser returned only ${builds.length} records; refusing to replace the catalog.`)
 if (oneBuilds.length < 10 || vroBuilds.length < 5 || vspcBuilds.length < 10) throw new Error(`Product build parser returned incomplete data: ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, ${vspcBuilds.length} VSPC.`)
 if (vbrAdvisories.length < 6 || veeamOneAdvisories.length < 6) throw new Error(`Security parser returned ${vbrAdvisories.length} VBR and ${veeamOneAdvisories.length} Veeam ONE advisories; refusing to replace the catalog.`)
 if (!discoveredReleaseAdvisories.some((advisory) => advisory.source.id === 'kb4831')) throw new Error('Security feed did not yield the supported KB4831 VBR advisory; refusing to replace the catalog.')
 if (lifecyclePolicies.length < 10) throw new Error(`Lifecycle parser returned only ${lifecyclePolicies.length} rows; refusing to replace lifecycle guidance.`)
 if (!releaseInformationBuilds.includes('12.3.2.4465')) throw new Error('VBR release-information KB did not yield build 12.3.2.4465; refusing to update release-note links.')
+if (!releaseInformation13Builds.includes('13.0.0.4967')) throw new Error('VBR 13 release-information KB did not yield build 13.0.0.4967; refusing to update release-note links.')
 
 const buildsMerged = mergeVbrBuilds(current, builds)
 const oneBuildsMerged = mergeProductBuilds(buildsMerged.catalog, { productId: 'veeam-one', sourceId: oneBuildSource.id, records: oneBuilds })
 const vroBuildsMerged = mergeProductBuilds(oneBuildsMerged.catalog, { productId: 'vro', sourceId: vroBuildSource.id, records: vroBuilds })
 const vspcBuildsMerged = mergeProductBuilds(vroBuildsMerged.catalog, { productId: 'vspc', sourceId: vspcBuildSource.id, records: vspcBuilds })
-const releaseInformationMerged = mergeVbrReleaseInformation(vspcBuildsMerged.catalog, releaseInformationBuilds, releaseInformationSource.id)
+const releaseInformation12Merged = mergeVbrReleaseInformation(vspcBuildsMerged.catalog, releaseInformationBuilds, releaseInformationSource.id)
+const releaseInformationMerged = mergeVbrReleaseInformation(releaseInformation12Merged.catalog, releaseInformation13Builds, releaseInformation13Source.id)
 const vbrMerged = mergeVbrSecurityBulletin(releaseInformationMerged.catalog, vbrAdvisories)
 const oneMerged = mergeVeeamOneSecurityBulletin(vbrMerged.catalog, veeamOneAdvisories)
 const releaseSecurityMerged = mergeProductReleaseSecurityArticles(oneMerged.catalog, discoveredReleaseAdvisories)
@@ -116,7 +120,7 @@ const refreshedAt = new Date().toISOString()
 merged.catalog.generatedAt = refreshedAt
 const discoveredSources = discoveredReleaseAdvisories.map((advisory) => ({ ...advisory.source, checkedAt: refreshedAt }))
 merged.catalog.sources = merged.catalog.sources.map((item) =>
-  item.id === buildSource.id || item.id === oneBuildSource.id || item.id === vroBuildSource.id || item.id === vspcBuildSource.id || item.id === securitySource.id || item.id === securityFeedSource.id || item.id === kevSource.id || item.id === lifecycleSource.id || item.id === releaseInformationSource.id ? { ...item, checkedAt: refreshedAt } : item,
+  item.id === buildSource.id || item.id === oneBuildSource.id || item.id === vroBuildSource.id || item.id === vspcBuildSource.id || item.id === securitySource.id || item.id === securityFeedSource.id || item.id === kevSource.id || item.id === lifecycleSource.id || item.id === releaseInformationSource.id || item.id === releaseInformation13Source.id ? { ...item, checkedAt: refreshedAt } : item,
 )
 for (const source of discoveredSources) {
   const index = merged.catalog.sources.findIndex((item) => item.id === source.id)
@@ -125,4 +129,4 @@ for (const source of discoveredSources) {
 }
 
 await validateThenInstall(merged.catalog)
-console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, and ${vspcBuilds.length} VSPC builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions} releases added; ${releaseInformationMerged.attachments} VBR release-information links; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} VBR/VSPC release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${oneMerged.findings} Veeam ONE advisories; ${merged.matches} KEV matches.`)
+console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, and ${vspcBuilds.length} VSPC builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions} releases added; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} VBR/VSPC release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${oneMerged.findings} Veeam ONE advisories; ${merged.matches} KEV matches.`)

@@ -213,6 +213,12 @@
       "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
+      "id": "kb4738",
+      "title": "Veeam KB4738: Release Information for Veeam Backup & Replication 13 and updates",
+      "url": "https://www.veeam.com/kb4738",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
@@ -393,7 +399,8 @@
       ],
       "sourceIds": [
         "kb2680",
-        "kb2053"
+        "kb2053",
+        "kb4738"
       ]
     },
     {
@@ -549,7 +556,8 @@
         "13.0.1 P2"
       ],
       "sourceIds": [
-        "kb2680"
+        "kb2680",
+        "kb4738"
       ]
     },
     {
@@ -561,7 +569,8 @@
         "13.0.1 P1"
       ],
       "sourceIds": [
-        "kb2680"
+        "kb2680",
+        "kb4738"
       ]
     },
     {
@@ -573,7 +582,8 @@
         "13.0.1"
       ],
       "sourceIds": [
-        "kb2680"
+        "kb2680",
+        "kb4738"
       ]
     },
     {
@@ -585,7 +595,8 @@
         "13 Veeam Software Appliance"
       ],
       "sourceIds": [
-        "kb2680"
+        "kb2680",
+        "kb4738"
       ]
     },
     {
@@ -4002,6 +4013,44 @@
         "kb4771",
         "kb2053",
         "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-13.0.1-to-13.0.2",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-13-0-1-180",
+      "fromVersionPrefixes": [
+        "13.0.1."
+      ],
+      "toReleaseId": "vbr-13.0.2",
+      "hopReleaseIds": [
+        "vbr-13.0.2"
+      ],
+      "notes": [
+        "Veeam documents a direct update from Veeam Backup & Replication 13.0.1 to 13.0.2. Review the VBR upgrade checklist before updating."
+      ],
+      "sourceIds": [
+        "kb2053",
+        "kb4738",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-13.0.0-vsa-to-13.0.2",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-13-0-0-4967",
+      "toReleaseId": "vbr-13.0.2",
+      "hopReleaseIds": [
+        "vbr-13.0.2"
+      ],
+      "howToSourceIds": [
+        "kb4738"
+      ],
+      "notes": [
+        "Veeam documents that Veeam Software Appliance updates are performed directly within the appliance. Use the appliance update workflow rather than the Windows installer."
+      ],
+      "sourceIds": [
+        "kb4738"
       ]
     },
     {

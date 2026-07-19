@@ -91,7 +91,6 @@ export default function App() {
   const versionPickerRef = useRef<HTMLDivElement>(null)
   const product = catalog.products.find((item) => item.id === productId)!
   const upgradeHowTo = upgradeHowToSourceIds(productId)
-  const upgradeHowToSource = sourceById(catalog, upgradeHowTo[0])
   const versionOptions = useMemo(() => releaseOptions(catalog.releases.filter((item) => item.productId === productId)), [productId])
   const matchingVersionOptions = useMemo(() => {
     const query = versionFilter.trim().toLocaleLowerCase()
@@ -99,6 +98,8 @@ export default function App() {
   }, [versionFilter, versionOptions])
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
+  const pathHowTo = path?.howToSourceIds ?? upgradeHowTo
+  const pathHowToSource = sourceById(catalog, pathHowTo[0])
   const showPathGuidance = Boolean(path?.guidanceNote && release && path.fromReleaseId === release.id)
   const isCurrentCatalogRelease = release ? isRecommendedRelease(catalog, release) : false
   const freshness = catalogFreshness(catalog.generatedAt)
@@ -241,7 +242,7 @@ export default function App() {
                         <Fragment key={releaseId}>
                           <li className="route-arrow" aria-hidden="true">→</li>
                           <li className="route-step">
-                            {isFinalDestination && upgradeHowToSource ? <a href={upgradeHowToSource.url} target="_blank" rel="noreferrer">{destination?.name}</a> : destination?.name}
+                            {isFinalDestination && pathHowToSource ? <a href={pathHowToSource.url} target="_blank" rel="noreferrer">{destination?.name}</a> : destination?.name}
                           </li>
                         </Fragment>
                       )
@@ -260,7 +261,7 @@ export default function App() {
                       </aside>
                     )
                   })}
-                  <SourceLinks sourceIds={[...new Set([...path.sourceIds, ...upgradeHowTo])]} />
+                  <SourceLinks sourceIds={[...new Set([...path.sourceIds, ...pathHowTo])]} />
                 </>
               ) : isCurrentCatalogRelease ? <p>This is the latest release currently recorded for this product. Continue to review the linked vendor guidance and security advisories for subsequent patches.</p>
                 : lifecycle?.state === 'end-of-support' && productId === 'veeam-one' ? (

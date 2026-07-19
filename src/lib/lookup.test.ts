@@ -24,6 +24,22 @@ describe('catalog lookup', () => {
     expect(path.alternatives).toEqual([expect.objectContaining({ releaseId: 'vbr-build-12-3-2-4854', sourceIds: ['kb4696'] })])
   })
 
+  it('routes VBR 13.0.1 builds directly to 13.0.2', () => {
+    const release = findRelease(catalog, 'vbr', '13.0.1.2067')!
+    const path = findUpgradePath(catalog, release)!
+
+    expect(path.id).toBe('vbr-13.0.1-to-13.0.2')
+    expect(path.hopReleaseIds).toEqual(['vbr-13.0.2'])
+  })
+
+  it('routes the VBR 13.0.0 Software Appliance through its in-appliance update workflow', () => {
+    const release = findRelease(catalog, 'vbr', '13.0.0.4967')!
+    const path = findUpgradePath(catalog, release)!
+
+    expect(path.id).toBe('vbr-13.0.0-vsa-to-13.0.2')
+    expect(path.howToSourceIds).toEqual(['kb4738'])
+  })
+
   it('links vendor release information and documented fixes for the fixed 12.3.2.4465 build', () => {
     const release = findRelease(catalog, 'vbr', '12.3.2.4465')!
 
