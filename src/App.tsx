@@ -3,6 +3,7 @@ import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
 import { checklistSourceIds, findingAppliesToRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, sourceById } from './lib/lookup'
+import { releaseOptions } from './lib/release-options'
 import { classifyUrgency } from './lib/urgency'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
@@ -43,18 +44,7 @@ export default function App() {
   const [version, setVersion] = useState(initialVersion)
   const [submitted, setSubmitted] = useState(Boolean(initialVersion))
   const product = catalog.products.find((item) => item.id === productId)!
-  const versionOptions = useMemo(() => {
-    const seen = new Set<string>()
-    return catalog.releases
-      .filter((item) => item.productId === productId)
-      .flatMap((item) => item.aliases.map((alias) => ({ alias, name: item.name })))
-      .filter(({ alias }) => {
-        const key = alias.toLowerCase()
-        if (seen.has(key)) return false
-        seen.add(key)
-        return true
-      })
-  }, [productId])
+  const versionOptions = useMemo(() => releaseOptions(catalog.releases.filter((item) => item.productId === productId)), [productId])
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
   const isCurrentCatalogRelease = release ? isRecommendedRelease(catalog, release) : false
@@ -97,7 +87,7 @@ export default function App() {
             Version or build
             <input list="version-options" value={version} onChange={(event) => setVersion(event.target.value)} placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Start typing a version or build'} required />
             <datalist id="version-options">
-              {versionOptions.map(({ alias, name }) => <option key={alias} value={alias} label={name} />)}
+              {versionOptions.map(({ value, label }) => <option key={value} value={value} label={label} />)}
             </datalist>
           </label>
           <button type="submit">Build my upgrade brief</button>
