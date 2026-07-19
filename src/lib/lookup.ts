@@ -1,4 +1,4 @@
-import type { Catalog, ProductId, Release, UpgradePath } from './catalog-types'
+import type { Catalog, ProductId, Release, SecurityFinding, UpgradePath } from './catalog-types'
 
 export function normalizeInput(value: string): string {
   return value.trim().toLowerCase().replace(/^v(?:eeam)?\s*/i, '').replace(/\s+/g, ' ')
@@ -11,8 +11,23 @@ export function findRelease(catalog: Catalog, productId: ProductId, input: strin
   )
 }
 
-export function findUpgradePath(catalog: Catalog, releaseId: string): UpgradePath | undefined {
-  return catalog.upgradePaths.find((path) => path.fromReleaseId === releaseId)
+export function findUpgradePath(catalog: Catalog, release: Release): UpgradePath | undefined {
+  const exact = catalog.upgradePaths.find((path) => path.fromReleaseId === release.id)
+  if (exact) return exact
+
+  return catalog.upgradePaths.find((path) =>
+    path.productId === release.productId &&
+    (path.fromVersionPrefixes ?? []).some((prefix) =>
+      release.aliases.some((alias) => normalizeInput(alias).startsWith(normalizeInput(prefix))),
+    ),
+  )
+}
+
+export function findingAppliesToRelease(finding: SecurityFinding, release: Release): boolean {
+  if (finding.affectedReleaseIds.includes(release.id)) return true
+  return (finding.affectedVersionPrefixes ?? []).some((prefix) =>
+    release.aliases.some((alias) => normalizeInput(alias).startsWith(normalizeInput(prefix))),
+  )
 }
 
 export function sourceById(catalog: Catalog, sourceId: string) {

@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   refresh:
@@ -18,6 +19,13 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      # Source adapters are enabled only after fixture validation. This command validates
-      # the committed last-known-good snapshot and cannot replace it on a failed refresh.
-      - run: npm run refresh:catalog
+      - run: npm run test:adapters
+      - run: npm run refresh:catalog -- --live
+      - name: Open a catalog refresh pull request when data changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: 'chore: refresh VBR build catalog'
+          title: 'chore: refresh VBR build catalog'
+          body: 'Automated, fixture-validated refresh of the VBR build-number catalog. Review the source-linked diff before merging.'
+          branch: automation/vbr-catalog-refresh
+          delete-branch: true

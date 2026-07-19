@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { findRelease, findUpgradePath, sourceById } from './lib/lookup'
+import { findingAppliesToRelease, findRelease, findUpgradePath, sourceById } from './lib/lookup'
 import { classifyUrgency } from './lib/urgency'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
@@ -44,9 +44,9 @@ export default function App() {
   const [submitted, setSubmitted] = useState(Boolean(initialVersion))
   const product = catalog.products.find((item) => item.id === productId)!
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
-  const path = release ? findUpgradePath(catalog, release.id) : undefined
+  const path = release ? findUpgradePath(catalog, release) : undefined
   const freshness = catalogFreshness(catalog.generatedAt)
-  const findings = release ? catalog.securityFindings.filter((finding) => finding.affectedReleaseIds.includes(release.id)) : []
+  const findings = release ? catalog.securityFindings.filter((finding) => findingAppliesToRelease(finding, release)) : []
   const lifecycle = release
     ? catalog.lifecycleNotices.find((notice) => notice.productId === productId && notice.releaseId === release.id)
       ?? catalog.lifecycleNotices.find((notice) => notice.productId === productId)

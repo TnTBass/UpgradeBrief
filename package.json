@@ -11,6 +11,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "test": "vitest",
+    "test:adapters": "node scripts/test-vbr-build-adapter.mjs",
     "validate:catalog": "node scripts/validate-catalog.mjs",
     "refresh:catalog": "node scripts/refresh-catalog.mjs"
   },

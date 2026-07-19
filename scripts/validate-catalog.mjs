@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises'
 
-const catalogPath = process.argv[2] ? new URL(`file:///${process.argv[2].replaceAll('\\', '/')}`) : new URL('../src/data/catalog.snapshot.json', import.meta.url)
+const catalogPath = process.argv[2] ?? new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const catalog = JSON.parse(await readFile(catalogPath, 'utf8'))
 
 const assert = (condition, message) => {

@@ -49,6 +49,7 @@ export interface UpgradePath {
   id: string
   productId: ProductId
   fromReleaseId: string
+  fromVersionPrefixes?: string[]
   toReleaseId: string
   hopReleaseIds: string[]
   notes: string[]
@@ -61,6 +62,7 @@ export interface SecurityFinding {
   title: string
   cves: string[]
   affectedReleaseIds: string[]
+  affectedVersionPrefixes?: string[]
   fixedReleaseId: string
   cvssScore?: number
   isCisaKev?: boolean
