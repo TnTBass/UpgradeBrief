@@ -20,6 +20,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test:adapters
+      - run: npm run test:security-adapter
       - run: npm run refresh:catalog -- --live
       - name: Open a catalog refresh pull request when data changed
         uses: peter-evans/create-pull-request@v7

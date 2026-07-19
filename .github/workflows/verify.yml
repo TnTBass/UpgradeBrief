@@ -18,5 +18,6 @@ jobs:
       - run: npm run lint
       - run: npm test -- --run
       - run: npm run test:adapters
+      - run: npm run test:security-adapter
       - run: npm run validate:catalog
       - run: npm run build

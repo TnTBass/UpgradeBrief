@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-19T05:21:12.909Z",
+  "generatedAt": "2026-07-19T05:42:37.020Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-07-19T05:21:12.909Z"
+      "checkedAt": "2026-07-19T05:42:37.020Z"
     },
     {
       "id": "kb2053",
@@ -66,7 +66,7 @@
       "id": "kb4649",
       "title": "Veeam KB4649: security bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-07-19T05:20:00.000Z"
+      "checkedAt": "2026-07-19T05:42:37.020Z"
     }
   ],
   "products": [
@@ -1532,29 +1532,6 @@
   ],
   "securityFindings": [
     {
-      "id": "vbr-cve-2024-40711",
-      "productId": "vbr",
-      "title": "Unauthenticated remote code execution",
-      "cves": [
-        "CVE-2024-40711"
-      ],
-      "affectedReleaseIds": [
-        "vbr-11a-p20230227",
-        "vbr-12.1"
-      ],
-      "affectedVersionPrefixes": [
-        "11.0.1."
-      ],
-      "fixedReleaseId": "vbr-12.2",
-      "cvssScore": 9.8,
-      "conditions": [
-        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
-      ],
-      "sourceIds": [
-        "kb4649"
-      ]
-    },
-    {
       "id": "vbr-cve-2025-48984",
       "productId": "vbr",
       "title": "Authenticated domain-user RCE on the VBR backup server",
@@ -1572,6 +1549,156 @@
       ],
       "sourceIds": [
         "kb4771"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-40711",
+      "title": "A vulnerability allowing unauthenticated remote code execution (RCE).",
+      "cves": [
+        "CVE-2024-40711"
+      ],
+      "cvssScore": 9.8,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-40713",
+      "title": "A vulnerability that allows a user who has been assigned a low-privileged role within Veeam Backup & Replication to alter Multi-Factor Authentication (MFA) settings and bypass MFA.",
+      "cves": [
+        "CVE-2024-40713"
+      ],
+      "cvssScore": 8.8,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-40710",
+      "title": "A series of related high-severity vulnerabilities, the most notable enabling remote code execution (RCE) as the service account and extraction of sensitive information (saved credentials and passwords). Exploiting these vulnerabilities requires a user who has been assigned a low-privileged role within Veeam Backup & Replication.",
+      "cves": [
+        "CVE-2024-40710"
+      ],
+      "cvssScore": 8.8,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-39718",
+      "title": "A vulnerability that allows a low-privileged user to remotely remove files on the system with permissions equivalent to those of the service account.",
+      "cves": [
+        "CVE-2024-39718"
+      ],
+      "cvssScore": 8.1,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-40714",
+      "title": "A vulnerability in TLS certificate validation allows an attacker on the same network to intercept sensitive credentials during restore operations.",
+      "cves": [
+        "CVE-2024-40714"
+      ],
+      "cvssScore": 8.3,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-40712",
+      "title": "A path traversal vulnerability allows an attacker with a low-privileged account and local access to the system to perform local privilege escalation (LPE).",
+      "cves": [
+        "CVE-2024-40712"
+      ],
+      "cvssScore": 7.8,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
       ]
     }
   ]

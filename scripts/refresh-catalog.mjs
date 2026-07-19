@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawn } from 'node:child_process'
 import { mergeVbrBuilds, parseVbrBuilds } from './lib/vbr-builds.mjs'
+import { mergeVbrSecurityBulletin, parseVbrSecurityBulletin } from './lib/vbr-security.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const args = process.argv.slice(2)
@@ -42,22 +43,32 @@ if (!live) {
 }
 
 const current = JSON.parse(await readFile(snapshot, 'utf8'))
-const source = current.sources.find((item) => item.id === 'kb2680')
-if (!source) throw new Error('VBR build-number source is missing from the catalog.')
+const buildSource = current.sources.find((item) => item.id === 'kb2680')
+const securitySource = current.sources.find((item) => item.id === 'kb4649')
+if (!buildSource || !securitySource) throw new Error('A required VBR source is missing from the catalog.')
 
-const response = await fetch(source.url, {
-  headers: { 'user-agent': 'UpgradeBrief catalog refresher (+https://github.com/TnTBass/UpgradeBrief)' },
-  signal: AbortSignal.timeout(30_000),
-})
-if (!response.ok) throw new Error(`VBR build-number request failed with HTTP ${response.status}`)
+async function fetchSource(source) {
+  const response = await fetch(source.url, {
+    headers: { 'user-agent': 'UpgradeBrief catalog refresher (+https://github.com/TnTBass/UpgradeBrief)' },
+    signal: AbortSignal.timeout(30_000),
+  })
+  if (!response.ok) throw new Error(`${source.id} request failed with HTTP ${response.status}`)
+  return response.text()
+}
 
-const records = parseVbrBuilds(await response.text())
-if (records.length < 10) throw new Error(`VBR build-number parser returned only ${records.length} records; refusing to replace the catalog.`)
+const [buildHtml, securityHtml] = await Promise.all([fetchSource(buildSource), fetchSource(securitySource)])
+const builds = parseVbrBuilds(buildHtml)
+const advisories = parseVbrSecurityBulletin(securityHtml)
+if (builds.length < 10) throw new Error(`VBR build-number parser returned only ${builds.length} records; refusing to replace the catalog.`)
+if (advisories.length < 6) throw new Error(`VBR security parser returned only ${advisories.length} advisories; refusing to replace the catalog.`)
 
-const merged = mergeVbrBuilds(current, records)
+const buildsMerged = mergeVbrBuilds(current, builds)
+const merged = mergeVbrSecurityBulletin(buildsMerged.catalog, advisories)
 const refreshedAt = new Date().toISOString()
 merged.catalog.generatedAt = refreshedAt
-merged.catalog.sources = merged.catalog.sources.map((item) => item.id === source.id ? { ...item, checkedAt: refreshedAt } : item)
+merged.catalog.sources = merged.catalog.sources.map((item) =>
+  item.id === buildSource.id || item.id === securitySource.id ? { ...item, checkedAt: refreshedAt } : item,
+)
 
 await validateThenInstall(merged.catalog)
-console.log(`VBR catalog refresh complete: ${records.length} source records, ${merged.additions} releases added.`)
+console.log(`VBR catalog refresh complete: ${builds.length} build records, ${buildsMerged.additions} releases added, ${merged.findings} advisories refreshed.`)

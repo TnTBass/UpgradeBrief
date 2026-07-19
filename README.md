@@ -11,7 +11,7 @@ Upgrade Brief is a static community tool. It helps operators find official upgra
 - Conservative security model: CVSS 9+, CISA KEV, or Veeam-confirmed active exploitation is critical; CVSS 7–8.9 is high. Environment controls never downgrade a matching advisory.
 - Visible partial-coverage warnings. The MVP must never imply that no displayed CVE means no risk.
 
-The committed catalog is the runtime source of truth. Cloudflare Workers builds it as static files and never fetches vendor content. Scheduled GitHub Actions refreshes Veeam Backup & Replication build numbers from KB2680, validates the candidate snapshot, and opens a reviewable pull request only when the catalog changes. Other product and security-advisory adapters remain partial until their committed fixtures and parsers are added.
+The committed catalog is the runtime source of truth. Cloudflare Workers builds it as static files and never fetches vendor content. Scheduled GitHub Actions refreshes Veeam Backup & Replication build numbers from KB2680 and VBR security advisories from KB4649, validates the candidate snapshot, and opens a reviewable pull request only when the catalog changes. Other product and security-advisory adapters remain partial until their committed fixtures and parsers are added.
 
 ## Local development
 
