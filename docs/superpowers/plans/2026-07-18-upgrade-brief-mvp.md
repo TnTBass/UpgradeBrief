@@ -8,18 +8,19 @@ The MVP is a browser-only lookup tool backed by a committed evidence catalog. Th
 
 ## Task 1 — Static application foundation
 
-Create a TypeScript React/Vite project configured for a static Pages build.
+Create a TypeScript React/Vite project configured for a static Pages build. Pin the Node 22 toolchain, all direct package versions, and their resolved transitive dependencies in `package-lock.json`; CI must install with `npm ci`.
 
 Files:
 
 - `package.json`, `vite.config.ts`, `tsconfig*.json`, `index.html`
+- `package-lock.json`, `.nvmrc`
 - `src/main.tsx`, `src/App.tsx`, `src/styles.css`
 - `.github/workflows/refresh-catalog.yml`
 - `README.md`
 
 Verification:
 
-- `npm run build`
+- `npm ci && npm run build`
 - `npm run lint`
 
 ## Task 2 — Evidence-domain contracts and tests
@@ -30,7 +31,7 @@ Implement pure functions for:
 
 - normalizing product aliases and version/build input;
 - matching exact releases and stated version/build ranges;
-- classifying urgency without environment-based downgrade;
+- classifying urgency without environment-based downgrade, using only the explicit allowlist in `urgency-fields.ts`: `cvssScore`, `isCisaKev`, and `veeamConfirmedActiveExploitation`;
 - selecting the shortest valid, source-backed upgrade path;
 - calculating `current`, `stale`, and `outdated` catalog status.
 
@@ -39,6 +40,7 @@ Files:
 - `src/lib/catalog-types.ts`
 - `src/lib/lookup.ts`
 - `src/lib/urgency.ts`
+- `src/lib/urgency-fields.ts`
 - `src/lib/freshness.ts`
 - `src/lib/*.test.ts`
 
@@ -49,7 +51,7 @@ Verification:
 
 ## Task 3 — Source manifest and initial catalog
 
-Add a source manifest with direct official URLs, expected fields, and parser fixture names for each agreed product. Add a minimal curated catalog that exercises all result states without claiming unsupported coverage.
+Add a source manifest with direct official URLs, expected fields, parser fixture names, and an explicit per-product coverage state for each agreed product. Add a minimal curated catalog that exercises all result states without claiming unsupported coverage. A product without complete security, lifecycle, and route evidence must display an incomplete-coverage banner and cannot be presented as fully covered.
 
 Initial data must include:
 
@@ -64,6 +66,7 @@ Initial data must include:
 Files:
 
 - `src/data/source-manifest.ts`
+- `src/data/catalog.snapshot.json` (the committed last-known-good runtime catalog)
 - `src/data/catalog.ts`
 - `src/data/fixtures/*`
 - `scripts/validate-catalog.mjs`
@@ -72,6 +75,8 @@ Verification:
 
 - `npm run validate:catalog`
 - Tests reject unknown fixed-in releases, overlapping release identity, route cycles, missing sources, and catalog data that fails schema validation.
+- Every adapter test uses a committed fixture only; no unit or integration test may request a live vendor or CISA endpoint. Adding an adapter requires its matching fixture.
+- A UI fixture proves that incomplete product coverage renders the required warning rather than a fully covered result.
 
 ## Task 4 — Lookup interface and cited results
 
@@ -106,6 +111,8 @@ Implement a scheduled GitHub Actions workflow and a deterministic refresh script
 - Write source retrieval metadata.
 - Validate parsed/compiled data before creating a change.
 - Commit or open a pull request only when catalog data differs.
+- The scheduled refresh runs independently of Cloudflare Pages builds. It fetches, parses, and validates candidate data first, then atomically replaces `src/data/catalog.snapshot.json` only after all validations succeed; any error leaves that committed snapshot untouched.
+- Cloudflare Pages builds only committed repository data and never fetches vendor or CISA sources.
 - Fail closed: a failure cannot publish a replacement catalog.
 - Preserve test fixtures so parser changes are reviewed independently from source content changes.
 
@@ -118,7 +125,7 @@ Files:
 Verification:
 
 - Fixture-based refresh test.
-- A forced bad fixture fails validation without changing the committed compiled catalog.
+- A forced bad fixture fails validation without changing `src/data/catalog.snapshot.json`.
 
 ## Task 6 — Cloudflare and GitHub delivery
 
