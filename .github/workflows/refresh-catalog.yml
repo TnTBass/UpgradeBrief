@@ -21,13 +21,14 @@ jobs:
       - run: npm ci
       - run: npm run test:adapters
       - run: npm run test:security-adapter
+      - run: npm run test:release-security-adapter
       - run: npm run test:kev-adapter
       - run: npm run refresh:catalog -- --live
       - name: Open a catalog refresh pull request when data changed
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: 'chore: refresh VBR build catalog'
-          title: 'chore: refresh VBR build catalog'
-          body: 'Automated, fixture-validated refresh of the VBR build-number catalog. Review the source-linked diff before merging.'
+          commit-message: 'chore: refresh Veeam source catalog'
+          title: 'chore: refresh Veeam source catalog'
+          body: 'Automated, fixture-validated refresh of VBR builds and supported Veeam security advisories. Review the source-linked diff before merging.'
           branch: automation/vbr-catalog-refresh
           delete-branch: true

@@ -63,6 +63,10 @@ export interface SecurityFinding {
   cves: string[]
   affectedReleaseIds: string[]
   affectedVersionPrefixes?: string[]
+  affectedBuildRanges?: Array<{
+    versionPrefix: string
+    throughBuild: string
+  }>
   fixedReleaseId: string
   cvssScore?: number
   isCisaKev?: boolean

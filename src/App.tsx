@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { findingAppliesToRelease, findRelease, findUpgradePath, sourceById } from './lib/lookup'
+import { findingAppliesToRelease, findLifecycleNotice, findRelease, findUpgradePath, sourceById } from './lib/lookup'
 import { classifyUrgency } from './lib/urgency'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
@@ -47,10 +47,7 @@ export default function App() {
   const path = release ? findUpgradePath(catalog, release) : undefined
   const freshness = catalogFreshness(catalog.generatedAt)
   const findings = release ? catalog.securityFindings.filter((finding) => findingAppliesToRelease(finding, release)) : []
-  const lifecycle = release
-    ? catalog.lifecycleNotices.find((notice) => notice.productId === productId && notice.releaseId === release.id)
-      ?? catalog.lifecycleNotices.find((notice) => notice.productId === productId)
-    : undefined
+  const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
 
   useEffect(() => {
     const params = new URLSearchParams()
