@@ -39,16 +39,20 @@ Security urgency is intentionally conservative:
 
 | Output urgency | Rule |
 | --- | --- |
-| Critical | Matching CVE has CVSS 9.0-10.0, or is in CISA KEV / has vendor-confirmed active exploitation. |
+| Critical | Matching CVE has CVSS 9.0-10.0, is in CISA KEV, or has Veeam-confirmed active exploitation. |
 | High | Matching CVE has CVSS 7.0-8.9, or Veeam identifies a material exploitable condition without a CVSS score. |
 | Planned | Security improvements exist after the selected build, but the conditions above do not apply. |
 | Supportability | Lifecycle/support reason with no matching security finding. |
+
+Public proof-of-concept availability and probabilistic exploit scores are preserved as context when an authoritative source supplies them, but they do not by themselves establish active exploitation or override the CVSS policy. Only CISA KEV and Veeam-confirmed active exploitation are v1 exploit-status authorities.
 
 Network isolation, access controls, claimed mitigations, or a visitor's belief that a precondition is absent **never lower or suppress** a matching security finding. Where the vendor states a precondition, the result displays it as a verification requirement. For example: "Applies to domain-joined backup servers. Verify this condition independently; it is not used to defer remediation."
 
 Lifecycle is an independent reason: End of Fix and End of Support are never hidden by a newer product release or by an absent CVE.
 
 The UI must never state that a deployment is "safe," "not vulnerable," or "not affected" based only on its limited catalog. It says that no matching published finding is currently in the catalog, with the catalog timestamp and source coverage.
+
+Published applicability and deployment-specific exploitability are separate. A finding is surfaced only when Veeam explicitly lists the product/version or build range as affected. If Veeam documents a component or configuration precondition, the result states it but does not attempt to determine whether that component is installed or reduce the recommendation.
 
 ## Data and evidence model
 
@@ -72,7 +76,17 @@ Source priority:
 3. Official release notes and What's New documentation.
 4. CISA KEV only as an exploit-status enrichment; Veeam remains the authority for affected/fixed product ranges.
 
-The first collector sources include VBR build numbers (KB2680), VBR upgrade paths (KB2053), Veeam ONE paths (KB4646), Veeam product lifecycle, the VBR upgrade checklist, Veeam security advisory listings, and the equivalent official source set for Enterprise Manager, VRO, and VSPC.
+The v1 source inventory is complete only when all required facets are present for a product. The collector has this starting inventory:
+
+| Product | Canonical release/build and lifecycle | Security evidence | Upgrade path and planning evidence |
+| --- | --- | --- | --- |
+| VBR | KB2680 and Product Lifecycle | VBR security KBs, including KB3103 and release-specific advisories | KB2053 and VBR Upgrade Checklist |
+| Backup Enterprise Manager | VBR build catalog and Product Lifecycle, where Enterprise Manager ships with VBR | VBR security KBs when Veeam applies the affected range to Enterprise Manager | Enterprise Manager Before You Begin/upgrade guide plus VBR Upgrade Checklist ordering |
+| Veeam ONE | Product Lifecycle and official Veeam ONE build/release material | Veeam ONE security KBs | KB4646 and Veeam ONE upgrade documentation |
+| VRO | Product Lifecycle and VRO release/build material | VRO-filtered Veeam security KBs | VRO 13 upgrade guide and prior-version guides for required staging hops |
+| VSPC | Product Lifecycle and VSPC release/build material | VSPC security KBs | VSPC Deployment Guide upgrade section and release notes |
+
+The implementation plan must pin direct URLs, parser fixture files, expected release fields, and fallback behavior for every row before adding that product to the compiled catalog. A product without complete public evidence coverage is shown as **not yet supported**, never with inferred findings or a route.
 
 ## Automatic refresh
 
@@ -85,9 +99,9 @@ It must:
 3. Validate references, release ordering, build-number uniqueness, path continuity, and no dangling fixed-in releases.
 4. Compare the generated catalog against the prior catalog and create a commit/pull request only when the validated data changed.
 5. Leave the last known-good catalog deployed when a fetch, parse, or validation step fails.
-6. Publish a visible data-status value: current, stale, or refresh failed, including last successful refresh time.
+6. Publish a visible data-status value, including the last successful refresh time: `current` through 36 hours, `stale` after 36 hours, and `outdated` after 7 days or a recorded refresh failure.
 
-The static runtime never fetches Veeam or CISA directly. This keeps visitor results reproducible and avoids live-source failures changing results in flight.
+The static runtime never fetches Veeam or CISA directly. This keeps visitor results reproducible and avoids live-source failures changing results in flight. A failed refresh never replaces the deployed catalog; it leaves the last successful static deployment in place with the required stale/outdated indicator.
 
 ## Application architecture
 
@@ -97,9 +111,9 @@ v1 is a static TypeScript web application built and deployed to Cloudflare Pages
 - Lookup, range matching, urgency evaluation, and route selection occur in the browser.
 - The URL stores only product/release query state.
 - No authentication, database, Pages Function, Worker, telemetry SDK, cookie banner, or visitor environment data is required for v1.
-- Cloudflare Pages Free serves the static site; GitHub Actions drives catalog refresh and Pages build/deploy through Git integration.
+- Cloudflare Pages Free serves the static site; GitHub Actions drives build-time catalog refresh and Pages build/deploy through Git integration.
 
-This static-first design keeps the application within the intended free-tier limits and makes all visible results reproducible from the committed data revision.
+The scheduled GitHub Actions collector is build-time automation, not a visitor-facing backend or runtime scrape. One daily Pages deployment is approximately 31 builds/month, leaving substantial room below the current 500-build/month Pages Free limit for pull-request previews and releases. This static-first design makes all visible results reproducible from the committed data revision.
 
 ## Product presentation
 
@@ -122,7 +136,8 @@ The homepage promise:
 5. A release with a multi-hop official route lists the hops in order and preserves applicable conditions.
 6. Unsupported, ambiguous, or unrecognized input does not invent a route; it explains what version/build information is needed and links to the relevant product build catalog where available.
 7. Every result shows data freshness and the independent-tool disclaimer.
-8. The generated production site is static and deploys successfully to Cloudflare Pages Free.
+8. At 36 hours since the last success, the production site shows a stale-data indicator; at 7 days or a recorded failure, it shows an outdated-data indicator and continues serving the last validated catalog.
+9. The generated production site is static and deploys successfully to Cloudflare Pages Free.
 
 ## Explicit non-goals
 
