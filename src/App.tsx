@@ -87,15 +87,16 @@ export default function App() {
   const [version, setVersion] = useState(initialVersion)
   const [submitted, setSubmitted] = useState(Boolean(initialVersion))
   const [versionPickerOpen, setVersionPickerOpen] = useState(false)
+  const [versionFilter, setVersionFilter] = useState('')
   const versionPickerRef = useRef<HTMLDivElement>(null)
   const product = catalog.products.find((item) => item.id === productId)!
   const upgradeHowTo = upgradeHowToSourceIds(productId)
   const upgradeHowToSource = sourceById(catalog, upgradeHowTo[0])
   const versionOptions = useMemo(() => releaseOptions(catalog.releases.filter((item) => item.productId === productId)), [productId])
   const matchingVersionOptions = useMemo(() => {
-    const query = version.trim().toLocaleLowerCase()
+    const query = versionFilter.trim().toLocaleLowerCase()
     return query ? versionOptions.filter((option) => `${option.value} ${option.label}`.toLocaleLowerCase().includes(query)) : versionOptions
-  }, [version, versionOptions])
+  }, [versionFilter, versionOptions])
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
   const isCurrentCatalogRelease = release ? isRecommendedRelease(catalog, release) : false
@@ -121,6 +122,7 @@ export default function App() {
     setVersion('')
     setSubmitted(false)
     setVersionPickerOpen(false)
+    setVersionFilter('')
   }
 
   function closeVersionPickerWhenFocusLeaves() {
@@ -158,23 +160,23 @@ export default function App() {
                 aria-haspopup="listbox"
                 aria-label="Version or build"
                 value={version}
-                onChange={(event) => { setVersion(event.target.value); setVersionPickerOpen(true) }}
-                onFocus={() => setVersionPickerOpen(true)}
+                onChange={(event) => { setVersion(event.target.value); setVersionFilter(event.target.value); setVersionPickerOpen(true) }}
+                onFocus={() => { setVersionFilter(''); setVersionPickerOpen(true) }}
                 onKeyDown={(event) => {
-                  if (event.key === 'ArrowDown') setVersionPickerOpen(true)
+                  if (event.key === 'ArrowDown') { setVersionFilter(''); setVersionPickerOpen(true) }
                   if (event.key === 'Escape') setVersionPickerOpen(false)
                 }}
                 placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Start typing a version or build'}
                 required
               />
-              <button className="version-toggle" type="button" aria-label="Show version and build choices" aria-expanded={versionPickerOpen} onClick={() => setVersionPickerOpen((isOpen) => !isOpen)}>
+              <button className="version-toggle" type="button" aria-label="Show version and build choices" aria-expanded={versionPickerOpen} onClick={() => { setVersionFilter(''); setVersionPickerOpen((isOpen) => !isOpen) }}>
                 <span aria-hidden="true">⌄</span>
               </button>
               {versionPickerOpen && (
                 <ul className="version-options" id="version-options" role="listbox" aria-label="Available version and build choices">
                   {matchingVersionOptions.length > 0 ? matchingVersionOptions.map(({ value, label }) => (
                     <li key={value} role="presentation">
-                      <button className="version-option" type="button" role="option" aria-selected={value === version} onClick={() => { setVersion(value); setVersionPickerOpen(false) }}>{label}</button>
+                      <button className="version-option" type="button" role="option" aria-selected={value === version} onClick={() => { setVersion(value); setVersionFilter(''); setVersionPickerOpen(false) }}>{label}</button>
                     </li>
                   )) : <li className="version-option-empty">No matching known version or build.</li>}
                 </ul>
