@@ -302,7 +302,7 @@ export default function App() {
           <section className="resources">
             <p className="eyebrow">Explore the target release</p>
             <h2>Features, release notes, and documented fixes.</h2>
-            <p>Review what Veeam documents for {targetRelease?.name ?? 'the current target release'} before deciding whether a feature or fix matters to your environment. These links are not a finding that every item applies to you.</p>
+            <p>Review what Veeam documents for {targetRelease?.name ?? 'the current target release'} and decide whether a feature or fix is important to your environment. These links are not a finding that every item applies to you.</p>
             <SourceLinks sourceIds={targetMaterialSourceIds} />
             {targetFixSourceIds.length > 0 && (
               <>
