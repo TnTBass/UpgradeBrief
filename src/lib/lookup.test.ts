@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
-import { findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease } from './lookup'
+import { findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, upgradeHowToSourceIds } from './lookup'
 
 describe('catalog lookup', () => {
   it('matches an exact VBR build and gives the source-backed staged path', () => {
@@ -56,5 +56,10 @@ describe('catalog lookup', () => {
   it('never applies another product’s similarly numbered advisory', () => {
     const release = findRelease(catalog, 'veeam-one', '6.5.0.686')!
     expect(findingsForRelease(catalog, release)).toEqual([])
+  })
+
+  it('provides a Help Center how-to link for each product', () => {
+    expect(upgradeHowToSourceIds('veeam-one')).toEqual(['one-how-to'])
+    expect(upgradeHowToSourceIds('vbr')).toEqual(['vbr-how-to'])
   })
 })

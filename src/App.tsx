@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { checklistSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, sourceById } from './lib/lookup'
+import { checklistSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, sourceById, upgradeHowToSourceIds } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
 import { classifyUrgency } from './lib/urgency'
 
@@ -87,6 +87,7 @@ export default function App() {
   const [version, setVersion] = useState(initialVersion)
   const [submitted, setSubmitted] = useState(Boolean(initialVersion))
   const product = catalog.products.find((item) => item.id === productId)!
+  const upgradeHowTo = upgradeHowToSourceIds(productId)
   const versionOptions = useMemo(() => releaseOptions(catalog.releases.filter((item) => item.productId === productId)), [productId])
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
@@ -178,17 +179,17 @@ export default function App() {
                     {path.hopReleaseIds.map((releaseId) => <li key={releaseId}>{catalog.releases.find((item) => item.id === releaseId)?.name}</li>)}
                   </ol>
                   {path.notes.map((note) => <p key={note}>{note}</p>)}
-                  <SourceLinks sourceIds={path.sourceIds} />
+                  <SourceLinks sourceIds={[...new Set([...path.sourceIds, ...upgradeHowTo])]} />
                 </>
               ) : isCurrentCatalogRelease ? <p>This is the latest release currently recorded for this product. Continue to review the linked vendor guidance and security advisories for subsequent patches.</p>
                 : lifecycle?.state === 'end-of-support' && productId === 'veeam-one' ? (
                   <>
                     <p>This Veeam ONE release is outside support. Veeam documents that an end-of-support Veeam ONE release without a supported direct path requires you to install a new version of Veeam ONE. There is no supported path to transfer data to the new installation.</p>
-                    <SourceLinks sourceIds={['kb4646']} />
+                    <SourceLinks sourceIds={[...new Set(['kb4646', ...upgradeHowTo])]} />
                   </>
                 )
-                : lifecycle?.state === 'end-of-support' ? <p>This release is outside support. No direct route is asserted here without a source-backed path; use the linked vendor guidance to plan a supported migration or new deployment.</p>
-                : <p>No exact path is in the current curated catalog. Use the linked product documentation rather than assuming a direct upgrade is supported.</p>}
+                : lifecycle?.state === 'end-of-support' ? <><p>This release is outside support. No direct route is asserted here without a source-backed path; use the linked vendor guidance to plan a supported migration or new deployment.</p><SourceLinks sourceIds={upgradeHowTo} /></>
+                : <><p>No exact path is in the current curated catalog. Use the linked product documentation rather than assuming a direct upgrade is supported.</p><SourceLinks sourceIds={upgradeHowTo} /></>}
             </article>
           </div>
 

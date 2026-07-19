@@ -81,6 +81,24 @@
       "checkedAt": "2026-07-18T18:00:00.000Z"
     },
     {
+      "id": "vbr-how-to",
+      "title": "Veeam Backup & Replication 13 upgrade instructions (Help Center)",
+      "url": "https://helpcenter.veeam.com/docs/vbr/userguide/upgrade_vbr.html",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
+      "id": "em-how-to",
+      "title": "Enterprise Manager upgrade instructions (Help Center)",
+      "url": "https://helpcenter.veeam.com/docs/vbr/em/em_upgrading.html",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
+      "id": "one-how-to",
+      "title": "Veeam ONE 13 upgrade instructions (Help Center)",
+      "url": "https://helpcenter.veeam.com/docs/one/userguide/upgrade.html",
+      "checkedAt": "2026-07-19T15:31:04.870Z"
+    },
+    {
       "id": "vro-upgrade",
       "title": "Veeam Recovery Orchestrator 13 upgrade guide",
       "url": "https://helpcenter.veeam.com/docs/vro/userguide/upgrading_vro.html?ver=13",

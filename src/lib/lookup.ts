@@ -37,6 +37,16 @@ export function checklistSourceIds(productId: ProductId): string[] {
   }[productId]
 }
 
+export function upgradeHowToSourceIds(productId: ProductId): string[] {
+  return {
+    vbr: ['vbr-how-to'],
+    'enterprise-manager': ['em-how-to'],
+    'veeam-one': ['one-how-to'],
+    vro: ['vro-upgrade'],
+    vspc: ['vspc-upgrade'],
+  }[productId]
+}
+
 function compareDottedVersions(left: string, right: string): number | undefined {
   const leftParts = left.split('.').map(Number)
   const rightParts = right.split('.').map(Number)
