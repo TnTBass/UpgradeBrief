@@ -43,6 +43,18 @@ export default function App() {
   const [version, setVersion] = useState(initialVersion)
   const [submitted, setSubmitted] = useState(Boolean(initialVersion))
   const product = catalog.products.find((item) => item.id === productId)!
+  const versionOptions = useMemo(() => {
+    const seen = new Set<string>()
+    return catalog.releases
+      .filter((item) => item.productId === productId)
+      .flatMap((item) => item.aliases.map((alias) => ({ alias, name: item.name })))
+      .filter(({ alias }) => {
+        const key = alias.toLowerCase()
+        if (seen.has(key)) return false
+        seen.add(key)
+        return true
+      })
+  }, [productId])
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
   const isCurrentCatalogRelease = release ? isRecommendedRelease(catalog, release) : false
@@ -84,7 +96,10 @@ export default function App() {
           </label>
           <label>
             Version or build
-            <input value={version} onChange={(event) => setVersion(event.target.value)} placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Example: 9.1'} required />
+            <input list="version-options" value={version} onChange={(event) => setVersion(event.target.value)} placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Start typing a version or build'} required />
+            <datalist id="version-options">
+              {versionOptions.map(({ alias, name }) => <option key={alias} value={alias} label={name} />)}
+            </datalist>
           </label>
           <button type="submit">Build my upgrade brief</button>
         </form>
