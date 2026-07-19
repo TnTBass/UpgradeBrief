@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
@@ -88,6 +88,7 @@ export default function App() {
   const [submitted, setSubmitted] = useState(Boolean(initialVersion))
   const product = catalog.products.find((item) => item.id === productId)!
   const upgradeHowTo = upgradeHowToSourceIds(productId)
+  const upgradeHowToSource = sourceById(catalog, upgradeHowTo[0])
   const versionOptions = useMemo(() => releaseOptions(catalog.releases.filter((item) => item.productId === productId)), [productId])
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
@@ -175,8 +176,19 @@ export default function App() {
               {path ? (
                 <>
                   <ol className="route">
-                    <li>{release.name}</li>
-                    {path.hopReleaseIds.map((releaseId) => <li key={releaseId}>{catalog.releases.find((item) => item.id === releaseId)?.name}</li>)}
+                    <li className="route-step">{release.name}</li>
+                    {path.hopReleaseIds.map((releaseId, index) => {
+                      const destination = catalog.releases.find((item) => item.id === releaseId)
+                      const isFinalDestination = index === path.hopReleaseIds.length - 1
+                      return (
+                        <Fragment key={releaseId}>
+                          <li className="route-arrow" aria-hidden="true">→</li>
+                          <li className="route-step">
+                            {isFinalDestination && upgradeHowToSource ? <a href={upgradeHowToSource.url} target="_blank" rel="noreferrer">{destination?.name}</a> : destination?.name}
+                          </li>
+                        </Fragment>
+                      )
+                    })}
                   </ol>
                   {path.notes.map((note) => <p key={note}>{note}</p>)}
                   <SourceLinks sourceIds={[...new Set([...path.sourceIds, ...upgradeHowTo])]} />
