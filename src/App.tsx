@@ -9,6 +9,29 @@ import { classifyUrgency } from './lib/urgency'
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
 const initialVersion = new URLSearchParams(window.location.search).get('version') || ''
 
+const versionHelp: Record<ProductId, { instruction: string; sourceIds: string[] }> = {
+  vbr: {
+    instruction: 'In the Veeam Backup & Replication console, open Help > About, then copy the complete build number.',
+    sourceIds: ['kb2680'],
+  },
+  'enterprise-manager': {
+    instruction: 'Sign in with an administrative account, select Configuration in the upper-right, then open About in the left navigation.',
+    sourceIds: ['em-upgrade'],
+  },
+  'veeam-one': {
+    instruction: 'In Veeam ONE Client, open Help > About. Use the Veeam ONE Server build, not the version of a monitored backup server.',
+    sourceIds: ['kb4357'],
+  },
+  vro: {
+    instruction: 'Use the Veeam Recovery Orchestrator version/build shown by the Orchestrator server or Web UI. Do not substitute the connected Veeam Backup & Replication version.',
+    sourceIds: ['kb4358'],
+  },
+  vspc: {
+    instruction: 'Use the Veeam Service Provider Console server version, not a management agent or a managed backup server. Administrators can also retrieve it from the VSPC About API resource.',
+    sourceIds: ['kb4464'],
+  },
+}
+
 function SourceLinks({ sourceIds }: { sourceIds: string[] }) {
   return (
     <ul className="source-list">
@@ -21,6 +44,26 @@ function SourceLinks({ sourceIds }: { sourceIds: string[] }) {
         ) : null
       })}
     </ul>
+  )
+}
+
+function VersionHelp({ productId }: { productId: ProductId }) {
+  const help = versionHelp[productId]
+  return (
+    <details className="version-help">
+      <summary>Need help finding your version or build?</summary>
+      <div>
+        <p><strong>Use the full build when you can.</strong> A release such as <code>13.0.1</code> may include multiple builds; the full value is more likely to produce an exact result.</p>
+        <p>{help.instruction}</p>
+        {productId === 'enterprise-manager' && (
+          <p><a href="https://helpcenter.veeam.com/docs/vbr/em/em_viewing_info_about.html" target="_blank" rel="noreferrer">Veeam’s Enterprise Manager About instructions</a></p>
+        )}
+        {productId === 'vspc' && (
+          <p><a href="https://helpcenter.veeam.com/references/vac/9.2/rest/3.6.2/tag/About/index.html" target="_blank" rel="noreferrer">VSPC About API reference</a></p>
+        )}
+        <SourceLinks sourceIds={help.sourceIds} />
+      </div>
+    </details>
   )
 }
 
@@ -93,6 +136,7 @@ export default function App() {
           <button type="submit">Build my upgrade brief</button>
         </form>
         <p className="hint">Use the exact release/build when available. Results are limited to the source-backed records shown below.</p>
+        <VersionHelp productId={productId} />
       </section>
       <p className={`freshness ${freshness}`}>Catalog {freshness} · checked {new Date(catalog.generatedAt).toLocaleDateString()}</p>
 

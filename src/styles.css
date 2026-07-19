@@ -18,6 +18,7 @@ input, select, button { border-radius: 9px; font: inherit; padding: .75rem .85re
 input, select { border: 1px solid #b8c5cb; background: white; }
 button { background: #006e6d; border: 1px solid #006e6d; color: white; cursor: pointer; font-weight: 800; }
 button:hover { background: #005a59; }.hint { color: #66747d; font-size: .9rem; }
+.version-help { border-top: 1px solid #e5eaec; margin-top: 1.15rem; padding-top: 1rem; }.version-help summary { color: #006e6d; cursor: pointer; font-size: .9rem; font-weight: 700; width: fit-content; }.version-help > div { color: #53616c; font-size: .9rem; margin-top: .65rem; }.version-help p { margin: .45rem 0; }.version-help code { color: #1d2a35; }
 .result { margin-top: 1.5rem; }.result-title { border-bottom: 1px solid #e5eaec; margin-bottom: 1.5rem; padding-bottom: 1rem; }
 .coverage-warning { background: #fff4d9; border-left: 4px solid #c67e00; margin: 1rem 0 1.5rem; padding: 1rem; }
 .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }.result-grid > article, .security, .resources { background: #f4f8f8; border-radius: 12px; padding: 1.25rem; }
