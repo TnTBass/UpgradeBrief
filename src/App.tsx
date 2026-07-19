@@ -92,8 +92,9 @@ export default function App() {
   const path = release ? findUpgradePath(catalog, release) : undefined
   const isCurrentCatalogRelease = release ? isRecommendedRelease(catalog, release) : false
   const freshness = catalogFreshness(catalog.generatedAt)
-  const findings = release ? findingsForRelease(catalog, release) : []
   const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
+  const findings = release ? findingsForRelease(catalog, release) : []
+  const hasLegacySecurityRisk = lifecycle?.state === 'end-of-support' && findings.length === 0
 
   useEffect(() => {
     const params = new URLSearchParams()
@@ -194,10 +195,17 @@ export default function App() {
           <section className="security">
             <div>
               <p className="eyebrow">Security reasons to upgrade</p>
-              <h2>{findings.length ? `${findings.length} matching ${findings.length === 1 ? 'advisory' : 'advisories'}` : 'No matching advisory is currently curated'}</h2>
+              <h2>{findings.length ? `${findings.length} matching ${findings.length === 1 ? 'advisory' : 'advisories'}` : hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : 'No matching advisory is currently curated'}</h2>
             </div>
             {findings.length > 0 ? findings.map((finding) => <SecurityFindingCard key={finding.id} finding={finding} />) : (
-              <p className="security-empty">Security coverage for this MVP is intentionally partial. This is not a clean bill of health; check Veeam’s security advisories directly.</p>
+              hasLegacySecurityRisk ? (
+                <article className="security-card critical">
+                  <p className="eyebrow">Critical upgrade reason</p>
+                  <h3>Unsupported release may contain unpatched vulnerabilities</h3>
+                  <p>No matching product advisory is currently curated. That is not evidence that this release is safe: it no longer receives security fixes, so assume it may contain unpatched vulnerabilities beyond this catalogue and treat upgrading as urgent.</p>
+                  <SourceLinks sourceIds={['lifecycle']} />
+                </article>
+              ) : <p className="security-empty">Security coverage for this MVP is intentionally partial. This is not a clean bill of health; check Veeam’s security advisories directly.</p>
             )}
             <SourceLinks sourceIds={['security-kb']} />
           </section>
