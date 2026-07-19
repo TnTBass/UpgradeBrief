@@ -110,6 +110,12 @@ export default function App() {
     setSubmitted(true)
   }
 
+  function changeProduct(nextProductId: ProductId) {
+    setProductId(nextProductId)
+    setVersion('')
+    setSubmitted(false)
+  }
+
   return (
     <main>
       <header className="hero">
@@ -125,14 +131,14 @@ export default function App() {
         <form onSubmit={submit}>
           <label>
             Product
-            <select value={productId} onChange={(event) => { setProductId(event.target.value as ProductId); setSubmitted(false) }}>
+            <select value={productId} onChange={(event) => changeProduct(event.target.value as ProductId)}>
               {catalog.products.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
             </select>
           </label>
           <label>
             Version or build
-            <input list="version-options" value={version} onChange={(event) => setVersion(event.target.value)} placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Start typing a version or build'} required />
-            <datalist id="version-options">
+            <input key={productId} list={`version-options-${productId}`} value={version} onChange={(event) => setVersion(event.target.value)} placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Start typing a version or build'} required />
+            <datalist id={`version-options-${productId}`}>
               {versionOptions.map(({ value, label }) => <option key={value} value={value} label={label} />)}
             </datalist>
           </label>
