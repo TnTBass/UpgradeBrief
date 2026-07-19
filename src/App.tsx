@@ -182,7 +182,7 @@ export default function App() {
               ) : isCurrentCatalogRelease ? <p>This is the latest release currently recorded for this product. Continue to review the linked vendor guidance and security advisories for subsequent patches.</p>
                 : lifecycle?.state === 'end-of-support' && productId === 'veeam-one' ? (
                   <>
-                    <p>This Veeam ONE release is outside support. Veeam documents that an end-of-support Veeam ONE release without a supported direct path requires a new instance of the latest version.</p>
+                    <p>This Veeam ONE release is outside support. Veeam documents that an end-of-support Veeam ONE release without a supported direct path requires you to install a new version of Veeam ONE. There is no supported path to transfer data to the new installation.</p>
                     <SourceLinks sourceIds={['kb4646']} />
                   </>
                 )
