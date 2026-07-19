@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   refresh:
@@ -24,11 +23,11 @@ jobs:
       - run: npm run test:release-security-adapter
       - run: npm run test:kev-adapter
       - run: npm run refresh:catalog -- --live
-      - name: Open a catalog refresh pull request when data changed
-        uses: peter-evans/create-pull-request@v7
-        with:
-          commit-message: 'chore: refresh Veeam source catalog'
-          title: 'chore: refresh Veeam source catalog'
-          body: 'Automated, fixture-validated refresh of VBR builds and supported Veeam security advisories. Review the source-linked diff before merging.'
-          branch: automation/vbr-catalog-refresh
-          delete-branch: true
+      - name: Commit a validated catalog refresh when data changed
+        run: |
+          git add src/data/catalog.snapshot.json
+          git diff --cached --quiet && exit 0
+          git config user.name 'upgrade-brief[bot]'
+          git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
+          git commit -m 'chore: refresh Veeam source catalog'
+          git push origin HEAD:main
