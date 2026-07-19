@@ -9,8 +9,8 @@ h2 { margin: 0 0 .75rem; font-size: 1.5rem; letter-spacing: -.025em; }
 h3 { margin: 0 0 .55rem; text-transform: capitalize; }
 p { line-height: 1.55; }
 .lede { color: #53616c; font-size: 1.15rem; max-width: none; white-space: nowrap; }
-.freshness { background: #e4e9ec; border-radius: 999px; font-size: .85rem; margin: .2rem 0; padding: .45rem .7rem; white-space: nowrap; }
-.freshness.stale { background: #fff0cc; }.freshness.outdated { background: #fbd5d2; }
+.freshness { color: #66747d; font-size: .76rem; margin: .55rem .15rem 0; }
+.freshness.stale { color: #986000; }.freshness.outdated { color: #a52a25; }
 .lookup, .result { background: #fff; border: 1px solid #dbe2e5; border-radius: 18px; box-shadow: 0 12px 32px #19343a0a; padding: clamp(1.25rem, 4vw, 2.5rem); }
 .lookup form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 1rem; align-items: end; }
 label { display: grid; gap: .45rem; font-weight: 700; }
@@ -24,4 +24,4 @@ button:hover { background: #005a59; }.hint { color: #66747d; font-size: .9rem; }
 .route { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; margin: 1rem 0; padding: 0; }.route li { background: white; border: 1px solid #d4e0e0; border-radius: 999px; padding: .35rem .65rem; }.route li + li::before { color: #66747d; content: '→'; margin-right: .65rem; }
 .security { margin-top: 1rem; }.security-card { background: white; border-left: 4px solid #7d8a91; margin-top: .8rem; padding: 1rem; }.security-card.critical { border-color: #b42318; }.security-card.high { border-color: #c67e00; }.security-empty { color: #53616c; }.resources { margin-top: 1rem; }
 .source-list { margin: .65rem 0 0; padding-left: 1.15rem; }.source-list li { margin: .2rem 0; }a { color: #006e6d; }footer { color: #66747d; font-size: .85rem; margin: 2.5rem 0 .5rem; }
-@media (max-width: 720px) { main { padding-top: 1.5rem; }.hero, .lookup form { display: grid; }.freshness, .lede, h1 { white-space: normal; }.freshness { width: fit-content; }.result-grid { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { main { padding-top: 1.5rem; }.hero, .lookup form { display: grid; }.lede, h1 { white-space: normal; }.result-grid { grid-template-columns: 1fr; } }

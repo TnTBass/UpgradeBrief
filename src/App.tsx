@@ -82,7 +82,6 @@ export default function App() {
           <h1>Upgrade with confidence.</h1>
           <p className="lede">Independent, evidence-based upgrade guidance for Veeam software.</p>
         </div>
-        <p className={`freshness ${freshness}`}>Catalog {freshness} · checked {new Date(catalog.generatedAt).toLocaleDateString()}</p>
       </header>
 
       <section className="lookup" aria-labelledby="lookup-heading">
@@ -105,6 +104,7 @@ export default function App() {
         </form>
         <p className="hint">Use the exact release/build when available. Results are limited to the source-backed records shown below.</p>
       </section>
+      <p className={`freshness ${freshness}`}>Catalog {freshness} · checked {new Date(catalog.generatedAt).toLocaleDateString()}</p>
 
       {submitted && !release && (
         <section className="result empty">
