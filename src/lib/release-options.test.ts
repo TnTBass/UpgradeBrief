@@ -23,4 +23,10 @@ describe('release options', () => {
     ])
     expect(options.some((option) => option.label.includes('retracted'))).toBe(false)
   })
+
+  it('labels Enterprise Manager suggestions with their canonical version and build', () => {
+    const options = releaseOptions(catalog.releases.filter((release) => release.productId === 'enterprise-manager'))
+
+    expect(options[0]).toEqual({ value: '13.0.2.29', label: '13.0.2 (build 13.0.2.29)' })
+  })
 })
