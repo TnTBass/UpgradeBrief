@@ -1,0 +1,23 @@
+name: Refresh catalog
+
+on:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # Source adapters are enabled only after fixture validation. This command validates
+      # the committed last-known-good snapshot and cannot replace it on a failed refresh.
+      - run: npm run refresh:catalog

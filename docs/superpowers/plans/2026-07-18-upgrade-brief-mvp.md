@@ -8,7 +8,7 @@ The MVP is a browser-only lookup tool backed by a committed evidence catalog. Th
 
 ## Task 1 — Static application foundation
 
-Create a TypeScript React/Vite project configured for a static Pages build. Pin the Node 22 toolchain, all direct package versions, and their resolved transitive dependencies in `package-lock.json`; CI must install with `npm ci`.
+Create a TypeScript React/Vite project configured for a static Pages build. Pin the Node 24 toolchain, all direct package versions, and their resolved transitive dependencies in `package-lock.json`; CI must install with `npm ci`.
 
 Files:
 

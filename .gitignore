@@ -1,1 +1,4 @@
 .agent-review/
+node_modules/
+dist/
+*.tsbuildinfo

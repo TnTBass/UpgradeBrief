@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-18T18:00:00.000Z",
+  "sources": [
+    {
+      "id": "kb2680",
+      "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
+      "url": "https://www.veeam.com/kb2680",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "kb2053",
+      "title": "Veeam KB2053: Upgrade path for Veeam Backup & Replication",
+      "url": "https://www.veeam.com/kb2053",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "kb4646",
+      "title": "Veeam KB4646: Upgrade path for Veeam ONE",
+      "url": "https://www.veeam.com/kb4646",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "lifecycle",
+      "title": "Veeam Product Lifecycle",
+      "url": "https://www.veeam.com/product-lifecycle.html",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "em-upgrade",
+      "title": "Veeam Backup Enterprise Manager upgrade guide",
+      "url": "https://helpcenter.veeam.com/docs/vbr/em/em_upgrade_byb.html",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "vbr-checklist",
+      "title": "Veeam Backup & Replication upgrade checklist",
+      "url": "https://helpcenter.veeam.com/docs/vbr/userguide/upgrade_vbr_byb.html?ver=13",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "vro-upgrade",
+      "title": "Veeam Recovery Orchestrator 13 upgrade guide",
+      "url": "https://helpcenter.veeam.com/docs/vro/userguide/upgrading_vro.html?ver=13",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "vspc-upgrade",
+      "title": "Veeam Service Provider Console deployment upgrade guide",
+      "url": "https://helpcenter.veeam.com/docs/vac/deployment/upgrade.html",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "security-kb",
+      "title": "Veeam Knowledge Base security advisories",
+      "url": "https://www.veeam.com/knowledge-base.html?type=security",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    },
+    {
+      "id": "kb4771",
+      "title": "Veeam KB4771: vulnerabilities resolved in VBR 12.3.2.4165",
+      "url": "https://www.veeam.com/kb4771",
+      "checkedAt": "2026-07-18T18:00:00.000Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "vbr",
+      "name": "Veeam Backup & Replication",
+      "aliases": ["VBR", "Veeam Backup & Replication"],
+      "recommendedReleaseId": "vbr-13.0.2",
+      "coverage": { "security": "partial", "lifecycle": "partial", "upgradePath": "partial" }
+    },
+    {
+      "id": "enterprise-manager",
+      "name": "Veeam Backup Enterprise Manager",
+      "aliases": ["Enterprise Manager", "VBEM"],
+      "recommendedReleaseId": "em-13",
+      "coverage": { "security": "partial", "lifecycle": "partial", "upgradePath": "partial" }
+    },
+    {
+      "id": "veeam-one",
+      "name": "Veeam ONE",
+      "aliases": ["Veeam ONE", "ONE"],
+      "recommendedReleaseId": "one-13.0.2",
+      "coverage": { "security": "partial", "lifecycle": "partial", "upgradePath": "partial" }
+    },
+    {
+      "id": "vro",
+      "name": "Veeam Recovery Orchestrator",
+      "aliases": ["VRO", "Veeam Recovery Orchestrator"],
+      "recommendedReleaseId": "vro-13",
+      "coverage": { "security": "partial", "lifecycle": "partial", "upgradePath": "partial" }
+    },
+    {
+      "id": "vspc",
+      "name": "Veeam Service Provider Console",
+      "aliases": ["VSPC", "Veeam Service Provider Console"],
+      "recommendedReleaseId": "vspc-9.2",
+      "coverage": { "security": "partial", "lifecycle": "partial", "upgradePath": "partial" }
+    }
+  ],
+  "releases": [
+    { "id": "vbr-12.1", "productId": "vbr", "name": "12.1", "aliases": ["12.1"], "sourceIds": ["kb2053"] },
+    { "id": "vbr-12.3.2", "productId": "vbr", "name": "12.3.2", "aliases": ["12.3.2"], "sourceIds": ["kb2053", "kb2680"] },
+    { "id": "vbr-12.3.2.3617", "productId": "vbr", "name": "12.3.2.3617", "aliases": ["12.3.2.3617"], "sourceIds": ["kb4771"] },
+    { "id": "vbr-12.3.2.4165", "productId": "vbr", "name": "12.3.2.4165 Patch", "aliases": ["12.3.2.4165", "12.3.2.4165 patch"], "sourceIds": ["kb4771"] },
+    { "id": "vbr-13.0.2", "productId": "vbr", "name": "13.0.2 (build 13.0.2.29)", "aliases": ["13.0.2", "13.0.2.29", "13.0.2 (build 13.0.2.29)"], "sourceIds": ["kb2680", "kb2053"] },
+    { "id": "em-12.3.1", "productId": "enterprise-manager", "name": "12.3.1", "aliases": ["12.3.1"], "sourceIds": ["em-upgrade"] },
+    { "id": "em-13", "productId": "enterprise-manager", "name": "13", "aliases": ["13", "13.0"], "sourceIds": ["em-upgrade"] },
+    { "id": "one-10a", "productId": "veeam-one", "name": "10a", "aliases": ["10a", "10"], "sourceIds": ["kb4646"] },
+    { "id": "one-12.1", "productId": "veeam-one", "name": "12.1", "aliases": ["12.1"], "sourceIds": ["kb4646"] },
+    { "id": "one-13.0.2", "productId": "veeam-one", "name": "13.0.2", "aliases": ["13.0.2"], "sourceIds": ["kb4646"] },
+    { "id": "vro-7.2.1", "productId": "vro", "name": "7.2.1", "aliases": ["7.2.1"], "sourceIds": ["vro-upgrade"] },
+    { "id": "vro-13", "productId": "vro", "name": "13", "aliases": ["13", "13.0"], "sourceIds": ["vro-upgrade"] },
+    { "id": "vspc-8.1", "productId": "vspc", "name": "8.1", "aliases": ["8.1"], "sourceIds": ["vspc-upgrade"] },
+    { "id": "vspc-9.1", "productId": "vspc", "name": "9.1", "aliases": ["9.1", "9.1.0.30636"], "sourceIds": ["vspc-upgrade"] },
+    { "id": "vspc-9.2", "productId": "vspc", "name": "9.2", "aliases": ["9.2"], "sourceIds": ["vspc-upgrade"] }
+  ],
+  "lifecycleNotices": [
+    {
+      "productId": "vbr",
+      "releaseId": "vbr-12.1",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup & Replication 12 is in the later lifecycle phase. Confirm the exact lifecycle row before scheduling.",
+      "sourceIds": ["lifecycle"]
+    },
+    {
+      "productId": "vbr",
+      "state": "check-source",
+      "summary": "Lifecycle dates are product and release specific. Use the official lifecycle record for the current date.",
+      "sourceIds": ["lifecycle"]
+    }
+  ],
+  "upgradePaths": [
+    { "id": "vbr-12.1-to-13.0.2", "productId": "vbr", "fromReleaseId": "vbr-12.1", "toReleaseId": "vbr-13.0.2", "hopReleaseIds": ["vbr-12.3.2", "vbr-13.0.2"], "notes": ["Review the VBR upgrade checklist before each hop."], "sourceIds": ["kb2053", "vbr-checklist"] },
+    { "id": "vbr-12.3.2-to-13.0.2", "productId": "vbr", "fromReleaseId": "vbr-12.3.2", "toReleaseId": "vbr-13.0.2", "hopReleaseIds": ["vbr-13.0.2"], "notes": ["Review the VBR upgrade checklist before upgrading."], "sourceIds": ["kb2053", "vbr-checklist"] },
+    { "id": "vbr-12.3.2.3617-to-13.0.2", "productId": "vbr", "fromReleaseId": "vbr-12.3.2.3617", "toReleaseId": "vbr-13.0.2", "hopReleaseIds": ["vbr-12.3.2.4165", "vbr-13.0.2"], "notes": ["Apply the security patch first, then follow the documented route to version 13."], "sourceIds": ["kb4771", "kb2053", "vbr-checklist"] },
+    { "id": "em-12.3.1-to-13", "productId": "enterprise-manager", "fromReleaseId": "em-12.3.1", "toReleaseId": "em-13", "hopReleaseIds": ["em-13"], "notes": ["Upgrade Enterprise Manager before Veeam Backup & Replication. Version 13 requires Enterprise Manager 12.3.1 or later as the starting point."], "sourceIds": ["em-upgrade"] },
+    { "id": "one-10a-to-13.0.2", "productId": "veeam-one", "fromReleaseId": "one-10a", "toReleaseId": "one-13.0.2", "hopReleaseIds": ["one-12.1", "one-13.0.2"], "notes": ["This route represents the documented staged path."], "sourceIds": ["kb4646"] },
+    { "id": "one-12.1-to-13.0.2", "productId": "veeam-one", "fromReleaseId": "one-12.1", "toReleaseId": "one-13.0.2", "hopReleaseIds": ["one-13.0.2"], "notes": ["Confirm prerequisites in the current Veeam ONE documentation."], "sourceIds": ["kb4646"] },
+    { "id": "vro-7.2.1-to-13", "productId": "vro", "fromReleaseId": "vro-7.2.1", "toReleaseId": "vro-13", "hopReleaseIds": ["vro-13"], "notes": ["Version 13 direct upgrade is documented from 7.2.1. Older releases require an earlier staged upgrade."], "sourceIds": ["vro-upgrade"] },
+    { "id": "vspc-8.1-to-9.2", "productId": "vspc", "fromReleaseId": "vspc-8.1", "toReleaseId": "vspc-9.2", "hopReleaseIds": ["vspc-9.1", "vspc-9.2"], "notes": ["Upgrade to 9.1 first; the 9.2 in-place route requires a supported 9.1 build."], "sourceIds": ["vspc-upgrade"] },
+    { "id": "vspc-9.1-to-9.2", "productId": "vspc", "fromReleaseId": "vspc-9.1", "toReleaseId": "vspc-9.2", "hopReleaseIds": ["vspc-9.2"], "notes": ["Confirm the exact 9.1 build meets the documented in-place requirement."], "sourceIds": ["vspc-upgrade"] }
+  ],
+  "securityFindings": [
+    {
+      "id": "vbr-cve-2025-48984",
+      "productId": "vbr",
+      "title": "Authenticated domain-user RCE on the VBR backup server",
+      "cves": ["CVE-2025-48984"],
+      "affectedReleaseIds": ["vbr-12.1", "vbr-12.3.2.3617"],
+      "fixedReleaseId": "vbr-12.3.2.4165",
+      "cvssScore": 9.9,
+      "conditions": ["Veeam states that this issue impacts domain-joined Veeam Backup & Replication v12 backup servers. Verify that precondition; it does not downgrade this critical upgrade reason."],
+      "sourceIds": ["kb4771"]
+    }
+  ]
+}
