@@ -222,6 +222,11 @@ export default function App() {
               <p className="eyebrow">Upgrade path</p>
               {path ? (
                 <>
+                  {path.guidanceNote && (
+                    <aside className="path-guidance">
+                      <strong>Build-specific guidance.</strong> {path.guidanceNote}
+                    </aside>
+                  )}
                   <ol className="route">
                     <li className="route-step">{release.name}</li>
                     {path.hopReleaseIds.map((releaseId, index) => {

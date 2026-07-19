@@ -8,6 +8,12 @@ describe('catalog lookup', () => {
     const release = findRelease(catalog, 'vbr', '12.3.2.3617')
     expect(release?.id).toBe('vbr-12.3.2.3617')
     expect(findUpgradePath(catalog, release!)?.hopReleaseIds).toEqual(['vbr-12.3.2.4165', 'vbr-13.0.2'])
+    expect(findUpgradePath(catalog, release!)?.guidanceNote).toContain('security-first recommendation')
+  })
+
+  it('explains why broad 12.3.2 input differs from a vulnerable exact build', () => {
+    const release = findRelease(catalog, 'vbr', '12.3.2')!
+    expect(findUpgradePath(catalog, release!)?.guidanceNote).toContain('12.3.2.3617')
   })
 
   it('does not infer an unmatched build from a nearby release', () => {

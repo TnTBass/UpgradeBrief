@@ -52,6 +52,7 @@ export interface UpgradePath {
   fromVersionPrefixes?: string[]
   toReleaseId: string
   hopReleaseIds: string[]
+  guidanceNote?: string
   notes: string[]
   sourceIds: string[]
 }

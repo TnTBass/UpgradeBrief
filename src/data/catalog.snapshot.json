@@ -3915,11 +3915,13 @@
       "hopReleaseIds": [
         "vbr-13.0.2"
       ],
+      "guidanceNote": "Veeam documents 12.3.2 → 13.0.2 directly, but this broad version entry does not identify the installed build. If you are on 12.3.2.3617, the build-specific guidance adds the 12.3.2.4165 security patch first because that build has known vulnerabilities. Enter the exact build for security-first guidance.",
       "notes": [
         "Review the VBR upgrade checklist before upgrading."
       ],
       "sourceIds": [
         "kb2053",
+        "kb4771",
         "vbr-checklist"
       ]
     },
@@ -3932,6 +3934,7 @@
         "vbr-12.3.2.4165",
         "vbr-13.0.2"
       ],
+      "guidanceNote": "Veeam's generic 12.3.2 upgrade path proceeds directly to 13.0.2. Upgrade Brief adds 12.3.2.4165 first for this exact build because Veeam identifies 12.3.2.3617 as affected by vulnerabilities fixed in that patch. This is a security-first recommendation, not a claim that Veeam blocks the direct upgrade.",
       "notes": [
         "Apply the security patch first, then follow the documented route to version 13."
       ],
