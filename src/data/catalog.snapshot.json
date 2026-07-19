@@ -1,12 +1,54 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-19T06:24:35.674Z",
+  "generatedAt": "2026-07-19T06:47:08.600Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-07-19T06:24:35.674Z"
+      "checkedAt": "2026-07-19T06:47:08.600Z"
+    },
+    {
+      "id": "kb4357",
+      "title": "Veeam KB4357: Veeam ONE build numbers",
+      "url": "https://www.veeam.com/kb4357",
+      "checkedAt": "2026-07-19T06:47:08.600Z"
+    },
+    {
+      "id": "kb4358",
+      "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
+      "url": "https://www.veeam.com/kb4358",
+      "checkedAt": "2026-07-19T06:47:08.600Z"
+    },
+    {
+      "id": "kb4464",
+      "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
+      "url": "https://www.veeam.com/kb4464",
+      "checkedAt": "2026-07-19T06:47:08.600Z"
+    },
+    {
+      "id": "kb4581",
+      "title": "Veeam KB4581: Enterprise Manager vulnerabilities",
+      "url": "https://www.veeam.com/kb4581",
+      "checkedAt": "2026-07-19T06:43:01.587Z"
+    },
+    {
+      "id": "kb4585",
+      "title": "Veeam KB4585: VRO vulnerability CVE-2024-29855",
+      "url": "https://www.veeam.com/kb4585",
+      "checkedAt": "2026-07-19T06:43:01.587Z"
+    },
+    {
+      "id": "kb4541",
+      "title": "Veeam KB4541: VRO vulnerabilities",
+      "url": "https://www.veeam.com/kb4541",
+      "checkedAt": "2026-07-19T06:43:01.587Z"
+    },
+    {
+      "id": "kb4679",
+      "title": "Veeam KB4679: VSPC vulnerabilities",
+      "url": "https://www.veeam.com/kb4679",
+      "checkedAt": "2026-07-19T06:43:01.587Z"
     },
     {
       "id": "kb2053",
@@ -54,7 +96,7 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-07-19T06:24:35.674Z"
+      "checkedAt": "2026-07-19T06:47:08.600Z"
     },
     {
       "id": "kb4771",
@@ -66,43 +108,49 @@
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-07-19T06:24:35.674Z"
+      "checkedAt": "2026-07-19T06:47:08.600Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-07-19T06:24:35.674Z"
+      "checkedAt": "2026-07-19T06:47:08.600Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-07-19T06:24:35.674Z"
+      "checkedAt": "2026-07-19T06:47:08.600Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-07-19T06:24:35.674Z"
+      "checkedAt": "2026-07-19T06:47:08.600Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-07-19T06:24:35.674Z"
+      "checkedAt": "2026-07-19T06:47:08.600Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-07-19T06:24:35.674Z"
+      "checkedAt": "2026-07-19T06:47:08.600Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-07-19T06:24:35.674Z"
+      "checkedAt": "2026-07-19T06:47:08.600Z"
+    },
+    {
+      "id": "kb4853",
+      "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
+      "url": "https://www.veeam.com/kb4853",
+      "checkedAt": "2026-07-19T06:47:08.600Z"
     }
   ],
   "products": [
@@ -141,7 +189,7 @@
         "Veeam ONE",
         "ONE"
       ],
-      "recommendedReleaseId": "one-13.0.2",
+      "recommendedReleaseId": "veeam-one-build-13-0-2-6723",
       "coverage": {
         "security": "partial",
         "lifecycle": "partial",
@@ -155,7 +203,7 @@
         "VRO",
         "Veeam Recovery Orchestrator"
       ],
-      "recommendedReleaseId": "vro-13",
+      "recommendedReleaseId": "vro-build-13-0-2-27",
       "coverage": {
         "security": "partial",
         "lifecycle": "partial",
@@ -169,7 +217,7 @@
         "VSPC",
         "Veeam Service Provider Console"
       ],
-      "recommendedReleaseId": "vspc-9.2",
+      "recommendedReleaseId": "vspc-build-9-2-1-33875",
       "coverage": {
         "security": "partial",
         "lifecycle": "partial",
@@ -283,6 +331,18 @@
       ]
     },
     {
+      "id": "em-12.1.2.172",
+      "productId": "enterprise-manager",
+      "name": "12.1.2 (build 12.1.2.172)",
+      "aliases": [
+        "12.1.2.172",
+        "12.1.2"
+      ],
+      "sourceIds": [
+        "kb4581"
+      ]
+    },
+    {
       "id": "em-12.3.1",
       "productId": "enterprise-manager",
       "name": "12.3.1",
@@ -337,7 +397,8 @@
         "12.2.0.4093"
       ],
       "sourceIds": [
-        "kb4649"
+        "kb4649",
+        "kb4357"
       ]
     },
     {
@@ -394,7 +455,8 @@
         "9.1.0.30636"
       ],
       "sourceIds": [
-        "vspc-upgrade"
+        "vspc-upgrade",
+        "kb4464"
       ]
     },
     {
@@ -1379,6 +1441,856 @@
       "sourceIds": [
         "kb2680"
       ]
+    },
+    {
+      "id": "veeam-one-build-13-0-2-6723",
+      "productId": "veeam-one",
+      "name": "13.0.2 (build 13.0.2.6723)",
+      "aliases": [
+        "13.0.2.6723",
+        "13.0.2"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-13-0-1-6168",
+      "productId": "veeam-one",
+      "name": "13.0.1 P1 (build 13.0.1.6168)",
+      "aliases": [
+        "13.0.1.6168",
+        "13.0.1 P1"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-13-0-1-5924",
+      "productId": "veeam-one",
+      "name": "13.0.1 GA (build 13.0.1.5924)",
+      "aliases": [
+        "13.0.1.5924",
+        "13.0.1 GA"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-13-0-1-5860",
+      "productId": "veeam-one",
+      "name": "13.0.1 RTM (build 13.0.1.5860)",
+      "aliases": [
+        "13.0.1.5860",
+        "13.0.1 RTM"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-13-0-0-5761",
+      "productId": "veeam-one",
+      "name": "13 Patch 1 (build 13.0.0.5761)",
+      "aliases": [
+        "13.0.0.5761",
+        "13 Patch 1"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-13-0-0-5729",
+      "productId": "veeam-one",
+      "name": "13 Patch 1 (Note)This build was retracted and rereleased as build 13.0.0.5761. (build 13.0.0.5729)",
+      "aliases": [
+        "13.0.0.5729",
+        "13 Patch 1 (Note)This build was retracted and rereleased as build 13.0.0.5761."
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-13-0-0-5630",
+      "productId": "veeam-one",
+      "name": "13 (build 13.0.0.5630)",
+      "aliases": [
+        "13.0.0.5630",
+        "13"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-12-3-0-4670",
+      "productId": "veeam-one",
+      "name": "12.3 (build 12.3.0.4670)",
+      "aliases": [
+        "12.3.0.4670",
+        "12.3"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-12-1-0-3208",
+      "productId": "veeam-one",
+      "name": "12.1 (build 12.1.0.3208)",
+      "aliases": [
+        "12.1.0.3208",
+        "12.1"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-12-0-1-2591",
+      "productId": "veeam-one",
+      "name": "12 P20230314 (build 12.0.1.2591)",
+      "aliases": [
+        "12.0.1.2591",
+        "12 P20230314"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-12-0-0-2498",
+      "productId": "veeam-one",
+      "name": "12 GA (build 12.0.0.2498)",
+      "aliases": [
+        "12.0.0.2498",
+        "12 GA"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-11-0-1-1880",
+      "productId": "veeam-one",
+      "name": "11a GA (build 11.0.1.1880)",
+      "aliases": [
+        "11.0.1.1880",
+        "11a GA"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-11-0-0-1379",
+      "productId": "veeam-one",
+      "name": "11 GA (build 11.0.0.1379)",
+      "aliases": [
+        "11.0.0.1379",
+        "11 GA"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-10-0-2-1094",
+      "productId": "veeam-one",
+      "name": "10a (build 10.0.2.1094)",
+      "aliases": [
+        "10.0.2.1094",
+        "10a"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-10-0-0-750",
+      "productId": "veeam-one",
+      "name": "10 (build 10.0.0.750)",
+      "aliases": [
+        "10.0.0.750",
+        "10"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-9-5-4-4587",
+      "productId": "veeam-one",
+      "name": "9.5 U4a (build 9.5.4.4587)",
+      "aliases": [
+        "9.5.4.4587",
+        "9.5 U4a"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-9-5-4-4566",
+      "productId": "veeam-one",
+      "name": "9.5 U4 (build 9.5.4.4566)",
+      "aliases": [
+        "9.5.4.4566",
+        "9.5 U4"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-9-5-0-3801",
+      "productId": "veeam-one",
+      "name": "9.5 U3 (build 9.5.0.3801)",
+      "aliases": [
+        "9.5.0.3801",
+        "9.5 U3"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-9-5-0-3254",
+      "productId": "veeam-one",
+      "name": "9.5 U1 (build 9.5.0.3254)",
+      "aliases": [
+        "9.5.0.3254",
+        "9.5 U1"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-9-5-0-3201",
+      "productId": "veeam-one",
+      "name": "9.5 GA (build 9.5.0.3201)",
+      "aliases": [
+        "9.5.0.3201",
+        "9.5 GA"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-9-0-0-2088",
+      "productId": "veeam-one",
+      "name": "9 U1 (build 9.0.0.2088)",
+      "aliases": [
+        "9.0.0.2088",
+        "9 U1"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-9-0-0-2062",
+      "productId": "veeam-one",
+      "name": "9 GA (build 9.0.0.2062)",
+      "aliases": [
+        "9.0.0.2062",
+        "9 GA"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-8-0-0-1669",
+      "productId": "veeam-one",
+      "name": "8 U2 (build 8.0.0.1669)",
+      "aliases": [
+        "8.0.0.1669",
+        "8 U2"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-8-0-0-1615",
+      "productId": "veeam-one",
+      "name": "8 P1 (build 8.0.0.1615)",
+      "aliases": [
+        "8.0.0.1615",
+        "8 P1"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-8-0-0-1569",
+      "productId": "veeam-one",
+      "name": "8 GA (build 8.0.0.1569)",
+      "aliases": [
+        "8.0.0.1569",
+        "8 GA"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-8-0-0-1567",
+      "productId": "veeam-one",
+      "name": "8 RTM (build 8.0.0.1567)",
+      "aliases": [
+        "8.0.0.1567",
+        "8 RTM"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-7-0-0-949",
+      "productId": "veeam-one",
+      "name": "7 P2 (build 7.0.0.949)",
+      "aliases": [
+        "7.0.0.949",
+        "7 P2"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-7-0-0-919",
+      "productId": "veeam-one",
+      "name": "7 R2 (build 7.0.0.919)",
+      "aliases": [
+        "7.0.0.919",
+        "7 R2"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-7-0-0-876",
+      "productId": "veeam-one",
+      "name": "7 (build 7.0.0.876)",
+      "aliases": [
+        "7.0.0.876",
+        "7"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-6-5-0-686",
+      "productId": "veeam-one",
+      "name": "6.5 P1 (build 6.5.0.686)",
+      "aliases": [
+        "6.5.0.686",
+        "6.5 P1"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-6-5-0-676",
+      "productId": "veeam-one",
+      "name": "6.5 (build 6.5.0.676)",
+      "aliases": [
+        "6.5.0.676",
+        "6.5"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "veeam-one-build-6-0-0-520",
+      "productId": "veeam-one",
+      "name": "6 (build 6.0.0.520)",
+      "aliases": [
+        "6.0.0.520",
+        "6"
+      ],
+      "sourceIds": [
+        "kb4357"
+      ]
+    },
+    {
+      "id": "vro-build-13-0-2-27",
+      "productId": "vro",
+      "name": "13.0.2 (Veeam Data Platform 13.0.2) (build 13.0.2.27)",
+      "aliases": [
+        "13.0.2.27",
+        "13.0.2 (Veeam Data Platform 13.0.2)"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vro-build-13-0-0-1167",
+      "productId": "vro",
+      "name": "13 P1 (Veeam Data Platform 13.0.1 P1) (build 13.0.0.1167)",
+      "aliases": [
+        "13.0.0.1167",
+        "13 P1 (Veeam Data Platform 13.0.1 P1)"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vro-build-13-0-0-1005",
+      "productId": "vro",
+      "name": "13 (Veeam Data Platform 13.0.1) (build 13.0.0.1005)",
+      "aliases": [
+        "13.0.0.1005",
+        "13 (Veeam Data Platform 13.0.1)"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vro-build-7-2-1-290",
+      "productId": "vro",
+      "name": "7.2.1 (Veeam Data Platform 12.3.2) (build 7.2.1.290)",
+      "aliases": [
+        "7.2.1.290",
+        "7.2.1 (Veeam Data Platform 12.3.2)"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vro-build-7-2-0-203",
+      "productId": "vro",
+      "name": "7.2 (Veeam Data Platform 12.3) (build 7.2.0.203)",
+      "aliases": [
+        "7.2.0.203",
+        "7.2 (Veeam Data Platform 12.3)"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vro-build-7-1-0-286",
+      "productId": "vro",
+      "name": "7.1 (Veeam Data Platform 12.3) (build 7.1.0.286)",
+      "aliases": [
+        "7.1.0.286",
+        "7.1 (Veeam Data Platform 12.3)"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vro-build-7-1-0-278",
+      "productId": "vro",
+      "name": "7.1 (Veeam Data Platform 12.2) (build 7.1.0.278)",
+      "aliases": [
+        "7.1.0.278",
+        "7.1 (Veeam Data Platform 12.2)"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vro-7.1.0.230",
+      "productId": "vro",
+      "name": "7.1 security patch (build 7.1.0.230)",
+      "aliases": [
+        "7.1.0.230"
+      ],
+      "sourceIds": [
+        "kb4585"
+      ]
+    },
+    {
+      "id": "vro-7.0.0.379",
+      "productId": "vro",
+      "name": "7.0 security patch (build 7.0.0.379)",
+      "aliases": [
+        "7.0.0.379"
+      ],
+      "sourceIds": [
+        "kb4585"
+      ]
+    },
+    {
+      "id": "vro-build-7-1-0-205",
+      "productId": "vro",
+      "name": "7.1 (build 7.1.0.205)",
+      "aliases": [
+        "7.1.0.205",
+        "7.1"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vro-build-7-0-0-337",
+      "productId": "vro",
+      "name": "7 (build 7.0.0.337)",
+      "aliases": [
+        "7.0.0.337",
+        "7"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vro-build-6-0-0-3516",
+      "productId": "vro",
+      "name": "6 P20230419 (build 6.0.0.3516)",
+      "aliases": [
+        "6.0.0.3516",
+        "6 P20230419"
+      ],
+      "sourceIds": [
+        "kb4358"
+      ]
+    },
+    {
+      "id": "vspc-build-9-2-1-33875",
+      "productId": "vspc",
+      "name": "9.2.1 (build 9.2.1.33875)",
+      "aliases": [
+        "9.2.1.33875",
+        "9.2.1"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-9-2-0-33215",
+      "productId": "vspc",
+      "name": "9.2 (build 9.2.0.33215)",
+      "aliases": [
+        "9.2.0.33215",
+        "9.2"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-9-1-0-30713",
+      "productId": "vspc",
+      "name": "9.1 Patch 1 (build 9.1.0.30713)",
+      "aliases": [
+        "9.1.0.30713",
+        "9.1 Patch 1"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-9-1-0-30345",
+      "productId": "vspc",
+      "name": "9.1 RTM (build 9.1.0.30345)",
+      "aliases": [
+        "9.1.0.30345",
+        "9.1 RTM"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-9-0-0-29860",
+      "productId": "vspc",
+      "name": "9 CP1 (build 9.0.0.29860)",
+      "aliases": [
+        "9.0.0.29860",
+        "9 CP1"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-9-0-0-29555",
+      "productId": "vspc",
+      "name": "9 (build 9.0.0.29555)",
+      "aliases": [
+        "9.0.0.29555",
+        "9"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-8-1-0-21999",
+      "productId": "vspc",
+      "name": "8.1 CP1 (build 8.1.0.21999)",
+      "aliases": [
+        "8.1.0.21999",
+        "8.1 CP1"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-8-1-0-21377",
+      "productId": "vspc",
+      "name": "8.1 (build 8.1.0.21377)",
+      "aliases": [
+        "8.1.0.21377",
+        "8.1"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-8-0-0-19552",
+      "productId": "vspc",
+      "name": "8 CP2 (build 8.0.0.19552)",
+      "aliases": [
+        "8.0.0.19552",
+        "8 CP2"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-8-0-0-19236",
+      "productId": "vspc",
+      "name": "8 CP2 (Note)This build was retracted and rereleased as build 8.0.0.19552. For more information review KB4509. (build 8.0.0.19236)",
+      "aliases": [
+        "8.0.0.19236",
+        "8 CP2 (Note)This build was retracted and rereleased as build 8.0.0.19552. For more information review KB4509."
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-8-0-0-18054",
+      "productId": "vspc",
+      "name": "8 CP1 (build 8.0.0.18054)",
+      "aliases": [
+        "8.0.0.18054",
+        "8 CP1"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-8-0-0-16877",
+      "productId": "vspc",
+      "name": "8 (build 8.0.0.16877)",
+      "aliases": [
+        "8.0.0.16877",
+        "8"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-7-0-0-19551",
+      "productId": "vspc",
+      "name": "7 P20240516 (build 7.0.0.19551)",
+      "aliases": [
+        "7.0.0.19551",
+        "7 P20240516"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-7-0-0-18899",
+      "productId": "vspc",
+      "name": "7 P20240412 (build 7.0.0.18899)",
+      "aliases": [
+        "7.0.0.18899",
+        "7 P20240412"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-7-0-0-14271",
+      "productId": "vspc",
+      "name": "7 P20230531 (build 7.0.0.14271)",
+      "aliases": [
+        "7.0.0.14271",
+        "7 P20230531"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-7-0-0-13157",
+      "productId": "vspc",
+      "name": "7 P20230321 (build 7.0.0.13157)",
+      "aliases": [
+        "7.0.0.13157",
+        "7 P20230321"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-7-0-0-12777",
+      "productId": "vspc",
+      "name": "7 GA (build 7.0.0.12777)",
+      "aliases": [
+        "7.0.0.12777",
+        "7 GA"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-6-0-0-8787",
+      "productId": "vspc",
+      "name": "6 Patch 1 (build 6.0.0.8787)",
+      "aliases": [
+        "6.0.0.8787",
+        "6 Patch 1"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-6-0-0-7739",
+      "productId": "vspc",
+      "name": "6 GA (build 6.0.0.7739)",
+      "aliases": [
+        "6.0.0.7739",
+        "6 GA"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-5-0-0-7151",
+      "productId": "vspc",
+      "name": "5 Patch 4 (build 5.0.0.7151)",
+      "aliases": [
+        "5.0.0.7151",
+        "5 Patch 4"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-5-0-0-6959",
+      "productId": "vspc",
+      "name": "5 Patch 3 (build 5.0.0.6959)",
+      "aliases": [
+        "5.0.0.6959",
+        "5 Patch 3"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-5-0-0-6883",
+      "productId": "vspc",
+      "name": "5 Patch 2 (build 5.0.0.6883)",
+      "aliases": [
+        "5.0.0.6883",
+        "5 Patch 2"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-5-0-0-6838",
+      "productId": "vspc",
+      "name": "5 Patch 1 (build 5.0.0.6838)",
+      "aliases": [
+        "5.0.0.6838",
+        "5 Patch 1"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-5-0-0-6726",
+      "productId": "vspc",
+      "name": "5 GA (build 5.0.0.6726)",
+      "aliases": [
+        "5.0.0.6726",
+        "5 GA"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-4-0-0-4914",
+      "productId": "vspc",
+      "name": "4 Patch 2 (build 4.0.0.4914)",
+      "aliases": [
+        "4.0.0.4914",
+        "4 Patch 2"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-4-0-0-4911",
+      "productId": "vspc",
+      "name": "4 Patch 1 (build 4.0.0.4911)",
+      "aliases": [
+        "4.0.0.4911",
+        "4 Patch 1"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
+    },
+    {
+      "id": "vspc-build-4-0-0-4877",
+      "productId": "vspc",
+      "name": "4 GA (build 4.0.0.4877)",
+      "aliases": [
+        "4.0.0.4877",
+        "4 GA"
+      ],
+      "sourceIds": [
+        "kb4464"
+      ]
     }
   ],
   "lifecycleNotices": [
@@ -1504,6 +2416,9 @@
       "id": "one-10a-to-13.0.2",
       "productId": "veeam-one",
       "fromReleaseId": "one-10a",
+      "fromVersionPrefixes": [
+        "10."
+      ],
       "toReleaseId": "one-13.0.2",
       "hopReleaseIds": [
         "one-12.1",
@@ -1520,6 +2435,9 @@
       "id": "one-12.1-to-13.0.2",
       "productId": "veeam-one",
       "fromReleaseId": "one-12.1",
+      "fromVersionPrefixes": [
+        "12."
+      ],
       "toReleaseId": "one-13.0.2",
       "hopReleaseIds": [
         "one-13.0.2"
@@ -1535,6 +2453,9 @@
       "id": "vro-7.2.1-to-13",
       "productId": "vro",
       "fromReleaseId": "vro-7.2.1",
+      "fromVersionPrefixes": [
+        "7.2.1."
+      ],
       "toReleaseId": "vro-13",
       "hopReleaseIds": [
         "vro-13"
@@ -1550,6 +2471,9 @@
       "id": "vspc-8.1-to-9.2",
       "productId": "vspc",
       "fromReleaseId": "vspc-8.1",
+      "fromVersionPrefixes": [
+        "8.1."
+      ],
       "toReleaseId": "vspc-9.2",
       "hopReleaseIds": [
         "vspc-9.1",
@@ -1566,6 +2490,9 @@
       "id": "vspc-9.1-to-9.2",
       "productId": "vspc",
       "fromReleaseId": "vspc-9.1",
+      "fromVersionPrefixes": [
+        "9.1."
+      ],
       "toReleaseId": "vspc-9.2",
       "hopReleaseIds": [
         "vspc-9.2"
@@ -1597,6 +2524,239 @@
       ],
       "sourceIds": [
         "kb4771"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "em-cve-2024-29849",
+      "productId": "enterprise-manager",
+      "title": "An unauthenticated attacker can sign in to the Enterprise Manager web interface as any user.",
+      "cves": [
+        "CVE-2024-29849"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "5.",
+        "6.",
+        "7.",
+        "8.",
+        "9.",
+        "10",
+        "11",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "em-12.1.2.172",
+      "cvssScore": 9.8,
+      "conditions": [
+        "Veeam documents this for the optional Enterprise Manager component. Verify the component is installed; this does not downgrade the upgrade reason."
+      ],
+      "sourceIds": [
+        "kb4581"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "em-cve-2024-29850",
+      "productId": "enterprise-manager",
+      "title": "Enterprise Manager account takeover through NTLM relay.",
+      "cves": [
+        "CVE-2024-29850"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "5.",
+        "6.",
+        "7.",
+        "8.",
+        "9.",
+        "10",
+        "11",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "em-12.1.2.172",
+      "cvssScore": 8.8,
+      "conditions": [
+        "Veeam documents this for the optional Enterprise Manager component. Verify the component is installed; this does not downgrade the upgrade reason."
+      ],
+      "sourceIds": [
+        "kb4581"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "em-cve-2024-29851",
+      "productId": "enterprise-manager",
+      "title": "A high-privileged user can steal the Enterprise Manager service account NTLM hash when it is not Local System.",
+      "cves": [
+        "CVE-2024-29851"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "5.",
+        "6.",
+        "7.",
+        "8.",
+        "9.",
+        "10",
+        "11",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "em-12.1.2.172",
+      "cvssScore": 7.2,
+      "conditions": [
+        "Veeam documents this for the optional Enterprise Manager component. Verify the component is installed; this does not downgrade the upgrade reason."
+      ],
+      "sourceIds": [
+        "kb4581"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "em-cve-2024-29852",
+      "productId": "enterprise-manager",
+      "title": "High-privileged users can read backup session logs.",
+      "cves": [
+        "CVE-2024-29852"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "5.",
+        "6.",
+        "7.",
+        "8.",
+        "9.",
+        "10",
+        "11",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "em-12.1.2.172",
+      "cvssScore": 2.7,
+      "conditions": [
+        "Veeam documents this for the optional Enterprise Manager component. Verify the component is installed; this does not downgrade the upgrade reason."
+      ],
+      "sourceIds": [
+        "kb4581"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "vro-cve-2024-22021",
+      "productId": "vro",
+      "title": "A low-privileged Plan Author can retrieve plans outside their assigned scope.",
+      "cves": [
+        "CVE-2024-22021"
+      ],
+      "affectedReleaseIds": [
+        "vro-build-6-0-0-3516"
+      ],
+      "fixedReleaseId": "vro-build-7-0-0-337",
+      "cvssScore": 4.5,
+      "conditions": [
+        "Veeam identifies VRO 6 as affected. This statement does not apply to VRO 7."
+      ],
+      "sourceIds": [
+        "kb4541"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "vro-cve-2024-22022",
+      "productId": "vro",
+      "title": "A low-privileged VRO user can access the service account NTLM hash.",
+      "cves": [
+        "CVE-2024-22022"
+      ],
+      "affectedReleaseIds": [
+        "vro-build-6-0-0-3516"
+      ],
+      "fixedReleaseId": "vro-build-7-0-0-337",
+      "cvssScore": 8.8,
+      "conditions": [
+        "Veeam identifies VRO 6 as affected. This statement does not apply to VRO 7."
+      ],
+      "sourceIds": [
+        "kb4541"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "vro-cve-2024-29855",
+      "productId": "vro",
+      "title": "An attacker can access the VRO web UI with administrative privileges.",
+      "cves": [
+        "CVE-2024-29855"
+      ],
+      "affectedReleaseIds": [
+        "vro-build-7-0-0-337",
+        "vro-build-7-1-0-205"
+      ],
+      "fixedReleaseId": "vro-7.1.0.230",
+      "cvssScore": 9,
+      "conditions": [
+        "Veeam documents an active VRO UI access token as a precondition. Verify it; this does not downgrade the critical upgrade reason."
+      ],
+      "sourceIds": [
+        "kb4585"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "vspc-cve-2024-42448",
+      "productId": "vspc",
+      "title": "An authorized management agent can perform remote code execution on the VSPC server.",
+      "cves": [
+        "CVE-2024-42448"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "7.",
+          "throughBuild": "7.0.0.18899"
+        },
+        {
+          "versionPrefix": "8.",
+          "throughBuild": "8.1.0.21377"
+        }
+      ],
+      "fixedReleaseId": "vspc-build-8-1-0-21999",
+      "cvssScore": 9.9,
+      "conditions": [
+        "Veeam identifies an authorized management agent as the precondition. Verify it; this does not downgrade the critical upgrade reason."
+      ],
+      "sourceIds": [
+        "kb4679"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "vspc-cve-2024-42449",
+      "productId": "vspc",
+      "title": "An authorized management agent can leak the VSPC service account NTLM hash and delete files.",
+      "cves": [
+        "CVE-2024-42449"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "7.",
+          "throughBuild": "7.0.0.18899"
+        },
+        {
+          "versionPrefix": "8.",
+          "throughBuild": "8.1.0.21377"
+        }
+      ],
+      "fixedReleaseId": "vspc-build-8-1-0-21999",
+      "cvssScore": 7.1,
+      "conditions": [
+        "Veeam identifies an authorized management agent as the precondition. Verify it; this does not downgrade the upgrade reason."
+      ],
+      "sourceIds": [
+        "kb4679"
       ],
       "isCisaKev": false
     },
@@ -2814,6 +3974,29 @@
       "sourceIds": [
         "security-kb",
         "kb4649"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "vbr-cve-2026-32998",
+      "productId": "vspc",
+      "title": "A vulnerability in Veeam Service Provider Console allows for remote code execution.",
+      "cves": [
+        "CVE-2026-32998"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "9.",
+          "throughBuild": "9.2.0.33215"
+        }
+      ],
+      "fixedReleaseId": "vspc-build-9-2-1-33875",
+      "cvssScore": 9.4,
+      "conditions": [],
+      "sourceIds": [
+        "security-kb",
+        "kb4853"
       ],
       "isCisaKev": false
     }

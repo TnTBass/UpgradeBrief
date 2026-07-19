@@ -23,6 +23,20 @@ export function findUpgradePath(catalog: Catalog, release: Release): UpgradePath
   )
 }
 
+export function isRecommendedRelease(catalog: Catalog, release: Release): boolean {
+  return catalog.products.find((product) => product.id === release.productId)?.recommendedReleaseId === release.id
+}
+
+export function checklistSourceIds(productId: ProductId): string[] {
+  return {
+    vbr: ['vbr-checklist'],
+    'enterprise-manager': ['em-upgrade'],
+    'veeam-one': ['kb4646'],
+    vro: ['vro-upgrade'],
+    vspc: ['vspc-upgrade'],
+  }[productId]
+}
+
 function compareDottedVersions(left: string, right: string): number | undefined {
   const leftParts = left.split('.').map(Number)
   const rightParts = right.split('.').map(Number)

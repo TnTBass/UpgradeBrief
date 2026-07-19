@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
-import { findingAppliesToRelease, findLifecycleNotice, findRelease, findUpgradePath } from './lookup'
+import { findingAppliesToRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease } from './lookup'
 
 describe('catalog lookup', () => {
   it('matches an exact VBR build and gives the source-backed staged path', () => {
@@ -43,5 +43,9 @@ describe('catalog lookup', () => {
     }
     expect(findingAppliesToRelease(finding, findRelease(catalog, 'vbr', '13.0.1.180')!)).toBe(true)
     expect(findingAppliesToRelease(finding, findRelease(catalog, 'vbr', '13.0.1.2067')!)).toBe(false)
+  })
+
+  it('identifies a product’s catalog-recommended release without inventing an upgrade route', () => {
+    expect(isRecommendedRelease(catalog, findRelease(catalog, 'veeam-one', '13.0.2.6723')!)).toBe(true)
   })
 })

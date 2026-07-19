@@ -1,5 +1,12 @@
 export const sourceManifest = [
   { id: 'kb2680', parser: 'vbr-builds.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4357', parser: 'product-builds.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4358', parser: 'product-builds.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4464', parser: 'product-builds.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4581', parser: 'enterprise-manager-security.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4585', parser: 'vro-security.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4541', parser: 'vro-security.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4679', parser: 'vspc-security.fixture.html', mode: 'fixture-required' },
   { id: 'kb2053', parser: 'vbr-upgrade-path.fixture.html', mode: 'fixture-required' },
   { id: 'kb4646', parser: 'veeam-one-upgrade-path.fixture.html', mode: 'fixture-required' },
   { id: 'lifecycle', parser: 'lifecycle.fixture.html', mode: 'fixture-required' },

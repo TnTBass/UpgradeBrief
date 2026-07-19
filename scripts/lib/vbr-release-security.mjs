@@ -16,20 +16,23 @@ function articleId(url) {
   return url.match(/\/kb(\d+)$/i)?.[0] ?.slice(1).toLowerCase()
 }
 
-export function selectVbrSecurityArticles(feed) {
+export function selectProductReleaseSecurityArticles(feed, productName) {
   if (!Array.isArray(feed.articles)) throw new Error('Security feed does not include an articles array.')
   return feed.articles.filter((article) =>
     article.type === 'security' &&
-    (/Veeam Backup & Replication/i.test(article.seoTitle ?? '') || (article.product ?? []).some((product) => product.title === 'Veeam Backup & Replication')) &&
+    (new RegExp(productName, 'i').test(article.seoTitle ?? '') || (article.product ?? []).some((product) => product.title === productName)) &&
     /^\/kb\d+$/i.test(article.url ?? ''),
   )
 }
 
-export function parseVbrReleaseSecurityArticle(html, article) {
+export const selectVbrSecurityArticles = (feed) => selectProductReleaseSecurityArticles(feed, 'Veeam Backup & Replication')
+
+export function parseProductReleaseSecurityArticle(html, article, { productId, productName }) {
   const text = decodeHtml(html)
-  const fixedBuild = text.match(/resolved in.*?Replication\s+(\d+(?:\.\d+){3})/i)?.[1]
-  const affected = text.match(/affect\s+Veeam Backup & Replication\s+(\d+(?:\.\d+){3})\s+and\s+all\s+earlier\s+version\s+(\d+)\s+builds/i)
-  if (!fixedBuild || !affected) throw new Error(`${article.id} does not state a supported VBR fixed and affected build range.`)
+  const productPattern = productName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const fixedBuild = text.match(new RegExp(`resolved in.*?${productPattern}\\s+(\\d+(?:\\.\\d+){3})`, 'i'))?.[1]
+  const affected = text.match(new RegExp(`affect\\s+${productPattern}\\s+(\\d+(?:\\.\\d+){3})\\s+and\\s+all\\s+earlier\\s+version\\s+(\\d+)\\s+builds`, 'i'))
+  if (!fixedBuild || !affected) throw new Error(`${article.id} does not state a supported ${productName} fixed and affected build range.`)
 
   const headings = [...html.matchAll(/<h[45]\b[^>]*>[\s\S]*?(CVE-\d{4}-\d+)[\s\S]*?<\/h[45]>/gi)]
   const records = headings.map((heading, index) => {
@@ -49,6 +52,7 @@ export function parseVbrReleaseSecurityArticle(html, article) {
   if (!records.length) throw new Error(`${article.id} contains no parseable CVEs.`)
 
   return {
+    productId,
     source: {
       id: articleId(article.url),
       title: `Veeam ${article.id.toUpperCase()}: ${article.seoTitle}`,
@@ -60,19 +64,22 @@ export function parseVbrReleaseSecurityArticle(html, article) {
   }
 }
 
-export function mergeVbrReleaseSecurityArticles(catalog, advisories) {
+export const parseVbrReleaseSecurityArticle = (html, article) => parseProductReleaseSecurityArticle(html, article, { productId: 'vbr', productName: 'Veeam Backup & Replication' })
+
+export function mergeProductReleaseSecurityArticles(catalog, advisories) {
   const next = structuredClone(catalog)
   const sourceIds = new Set(advisories.map((advisory) => advisory.source.id))
+  const productIds = new Set(advisories.map((advisory) => advisory.productId))
   const retained = next.securityFindings.filter((finding) =>
-    !(finding.productId === 'vbr' && (finding.sourceIds.includes('security-kb') || finding.sourceIds.some((sourceId) => sourceIds.has(sourceId)))),
+    !(productIds.has(finding.productId) && (finding.sourceIds.includes('security-kb') || finding.sourceIds.some((sourceId) => sourceIds.has(sourceId)))),
   )
 
   const findings = advisories.flatMap((advisory) => {
-    const fixedReleaseId = findReleaseId(next, advisory.fixedBuild)
+    const fixedReleaseId = next.releases.find((release) => release.productId === advisory.productId && release.aliases.includes(advisory.fixedBuild))?.id
     if (!fixedReleaseId) throw new Error(`${advisory.source.id} fixed build ${advisory.fixedBuild} is missing from KB2680 data.`)
     return advisory.records.map((record) => ({
       id: `vbr-${record.cve.toLowerCase()}`,
-      productId: 'vbr',
+      productId: advisory.productId,
       title: record.title,
       cves: [record.cve],
       affectedReleaseIds: [],
@@ -87,3 +94,5 @@ export function mergeVbrReleaseSecurityArticles(catalog, advisories) {
   next.securityFindings = [...retained, ...findings]
   return { catalog: next, findings: findings.length }
 }
+
+export const mergeVbrReleaseSecurityArticles = (catalog, advisories) => mergeProductReleaseSecurityArticles(catalog, advisories)

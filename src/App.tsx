@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { findingAppliesToRelease, findLifecycleNotice, findRelease, findUpgradePath, sourceById } from './lib/lookup'
+import { checklistSourceIds, findingAppliesToRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, sourceById } from './lib/lookup'
 import { classifyUrgency } from './lib/urgency'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
@@ -45,6 +45,7 @@ export default function App() {
   const product = catalog.products.find((item) => item.id === productId)!
   const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
+  const isCurrentCatalogRelease = release ? isRecommendedRelease(catalog, release) : false
   const freshness = catalogFreshness(catalog.generatedAt)
   const findings = release ? catalog.securityFindings.filter((finding) => findingAppliesToRelease(finding, release)) : []
   const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
@@ -129,7 +130,8 @@ export default function App() {
                   {path.notes.map((note) => <p key={note}>{note}</p>)}
                   <SourceLinks sourceIds={path.sourceIds} />
                 </>
-              ) : <p>No exact path is in the current curated catalog. Use the linked product documentation rather than assuming a direct upgrade is supported.</p>}
+              ) : isCurrentCatalogRelease ? <p>This is the latest release currently recorded for this product. Continue to review the linked vendor guidance and security advisories for subsequent patches.</p>
+                : <p>No exact path is in the current curated catalog. Use the linked product documentation rather than assuming a direct upgrade is supported.</p>}
             </article>
           </div>
 
@@ -147,7 +149,7 @@ export default function App() {
           <section className="resources">
             <p className="eyebrow">Plan the change</p>
             <h2>Use the vendor checklist and release notes.</h2>
-            <SourceLinks sourceIds={['vbr-checklist', ...release.sourceIds]} />
+            <SourceLinks sourceIds={[...checklistSourceIds(productId), ...release.sourceIds]} />
           </section>
         </section>
       )}
