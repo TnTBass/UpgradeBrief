@@ -28,5 +28,7 @@ describe('release options', () => {
     const options = releaseOptions(catalog.releases.filter((release) => release.productId === 'enterprise-manager'))
 
     expect(options[0]).toEqual({ value: '13.0.2.29', label: '13.0.2 (build 13.0.2.29)' })
+    expect(options).toContainEqual({ value: '12.3.1.1139', label: '12.3.1 (build 12.3.1.1139)' })
+    expect(options).toContainEqual({ value: '13.0.1.2067', label: '13.0.1 P2 (build 13.0.1.2067)' })
   })
 })

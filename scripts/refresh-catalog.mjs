@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawn } from 'node:child_process'
 import { mergeVbrBuilds, parseVbrBuilds } from './lib/vbr-builds.mjs'
+import { mergeEnterpriseManagerBuilds } from './lib/enterprise-manager-builds.mjs'
 import { mergeProductBuilds, parseProductBuilds } from './lib/product-builds.mjs'
 import { mergeVbrSecurityBulletin, mergeVeeamOneSecurityBulletin, parseVbrSecurityBulletin, parseVeeamOneSecurityBulletin } from './lib/vbr-security.mjs'
 import { mergeProductReleaseSecurityArticles, parseProductReleaseSecurityArticle, parseVbrReleaseSecurityArticle, selectProductReleaseSecurityArticles, selectVbrSecurityArticles } from './lib/vbr-release-security.mjs'
@@ -111,7 +112,8 @@ const vroBuildsMerged = mergeProductBuilds(oneBuildsMerged.catalog, { productId:
 const vspcBuildsMerged = mergeProductBuilds(vroBuildsMerged.catalog, { productId: 'vspc', sourceId: vspcBuildSource.id, records: vspcBuilds })
 const releaseInformation12Merged = mergeVbrReleaseInformation(vspcBuildsMerged.catalog, releaseInformationBuilds, releaseInformationSource.id)
 const releaseInformationMerged = mergeVbrReleaseInformation(releaseInformation12Merged.catalog, releaseInformation13Builds, releaseInformation13Source.id)
-const vbrMerged = mergeVbrSecurityBulletin(releaseInformationMerged.catalog, vbrAdvisories)
+const enterpriseManagerBuildsMerged = mergeEnterpriseManagerBuilds(releaseInformationMerged.catalog)
+const vbrMerged = mergeVbrSecurityBulletin(enterpriseManagerBuildsMerged.catalog, vbrAdvisories)
 const oneMerged = mergeVeeamOneSecurityBulletin(vbrMerged.catalog, veeamOneAdvisories)
 const releaseSecurityMerged = mergeProductReleaseSecurityArticles(oneMerged.catalog, discoveredReleaseAdvisories)
 const lifecycleMerged = mergeLifecyclePolicies(releaseSecurityMerged.catalog, lifecyclePolicies)
@@ -129,4 +131,4 @@ for (const source of discoveredSources) {
 }
 
 await validateThenInstall(merged.catalog)
-console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, and ${vspcBuilds.length} VSPC builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions} releases added; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} VBR/VSPC release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${oneMerged.findings} Veeam ONE advisories; ${merged.matches} KEV matches.`)
+console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, and ${vspcBuilds.length} VSPC builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} VBR/VSPC release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${oneMerged.findings} Veeam ONE advisories; ${merged.matches} KEV matches.`)

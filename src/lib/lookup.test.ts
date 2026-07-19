@@ -96,7 +96,13 @@ describe('catalog lookup', () => {
   })
 
   it('recognizes the current Enterprise Manager documentation build', () => {
-    expect(findRelease(catalog, 'enterprise-manager', '13.0.2.29')?.id).toBe('em-13')
+    expect(findRelease(catalog, 'enterprise-manager', '13.0.2.29')?.id).toBe('em-build-13-0-2-29')
+  })
+
+  it('keeps Enterprise Manager builds distinct instead of resolving old 13.0.1 builds as current', () => {
+    const release = findRelease(catalog, 'enterprise-manager', '13.0.1.2067')!
+    expect(release.name).toBe('13.0.1 P2 (build 13.0.1.2067)')
+    expect(findUpgradePath(catalog, release)?.id).toBe('em-13.0.1-to-13.0.2')
   })
 
   it('never applies another product’s similarly numbered advisory', () => {

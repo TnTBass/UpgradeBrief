@@ -247,7 +247,7 @@
         "Enterprise Manager",
         "VBEM"
       ],
-      "recommendedReleaseId": "em-13",
+      "recommendedReleaseId": "em-build-13-0-2-29",
       "coverage": {
         "security": "partial",
         "lifecycle": "partial",
@@ -416,29 +416,142 @@
       ]
     },
     {
-      "id": "em-12.3.1",
+      "id": "em-build-12-3-1-1139",
       "productId": "enterprise-manager",
-      "name": "12.3.1",
+      "name": "12.3.1 (build 12.3.1.1139)",
       "aliases": [
+        "12.3.1.1139",
         "12.3.1"
       ],
       "sourceIds": [
+        "kb2680",
+        "kb4696",
         "em-upgrade"
       ]
     },
     {
-      "id": "em-13",
+      "id": "em-build-13-0-2-29",
       "productId": "enterprise-manager",
       "name": "13.0.2 (build 13.0.2.29)",
       "aliases": [
-        "13",
-        "13.0",
-        "13.0.1",
-        "13.0.1.2067",
         "13.0.2",
         "13.0.2.29"
       ],
       "sourceIds": [
+        "kb2680",
+        "kb2053",
+        "kb4738",
+        "em-upgrade"
+      ]
+    },
+    {
+      "id": "em-build-13-0-1-2067",
+      "productId": "enterprise-manager",
+      "name": "13.0.1 P2 (build 13.0.1.2067)",
+      "aliases": [
+        "13.0.1.2067",
+        "13.0.1 P2"
+      ],
+      "sourceIds": [
+        "kb2680",
+        "kb4738",
+        "em-upgrade"
+      ]
+    },
+    {
+      "id": "em-build-13-0-1-1071",
+      "productId": "enterprise-manager",
+      "name": "13.0.1 P1 (build 13.0.1.1071)",
+      "aliases": [
+        "13.0.1.1071",
+        "13.0.1 P1"
+      ],
+      "sourceIds": [
+        "kb2680",
+        "kb4738",
+        "em-upgrade"
+      ]
+    },
+    {
+      "id": "em-build-13-0-1-180",
+      "productId": "enterprise-manager",
+      "name": "13.0.1 (build 13.0.1.180)",
+      "aliases": [
+        "13.0.1.180",
+        "13.0.1"
+      ],
+      "sourceIds": [
+        "kb2680",
+        "kb4738",
+        "em-upgrade"
+      ]
+    },
+    {
+      "id": "em-build-13-0-0-4967",
+      "productId": "enterprise-manager",
+      "name": "13.0.0 (build 13.0.0.4967)",
+      "aliases": [
+        "13.0.0.4967",
+        "13.0.0"
+      ],
+      "sourceIds": [
+        "kb2680",
+        "kb4738",
+        "em-upgrade"
+      ]
+    },
+    {
+      "id": "em-build-12-3-2-4854",
+      "productId": "enterprise-manager",
+      "name": "12.3.2 P3 (build 12.3.2.4854)",
+      "aliases": [
+        "12.3.2.4854",
+        "12.3.2 P3"
+      ],
+      "sourceIds": [
+        "kb2680",
+        "kb4696",
+        "em-upgrade"
+      ]
+    },
+    {
+      "id": "em-build-12-3-2-4465",
+      "productId": "enterprise-manager",
+      "name": "12.3.2 P2 (build 12.3.2.4465)",
+      "aliases": [
+        "12.3.2.4465",
+        "12.3.2 P2"
+      ],
+      "sourceIds": [
+        "kb2680",
+        "kb4696",
+        "em-upgrade"
+      ]
+    },
+    {
+      "id": "em-build-12-3-2-4165",
+      "productId": "enterprise-manager",
+      "name": "12.3.2 P1 (build 12.3.2.4165)",
+      "aliases": [
+        "12.3.2.4165",
+        "12.3.2 P1"
+      ],
+      "sourceIds": [
+        "kb2680",
+        "kb4771",
+        "em-upgrade"
+      ]
+    },
+    {
+      "id": "em-build-12-3-2-3617",
+      "productId": "enterprise-manager",
+      "name": "12.3.2 (build 12.3.2.3617)",
+      "aliases": [
+        "12.3.2.3617",
+        "12.3.2"
+      ],
+      "sourceIds": [
+        "kb2680",
         "em-upgrade"
       ]
     },
@@ -4056,16 +4169,53 @@
     {
       "id": "em-12.3.1-to-13",
       "productId": "enterprise-manager",
-      "fromReleaseId": "em-12.3.1",
-      "toReleaseId": "em-13",
+      "fromReleaseId": "em-build-12-3-1-1139",
+      "toReleaseId": "em-build-13-0-2-29",
       "hopReleaseIds": [
-        "em-13"
+        "em-build-13-0-2-29"
       ],
       "notes": [
         "Upgrade Enterprise Manager before Veeam Backup & Replication. Version 13 requires Enterprise Manager 12.3.1 or later as the starting point."
       ],
       "sourceIds": [
         "em-upgrade"
+      ]
+    },
+    {
+      "id": "em-13.0.1-to-13.0.2",
+      "productId": "enterprise-manager",
+      "fromReleaseId": "em-build-13-0-1-180",
+      "fromVersionPrefixes": [
+        "13.0.1."
+      ],
+      "toReleaseId": "em-build-13-0-2-29",
+      "hopReleaseIds": [
+        "em-build-13-0-2-29"
+      ],
+      "notes": [
+        "Update Enterprise Manager before updating the Veeam Backup & Replication servers it manages."
+      ],
+      "sourceIds": [
+        "em-upgrade",
+        "kb4738"
+      ]
+    },
+    {
+      "id": "em-13.0.0-to-13.0.2",
+      "productId": "enterprise-manager",
+      "fromReleaseId": "em-build-13-0-0-4967",
+      "toReleaseId": "em-build-13-0-2-29",
+      "hopReleaseIds": [
+        "em-build-13-0-2-29"
+      ],
+      "howToSourceIds": [
+        "kb4738"
+      ],
+      "notes": [
+        "For Enterprise Manager on the Veeam Software Appliance, use the appliance update workflow."
+      ],
+      "sourceIds": [
+        "kb4738"
       ]
     },
     {
