@@ -108,7 +108,7 @@ export function upgradeHighlightsForRelease(catalog: Catalog, release: Release, 
     })
     .sort((left, right) => right.priority - left.priority)
     .slice(0, limit)
-    .map(({ priority: _priority, ...highlight }) => highlight)
+    .map(({ title, summary, availabilityNote, sourceIds }) => ({ title, summary, availabilityNote, sourceIds }))
 }
 
 export function findingAppliesToRelease(finding: SecurityFinding, release: Release): boolean {
