@@ -249,16 +249,19 @@ export default function App() {
                   <p className="eyebrow">Product updates</p>
                   {targetRelease.highlights?.length ? (
                     <>
-                      <p>Examples of Veeam-documented improvements in this target release:</p>
-                      <ul className="release-highlights">
-                        {targetRelease.highlights.map((highlight) => (
-                          <li key={highlight.title}>
-                            <strong>{highlight.title}</strong>
-                            <span>{highlight.summary}</span>
-                            {highlight.availabilityNote && <small>{highlight.availabilityNote}</small>}
-                          </li>
-                        ))}
-                      </ul>
+                      <p>Veeam documents several improvements in this target release.</p>
+                      <details className="release-highlights-details">
+                        <summary>Explore {targetRelease.highlights.length} feature highlights</summary>
+                        <ul className="release-highlights">
+                          {targetRelease.highlights.map((highlight) => (
+                            <li key={highlight.title}>
+                              <strong>{highlight.title}</strong>
+                              <span>{highlight.summary}</span>
+                              {highlight.availabilityNote && <small>{highlight.availabilityNote}</small>}
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
                       <SourceLinks sourceIds={[...new Set([...targetHighlightSourceIds, ...targetMaterialSourceIds])]} />
                     </>
                   ) : (
