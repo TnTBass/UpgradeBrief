@@ -125,7 +125,6 @@ export default function App() {
   const targetMaterialSourceIds = releaseMaterialSourceIds(productId)
   const targetHighlights = release && targetRelease ? upgradeHighlightsForRelease(catalog, release, targetRelease) : []
   const targetHighlightSourceIds = [...new Set(targetHighlights.flatMap((highlight) => highlight.sourceIds))]
-  const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
   const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
   const lifecycleNeedsAttention = lifecycle?.state === 'end-of-support' || lifecycle?.state === 'end-of-fix'
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
@@ -296,18 +295,8 @@ export default function App() {
           {targetRelease && !isCurrentCatalogRelease && (
             <section className="upgrade-value" aria-label="What you gain by upgrading">
               <p className="eyebrow">What you gain</p>
-              <div className="upgrade-value-heading">
-                {findings.length > 0 && upgradeSummary && <UrgencyIcon urgency={upgradeSummary.urgency} />}
-                <h3>{upgradeSummary?.heading ?? `Move to ${targetRelease.name}`}</h3>
-              </div>
-              {upgradeSummary && <p>{upgradeSummary.detail}</p>}
-              <p className="upgrade-value-target"><strong>Recommended target:</strong> {targetRelease.name}. The official materials below help identify the support coverage, product changes, and documented fixes that matter to your environment.</p>
+              <p className="upgrade-value-target"><strong>Recommended target:</strong> {targetRelease.name}. Upgrade to receive current product improvements and supported security fixes.</p>
               <div className="upgrade-value-grid">
-                <article>
-                  <p className="eyebrow">Support coverage</p>
-                  <p>{targetLifecycle?.summary ?? 'Review the vendor lifecycle record for support coverage of this target release.'}</p>
-                  {targetLifecycle && <SourceLinks sourceIds={targetLifecycle.sourceIds} />}
-                </article>
                 <article className="feature-highlights-panel">
                   <p className="eyebrow">What this upgrade adds</p>
                   {targetHighlights.length ? (
@@ -335,13 +324,21 @@ export default function App() {
                     </>
                   )}
                 </article>
-                {targetFixSourceIds.length > 0 && (
-                  <article>
-                    <p className="eyebrow">Documented fixes</p>
-                    <p>These vendor materials describe fixes included in the recommended target.</p>
-                    <SourceLinks sourceIds={targetFixSourceIds} />
-                  </article>
-                )}
+                <article className="security-support-panel">
+                  <p className="eyebrow">Security and support</p>
+                  <div className="security-support-heading">
+                    {findings.length > 0 && upgradeSummary && <UrgencyIcon urgency={upgradeSummary.urgency} />}
+                    <h3>{findings.length > 0 && upgradeSummary ? upgradeSummary.heading : hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : 'No matching published security advisory is currently cataloged.'}</h3>
+                  </div>
+                  <p>{findings.length > 0 && upgradeSummary ? upgradeSummary.detail : hasLegacySecurityRisk ? 'This end-of-support release should be treated as an urgent replacement candidate.' : 'Review the linked security resources and the advisory section below as new vendor information is published.'}</p>
+                  {findings.length > 0 && <a className="security-support-link" href="#security-reasons">View matching advisories</a>}
+                  <div className="target-support-coverage">
+                    <p className="eyebrow">Support coverage</p>
+                    <h3>{targetLifecycle ? formatLifecycleHeading(targetLifecycle.state) : 'Source check required'}</h3>
+                    <p>{targetLifecycle?.summary ?? 'Review the vendor lifecycle record for support coverage of this target release.'}</p>
+                    {targetLifecycle && <SourceLinks sourceIds={targetLifecycle.sourceIds} />}
+                  </div>
+                </article>
               </div>
             </section>
           )}
@@ -415,7 +412,7 @@ export default function App() {
             </article>
           </div>
 
-          <section className="security security-panel">
+          <section className="security security-panel" id="security-reasons">
             <div className="security-heading">
               {findings.length === 0 && <UrgencyIcon urgency={hasLegacySecurityRisk ? 'critical' : 'clear'} />}
               <div>
