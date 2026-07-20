@@ -209,13 +209,15 @@ export default function App() {
           <div className="result-title">
             <p className="eyebrow">Installed release</p>
             <h2>{product.name} {release.name}</h2>
+            {Object.values(product.coverage).some((state) => state !== 'complete') && (
+              <p className="source-scope">
+                <span className="source-scope-icon" aria-hidden="true">i</span>
+                <span>
+                  <strong>Source scope:</strong> This brief reflects the linked, source-backed records. Review the official Veeam sources before acting; additional advisories, lifecycle details, or upgrade constraints may apply.
+                </span>
+              </p>
+            )}
           </div>
-
-          {Object.values(product.coverage).some((state) => state !== 'complete') && (
-            <aside className="coverage-warning">
-              <strong>Coverage is incomplete.</strong> This result is not a declaration that there are no other vulnerabilities, lifecycle limits, or supported paths. Verify the linked official sources before acting.
-            </aside>
-          )}
 
           <div className="result-grid">
             <article>
