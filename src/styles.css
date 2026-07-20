@@ -12,7 +12,7 @@ p { line-height: 1.55; }
 .freshness { color: #66747d; font-size: .76rem; margin: .55rem .15rem 0; }
 .freshness.stale { color: #986000; }.freshness.outdated { color: #a52a25; }
 .lookup, .result { background: #fff; border: 1px solid #dbe2e5; border-radius: 18px; box-shadow: 0 12px 32px #19343a0a; padding: clamp(1.25rem, 4vw, 2.5rem); }
-.lookup form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 1rem; align-items: end; }
+.lookup-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; align-items: end; }
 label, .field { display: grid; gap: .45rem; font-weight: 700; }
 input, select, button { border-radius: 9px; font: inherit; padding: .75rem .85rem; }
 input, select { border: 1px solid #b8c5cb; background: white; }
@@ -33,8 +33,7 @@ button:hover { background: #005a59; }.hint { color: #66747d; font-size: .9rem; }
   main { padding: 1.5rem 1rem; }
   .hero { display: grid; gap: 1rem; padding: .5rem 0 2rem; }
   .lede, h1 { white-space: normal; }
-  .lookup form { align-items: stretch; display: grid; gap: .85rem; grid-template-columns: minmax(0, 1fr); }
-  .lookup form label, .lookup form .field, .lookup form button:not(.version-toggle), .lookup form input, .lookup form select { min-width: 0; width: 100%; }
-  .lookup form button:not(.version-toggle) { min-height: 3.1rem; }
+  .lookup-fields { align-items: stretch; display: grid; gap: .85rem; grid-template-columns: minmax(0, 1fr); }
+  .lookup-fields label, .lookup-fields .field, .lookup-fields input, .lookup-fields select { min-width: 0; width: 100%; }
   .result-grid { grid-template-columns: 1fr; }
 }

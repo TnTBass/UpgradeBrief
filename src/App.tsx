@@ -85,7 +85,6 @@ function SecurityFindingCard({ finding }: { finding: SecurityFinding }) {
 export default function App() {
   const [productId, setProductId] = useState<ProductId>(catalog.products.some((product) => product.id === initialProduct) ? initialProduct : 'vbr')
   const [version, setVersion] = useState(initialVersion)
-  const [submitted, setSubmitted] = useState(Boolean(initialVersion))
   const [versionPickerOpen, setVersionPickerOpen] = useState(false)
   const [versionFilter, setVersionFilter] = useState('')
   const versionPickerRef = useRef<HTMLDivElement>(null)
@@ -96,7 +95,8 @@ export default function App() {
     const query = versionFilter.trim().toLocaleLowerCase()
     return query ? versionOptions.filter((option) => `${option.value} ${option.label}`.toLocaleLowerCase().includes(query)) : versionOptions
   }, [versionFilter, versionOptions])
-  const release = useMemo(() => (submitted ? findRelease(catalog, productId, version) : undefined), [productId, submitted, version])
+  const hasVersion = Boolean(version.trim())
+  const release = useMemo(() => (hasVersion ? findRelease(catalog, productId, version) : undefined), [hasVersion, productId, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
   const pathHowTo = path?.howToSourceIds ?? upgradeHowTo
   const pathHowToSource = sourceById(catalog, pathHowTo[0])
@@ -114,19 +114,13 @@ export default function App() {
   useEffect(() => {
     const params = new URLSearchParams()
     params.set('product', productId)
-    if (submitted && version) params.set('version', version)
+    if (hasVersion) params.set('version', version)
     window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`)
-  }, [productId, submitted, version])
-
-  function submit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setSubmitted(true)
-  }
+  }, [hasVersion, productId, version])
 
   function changeProduct(nextProductId: ProductId) {
     setProductId(nextProductId)
     setVersion('')
-    setSubmitted(false)
     setVersionPickerOpen(false)
     setVersionFilter('')
   }
@@ -149,7 +143,7 @@ export default function App() {
 
       <section className="lookup" aria-labelledby="lookup-heading">
         <h2 id="lookup-heading">Look up your installed version</h2>
-        <form onSubmit={submit}>
+        <div className="lookup-fields">
           <label>
             Product
             <select value={productId} onChange={(event) => changeProduct(event.target.value as ProductId)}>
@@ -173,7 +167,6 @@ export default function App() {
                   if (event.key === 'Escape') setVersionPickerOpen(false)
                 }}
                 placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Start typing a version or build'}
-                required
               />
               <button className="version-toggle" type="button" aria-label="Show version and build choices" aria-expanded={versionPickerOpen} onClick={() => { setVersionFilter(''); setVersionPickerOpen((isOpen) => !isOpen) }}>
                 <span aria-hidden="true">⌄</span>
@@ -189,14 +182,13 @@ export default function App() {
               )}
             </div>
           </div>
-          <button type="submit">Build my upgrade brief</button>
-        </form>
+        </div>
         <p className="hint">Use the exact release/build when available. Results are limited to the source-backed records shown below.</p>
         <VersionHelp productId={productId} />
       </section>
       <p className={`freshness ${freshness}`}>Catalog {freshness} · checked {new Date(catalog.generatedAt).toLocaleDateString()}</p>
 
-      {submitted && !release && (
+      {hasVersion && !release && (
         <section className="result empty">
           <h2>We could not match that version safely.</h2>
           <p>Try the exact version or build number. Upgrade Brief does not infer a route when its catalog lacks an exact source-backed match.</p>
