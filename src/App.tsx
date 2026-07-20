@@ -127,6 +127,7 @@ export default function App() {
   const targetHighlightSourceIds = [...new Set(targetHighlights.flatMap((highlight) => highlight.sourceIds))]
   const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
   const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
+  const lifecycleNeedsAttention = lifecycle?.state === 'end-of-support' || lifecycle?.state === 'end-of-fix'
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
   const executiveRoute = path && release
     ? formatExecutiveRoute([release.name, ...path.hopReleaseIds.flatMap((releaseId) => catalog.releases.find((item) => item.id === releaseId)?.name ?? [])])
@@ -307,13 +308,14 @@ export default function App() {
                   <p>{targetLifecycle?.summary ?? 'Review the vendor lifecycle record for support coverage of this target release.'}</p>
                   {targetLifecycle && <SourceLinks sourceIds={targetLifecycle.sourceIds} />}
                 </article>
-                <article>
-                  <p className="eyebrow">Product updates</p>
+                <article className="feature-highlights-panel">
+                  <p className="eyebrow">What this upgrade adds</p>
                   {targetHighlights.length ? (
                     <>
+                      <h3>Explore {targetHighlights.length} feature highlights</h3>
                       <p>Veeam documents several improvements in this target release.</p>
                       <details className="release-highlights-details">
-                        <summary>Explore {targetHighlights.length} feature highlights</summary>
+                        <summary>Show feature highlights</summary>
                         <ul className="release-highlights">
                           {targetHighlights.map((highlight) => (
                             <li key={highlight.title}>
@@ -332,14 +334,6 @@ export default function App() {
                       <SourceLinks sourceIds={targetMaterialSourceIds} />
                     </>
                   )}
-                  {showVsaConversionGuidance && (
-                    <details className="vsa-conversion-guidance">
-                      <summary>Planning a Windows-to-VSA conversion?</summary>
-                      <p>Veeam’s Windows-to-Veeam Software Appliance configuration migration is currently a limited pilot, not an ordinary in-place upgrade. Preparation includes instance-based VUL licensing, the latest Windows patch level, registration through Veeam’s conversion portal, and proactive support.</p>
-                      <p>Review the documented limitations and post-migration considerations before deciding whether this route fits your environment.</p>
-                      <SourceLinks sourceIds={['vsa-conversion', 'kb4800']} />
-                    </details>
-                  )}
                 </article>
                 {targetFixSourceIds.length > 0 && (
                   <article>
@@ -353,9 +347,12 @@ export default function App() {
           )}
 
           <div className="result-grid">
-            <article className="lifecycle-card">
+            <article className={`lifecycle-card${lifecycleNeedsAttention ? ' needs-attention' : ''}`}>
               <p className="eyebrow">Lifecycle</p>
-              <h3>{lifecycle?.state.replaceAll('-', ' ') ?? 'Source check required'}</h3>
+              <div className="lifecycle-heading">
+                <h3>{lifecycle ? formatLifecycleHeading(lifecycle.state) : 'Source check required'}</h3>
+                {lifecycleNeedsAttention && <span className="lifecycle-attention">Attention needed</span>}
+              </div>
               <p>{lifecycle?.summary ?? 'No release-specific lifecycle statement has been curated for this result.'}</p>
               {lifecycle && <SourceLinks sourceIds={lifecycle.sourceIds} />}
             </article>
@@ -407,6 +404,14 @@ export default function App() {
                 )
                 : lifecycle?.state === 'end-of-support' ? <><p>This release is outside support. No direct route is asserted here without a source-backed path; use the linked vendor guidance to plan a supported migration or new deployment.</p><SourceLinks sourceIds={upgradeHowTo} /></>
                 : <><p>No exact path is in the current curated catalog. Use the linked product documentation rather than assuming a direct upgrade is supported.</p><SourceLinks sourceIds={upgradeHowTo} /></>}
+              {showVsaConversionGuidance && (
+                <details className="vsa-conversion-guidance">
+                  <summary>Planning a Windows-to-VSA conversion?</summary>
+                  <p>Veeam’s Windows-to-Veeam Software Appliance configuration migration is currently a limited pilot, not an ordinary in-place upgrade. Preparation includes instance-based VUL licensing, the latest Windows patch level, registration through Veeam’s conversion portal, and proactive support.</p>
+                  <p>Review the documented limitations and post-migration considerations before deciding whether this route fits your environment.</p>
+                  <SourceLinks sourceIds={['vsa-conversion', 'kb4800']} />
+                </details>
+              )}
             </article>
           </div>
 
