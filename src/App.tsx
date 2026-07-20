@@ -353,13 +353,13 @@ export default function App() {
           )}
 
           <div className="result-grid">
-            <article>
+            <article className="lifecycle-card">
               <p className="eyebrow">Lifecycle</p>
               <h3>{lifecycle?.state.replaceAll('-', ' ') ?? 'Source check required'}</h3>
               <p>{lifecycle?.summary ?? 'No release-specific lifecycle statement has been curated for this result.'}</p>
               {lifecycle && <SourceLinks sourceIds={lifecycle.sourceIds} />}
             </article>
-            <article>
+            <article className="upgrade-path-card">
               <p className="eyebrow">Upgrade path</p>
               {path ? (
                 <>
@@ -410,7 +410,7 @@ export default function App() {
             </article>
           </div>
 
-          <section className="security">
+          <section className="security security-panel">
             <div className="security-heading">
               {findings.length === 0 && <UrgencyIcon urgency={hasLegacySecurityRisk ? 'critical' : 'clear'} />}
               <div>
@@ -443,14 +443,14 @@ export default function App() {
             <SourceLinks sourceIds={['security-kb']} />
           </section>
 
-          <section className="resources">
+          <section className="resources release-materials">
             <p className="eyebrow">About this installed release</p>
             <h2>Vendor release notes and documented fixes.</h2>
             <p>These materials describe changes included in {release.name}; they do not mean every fix affected your environment.</p>
             <SourceLinks sourceIds={installedReleaseSourceIds} />
           </section>
 
-          <section className="resources">
+          <section className="resources planning-materials">
             <p className="eyebrow">Plan the change</p>
             <h2>Use the vendor checklist and release notes.</h2>
             <SourceLinks sourceIds={checklistSourceIds(productId)} />
