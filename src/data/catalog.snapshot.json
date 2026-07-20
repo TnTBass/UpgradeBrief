@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-19T15:31:04.870Z",
+  "generatedAt": "2026-07-20T07:30:39.267Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4357",
       "title": "Veeam KB4357: Veeam ONE build numbers",
       "url": "https://www.veeam.com/kb4357",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4358",
       "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
       "url": "https://www.veeam.com/kb4358",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4464",
       "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
       "url": "https://www.veeam.com/kb4464",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4581",
@@ -66,7 +66,7 @@
       "id": "lifecycle",
       "title": "Veeam Product Lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "em-upgrade",
@@ -150,7 +150,7 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4771",
@@ -162,67 +162,67 @@
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4869",
       "title": "Veeam KB4869: Vulnerability Resolved in Veeam Backup & Replication 12.3.2.4854",
       "url": "https://www.veeam.com/kb4869",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4696",
       "title": "Veeam KB4696: Release Information for Veeam Backup & Replication 12.3 and updates",
       "url": "https://www.veeam.com/kb4696",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4738",
       "title": "Veeam KB4738: Release Information for Veeam Backup & Replication 13 and updates",
       "url": "https://www.veeam.com/kb4738",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     },
     {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T07:30:39.267Z"
     }
   ],
   "products": [
@@ -372,7 +372,8 @@
       ],
       "sourceIds": [
         "kb4771",
-        "kb2680"
+        "kb2680",
+        "kb4696"
       ]
     },
     {
@@ -385,7 +386,8 @@
       ],
       "sourceIds": [
         "kb4771",
-        "kb2680"
+        "kb2680",
+        "kb4696"
       ]
     },
     {
@@ -539,7 +541,8 @@
       "sourceIds": [
         "kb2680",
         "kb4771",
-        "em-upgrade"
+        "em-upgrade",
+        "kb4696"
       ]
     },
     {
@@ -552,7 +555,9 @@
       ],
       "sourceIds": [
         "kb2680",
-        "em-upgrade"
+        "em-upgrade",
+        "kb4771",
+        "kb4696"
       ]
     },
     {
@@ -747,7 +752,8 @@
         "12.3.1"
       ],
       "sourceIds": [
-        "kb2680"
+        "kb2680",
+        "kb4696"
       ]
     },
     {
@@ -759,7 +765,8 @@
         "12.3"
       ],
       "sourceIds": [
-        "kb2680"
+        "kb2680",
+        "kb4696"
       ]
     },
     {
@@ -3302,7 +3309,7 @@
     },
     {
       "productId": "enterprise-manager",
-      "releaseId": "em-12.3.1",
+      "releaseId": "em-build-12-3-1-1139",
       "state": "end-of-fix",
       "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 12 lifecycle row as a reference. Veeam Backup Enterprise Manager 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
       "sourceIds": [
@@ -3311,9 +3318,81 @@
     },
     {
       "productId": "enterprise-manager",
-      "releaseId": "em-13",
+      "releaseId": "em-build-13-0-2-29",
       "state": "supported",
       "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 13 lifecycle row as a reference. Veeam Backup Enterprise Manager 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-build-13-0-1-2067",
+      "state": "supported",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 13 lifecycle row as a reference. Veeam Backup Enterprise Manager 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-build-13-0-1-1071",
+      "state": "supported",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 13 lifecycle row as a reference. Veeam Backup Enterprise Manager 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-build-13-0-1-180",
+      "state": "supported",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 13 lifecycle row as a reference. Veeam Backup Enterprise Manager 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-build-13-0-0-4967",
+      "state": "supported",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 13 lifecycle row as a reference. Veeam Backup Enterprise Manager 13 is listed with support and security fixes through November 2028.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-build-12-3-2-4854",
+      "state": "end-of-fix",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 12 lifecycle row as a reference. Veeam Backup Enterprise Manager 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-build-12-3-2-4465",
+      "state": "end-of-fix",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 12 lifecycle row as a reference. Veeam Backup Enterprise Manager 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-build-12-3-2-4165",
+      "state": "end-of-fix",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 12 lifecycle row as a reference. Veeam Backup Enterprise Manager 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "enterprise-manager",
+      "releaseId": "em-build-12-3-2-3617",
+      "state": "end-of-fix",
+      "summary": "Veeam does not list Veeam Backup Enterprise Manager separately; this uses the corresponding Veeam Backup & Replication 12 lifecycle row as a reference. Veeam Backup Enterprise Manager 12 reached end of fix in November 2025; support and security fixes are listed through February 2027.",
       "sourceIds": [
         "lifecycle"
       ]
@@ -4334,31 +4413,6 @@
       "isCisaKev": false
     },
     {
-      "id": "vbr-cve-2026-44963",
-      "productId": "vbr",
-      "title": "A vulnerability allowing remote code execution (RCE) on the Backup Server by an authenticated domain user.",
-      "cves": [
-        "CVE-2026-44963"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.3.2.4465"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-3-2-4854",
-      "cvssScore": 9.4,
-      "conditions": [
-        "Veeam documents that this issue impacts domain-joined backup servers. Verify that precondition; it does not downgrade this critical upgrade reason."
-      ],
-      "sourceIds": [
-        "security-kb",
-        "kb4869"
-      ],
-      "isCisaKev": false
-    },
-    {
       "id": "em-cve-2024-29849",
       "productId": "enterprise-manager",
       "title": "An unauthenticated attacker can sign in to the Enterprise Manager web interface as any user.",
@@ -4732,6 +4786,29 @@
       ],
       "sourceIds": [
         "kb4649"
+      ],
+      "isCisaKev": false
+    },
+    {
+      "id": "vbr-cve-2026-44963",
+      "productId": "vbr",
+      "title": "All vulnerabilities documented in this article were resolved in Veeam Backup & Replication 12.3.2.4854.",
+      "cves": [
+        "CVE-2026-44963"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "12.",
+          "throughBuild": "12.3.2.4465"
+        }
+      ],
+      "fixedReleaseId": "vbr-build-12-3-2-4854",
+      "cvssScore": 9.4,
+      "conditions": [],
+      "sourceIds": [
+        "security-kb",
+        "kb4869"
       ],
       "isCisaKev": false
     },
