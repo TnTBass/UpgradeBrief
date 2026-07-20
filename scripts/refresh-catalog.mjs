@@ -11,6 +11,7 @@ import { mergeProductReleaseSecurityArticles, parseProductReleaseSecurityArticle
 import { mergeCisaKev, parseCisaKev } from './lib/cisa-kev.mjs'
 import { mergeLifecyclePolicies, parseLifecyclePolicies } from './lib/lifecycle.mjs'
 import { mergeVbrReleaseInformation, parseVbrReleaseInformation } from './lib/vbr-release-information.mjs'
+import { contentFingerprint, extractSourceSupportedHighlights, mergeReleaseMaterials, mergeSourceSupportedHighlights, parseReleaseMaterials, textFromDocument } from './lib/release-materials.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const args = process.argv.slice(2)
@@ -70,7 +71,43 @@ async function fetchSource(source) {
   return response.text()
 }
 
+async function fetchDocument(url) {
+  const response = await fetch(url, {
+    headers: { 'user-agent': 'UpgradeBrief catalog refresher (+https://github.com/TnTBass/UpgradeBrief)' },
+    signal: AbortSignal.timeout(30_000),
+  })
+  if (!response.ok) throw new Error(`${url} request failed with HTTP ${response.status}`)
+  return { bytes: new Uint8Array(await response.arrayBuffer()), contentType: response.headers.get('content-type') ?? '' }
+}
+
+const releaseMaterialProducts = [
+  { productId: 'vbr', helpCenterProductId: '8', productTitle: 'Veeam Backup & Replication' },
+  { productId: 'veeam-one', helpCenterProductId: '9', productTitle: 'Veeam ONE' },
+  { productId: 'vro', helpCenterProductId: '51', productTitle: 'Veeam Recovery Orchestrator' },
+  { productId: 'vspc', helpCenterProductId: '49', productTitle: 'Veeam Service Provider Console' },
+]
+const releaseMaterialEndpoint = 'https://helpcenter.veeam.com/services/component/technical_documentation_table/select'
+
 const [buildHtml, oneBuildHtml, vroBuildHtml, vspcBuildHtml, securityHtml, securityFeedPayload, kevPayload, lifecycleHtml, releaseInformationHtml, releaseInformation13Html] = await Promise.all([fetchSource(buildSource), fetchSource(oneBuildSource), fetchSource(vroBuildSource), fetchSource(vspcBuildSource), fetchSource(securitySource), fetchSource({ ...securityFeedSource, url: 'https://www.veeam.com/services/kb-articles?type=security&offset=0&limit=100' }), fetchSource(kevSource), fetchSource(lifecycleSource), fetchSource(releaseInformationSource), fetchSource(releaseInformation13Source)])
+const releaseMaterialPayloads = await Promise.all(releaseMaterialProducts.map(async (product) => ({
+  ...product,
+  payload: JSON.parse(await fetchSource({
+    id: `release-materials-${product.productId}`,
+    url: `${releaseMaterialEndpoint}?${new URLSearchParams({ productId: product.helpCenterProductId, localeCode: 'en', isInitial: 'true' })}`,
+  })),
+})))
+if (!releaseMaterialPayloads.every(({ productTitle, payload }) => payload?.payload?.products?.[0]?.productTitle === productTitle)) throw new Error('Help Center release-material discovery returned a mismatched product response.')
+const discoveredReleaseMaterials = releaseMaterialPayloads.flatMap(({ productId, payload }) => parseReleaseMaterials(payload, productId))
+if (!releaseMaterialProducts.every((product) => discoveredReleaseMaterials.some((material) => material.productId === product.productId))) throw new Error('Help Center release-material discovery returned no current document for one or more tracked products.')
+const releaseMaterialDocuments = await Promise.allSettled(discoveredReleaseMaterials.map(async (material) => {
+  const document = await fetchDocument(material.url)
+  const contentHash = contentFingerprint(document.bytes)
+  let text
+  try { text = await textFromDocument(document.bytes, document.contentType, material.url) } catch { text = undefined }
+  return { ...material, contentHash, text }
+}))
+const fetchedReleaseMaterials = releaseMaterialDocuments.flatMap((result) => result.status === 'fulfilled' ? [result.value] : [])
+if (fetchedReleaseMaterials.length !== discoveredReleaseMaterials.length) throw new Error('One or more official release materials could not be fingerprinted; refusing to publish a partial material refresh.')
 const builds = parseVbrBuilds(buildHtml)
 const oneBuilds = parseProductBuilds(oneBuildHtml, 'Veeam ONE')
 const vroBuilds = parseProductBuilds(vroBuildHtml, 'Veeam Recovery Orchestrator')
@@ -119,10 +156,17 @@ const releaseSecurityMerged = mergeProductReleaseSecurityArticles(oneMerged.cata
 const lifecycleMerged = mergeLifecyclePolicies(releaseSecurityMerged.catalog, lifecyclePolicies)
 const merged = mergeCisaKev(lifecycleMerged.catalog, kevCves)
 const refreshedAt = new Date().toISOString()
+const releaseMaterialsMerged = mergeReleaseMaterials(merged.catalog, fetchedReleaseMaterials, refreshedAt)
+const materialSourceByUrl = new Map(releaseMaterialsMerged.catalog.sources.map((source) => [source.url, source.id]))
+const generatedHighlights = fetchedReleaseMaterials.flatMap((material) => material.kind === 'whats-new' && material.text
+  ? extractSourceSupportedHighlights(material.text, { ...material, sourceId: materialSourceByUrl.get(material.url) })
+  : [])
+const highlightsMerged = mergeSourceSupportedHighlights(releaseMaterialsMerged.catalog, generatedHighlights, fetchedReleaseMaterials.map((material) => materialSourceByUrl.get(material.url)).filter(Boolean))
+merged.catalog = highlightsMerged.catalog
 merged.catalog.generatedAt = refreshedAt
 const discoveredSources = discoveredReleaseAdvisories.map((advisory) => ({ ...advisory.source, checkedAt: refreshedAt }))
 merged.catalog.sources = merged.catalog.sources.map((item) =>
-  item.id === buildSource.id || item.id === oneBuildSource.id || item.id === vroBuildSource.id || item.id === vspcBuildSource.id || item.id === securitySource.id || item.id === securityFeedSource.id || item.id === kevSource.id || item.id === lifecycleSource.id || item.id === releaseInformationSource.id || item.id === releaseInformation13Source.id ? { ...item, checkedAt: refreshedAt } : item,
+  item.id === buildSource.id || item.id === oneBuildSource.id || item.id === vroBuildSource.id || item.id === vspcBuildSource.id || item.id === securitySource.id || item.id === securityFeedSource.id || item.id === kevSource.id || item.id === lifecycleSource.id || item.id === releaseInformationSource.id || item.id === releaseInformation13Source.id || ['vbr-release-materials', 'one-release-materials', 'vro-release-materials', 'vspc-release-materials'].includes(item.id) ? { ...item, checkedAt: refreshedAt } : item,
 )
 for (const source of discoveredSources) {
   const index = merged.catalog.sources.findIndex((item) => item.id === source.id)
@@ -131,4 +175,4 @@ for (const source of discoveredSources) {
 }
 
 await validateThenInstall(merged.catalog)
-console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, and ${vspcBuilds.length} VSPC builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} VBR/VSPC release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${oneMerged.findings} Veeam ONE advisories; ${merged.matches} KEV matches.`)
+console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, and ${vspcBuilds.length} VSPC builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${releaseMaterialsMerged.additions} release materials added, ${releaseMaterialsMerged.changes} changed, and ${highlightsMerged.additions} source-supported highlights added; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} VBR/VSPC release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${oneMerged.findings} Veeam ONE advisories; ${merged.matches} KEV matches.`)

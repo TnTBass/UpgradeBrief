@@ -15,6 +15,11 @@ export interface Source {
   title: string
   url: string
   checkedAt: string
+  productId?: ProductId
+  releaseFamily?: string
+  materialKind?: 'release-notes' | 'whats-new'
+  contentHash?: string
+  contentChangedAt?: string
 }
 
 export interface Product {
@@ -42,6 +47,7 @@ export interface ReleaseHighlight {
   summary: string
   availabilityNote?: string
   sourceIds: string[]
+  generated?: boolean
 }
 
 export interface ProductCapability {

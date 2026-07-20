@@ -37,6 +37,12 @@ for (const capability of catalog.capabilities) {
   for (const sourceId of capability.sourceIds) assert(sourceIds.has(sourceId), `${capability.id} references unknown source ${sourceId}`)
 }
 
+for (const source of catalog.sources) {
+  if (source.releaseFamily !== undefined) assert(/^\d+\.\d+$/.test(source.releaseFamily), `${source.id} has an invalid releaseFamily`)
+  if (source.materialKind !== undefined) assert(['release-notes', 'whats-new'].includes(source.materialKind), `${source.id} has an invalid materialKind`)
+  if (source.contentHash !== undefined) assert(/^[a-f0-9]{64}$/.test(source.contentHash), `${source.id} has an invalid contentHash`)
+}
+
 for (const path of catalog.upgradePaths) {
   assert(releaseIds.has(path.fromReleaseId) && releaseIds.has(path.toReleaseId), `${path.id} references an unknown endpoint`)
   assert(!path.hopReleaseIds.includes(path.fromReleaseId), `${path.id} includes a route cycle`)

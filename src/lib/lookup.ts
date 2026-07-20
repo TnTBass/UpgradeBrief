@@ -78,6 +78,16 @@ function releaseVersion(release: Release): string | undefined {
   return versionFromText(release.name) ?? release.aliases.map(versionFromText).find(Boolean)
 }
 
+function releaseMaterialFamily(version: string | undefined): string | undefined {
+  if (!version) return undefined
+  const [major, minor = '0'] = version.split('.')
+  return /^\d+$/.test(major) && /^\d+$/.test(minor) ? `${major}.${minor}` : undefined
+}
+
+function materialProductId(productId: ProductId): ProductId {
+  return productId === 'enterprise-manager' ? 'vbr' : productId
+}
+
 export function upgradeHighlightsForRelease(catalog: Catalog, release: Release, targetRelease: Release): ReleaseHighlight[] {
   const installedVersion = releaseVersion(release)
   const targetVersion = releaseVersion(targetRelease)
@@ -141,8 +151,13 @@ export function upgradeTargetRelease(catalog: Catalog, productId: ProductId, pat
   return catalog.releases.find((release) => release.id === targetId)
 }
 
-export function releaseMaterialSourceIds(productId: ProductId): string[] {
-  return releaseMaterialSources[productId]
+export function releaseMaterialSourceIds(catalog: Catalog, productId: ProductId, release?: Release): string[] {
+  const family = releaseMaterialFamily(release && releaseVersion(release))
+  const materialSources = catalog.sources
+    .filter((source) => source.productId === materialProductId(productId) && source.releaseFamily === family && source.materialKind)
+    .sort((left, right) => left.materialKind === 'whats-new' ? -1 : right.materialKind === 'whats-new' ? 1 : left.title.localeCompare(right.title))
+    .map((source) => source.id)
+  return materialSources.length ? materialSources : releaseMaterialSources[productId]
 }
 
 export function documentedFixSourceIds(catalog: Catalog, release: Release): string[] {

@@ -30,6 +30,16 @@ function idForBuild(build) {
   return `vbr-build-${build.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`
 }
 
+function compareBuild(left, right) {
+  const leftParts = left.split('.').map(Number)
+  const rightParts = right.split('.').map(Number)
+  for (let index = 0; index < Math.max(leftParts.length, rightParts.length); index += 1) {
+    const delta = (leftParts[index] ?? 0) - (rightParts[index] ?? 0)
+    if (delta !== 0) return Math.sign(delta)
+  }
+  return 0
+}
+
 export function mergeVbrBuilds(catalog, records) {
   const next = structuredClone(catalog)
   let additions = 0
@@ -50,6 +60,11 @@ export function mergeVbrBuilds(catalog, records) {
     })
     additions += 1
   }
+
+  const latest = records.reduce((winner, record) => !winner || compareBuild(record.build, winner.build) > 0 ? record : winner, undefined)
+  const latestRelease = latest && next.releases.find((release) => release.productId === 'vbr' && release.aliases.includes(latest.build))
+  const product = next.products?.find((item) => item.id === 'vbr')
+  if (product && latestRelease) product.recommendedReleaseId = latestRelease.id
 
   return { catalog: next, additions }
 }

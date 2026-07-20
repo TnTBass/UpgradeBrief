@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-20T07:30:39.267Z",
+  "generatedAt": "2026-07-20T22:53:35.632Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4357",
       "title": "Veeam KB4357: Veeam ONE build numbers",
       "url": "https://www.veeam.com/kb4357",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4358",
       "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
       "url": "https://www.veeam.com/kb4358",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4464",
       "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
       "url": "https://www.veeam.com/kb4464",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4581",
@@ -66,7 +66,7 @@
       "id": "lifecycle",
       "title": "Veeam Product Lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "em-upgrade",
@@ -88,9 +88,14 @@
     },
     {
       "id": "vbr-whats-new",
-      "title": "Veeam Backup & Replication 13 What's New",
+      "title": "Veeam Backup & Replication 13 What's New v13",
       "url": "https://www.veeam.com/veeam_backup_13_whats_new__wn.pdf",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "productId": "vbr",
+      "releaseFamily": "13.0",
+      "materialKind": "whats-new",
+      "contentHash": "ede85322aa2d6846d809aa3a4f0175b84e5ef79e095c54b00129fd2d45aa8f8b",
+      "contentChangedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "vbr-10-whats-new",
@@ -124,9 +129,14 @@
     },
     {
       "id": "one-13-whats-new",
-      "title": "Veeam ONE 13 What's New",
+      "title": "Veeam ONE 13 What's New v13",
       "url": "https://www.veeam.com/veeam_one_13_whats_new_wn.pdf",
-      "checkedAt": "2026-07-20T16:00:00.000Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "productId": "veeam-one",
+      "releaseFamily": "13.0",
+      "materialKind": "whats-new",
+      "contentHash": "e9920917acda68e4ba1620fe08d003bc02220bc385a8310c23fa82f71e1786b9",
+      "contentChangedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "one-13-release-info",
@@ -138,13 +148,23 @@
       "id": "vro-13-whats-new",
       "title": "Veeam Recovery Orchestrator 13 What's New",
       "url": "https://www.veeam.com/veeam_orchestrator_13_whats_new_wn.pdf",
-      "checkedAt": "2026-07-20T16:00:00.000Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "productId": "vro",
+      "releaseFamily": "13.0",
+      "materialKind": "whats-new",
+      "contentHash": "ce7759bb0aad461b939ac547cb252d0847ddf8be95541d7cc8255f40f5235168",
+      "contentChangedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "vro-13-release-notes",
-      "title": "Veeam Recovery Orchestrator 13 release notes",
+      "title": "Veeam Recovery Orchestrator 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_release_notes.html",
-      "checkedAt": "2026-07-20T16:00:00.000Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "productId": "vro",
+      "releaseFamily": "13.0",
+      "materialKind": "release-notes",
+      "contentHash": "5255266c6a9dae9c4ccb8499ebe4e68de5c4ea587942ade24ab66fffceae8be4",
+      "contentChangedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "vspc-9-release-info",
@@ -168,7 +188,7 @@
       "id": "vbr-release-materials",
       "title": "Veeam Backup & Replication 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbr",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "vsa-conversion",
@@ -192,19 +212,19 @@
       "id": "one-release-materials",
       "title": "Veeam ONE 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=one",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "vro-release-materials",
       "title": "Veeam Recovery Orchestrator 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vro",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "vspc-release-materials",
       "title": "Veeam Service Provider Console release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vac",
-      "checkedAt": "2026-07-19T15:31:04.870Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "em-how-to",
@@ -234,7 +254,7 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4771",
@@ -246,67 +266,111 @@
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4869",
       "title": "Veeam KB4869: Vulnerability Resolved in Veeam Backup & Replication 12.3.2.4854",
       "url": "https://www.veeam.com/kb4869",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4696",
       "title": "Veeam KB4696: Release Information for Veeam Backup & Replication 12.3 and updates",
       "url": "https://www.veeam.com/kb4696",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4738",
       "title": "Veeam KB4738: Release Information for Veeam Backup & Replication 13 and updates",
       "url": "https://www.veeam.com/kb4738",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
     },
     {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
-      "checkedAt": "2026-07-20T07:30:39.267Z"
+      "checkedAt": "2026-07-20T22:53:35.632Z"
+    },
+    {
+      "id": "release-material-vbr-13-0-release-notes",
+      "title": "Veeam Backup & Replication 13 Release Notes",
+      "url": "https://helpcenter.veeam.com/rn/veeam_backup_13_0_2_release_notes.html",
+      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "productId": "vbr",
+      "releaseFamily": "13.0",
+      "materialKind": "release-notes",
+      "contentHash": "ca8d19a1021959e23765579a6b4cbb4c144da413246637ee560e0248ca4bb8ba",
+      "contentChangedAt": "2026-07-20T22:49:21.429Z"
+    },
+    {
+      "id": "release-material-veeam-one-13-0-release-notes",
+      "title": "Veeam ONE 13 Release Notes",
+      "url": "https://helpcenter.veeam.com/rn/veeam_one_13_0_2_release_notes.html",
+      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "productId": "veeam-one",
+      "releaseFamily": "13.0",
+      "materialKind": "release-notes",
+      "contentHash": "54b60a297a87292dcdcb76ebe0d6119bea0e3ca190a212ac0902c7b6585c1078",
+      "contentChangedAt": "2026-07-20T22:49:21.429Z"
+    },
+    {
+      "id": "release-material-vspc-9-2-release-notes",
+      "title": "Veeam Service Provider Console 9.2 Release Notes",
+      "url": "https://helpcenter.veeam.com/rn/vspc_9_2_release_notes.html",
+      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "productId": "vspc",
+      "releaseFamily": "9.2",
+      "materialKind": "release-notes",
+      "contentHash": "c00af226cdb4d5af60197c2664b68c05a20496f4454a5dd0d2761a99f75072bf",
+      "contentChangedAt": "2026-07-20T22:49:21.429Z"
+    },
+    {
+      "id": "release-material-vspc-9-2-whats-new",
+      "title": "Veeam Service Provider Console 9.2 What's New",
+      "url": "https://www.veeam.com/veeam_console_9_2_whats_new_wn.pdf",
+      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "productId": "vspc",
+      "releaseFamily": "9.2",
+      "materialKind": "whats-new",
+      "contentHash": "7562a223ec001be9b27b3436736d1096994622ac9c7c991ff13efa046cbed0c5",
+      "contentChangedAt": "2026-07-20T22:53:35.632Z"
     }
   ],
   "products": [
@@ -6126,7 +6190,9 @@
       "summary": "Add hardened repository options to make backup storage more resilient to ransomware.",
       "introducedIn": "11.0",
       "priority": 95,
-      "sourceIds": ["vbr-11-whats-new"]
+      "sourceIds": [
+        "vbr-11-whats-new"
+      ]
     },
     {
       "id": "vbr-inline-malware-detection",
@@ -6137,7 +6203,9 @@
       "introducedIn": "12.1",
       "priority": 96,
       "availabilityNote": "Veeam documents edition and resource requirements for this capability.",
-      "sourceIds": ["vbr-12.1-whats-new"]
+      "sourceIds": [
+        "vbr-12.1-whats-new"
+      ]
     },
     {
       "id": "vbr-software-appliance",
@@ -6148,7 +6216,9 @@
       "introducedIn": "13.0",
       "priority": 100,
       "availabilityNote": "Veeam documents licensing and deployment prerequisites for this option.",
-      "sourceIds": ["vbr-whats-new"]
+      "sourceIds": [
+        "vbr-whats-new"
+      ]
     },
     {
       "id": "vbr-direct-object-storage",
@@ -6158,7 +6228,9 @@
       "summary": "Use direct backup-to-object-storage workflows and extend immutable storage design for recovery data.",
       "introducedIn": "12.0",
       "priority": 88,
-      "sourceIds": ["vbr-12-whats-new"]
+      "sourceIds": [
+        "vbr-12-whats-new"
+      ]
     },
     {
       "id": "vbr-entra-id-protection",
@@ -6168,7 +6240,9 @@
       "summary": "Add Microsoft Entra ID protection, recovery, change tracking, and audit visibility to identity resilience planning.",
       "introducedIn": "12.3",
       "priority": 92,
-      "sourceIds": ["vbr-12.3-whats-new"]
+      "sourceIds": [
+        "vbr-12.3-whats-new"
+      ]
     },
     {
       "id": "vbr-web-management",
@@ -6179,7 +6253,9 @@
       "introducedIn": "13.0",
       "priority": 94,
       "availabilityNote": "Feature availability varies by edition and deployment model.",
-      "sourceIds": ["vbr-whats-new"]
+      "sourceIds": [
+        "vbr-whats-new"
+      ]
     },
     {
       "id": "vbr-backup-server-ha",
@@ -6190,7 +6266,9 @@
       "introducedIn": "13.0",
       "priority": 85,
       "availabilityNote": "Veeam documents this capability for Veeam Software Appliance and the Premium edition.",
-      "sourceIds": ["vbr-whats-new"]
+      "sourceIds": [
+        "vbr-whats-new"
+      ]
     },
     {
       "id": "enterprise-manager-linux-deployment",
@@ -6200,7 +6278,10 @@
       "summary": "Deploy Enterprise Manager on Linux while continuing to manage both Linux and Microsoft Windows backup servers from one management point.",
       "introducedIn": "13.0",
       "priority": 90,
-      "sourceIds": ["em-13-platform", "em-13-components"]
+      "sourceIds": [
+        "em-13-platform",
+        "em-13-components"
+      ]
     },
     {
       "id": "enterprise-manager-ha-awareness",
@@ -6211,7 +6292,9 @@
       "introducedIn": "13.0",
       "priority": 78,
       "availabilityNote": "Use the cluster virtual IP address or full DNS name when adding the backup server.",
-      "sourceIds": ["em-13-platform"]
+      "sourceIds": [
+        "em-13-platform"
+      ]
     },
     {
       "id": "one-analytics-service",
@@ -6221,7 +6304,9 @@
       "summary": "Use the Veeam Analytics Service for more scalable monitoring, centralized management, and clearer operational troubleshooting.",
       "introducedIn": "13.0",
       "priority": 96,
-      "sourceIds": ["one-13-whats-new"]
+      "sourceIds": [
+        "one-13-whats-new"
+      ]
     },
     {
       "id": "one-reporting-engine",
@@ -6231,7 +6316,9 @@
       "summary": "Move to interactive HTML5 reporting with granular filtering, flexible layouts, and dependable CSV and PDF exports for audits and executive review.",
       "introducedIn": "13.0",
       "priority": 94,
-      "sourceIds": ["one-13-whats-new"]
+      "sourceIds": [
+        "one-13-whats-new"
+      ]
     },
     {
       "id": "one-unified-compliance",
@@ -6241,7 +6328,9 @@
       "summary": "Access Veeam ONE dashboards and reporting workflows directly alongside Veeam Backup & Replication operations.",
       "introducedIn": "13.0",
       "priority": 88,
-      "sourceIds": ["one-13-whats-new"]
+      "sourceIds": [
+        "one-13-whats-new"
+      ]
     },
     {
       "id": "one-security-observability",
@@ -6252,7 +6341,10 @@
       "introducedIn": "13.0",
       "priority": 92,
       "availabilityNote": "Some advanced threat integrations require Veeam Data Platform Premium.",
-      "sourceIds": ["one-13-whats-new", "one-13-release-info"]
+      "sourceIds": [
+        "one-13-whats-new",
+        "one-13-release-info"
+      ]
     },
     {
       "id": "one-cloud-workloads",
@@ -6262,7 +6354,9 @@
       "summary": "Extend monitoring, alerting, dashboards, and API coverage across additional AWS, Microsoft Azure, and Google Cloud workloads.",
       "introducedIn": "13.0",
       "priority": 84,
-      "sourceIds": ["one-13-whats-new"]
+      "sourceIds": [
+        "one-13-whats-new"
+      ]
     },
     {
       "id": "vro-vsa-ha",
@@ -6272,7 +6366,10 @@
       "summary": "Use Veeam Software Appliance support with high availability clustering for recovery orchestration.",
       "introducedIn": "13.0",
       "priority": 96,
-      "sourceIds": ["vro-13-whats-new", "vro-13-release-notes"]
+      "sourceIds": [
+        "vro-13-whats-new",
+        "vro-13-release-notes"
+      ]
     },
     {
       "id": "vro-audit-change-tracking",
@@ -6282,7 +6379,9 @@
       "summary": "Use monthly audit reports with full change tracking to improve recovery-plan visibility and traceability.",
       "introducedIn": "13.0",
       "priority": 90,
-      "sourceIds": ["vro-13-whats-new"]
+      "sourceIds": [
+        "vro-13-whats-new"
+      ]
     },
     {
       "id": "vro-web-experience",
@@ -6292,7 +6391,9 @@
       "summary": "Use a modernized web experience to simplify recovery planning and day-to-day orchestration workflows.",
       "introducedIn": "13.0",
       "priority": 85,
-      "sourceIds": ["vro-13-whats-new"]
+      "sourceIds": [
+        "vro-13-whats-new"
+      ]
     },
     {
       "id": "vro-offline-malware-scanning",
@@ -6302,7 +6403,9 @@
       "summary": "Use offline malware scanning for recovery plans to validate backup integrity before recovery in disconnected environments.",
       "introducedIn": "13.0",
       "priority": 94,
-      "sourceIds": ["vro-13-whats-new"]
+      "sourceIds": [
+        "vro-13-whats-new"
+      ]
     },
     {
       "id": "vro-azure-account-security",
@@ -6312,7 +6415,9 @@
       "summary": "Manage Azure compute accounts directly in the Orchestrator UI for tighter configuration control.",
       "introducedIn": "13.0",
       "priority": 80,
-      "sourceIds": ["vro-13-whats-new"]
+      "sourceIds": [
+        "vro-13-whats-new"
+      ]
     },
     {
       "id": "vspc-file-level-restore",
@@ -6322,7 +6427,9 @@
       "summary": "Run file-level restore wizards directly in Veeam Service Provider Console for a more seamless recovery experience.",
       "introducedIn": "9.1",
       "priority": 92,
-      "sourceIds": ["vspc-9-release-info"]
+      "sourceIds": [
+        "vspc-9-release-info"
+      ]
     },
     {
       "id": "vspc-scale-operations",
@@ -6332,7 +6439,9 @@
       "summary": "Use optimized data collection, request processing, and management-agent database maintenance for a more stable backup portal at scale.",
       "introducedIn": "9.1",
       "priority": 88,
-      "sourceIds": ["vspc-9-release-info"]
+      "sourceIds": [
+        "vspc-9-release-info"
+      ]
     },
     {
       "id": "vspc-tenant-access-security",
@@ -6342,7 +6451,74 @@
       "summary": "Use improved password-reset handling designed to further reduce the possibility of user data hijacking.",
       "introducedIn": "9.1",
       "priority": 82,
-      "sourceIds": ["vspc-9-release-info"]
+      "sourceIds": [
+        "vspc-9-release-info"
+      ]
+    },
+    {
+      "id": "auto-vspc-9-2-centralized-veeam-vault-management",
+      "productId": "vspc",
+      "family": "source-9.2-centralized-veeam-vault-management",
+      "title": "Centralized Veeam Vault Management",
+      "summary": "Veeam lists Centralized Veeam Vault Management in its What's New material for version 9.2.",
+      "introducedIn": "9.2",
+      "priority": 60,
+      "sourceIds": [
+        "release-material-vspc-9-2-whats-new"
+      ],
+      "generated": true
+    },
+    {
+      "id": "auto-vspc-9-2-extended-granular-permissions",
+      "productId": "vspc",
+      "family": "source-9.2-extended-granular-permissions",
+      "title": "Extended Granular Permissions",
+      "summary": "Veeam lists Extended Granular Permissions in its What's New material for version 9.2.",
+      "introducedIn": "9.2",
+      "priority": 59,
+      "sourceIds": [
+        "release-material-vspc-9-2-whats-new"
+      ],
+      "generated": true
+    },
+    {
+      "id": "auto-vspc-9-2-enhanced-veeam-agent-support",
+      "productId": "vspc",
+      "family": "source-9.2-enhanced-veeam-agent-support",
+      "title": "Enhanced Veeam Agent Support",
+      "summary": "Veeam lists Enhanced Veeam Agent Support in its What's New material for version 9.2.",
+      "introducedIn": "9.2",
+      "priority": 58,
+      "sourceIds": [
+        "release-material-vspc-9-2-whats-new"
+      ],
+      "generated": true
+    },
+    {
+      "id": "auto-vspc-9-2-enhanced-veeam-backup-replication-support",
+      "productId": "vspc",
+      "family": "source-9.2-enhanced-veeam-backup-replication-support",
+      "title": "Enhanced Veeam Backup & Replication Support",
+      "summary": "Veeam lists Enhanced Veeam Backup & Replication Support in its What's New material for version 9.2.",
+      "introducedIn": "9.2",
+      "priority": 57,
+      "sourceIds": [
+        "release-material-vspc-9-2-whats-new"
+      ],
+      "generated": true
+    },
+    {
+      "id": "auto-vspc-9-2-localization",
+      "productId": "vspc",
+      "family": "source-9.2-localization",
+      "title": "Localization",
+      "summary": "Veeam lists Localization in its What's New material for version 9.2.",
+      "introducedIn": "9.2",
+      "priority": 56,
+      "sourceIds": [
+        "release-material-vspc-9-2-whats-new"
+      ],
+      "generated": true
     }
   ]
 }

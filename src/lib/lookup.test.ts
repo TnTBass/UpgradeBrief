@@ -147,8 +147,19 @@ describe('catalog lookup', () => {
     const target = upgradeTargetRelease(catalog, 'vbr', findUpgradePath(catalog, release))!
 
     expect(target.id).toBe('vbr-13.0.2')
-    expect(releaseMaterialSourceIds('vbr')).toEqual(['vbr-whats-new', 'vbr-release-materials'])
+    expect(releaseMaterialSourceIds(catalog, 'vbr', target)).toEqual(['vbr-whats-new', 'release-material-vbr-13-0-release-notes'])
     expect(documentedFixSourceIds(catalog, target)).toContain('kb4852')
+  })
+
+  it('uses the target release family for automatic material links, including Enterprise Manager', () => {
+    const vspcTarget = findRelease(catalog, 'vspc', '9.2.1')!
+    const enterpriseManagerTarget = findRelease(catalog, 'enterprise-manager', '13.0.2.29')!
+
+    expect(releaseMaterialSourceIds(catalog, 'vspc', vspcTarget)).toEqual([
+      'release-material-vspc-9-2-whats-new',
+      'release-material-vspc-9-2-release-notes',
+    ])
+    expect(releaseMaterialSourceIds(catalog, 'enterprise-manager', enterpriseManagerTarget)).toContain('vbr-whats-new')
   })
 
   it('selects source-backed VBR highlights as the installed-release delta', () => {

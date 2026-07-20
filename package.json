@@ -17,6 +17,7 @@
     "test:security-adapter": "node scripts/test-vbr-security-adapter.mjs",
     "test:release-security-adapter": "node scripts/test-vbr-release-security-adapter.mjs",
     "test:release-information-adapter": "node scripts/test-vbr-release-information-adapter.mjs",
+    "test:release-material-adapter": "node scripts/test-release-material-adapter.mjs",
     "test:lifecycle-adapter": "node scripts/test-lifecycle-adapter.mjs",
     "test:kev-adapter": "node scripts/test-cisa-kev-adapter.mjs",
     "validate:catalog": "node scripts/validate-catalog.mjs",
@@ -25,6 +26,7 @@
   "dependencies": {
     "@vitejs/plugin-react": "6.0.3",
     "jspdf": "^4.2.1",
+    "pdfjs-dist": "^5.4.394",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "vite": "8.1.5"

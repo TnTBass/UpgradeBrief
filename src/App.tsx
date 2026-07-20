@@ -122,7 +122,7 @@ export default function App() {
   const advisoryUrgencies = summarizeAdvisoryUrgencies(findings)
   const targetRelease = release ? upgradeTargetRelease(catalog, productId, path) : undefined
   const targetLifecycle = targetRelease ? findLifecycleNotice(catalog, productId, targetRelease.id) : undefined
-  const targetMaterialSourceIds = releaseMaterialSourceIds(productId)
+  const targetMaterialSourceIds = releaseMaterialSourceIds(catalog, productId, targetRelease)
   const targetHighlights = release && targetRelease ? upgradeHighlightsForRelease(catalog, release, targetRelease) : []
   const targetHighlightSourceIds = [...new Set(targetHighlights.flatMap((highlight) => highlight.sourceIds))]
   const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
