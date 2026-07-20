@@ -297,12 +297,9 @@ export default function App() {
             {findings.length > 0 ? (
               <details className="security-advisories">
                 <summary>
-                  <span className="security-advisory-heading">
-                    <strong>{findings.length} matching {findings.length === 1 ? 'advisory' : 'advisories'}</strong>
-                    <span className="security-advisory-breakdown">
-                      {advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'high priority' : urgency}`).join(', ')}
-                    </span>
-                  </span>
+                  <strong>
+                    {findings.length} matching {findings.length === 1 ? 'advisory' : 'advisories'} - {advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}
+                  </strong>
                   <span aria-hidden="true" className="security-advisories-toggle">Show details</span>
                 </summary>
                 <div className="security-advisory-list">
