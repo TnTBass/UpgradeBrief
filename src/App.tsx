@@ -6,6 +6,7 @@ import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLif
 import { releaseOptions } from './lib/release-options'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './lib/upgrade-summary'
 import { classifyUrgency } from './lib/urgency'
+import { formatExecutiveRoute, formatLifecycleHeading } from './lib/executive-summary-format'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
 const initialVersion = new URLSearchParams(window.location.search).get('version') || ''
@@ -127,7 +128,7 @@ export default function App() {
   const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
   const executiveRoute = path && release
-    ? [release.name, ...path.hopReleaseIds.flatMap((releaseId) => catalog.releases.find((item) => item.id === releaseId)?.name ?? [])].join(' → ')
+    ? formatExecutiveRoute([release.name, ...path.hopReleaseIds.flatMap((releaseId) => catalog.releases.find((item) => item.id === releaseId)?.name ?? [])])
     : undefined
   const executiveSourceIds = release ? [...new Set([
     ...installedReleaseSourceIds,
@@ -180,7 +181,7 @@ export default function App() {
       preparedOn: new Date().toLocaleDateString(),
       recommendation: upgradeSummary,
       lifecycle: {
-        heading: lifecycle?.state.replaceAll('-', ' ') ?? 'Source check required',
+        heading: formatLifecycleHeading(lifecycle?.state),
         detail: lifecycle?.summary ?? 'No release-specific lifecycle statement has been curated for this result.',
       },
       upgradeRoute: {
