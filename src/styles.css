@@ -47,4 +47,8 @@ button:hover { background: #005a59; }.hint { color: #66747d; font-size: .9rem; }
   .security-support-panel { border-top: 1px solid #b8d7d5; }
   .release-highlights { gap: .6rem; }
   .release-highlights li { padding-left: .6rem; }
+  .security-advisories summary { align-items: start; display: grid; font-size: 1.1rem; gap: .3rem .45rem; grid-template-columns: .7rem minmax(0, 1fr); justify-content: start; }
+  .security-advisories summary::before { grid-column: 1; grid-row: 1; margin: .35rem 0 0 .1rem; }
+  .security-advisories summary strong { flex: initial; grid-column: 2; grid-row: 1; }
+  .security-advisories-toggle { grid-column: 2; grid-row: 2; justify-self: start; }
 }
