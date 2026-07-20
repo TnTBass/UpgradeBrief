@@ -113,6 +113,18 @@ export default function App() {
   const targetHighlightSourceIds = targetRelease ? [...new Set(targetRelease.highlights?.flatMap((highlight) => highlight.sourceIds) ?? [])] : []
   const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
+  const executiveRoute = path && release
+    ? [release.name, ...path.hopReleaseIds.flatMap((releaseId) => catalog.releases.find((item) => item.id === releaseId)?.name ?? [])].join(' → ')
+    : undefined
+  const executiveSourceIds = release ? [...new Set([
+    ...installedReleaseSourceIds,
+    ...(lifecycle?.sourceIds ?? []),
+    ...(path?.sourceIds ?? []),
+    ...pathHowTo,
+    ...(targetLifecycle?.sourceIds ?? []),
+    ...targetHighlightSourceIds,
+    ...targetMaterialSourceIds,
+  ])] : []
   const hasLegacySecurityRisk = lifecycle?.state === 'end-of-support' && findings.length === 0
   const upgradeSummary = release ? buildUpgradeSummary({
     findings,
@@ -140,6 +152,10 @@ export default function App() {
     window.setTimeout(() => {
       if (!versionPickerRef.current?.contains(document.activeElement)) setVersionPickerOpen(false)
     })
+  }
+
+  function exportExecutiveSummary() {
+    window.print()
   }
 
   return (
@@ -223,7 +239,61 @@ export default function App() {
                 </span>
               </p>
             )}
+            <button className="export-summary" type="button" onClick={exportExecutiveSummary} title="Opens the print dialog. Choose Save as PDF to export.">Export executive summary</button>
           </div>
+
+          <section className="executive-summary-print" aria-label="Executive summary for export">
+            <p className="brand">Upgrade Brief</p>
+            <p className="eyebrow">Executive summary</p>
+            <h1>{product.name} {release.name}</h1>
+            <p className="print-generated">Prepared {new Date().toLocaleDateString()}</p>
+
+            <section>
+              <p className="eyebrow">Recommendation</p>
+              <h2>{upgradeSummary?.heading ?? 'Review the documented upgrade guidance.'}</h2>
+              <p>{upgradeSummary?.detail}</p>
+            </section>
+
+            <div className="executive-summary-grid">
+              <section>
+                <p className="eyebrow">Lifecycle</p>
+                <h2>{lifecycle?.state.replaceAll('-', ' ') ?? 'Source check required'}</h2>
+                <p>{lifecycle?.summary ?? 'No release-specific lifecycle statement has been curated for this result.'}</p>
+              </section>
+              <section>
+                <p className="eyebrow">Upgrade route</p>
+                <h2>{targetRelease ? `Recommended target: ${targetRelease.name}` : 'Confirm the supported route'}</h2>
+                <p>{executiveRoute ?? 'No exact route is currently curated. Use the linked vendor guidance to plan the next step.'}</p>
+              </section>
+            </div>
+
+            {findings.length > 0 && (
+              <section>
+                <p className="eyebrow">Security posture</p>
+                <p>{findings.length} matching cataloged {findings.length === 1 ? 'security advisory' : 'security advisories'}, including {advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}. Individual advisory details are excluded from this executive summary.</p>
+              </section>
+            )}
+
+            {targetRelease?.highlights?.length ? (
+              <section>
+                <p className="eyebrow">What the target can add</p>
+                <ul>
+                  {targetRelease.highlights.map((highlight) => <li key={highlight.title}><strong>{highlight.title}.</strong> {highlight.summary}</li>)}
+                </ul>
+              </section>
+            ) : targetRelease && (
+              <section>
+                <p className="eyebrow">What the target can add</p>
+                <p>Review Veeam’s documented capabilities, release notes, and fixes for the recommended target before deciding whether a feature or fix is important to your environment.</p>
+              </section>
+            )}
+
+            <section>
+              <p className="eyebrow">Source scope</p>
+              <p>This executive summary reflects the linked, source-backed records. It does not assess the environment or certify upgrade safety. Review the official Veeam sources before acting.</p>
+              <SourceLinks sourceIds={executiveSourceIds} />
+            </section>
+          </section>
 
           {upgradeSummary && (!targetRelease || isCurrentCatalogRelease) && (
             <section className={`upgrade-summary ${upgradeSummary.urgency}`} aria-label="Why upgrade">
