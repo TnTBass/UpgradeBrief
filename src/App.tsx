@@ -384,7 +384,7 @@ export default function App() {
           <section className="security">
             <div>
               <p className="eyebrow">Security reasons to upgrade</p>
-              {findings.length === 0 && <h2>{hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : 'No matching advisory is currently curated'}</h2>}
+              {findings.length === 0 && <h2>{hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : 'No matching published security advisory is currently cataloged.'}</h2>}
             </div>
             {findings.length > 0 ? (
               <details className="security-advisories">

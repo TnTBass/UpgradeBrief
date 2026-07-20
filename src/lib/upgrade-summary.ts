@@ -43,7 +43,11 @@ export function buildUpgradeSummary({ findings, lifecycle, targetRelease, isCurr
 
     return {
       urgency,
-      heading: 'Security fixes are the clear reason to upgrade.',
+      heading: urgency === 'critical'
+        ? 'Critical security fixes are available.'
+        : urgency === 'high'
+          ? 'High-priority security fixes are available.'
+          : 'Security updates are available.',
       detail: `This build has ${advisoryLabel}${urgencyLabel ? `, ${urgencyLabel}` : ''}.${nextStep}`,
     }
   }
