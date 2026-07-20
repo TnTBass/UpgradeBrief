@@ -39,4 +39,12 @@ button:hover { background: #005a59; }.hint { color: #66747d; font-size: .9rem; }
   .lookup-fields { align-items: stretch; display: grid; gap: .85rem; grid-template-columns: minmax(0, 1fr); }
   .lookup-fields label, .lookup-fields .field, .lookup-fields input, .lookup-fields select { min-width: 0; width: 100%; }
   .result-grid, .upgrade-value-grid { grid-template-columns: 1fr; }
+  .upgrade-value { padding: 1rem; }
+  .upgrade-value-grid { gap: .9rem; }
+  .upgrade-value-grid article { background: transparent; border-radius: 0; padding: .8rem 0 0; }
+  .feature-highlights-panel { background: transparent !important; border: 0; border-top: 3px solid #006e6d; box-shadow: none; }
+  .feature-highlights-panel h3 { font-size: 1.15rem; }
+  .security-support-panel { border-top: 1px solid #b8d7d5; }
+  .release-highlights { gap: .6rem; }
+  .release-highlights li { padding-left: .6rem; }
 }
