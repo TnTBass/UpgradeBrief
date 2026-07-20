@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { catalog } from './data/catalog'
-import type { ProductId, SecurityFinding } from './lib/catalog-types'
+import type { ProductId, SecurityFinding, Urgency } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
 import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, sourceById, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
@@ -81,6 +81,18 @@ function SecurityFindingCard({ finding }: { finding: SecurityFinding }) {
       <SourceLinks sourceIds={finding.sourceIds} />
     </article>
   )
+}
+
+function UrgencyIcon({ urgency }: { urgency: Urgency | 'clear' }) {
+  const paths = urgency === 'critical'
+    ? <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" /><path d="M12 8v4" /><path d="M12 16h.01" /></>
+    : urgency === 'high'
+      ? <><path d="m21.7 18.3-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-2.7Z" /><path d="M12 9v4" /><path d="M12 17h.01" /></>
+      : urgency === 'standard'
+        ? <><circle cx="12" cy="12" r="10" /><path d="M12 8v4" /><path d="M12 16h.01" /></>
+        : <><circle cx="12" cy="12" r="10" /><path d="m8 12 2.5 2.5L16 9" /></>
+
+  return <span className={`urgency-icon ${urgency}`} aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false">{paths}</svg></span>
 }
 
 export default function App() {
@@ -268,17 +280,27 @@ export default function App() {
 
           {upgradeSummary && (!targetRelease || isCurrentCatalogRelease) && (
             <section className={`upgrade-summary ${upgradeSummary.urgency}`} aria-label="Why upgrade">
-              <p className="eyebrow">Why upgrade</p>
-              <h3>{upgradeSummary.heading}</h3>
-              <p>{upgradeSummary.detail}</p>
+              <div className="upgrade-summary-heading">
+                {findings.length > 0 && <UrgencyIcon urgency={upgradeSummary.urgency} />}
+                <div>
+                  <p className="eyebrow">Why upgrade</p>
+                  <h3>{upgradeSummary.heading}</h3>
+                  <p>{upgradeSummary.detail}</p>
+                </div>
+              </div>
             </section>
           )}
 
           {targetRelease && !isCurrentCatalogRelease && (
             <section className="upgrade-value" aria-label="What you gain by upgrading">
               <p className="eyebrow">What you gain</p>
-              <h3>{upgradeSummary?.heading ?? `Move to ${targetRelease.name}`}</h3>
-              {upgradeSummary && <p>{upgradeSummary.detail}</p>}
+              <div className="upgrade-value-heading">
+                {findings.length > 0 && upgradeSummary && <UrgencyIcon urgency={upgradeSummary.urgency} />}
+                <div>
+                  <h3>{upgradeSummary?.heading ?? `Move to ${targetRelease.name}`}</h3>
+                  {upgradeSummary && <p>{upgradeSummary.detail}</p>}
+                </div>
+              </div>
               <p className="upgrade-value-target"><strong>Recommended target:</strong> {targetRelease.name}. The official materials below help identify the support coverage, product changes, and documented fixes that matter to your environment.</p>
               <div className="upgrade-value-grid">
                 <article>
@@ -382,9 +404,12 @@ export default function App() {
           </div>
 
           <section className="security">
-            <div>
+            <div className="security-heading">
+              {findings.length === 0 && <UrgencyIcon urgency={hasLegacySecurityRisk ? 'critical' : 'clear'} />}
+              <div>
               <p className="eyebrow">Security reasons to upgrade</p>
               {findings.length === 0 && <h2>{hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : 'No matching published security advisory is currently cataloged.'}</h2>}
+              </div>
             </div>
             {findings.length > 0 ? (
               <details className="security-advisories">
