@@ -4,6 +4,7 @@ import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
 import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, sourceById, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
+import { buildUpgradeSummary } from './lib/upgrade-summary'
 import { classifyUrgency } from './lib/urgency'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
@@ -110,6 +111,13 @@ export default function App() {
   const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
   const hasLegacySecurityRisk = lifecycle?.state === 'end-of-support' && findings.length === 0
+  const upgradeSummary = release ? buildUpgradeSummary({
+    findings,
+    lifecycle,
+    targetRelease,
+    isCurrentCatalogRelease,
+    hasDocumentedPath: Boolean(path),
+  }) : undefined
 
   useEffect(() => {
     const params = new URLSearchParams()
@@ -213,6 +221,14 @@ export default function App() {
               </p>
             )}
           </div>
+
+          {upgradeSummary && (
+            <section className={`upgrade-summary ${upgradeSummary.urgency}`} aria-label="Why upgrade">
+              <p className="eyebrow">Why upgrade</p>
+              <h3>{upgradeSummary.heading}</h3>
+              <p>{upgradeSummary.detail}</p>
+            </section>
+          )}
 
           <div className="result-grid">
             <article>
