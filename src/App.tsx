@@ -146,9 +146,12 @@ export default function App() {
         <div className="lookup-fields">
           <label>
             Product
-            <select value={productId} onChange={(event) => changeProduct(event.target.value as ProductId)}>
-              {catalog.products.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
-            </select>
+            <span className="select-picker">
+              <select value={productId} onChange={(event) => changeProduct(event.target.value as ProductId)}>
+                {catalog.products.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+              </select>
+              <span className="picker-chevron" aria-hidden="true" />
+            </span>
           </label>
           <div className="field">
             <span>Version or build</span>
@@ -169,7 +172,7 @@ export default function App() {
                 placeholder={productId === 'vbr' ? 'Example: 12.1 or 13.0.2.29' : 'Start typing a version or build'}
               />
               <button className="version-toggle" type="button" aria-label="Show version and build choices" aria-expanded={versionPickerOpen} onClick={() => { setVersionFilter(''); setVersionPickerOpen((isOpen) => !isOpen) }}>
-                <span aria-hidden="true">⌄</span>
+                <span className="picker-chevron" aria-hidden="true" />
               </button>
               {versionPickerOpen && (
                 <ul className="version-options" id="version-options" role="listbox" aria-label="Available version and build choices">
