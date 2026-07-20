@@ -110,6 +110,7 @@ export default function App() {
   const targetRelease = release ? upgradeTargetRelease(catalog, productId, path) : undefined
   const targetLifecycle = targetRelease ? findLifecycleNotice(catalog, productId, targetRelease.id) : undefined
   const targetMaterialSourceIds = releaseMaterialSourceIds(productId)
+  const targetHighlightSourceIds = targetRelease ? [...new Set(targetRelease.highlights?.flatMap((highlight) => highlight.sourceIds) ?? [])] : []
   const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
   const hasLegacySecurityRisk = lifecycle?.state === 'end-of-support' && findings.length === 0
@@ -246,8 +247,26 @@ export default function App() {
                 </article>
                 <article>
                   <p className="eyebrow">Product updates</p>
-                  <p>Review Veeam’s documented capabilities and release notes for this target release.</p>
-                  <SourceLinks sourceIds={targetMaterialSourceIds} />
+                  {targetRelease.highlights?.length ? (
+                    <>
+                      <p>Examples of Veeam-documented improvements in this target release:</p>
+                      <ul className="release-highlights">
+                        {targetRelease.highlights.map((highlight) => (
+                          <li key={highlight.title}>
+                            <strong>{highlight.title}</strong>
+                            <span>{highlight.summary}</span>
+                            {highlight.availabilityNote && <small>{highlight.availabilityNote}</small>}
+                          </li>
+                        ))}
+                      </ul>
+                      <SourceLinks sourceIds={[...new Set([...targetHighlightSourceIds, ...targetMaterialSourceIds])]} />
+                    </>
+                  ) : (
+                    <>
+                      <p>Review Veeam’s documented capabilities and release notes for this target release.</p>
+                      <SourceLinks sourceIds={targetMaterialSourceIds} />
+                    </>
+                  )}
                 </article>
                 {targetFixSourceIds.length > 0 && (
                   <article>

@@ -150,4 +150,13 @@ describe('catalog lookup', () => {
     expect(releaseMaterialSourceIds('vbr')).toEqual(['vbr-whats-new', 'vbr-release-materials'])
     expect(documentedFixSourceIds(catalog, target)).toContain('kb4852')
   })
+
+  it('includes source-backed VBR 13 upgrade highlights on the recommended target', () => {
+    const target = findRelease(catalog, 'vbr', '13.0.2.29')!
+
+    expect(target.highlights).toEqual(expect.arrayContaining([
+      expect.objectContaining({ title: 'A pre-hardened software appliance option', sourceIds: ['vbr-whats-new'] }),
+      expect.objectContaining({ title: 'Modern management and identity controls', sourceIds: ['vbr-whats-new'] }),
+    ]))
+  })
 })

@@ -23,6 +23,12 @@ for (const collection of [catalog.releases, catalog.lifecycleNotices, catalog.up
   }
 }
 
+for (const release of catalog.releases) {
+  for (const highlight of release.highlights ?? []) {
+    for (const sourceId of highlight.sourceIds) assert(sourceIds.has(sourceId), `${release.id} highlight references unknown source ${sourceId}`)
+  }
+}
+
 for (const path of catalog.upgradePaths) {
   assert(releaseIds.has(path.fromReleaseId) && releaseIds.has(path.toReleaseId), `${path.id} references an unknown endpoint`)
   assert(!path.hopReleaseIds.includes(path.fromReleaseId), `${path.id} includes a route cycle`)

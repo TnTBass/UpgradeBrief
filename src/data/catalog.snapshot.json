@@ -403,6 +403,40 @@
         "kb2680",
         "kb2053",
         "kb4738"
+      ],
+      "highlights": [
+        {
+          "title": "A pre-hardened software appliance option",
+          "summary": "VBR 13 adds Veeam Software Appliance, a managed appliance deployment option designed to reduce operating system maintenance and manual hardening work.",
+          "availabilityNote": "Veeam documents licensing and deployment prerequisites for this option.",
+          "sourceIds": [
+            "vbr-whats-new"
+          ]
+        },
+        {
+          "title": "Modern management and identity controls",
+          "summary": "VBR 13 introduces a web UI preview, enhanced role-based access control, and SAML 2.0 single sign-on for Veeam Data Platform environments.",
+          "availabilityNote": "Feature availability varies by edition and deployment model.",
+          "sourceIds": [
+            "vbr-whats-new"
+          ]
+        },
+        {
+          "title": "A more modern backup infrastructure",
+          "summary": "VBR 13 completes the transition to 64-bit components, expands Linux support across backup infrastructure roles, and reduces network port requirements through reverse proxy communication.",
+          "availabilityNote": "Review platform and firewall requirements before upgrading.",
+          "sourceIds": [
+            "vbr-whats-new"
+          ]
+        },
+        {
+          "title": "High availability for the backup server",
+          "summary": "Veeam Software Appliance can be deployed in an active and passive backup-server cluster to help keep backup and recovery operations available during an outage.",
+          "availabilityNote": "Veeam documents this capability for Veeam Software Appliance and the Premium edition.",
+          "sourceIds": [
+            "vbr-whats-new"
+          ]
+        }
       ]
     },
     {

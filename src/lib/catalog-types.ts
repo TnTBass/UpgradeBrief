@@ -35,6 +35,14 @@ export interface Release {
   name: string
   aliases: string[]
   sourceIds: string[]
+  highlights?: ReleaseHighlight[]
+}
+
+export interface ReleaseHighlight {
+  title: string
+  summary: string
+  availabilityNote?: string
+  sourceIds: string[]
 }
 
 export interface LifecycleNotice {
