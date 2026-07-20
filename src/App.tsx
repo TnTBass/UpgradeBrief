@@ -108,6 +108,7 @@ export default function App() {
   const findings = release ? findingsForRelease(catalog, release) : []
   const advisoryUrgencies = summarizeAdvisoryUrgencies(findings)
   const targetRelease = release ? upgradeTargetRelease(catalog, productId, path) : undefined
+  const targetLifecycle = targetRelease ? findLifecycleNotice(catalog, productId, targetRelease.id) : undefined
   const targetMaterialSourceIds = releaseMaterialSourceIds(productId)
   const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
@@ -231,6 +232,33 @@ export default function App() {
             </section>
           )}
 
+          {targetRelease && !isCurrentCatalogRelease && (
+            <section className="upgrade-value" aria-label="What you gain by upgrading">
+              <p className="eyebrow">What you gain</p>
+              <h3>Move to {targetRelease.name}</h3>
+              <p>This is the current recommended destination in the catalog. Review the official materials below to identify the support coverage, product changes, and documented fixes that matter to your environment.</p>
+              <div className="upgrade-value-grid">
+                <article>
+                  <p className="eyebrow">Support coverage</p>
+                  <p>{targetLifecycle?.summary ?? 'Review the vendor lifecycle record for support coverage of this target release.'}</p>
+                  {targetLifecycle && <SourceLinks sourceIds={targetLifecycle.sourceIds} />}
+                </article>
+                <article>
+                  <p className="eyebrow">Product updates</p>
+                  <p>Review Veeam’s documented capabilities and release notes for this target release.</p>
+                  <SourceLinks sourceIds={targetMaterialSourceIds} />
+                </article>
+                {targetFixSourceIds.length > 0 && (
+                  <article>
+                    <p className="eyebrow">Documented fixes</p>
+                    <p>These vendor materials describe fixes included in the recommended target.</p>
+                    <SourceLinks sourceIds={targetFixSourceIds} />
+                  </article>
+                )}
+              </div>
+            </section>
+          )}
+
           <div className="result-grid">
             <article>
               <p className="eyebrow">Lifecycle</p>
@@ -324,19 +352,6 @@ export default function App() {
             <h2>Vendor release notes and documented fixes.</h2>
             <p>These materials describe changes included in {release.name}; they do not mean every fix affected your environment.</p>
             <SourceLinks sourceIds={installedReleaseSourceIds} />
-          </section>
-
-          <section className="resources">
-            <p className="eyebrow">Explore the target release</p>
-            <h2>Features, release notes, and documented fixes.</h2>
-            <p>Review what Veeam documents for {targetRelease?.name ?? 'the current target release'} and decide whether a feature or fix is important to your environment. These links are not a finding that every item applies to you.</p>
-            <SourceLinks sourceIds={targetMaterialSourceIds} />
-            {targetFixSourceIds.length > 0 && (
-              <>
-                <p><strong>Vendor-documented fixes in this target release</strong></p>
-                <SourceLinks sourceIds={targetFixSourceIds} />
-              </>
-            )}
           </section>
 
           <section className="resources">
