@@ -224,7 +224,7 @@ export default function App() {
             )}
           </div>
 
-          {upgradeSummary && (
+          {upgradeSummary && (!targetRelease || isCurrentCatalogRelease) && (
             <section className={`upgrade-summary ${upgradeSummary.urgency}`} aria-label="Why upgrade">
               <p className="eyebrow">Why upgrade</p>
               <h3>{upgradeSummary.heading}</h3>
@@ -235,8 +235,9 @@ export default function App() {
           {targetRelease && !isCurrentCatalogRelease && (
             <section className="upgrade-value" aria-label="What you gain by upgrading">
               <p className="eyebrow">What you gain</p>
-              <h3>Move to {targetRelease.name}</h3>
-              <p>This is the current recommended destination in the catalog. Review the official materials below to identify the support coverage, product changes, and documented fixes that matter to your environment.</p>
+              <h3>{upgradeSummary?.heading ?? `Move to ${targetRelease.name}`}</h3>
+              {upgradeSummary && <p>{upgradeSummary.detail}</p>}
+              <p className="upgrade-value-target"><strong>Recommended target:</strong> {targetRelease.name}. The official materials below help identify the support coverage, product changes, and documented fixes that matter to your environment.</p>
               <div className="upgrade-value-grid">
                 <article>
                   <p className="eyebrow">Support coverage</p>
