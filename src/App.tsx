@@ -291,9 +291,19 @@ export default function App() {
           <section className="security">
             <div>
               <p className="eyebrow">Security reasons to upgrade</p>
-              <h2>{findings.length ? `${findings.length} matching ${findings.length === 1 ? 'advisory' : 'advisories'}` : hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : 'No matching advisory is currently curated'}</h2>
+              {findings.length === 0 && <h2>{hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : 'No matching advisory is currently curated'}</h2>}
             </div>
-            {findings.length > 0 ? findings.map((finding) => <SecurityFindingCard key={finding.id} finding={finding} />) : (
+            {findings.length > 0 ? (
+              <details className="security-advisories">
+                <summary>
+                  <strong>{findings.length} matching {findings.length === 1 ? 'advisory' : 'advisories'}</strong>
+                  <span aria-hidden="true" className="security-advisories-toggle">Show details</span>
+                </summary>
+                <div className="security-advisory-list">
+                  {findings.map((finding) => <SecurityFindingCard key={finding.id} finding={finding} />)}
+                </div>
+              </details>
+            ) : (
               hasLegacySecurityRisk ? (
                 <article className="security-card critical">
                   <p className="eyebrow">Critical upgrade reason</p>
