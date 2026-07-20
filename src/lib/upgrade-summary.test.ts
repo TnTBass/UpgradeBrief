@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildUpgradeSummary } from './upgrade-summary'
+import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './upgrade-summary'
 
 const target = { id: 'target', productId: 'vbr' as const, name: '13.0.2', aliases: ['13.0.2'], sourceIds: [] }
 const criticalFinding = { id: 'critical', productId: 'vbr' as const, title: 'Critical issue', cves: [], affectedReleaseIds: [], fixedReleaseId: 'target', conditions: [], sourceIds: [], cvssScore: 9 }
@@ -26,5 +26,16 @@ describe('buildUpgradeSummary', () => {
 
     expect(summary.heading).toBe('A newer recommended release is available.')
     expect(summary.detail).toContain('13.0.2')
+  })
+
+  it('groups advisories by urgency in the displayed order', () => {
+    const highFinding = { ...criticalFinding, id: 'high', cvssScore: 8 }
+    const standardFinding = { ...criticalFinding, id: 'standard', cvssScore: 6 }
+
+    expect(summarizeAdvisoryUrgencies([standardFinding, highFinding, criticalFinding])).toEqual([
+      { urgency: 'critical', count: 1 },
+      { urgency: 'high', count: 1 },
+      { urgency: 'standard', count: 1 },
+    ])
   })
 })

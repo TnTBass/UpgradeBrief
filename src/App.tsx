@@ -4,7 +4,7 @@ import type { ProductId, SecurityFinding } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
 import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, sourceById, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
-import { buildUpgradeSummary } from './lib/upgrade-summary'
+import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './lib/upgrade-summary'
 import { classifyUrgency } from './lib/urgency'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
@@ -106,6 +106,7 @@ export default function App() {
   const freshness = catalogFreshness(catalog.generatedAt)
   const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
   const findings = release ? findingsForRelease(catalog, release) : []
+  const advisoryUrgencies = summarizeAdvisoryUrgencies(findings)
   const targetRelease = release ? upgradeTargetRelease(catalog, productId, path) : undefined
   const targetMaterialSourceIds = releaseMaterialSourceIds(productId)
   const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
@@ -296,7 +297,12 @@ export default function App() {
             {findings.length > 0 ? (
               <details className="security-advisories">
                 <summary>
-                  <strong>{findings.length} matching {findings.length === 1 ? 'advisory' : 'advisories'}</strong>
+                  <span className="security-advisory-heading">
+                    <strong>{findings.length} matching {findings.length === 1 ? 'advisory' : 'advisories'}</strong>
+                    <span className="security-advisory-breakdown">
+                      {advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'high priority' : urgency}`).join(', ')}
+                    </span>
+                  </span>
                   <span aria-hidden="true" className="security-advisories-toggle">Show details</span>
                 </summary>
                 <div className="security-advisory-list">

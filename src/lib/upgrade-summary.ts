@@ -7,6 +7,11 @@ export interface UpgradeSummary {
   detail: string
 }
 
+export interface AdvisoryUrgencyCount {
+  urgency: Urgency
+  count: number
+}
+
 interface UpgradeSummaryInput {
   findings: SecurityFinding[]
   lifecycle?: LifecycleNotice
@@ -19,6 +24,12 @@ function highestUrgency(findings: SecurityFinding[]): Urgency {
   if (findings.some((finding) => classifyUrgency(finding) === 'critical')) return 'critical'
   if (findings.some((finding) => classifyUrgency(finding) === 'high')) return 'high'
   return 'standard'
+}
+
+export function summarizeAdvisoryUrgencies(findings: SecurityFinding[]): AdvisoryUrgencyCount[] {
+  return (['critical', 'high', 'standard'] as const)
+    .map((urgency) => ({ urgency, count: findings.filter((finding) => classifyUrgency(finding) === urgency).length }))
+    .filter(({ count }) => count > 0)
 }
 
 export function buildUpgradeSummary({ findings, lifecycle, targetRelease, isCurrentCatalogRelease, hasDocumentedPath }: UpgradeSummaryInput): UpgradeSummary {
