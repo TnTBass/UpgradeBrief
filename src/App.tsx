@@ -310,7 +310,6 @@ export default function App() {
                             <li key={highlight.title}>
                               <strong>{highlight.title}</strong>
                               <span>{highlight.summary}</span>
-                              {highlight.availabilityNote && <small>{highlight.availabilityNote}</small>}
                             </li>
                           ))}
                         </ul>
