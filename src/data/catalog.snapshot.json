@@ -4120,6 +4120,48 @@
   ],
   "upgradePaths": [
     {
+      "id": "vbr-10a-to-13.0.2",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-10-0-1-4854",
+      "fromVersionPrefixes": [
+        "10.0.1."
+      ],
+      "toReleaseId": "vbr-13.0.2",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-13.0.2"
+      ],
+      "notes": [
+        "Veeam documents this staged route from 10a, with version 12.0 required before 12.3.2. Review the VBR upgrade checklist before each hop."
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-11-to-13.0.2",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-11-0-0-837",
+      "fromVersionPrefixes": [
+        "11.0.0."
+      ],
+      "toReleaseId": "vbr-13.0.2",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-13.0.2"
+      ],
+      "notes": [
+        "Veeam documents this staged route from version 11, with version 12.0 required before 12.3.2. Review the VBR upgrade checklist before each hop."
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
       "id": "vbr-11a-p20230227-to-13.0.2",
       "productId": "vbr",
       "fromReleaseId": "vbr-11a-p20230227",
@@ -4141,9 +4183,32 @@
       ]
     },
     {
+      "id": "vbr-12.0-to-13.0.2",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.0",
+      "fromVersionPrefixes": [
+        "12.0."
+      ],
+      "toReleaseId": "vbr-13.0.2",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-13.0.2"
+      ],
+      "notes": [
+        "Veeam documents this staged route from version 12.0. Review the VBR upgrade checklist before each hop."
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
       "id": "vbr-12.1-to-13.0.2",
       "productId": "vbr",
       "fromReleaseId": "vbr-12.1",
+      "fromVersionPrefixes": [
+        "12.1."
+      ],
       "toReleaseId": "vbr-13.0.2",
       "hopReleaseIds": [
         "vbr-12.3.2",
@@ -4151,6 +4216,65 @@
       ],
       "notes": [
         "Review the VBR upgrade checklist before each hop."
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12.2-to-13.0.2",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.2",
+      "fromVersionPrefixes": [
+        "12.2."
+      ],
+      "toReleaseId": "vbr-13.0.2",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-13.0.2"
+      ],
+      "notes": [
+        "Veeam documents this staged route from version 12.2. Review the VBR upgrade checklist before each hop."
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12.3-to-13.0.2",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-12-3-0-310",
+      "fromVersionPrefixes": [
+        "12.3.0."
+      ],
+      "toReleaseId": "vbr-13.0.2",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-13.0.2"
+      ],
+      "notes": [
+        "Veeam documents this staged route from version 12.3. Review the VBR upgrade checklist before each hop."
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12.3.1-to-13.0.2",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-12-3-1-1139",
+      "fromVersionPrefixes": [
+        "12.3.1."
+      ],
+      "toReleaseId": "vbr-13.0.2",
+      "hopReleaseIds": [
+        "vbr-13.0.2"
+      ],
+      "notes": [
+        "Veeam documents a direct update from version 12.3.1 to 13.0.2. Review the VBR upgrade checklist before updating."
       ],
       "sourceIds": [
         "kb2053",

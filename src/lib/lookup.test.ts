@@ -77,6 +77,23 @@ describe('catalog lookup', () => {
     expect(findUpgradePath(catalog, release)?.id).toBe('vbr-11a-p20230227-to-13.0.2')
   })
 
+  it('keeps documented pre-12.3.2 VBR paths available for concrete builds', () => {
+    const expectedRoutes = [
+      ['10.0.1.4854', 'vbr-10a-to-13.0.2'],
+      ['11.0.0.837', 'vbr-11-to-13.0.2'],
+      ['12.0.0.1420 P20230718', 'vbr-12.0-to-13.0.2'],
+      ['12.1.0.2131', 'vbr-12.1-to-13.0.2'],
+      ['12.2.0.334', 'vbr-12.2-to-13.0.2'],
+      ['12.3.0.310', 'vbr-12.3-to-13.0.2'],
+      ['12.3.1.1139', 'vbr-12.3.1-to-13.0.2'],
+    ] as const
+
+    for (const [version, routeId] of expectedRoutes) {
+      const release = findRelease(catalog, 'vbr', version)!
+      expect(findUpgradePath(catalog, release)?.id).toBe(routeId)
+    }
+  })
+
   it('applies the refreshed lifecycle row to related builds in the same major version', () => {
     const release = findRelease(catalog, 'vbr', '13.0.1.180')!
     expect(findLifecycleNotice(catalog, 'vbr', release.id)?.state).toBe('supported')
