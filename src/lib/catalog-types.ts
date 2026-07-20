@@ -35,12 +35,23 @@ export interface Release {
   name: string
   aliases: string[]
   sourceIds: string[]
-  highlights?: ReleaseHighlight[]
 }
 
 export interface ReleaseHighlight {
   title: string
   summary: string
+  availabilityNote?: string
+  sourceIds: string[]
+}
+
+export interface ProductCapability {
+  id: string
+  productId: ProductId
+  family: string
+  title: string
+  summary: string
+  introducedIn: string
+  priority: number
   availabilityNote?: string
   sourceIds: string[]
 }
@@ -100,4 +111,5 @@ export interface Catalog {
   lifecycleNotices: LifecycleNotice[]
   upgradePaths: UpgradePath[]
   securityFindings: SecurityFinding[]
+  capabilities: ProductCapability[]
 }

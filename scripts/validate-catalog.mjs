@@ -29,6 +29,14 @@ for (const release of catalog.releases) {
   }
 }
 
+assert(Array.isArray(catalog.capabilities), 'capabilities must be an array')
+for (const capability of catalog.capabilities) {
+  assert(catalog.products.some((product) => product.id === capability.productId), `${capability.id} references an unknown product`)
+  assert(/^\d+(?:\.\d+)*$/.test(capability.introducedIn), `${capability.id} must have a numeric introducedIn version`)
+  assert(Number.isFinite(capability.priority), `${capability.id} must have a numeric priority`)
+  for (const sourceId of capability.sourceIds) assert(sourceIds.has(sourceId), `${capability.id} references unknown source ${sourceId}`)
+}
+
 for (const path of catalog.upgradePaths) {
   assert(releaseIds.has(path.fromReleaseId) && releaseIds.has(path.toReleaseId), `${path.id} references an unknown endpoint`)
   assert(!path.hopReleaseIds.includes(path.fromReleaseId), `${path.id} includes a route cycle`)
@@ -44,4 +52,4 @@ for (const finding of catalog.securityFindings) {
   for (const releaseId of finding.affectedReleaseIds) assert(releaseIds.has(releaseId), `${finding.id} affected release must exist`)
 }
 
-console.log(`Catalog valid: ${catalog.products.length} products, ${catalog.releases.length} releases, ${catalog.securityFindings.length} security findings.`)
+console.log(`Catalog valid: ${catalog.products.length} products, ${catalog.releases.length} releases, ${catalog.securityFindings.length} security findings, ${catalog.capabilities.length} capabilities.`)

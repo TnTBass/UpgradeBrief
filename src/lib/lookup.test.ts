@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
-import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
+import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
 import { classifyUrgency } from './urgency'
 
 describe('catalog lookup', () => {
@@ -151,13 +151,41 @@ describe('catalog lookup', () => {
     expect(documentedFixSourceIds(catalog, target)).toContain('kb4852')
   })
 
-  it('includes source-backed VBR 13 upgrade highlights on the recommended target', () => {
+  it('selects source-backed VBR highlights as the installed-release delta', () => {
+    const v10 = findRelease(catalog, 'vbr', '10.0.1.4854')!
+    const v11 = findRelease(catalog, 'vbr', '11.0.0.837')!
     const target = findRelease(catalog, 'vbr', '13.0.2.29')!
-
-    expect(target.highlights).toEqual(expect.arrayContaining([
-      expect.objectContaining({ title: 'A pre-hardened software appliance option', sourceIds: ['vbr-whats-new'] }),
-      expect.objectContaining({ title: 'Modern management and identity controls', sourceIds: ['vbr-whats-new'] }),
+    expect(upgradeHighlightsForRelease(catalog, v10, target)).toEqual(expect.arrayContaining([
+      expect.objectContaining({ title: 'Strengthen cyber resilience' }),
+      expect.objectContaining({ title: 'Modernize backup management' }),
     ]))
+    expect(upgradeHighlightsForRelease(catalog, v11, target).find((highlight) => highlight.title === 'Strengthen cyber resilience')?.summary).not.toContain('hardened repositories')
+  })
+
+  it.each([
+    ['10.0.1.4854', 5],
+    ['11.0.0.837', 5],
+    ['12.0.0.1420', 4],
+    ['12.1', 4],
+    ['12.3.0.310', 3],
+  ])('uses the expected VBR highlight depth from %s', (installed, expectedCount) => {
+    const release = findRelease(catalog, 'vbr', installed)!
+    const target = findRelease(catalog, 'vbr', '13.0.2.29')!
+    expect(upgradeHighlightsForRelease(catalog, release, target)).toHaveLength(expectedCount)
+  })
+
+  it('selects capability highlights for every tracked product', () => {
+    const cases = [
+      ['enterprise-manager', '12.3.2.4165', '13.0.2.29'],
+      ['veeam-one', '12.2', '13.0.2'],
+      ['vro', '7.2.1', '13'],
+      ['vspc', '8.1', '9.2'],
+    ] as const
+    for (const [productId, installed, targetVersion] of cases) {
+      const release = findRelease(catalog, productId, installed)!
+      const target = findRelease(catalog, productId, targetVersion)!
+      expect(upgradeHighlightsForRelease(catalog, release, target).length).toBeGreaterThan(0)
+    }
   })
 
   it('includes the VSA conversion portal and platform migration guide as catalog sources', () => {

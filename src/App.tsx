@@ -2,7 +2,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding, Urgency } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, sourceById, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
+import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, sourceById, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './lib/upgrade-summary'
 import { classifyUrgency } from './lib/urgency'
@@ -123,7 +123,8 @@ export default function App() {
   const targetRelease = release ? upgradeTargetRelease(catalog, productId, path) : undefined
   const targetLifecycle = targetRelease ? findLifecycleNotice(catalog, productId, targetRelease.id) : undefined
   const targetMaterialSourceIds = releaseMaterialSourceIds(productId)
-  const targetHighlightSourceIds = targetRelease ? [...new Set(targetRelease.highlights?.flatMap((highlight) => highlight.sourceIds) ?? [])] : []
+  const targetHighlights = release && targetRelease ? upgradeHighlightsForRelease(catalog, release, targetRelease) : []
+  const targetHighlightSourceIds = [...new Set(targetHighlights.flatMap((highlight) => highlight.sourceIds))]
   const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
   const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
@@ -191,7 +192,7 @@ export default function App() {
       securitySummary: findings.length > 0
         ? `${findings.length} matching cataloged ${findings.length === 1 ? 'security advisory' : 'security advisories'}, including ${advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}. Individual advisory details are excluded from this executive summary.`
         : undefined,
-      highlights: targetRelease?.highlights?.map(({ title, summary }) => ({ title, summary })) ?? [],
+      highlights: targetHighlights.map(({ title, summary }) => ({ title, summary })),
       sources: executiveSources,
     })
   }
@@ -308,13 +309,13 @@ export default function App() {
                 </article>
                 <article>
                   <p className="eyebrow">Product updates</p>
-                  {targetRelease.highlights?.length ? (
+                  {targetHighlights.length ? (
                     <>
                       <p>Veeam documents several improvements in this target release.</p>
                       <details className="release-highlights-details">
-                        <summary>Explore {targetRelease.highlights.length} feature highlights</summary>
+                        <summary>Explore {targetHighlights.length} feature highlights</summary>
                         <ul className="release-highlights">
-                          {targetRelease.highlights.map((highlight) => (
+                          {targetHighlights.map((highlight) => (
                             <li key={highlight.title}>
                               <strong>{highlight.title}</strong>
                               <span>{highlight.summary}</span>

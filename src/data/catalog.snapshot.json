@@ -93,6 +93,78 @@
       "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
+      "id": "vbr-10-whats-new",
+      "title": "Veeam Backup & Replication 10 What's New",
+      "url": "https://www.veeam.com/veeam_backup_10_0_whats_new_wn.pdf",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "vbr-11-whats-new",
+      "title": "Veeam Backup & Replication 11 What's New",
+      "url": "https://www.veeam.com/veeam_backup_11_0_whats_new_wn.pdf",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "vbr-12-whats-new",
+      "title": "Veeam Backup & Replication 12 What's New",
+      "url": "https://www.veeam.com/veeam_backup_12_0_whats_new_wn.pdf",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "vbr-12.1-whats-new",
+      "title": "Veeam Backup & Replication 12.1 What's New",
+      "url": "https://www.veeam.com/veeam_backup_12_1_whats_new_wn.pdf",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "vbr-12.3-whats-new",
+      "title": "Veeam Backup & Replication 12.3 What's New",
+      "url": "https://www.veeam.com/veeam_backup_12_3_whats_new_wn.pdf",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "one-13-whats-new",
+      "title": "Veeam ONE 13 What's New",
+      "url": "https://www.veeam.com/veeam_one_13_whats_new_wn.pdf",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "one-13-release-info",
+      "title": "Veeam KB4762: Release Information for Veeam ONE 13 and Updates",
+      "url": "https://www.veeam.com/kb4762",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "vro-13-whats-new",
+      "title": "Veeam Recovery Orchestrator 13 What's New",
+      "url": "https://www.veeam.com/veeam_orchestrator_13_whats_new_wn.pdf",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "vro-13-release-notes",
+      "title": "Veeam Recovery Orchestrator 13 release notes",
+      "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_release_notes.html",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "vspc-9-release-info",
+      "title": "Veeam KB4788: Release History for Veeam Service Provider Console 9",
+      "url": "https://www.veeam.com/kb4788",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "em-13-platform",
+      "title": "Enterprise Manager 13 deployment guidance",
+      "url": "https://helpcenter.veeam.com/docs/vbr/qsg/em_setup.html",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "em-13-components",
+      "title": "Enterprise Manager 13 components and capabilities",
+      "url": "https://helpcenter.veeam.com/docs/vbr/em/em_components.html?ver=13",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
       "id": "vbr-release-materials",
       "title": "Veeam Backup & Replication 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbr",
@@ -415,40 +487,6 @@
         "kb2680",
         "kb2053",
         "kb4738"
-      ],
-      "highlights": [
-        {
-          "title": "A pre-hardened software appliance option",
-          "summary": "VBR 13 adds Veeam Software Appliance, a managed appliance deployment option designed to reduce operating system maintenance and manual hardening work.",
-          "availabilityNote": "Veeam documents licensing and deployment prerequisites for this option.",
-          "sourceIds": [
-            "vbr-whats-new"
-          ]
-        },
-        {
-          "title": "Modern management and identity controls",
-          "summary": "VBR 13 introduces a web UI preview, enhanced role-based access control, and SAML 2.0 single sign-on for Veeam Data Platform environments.",
-          "availabilityNote": "Feature availability varies by edition and deployment model.",
-          "sourceIds": [
-            "vbr-whats-new"
-          ]
-        },
-        {
-          "title": "A more modern backup infrastructure",
-          "summary": "VBR 13 completes the transition to 64-bit components, expands Linux support across backup infrastructure roles, and reduces network port requirements through reverse proxy communication.",
-          "availabilityNote": "Review platform and firewall requirements before upgrading.",
-          "sourceIds": [
-            "vbr-whats-new"
-          ]
-        },
-        {
-          "title": "High availability for the backup server",
-          "summary": "Veeam Software Appliance can be deployed in an active and passive backup-server cluster to help keep backup and recovery operations available during an outage.",
-          "availabilityNote": "Veeam documents this capability for Veeam Software Appliance and the Premium edition.",
-          "sourceIds": [
-            "vbr-whats-new"
-          ]
-        }
       ]
     },
     {
@@ -6077,6 +6115,234 @@
         "kb4853"
       ],
       "isCisaKev": false
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "vbr-hardened-repositories",
+      "productId": "vbr",
+      "family": "cyber-resilience",
+      "title": "Strengthen cyber resilience",
+      "summary": "Add hardened repository options to make backup storage more resilient to ransomware.",
+      "introducedIn": "11.0",
+      "priority": 95,
+      "sourceIds": ["vbr-11-whats-new"]
+    },
+    {
+      "id": "vbr-inline-malware-detection",
+      "productId": "vbr",
+      "family": "cyber-resilience",
+      "title": "Strengthen cyber resilience",
+      "summary": "Use inline malware detection to identify suspicious encryption activity during backup and support recovery investigation.",
+      "introducedIn": "12.1",
+      "priority": 96,
+      "availabilityNote": "Veeam documents edition and resource requirements for this capability.",
+      "sourceIds": ["vbr-12.1-whats-new"]
+    },
+    {
+      "id": "vbr-software-appliance",
+      "productId": "vbr",
+      "family": "cyber-resilience",
+      "title": "Strengthen cyber resilience",
+      "summary": "Choose a managed, pre-hardened Veeam Software Appliance deployment option to reduce operating system maintenance and manual hardening work.",
+      "introducedIn": "13.0",
+      "priority": 100,
+      "availabilityNote": "Veeam documents licensing and deployment prerequisites for this option.",
+      "sourceIds": ["vbr-whats-new"]
+    },
+    {
+      "id": "vbr-direct-object-storage",
+      "productId": "vbr",
+      "family": "resilient-storage",
+      "title": "Simplify resilient storage",
+      "summary": "Use direct backup-to-object-storage workflows and extend immutable storage design for recovery data.",
+      "introducedIn": "12.0",
+      "priority": 88,
+      "sourceIds": ["vbr-12-whats-new"]
+    },
+    {
+      "id": "vbr-entra-id-protection",
+      "productId": "vbr",
+      "family": "identity-protection",
+      "title": "Protect critical identity data",
+      "summary": "Add Microsoft Entra ID protection, recovery, change tracking, and audit visibility to identity resilience planning.",
+      "introducedIn": "12.3",
+      "priority": 92,
+      "sourceIds": ["vbr-12.3-whats-new"]
+    },
+    {
+      "id": "vbr-web-management",
+      "productId": "vbr",
+      "family": "backup-management",
+      "title": "Modernize backup management",
+      "summary": "Use the web UI, enhanced role-based access control, and SAML single sign-on to give teams a simpler, more governable way to operate backup.",
+      "introducedIn": "13.0",
+      "priority": 94,
+      "availabilityNote": "Feature availability varies by edition and deployment model.",
+      "sourceIds": ["vbr-whats-new"]
+    },
+    {
+      "id": "vbr-backup-server-ha",
+      "productId": "vbr",
+      "family": "backup-availability",
+      "title": "Keep backup operations available",
+      "summary": "Use backup server high availability to help keep backup and recovery operations available during an outage.",
+      "introducedIn": "13.0",
+      "priority": 85,
+      "availabilityNote": "Veeam documents this capability for Veeam Software Appliance and the Premium edition.",
+      "sourceIds": ["vbr-whats-new"]
+    },
+    {
+      "id": "enterprise-manager-linux-deployment",
+      "productId": "enterprise-manager",
+      "family": "management-platform",
+      "title": "Modernize enterprise backup management",
+      "summary": "Deploy Enterprise Manager on Linux while continuing to manage both Linux and Microsoft Windows backup servers from one management point.",
+      "introducedIn": "13.0",
+      "priority": 90,
+      "sourceIds": ["em-13-platform", "em-13-components"]
+    },
+    {
+      "id": "enterprise-manager-ha-awareness",
+      "productId": "enterprise-manager",
+      "family": "management-availability",
+      "title": "Keep centralized management connected",
+      "summary": "Manage Veeam Backup & Replication high-availability clusters through their active node after switchover.",
+      "introducedIn": "13.0",
+      "priority": 78,
+      "availabilityNote": "Use the cluster virtual IP address or full DNS name when adding the backup server.",
+      "sourceIds": ["em-13-platform"]
+    },
+    {
+      "id": "one-analytics-service",
+      "productId": "veeam-one",
+      "family": "observability-platform",
+      "title": "Modernize observability operations",
+      "summary": "Use the Veeam Analytics Service for more scalable monitoring, centralized management, and clearer operational troubleshooting.",
+      "introducedIn": "13.0",
+      "priority": 96,
+      "sourceIds": ["one-13-whats-new"]
+    },
+    {
+      "id": "one-reporting-engine",
+      "productId": "veeam-one",
+      "family": "reporting",
+      "title": "Turn operational data into faster decisions",
+      "summary": "Move to interactive HTML5 reporting with granular filtering, flexible layouts, and dependable CSV and PDF exports for audits and executive review.",
+      "introducedIn": "13.0",
+      "priority": 94,
+      "sourceIds": ["one-13-whats-new"]
+    },
+    {
+      "id": "one-unified-compliance",
+      "productId": "veeam-one",
+      "family": "compliance",
+      "title": "Bring compliance insights into backup operations",
+      "summary": "Access Veeam ONE dashboards and reporting workflows directly alongside Veeam Backup & Replication operations.",
+      "introducedIn": "13.0",
+      "priority": 88,
+      "sourceIds": ["one-13-whats-new"]
+    },
+    {
+      "id": "one-security-observability",
+      "productId": "veeam-one",
+      "family": "security-visibility",
+      "title": "Improve security visibility",
+      "summary": "Monitor backup-server authentication activity and investigate threat signals through Veeam ONE alarms and reporting.",
+      "introducedIn": "13.0",
+      "priority": 92,
+      "availabilityNote": "Some advanced threat integrations require Veeam Data Platform Premium.",
+      "sourceIds": ["one-13-whats-new", "one-13-release-info"]
+    },
+    {
+      "id": "one-cloud-workloads",
+      "productId": "veeam-one",
+      "family": "workload-visibility",
+      "title": "Expand workload visibility",
+      "summary": "Extend monitoring, alerting, dashboards, and API coverage across additional AWS, Microsoft Azure, and Google Cloud workloads.",
+      "introducedIn": "13.0",
+      "priority": 84,
+      "sourceIds": ["one-13-whats-new"]
+    },
+    {
+      "id": "vro-vsa-ha",
+      "productId": "vro",
+      "family": "orchestration-availability",
+      "title": "Keep recovery orchestration available",
+      "summary": "Use Veeam Software Appliance support with high availability clustering for recovery orchestration.",
+      "introducedIn": "13.0",
+      "priority": 96,
+      "sourceIds": ["vro-13-whats-new", "vro-13-release-notes"]
+    },
+    {
+      "id": "vro-audit-change-tracking",
+      "productId": "vro",
+      "family": "recovery-governance",
+      "title": "Strengthen recovery governance",
+      "summary": "Use monthly audit reports with full change tracking to improve recovery-plan visibility and traceability.",
+      "introducedIn": "13.0",
+      "priority": 90,
+      "sourceIds": ["vro-13-whats-new"]
+    },
+    {
+      "id": "vro-web-experience",
+      "productId": "vro",
+      "family": "recovery-management",
+      "title": "Modernize recovery planning",
+      "summary": "Use a modernized web experience to simplify recovery planning and day-to-day orchestration workflows.",
+      "introducedIn": "13.0",
+      "priority": 85,
+      "sourceIds": ["vro-13-whats-new"]
+    },
+    {
+      "id": "vro-offline-malware-scanning",
+      "productId": "vro",
+      "family": "recovery-security",
+      "title": "Validate recovery before it matters",
+      "summary": "Use offline malware scanning for recovery plans to validate backup integrity before recovery in disconnected environments.",
+      "introducedIn": "13.0",
+      "priority": 94,
+      "sourceIds": ["vro-13-whats-new"]
+    },
+    {
+      "id": "vro-azure-account-security",
+      "productId": "vro",
+      "family": "recovery-security",
+      "title": "Validate recovery before it matters",
+      "summary": "Manage Azure compute accounts directly in the Orchestrator UI for tighter configuration control.",
+      "introducedIn": "13.0",
+      "priority": 80,
+      "sourceIds": ["vro-13-whats-new"]
+    },
+    {
+      "id": "vspc-file-level-restore",
+      "productId": "vspc",
+      "family": "service-operations",
+      "title": "Resolve customer requests faster",
+      "summary": "Run file-level restore wizards directly in Veeam Service Provider Console for a more seamless recovery experience.",
+      "introducedIn": "9.1",
+      "priority": 92,
+      "sourceIds": ["vspc-9-release-info"]
+    },
+    {
+      "id": "vspc-scale-operations",
+      "productId": "vspc",
+      "family": "service-scale",
+      "title": "Scale service operations with confidence",
+      "summary": "Use optimized data collection, request processing, and management-agent database maintenance for a more stable backup portal at scale.",
+      "introducedIn": "9.1",
+      "priority": 88,
+      "sourceIds": ["vspc-9-release-info"]
+    },
+    {
+      "id": "vspc-tenant-access-security",
+      "productId": "vspc",
+      "family": "service-security",
+      "title": "Strengthen tenant access controls",
+      "summary": "Use improved password-reset handling designed to further reduce the possibility of user data hijacking.",
+      "introducedIn": "9.1",
+      "priority": 82,
+      "sourceIds": ["vspc-9-release-info"]
     }
   ]
 }

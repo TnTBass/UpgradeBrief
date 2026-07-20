@@ -1,4 +1,4 @@
-import type { Catalog, LifecycleNotice, ProductId, Release, SecurityFinding, UpgradePath } from './catalog-types'
+import type { Catalog, LifecycleNotice, ProductId, Release, ReleaseHighlight, SecurityFinding, UpgradePath } from './catalog-types'
 import { classifyUrgency } from './urgency'
 
 const urgencyOrder = { critical: 0, high: 1, standard: 2 } as const
@@ -68,6 +68,47 @@ function compareDottedVersions(left: string, right: string): number | undefined 
     if (delta !== 0) return Math.sign(delta)
   }
   return 0
+}
+
+function versionFromText(value: string): string | undefined {
+  return value.match(/\d+(?:\.\d+)*/)?.[0]
+}
+
+function releaseVersion(release: Release): string | undefined {
+  return versionFromText(release.name) ?? release.aliases.map(versionFromText).find(Boolean)
+}
+
+export function upgradeHighlightsForRelease(catalog: Catalog, release: Release, targetRelease: Release): ReleaseHighlight[] {
+  const installedVersion = releaseVersion(release)
+  const targetVersion = releaseVersion(targetRelease)
+  if (!installedVersion || !targetVersion) return []
+
+  const perFamily = new Map<string, typeof catalog.capabilities>()
+  for (const capability of catalog.capabilities) {
+    if (capability.productId !== release.productId) continue
+    const afterInstalled = compareDottedVersions(installedVersion, capability.introducedIn)
+    const includedInTarget = compareDottedVersions(targetVersion, capability.introducedIn)
+    if (afterInstalled === undefined || includedInTarget === undefined || afterInstalled >= 0 || includedInTarget < 0) continue
+    perFamily.set(capability.family, [...(perFamily.get(capability.family) ?? []), capability])
+  }
+
+  const majorDistance = Number(targetVersion.split('.')[0]) - Number(installedVersion.split('.')[0])
+  const limit = majorDistance >= 2 ? 5 : 4
+  return [...perFamily.values()]
+    .map((capabilities) => {
+      const ordered = [...capabilities].sort((left, right) => right.priority - left.priority)
+      const primary = ordered[0]
+      return {
+        title: primary.title,
+        summary: ordered.map((capability) => capability.summary).join(' '),
+        availabilityNote: ordered.map((capability) => capability.availabilityNote).filter(Boolean).join(' ') || undefined,
+        sourceIds: [...new Set(ordered.flatMap((capability) => capability.sourceIds))],
+        priority: primary.priority,
+      }
+    })
+    .sort((left, right) => right.priority - left.priority)
+    .slice(0, limit)
+    .map(({ priority: _priority, ...highlight }) => highlight)
 }
 
 export function findingAppliesToRelease(finding: SecurityFinding, release: Release): boolean {
