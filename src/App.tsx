@@ -303,23 +303,26 @@ export default function App() {
                     <>
                       <h3>Explore {targetHighlights.length} feature highlights</h3>
                       <p>Veeam documents several improvements in this target release.</p>
-                      <details className="release-highlights-details">
-                        <summary>Show feature highlights</summary>
-                        <ul className="release-highlights">
-                          {targetHighlights.map((highlight) => (
-                            <li key={highlight.title}>
-                              <strong>{highlight.title}</strong>
-                              <span>{highlight.summary}</span>
-                            </li>
-                          ))}
-                        </ul>
+                      <ul className="release-highlights">
+                        {targetHighlights.map((highlight) => (
+                          <li key={highlight.title}>
+                            <strong>{highlight.title}</strong>
+                            <span>{highlight.summary}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <details className="release-sources-details">
+                        <summary>View source materials</summary>
+                        <SourceLinks sourceIds={[...new Set([...targetHighlightSourceIds, ...targetMaterialSourceIds])]} />
                       </details>
-                      <SourceLinks sourceIds={[...new Set([...targetHighlightSourceIds, ...targetMaterialSourceIds])]} />
                     </>
                   ) : (
                     <>
                       <p>Review Veeam’s documented capabilities and release notes for this target release.</p>
-                      <SourceLinks sourceIds={targetMaterialSourceIds} />
+                      <details className="release-sources-details">
+                        <summary>View source materials</summary>
+                        <SourceLinks sourceIds={targetMaterialSourceIds} />
+                      </details>
                     </>
                   )}
                 </article>
