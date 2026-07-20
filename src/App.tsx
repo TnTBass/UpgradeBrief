@@ -280,14 +280,12 @@ export default function App() {
 
           {upgradeSummary && (!targetRelease || isCurrentCatalogRelease) && (
             <section className={`upgrade-summary ${upgradeSummary.urgency}`} aria-label="Why upgrade">
+              <p className="eyebrow">Why upgrade</p>
               <div className="upgrade-summary-heading">
                 {findings.length > 0 && <UrgencyIcon urgency={upgradeSummary.urgency} />}
-                <div>
-                  <p className="eyebrow">Why upgrade</p>
-                  <h3>{upgradeSummary.heading}</h3>
-                  <p>{upgradeSummary.detail}</p>
-                </div>
+                <h3>{upgradeSummary.heading}</h3>
               </div>
+              <p>{upgradeSummary.detail}</p>
             </section>
           )}
 
@@ -296,11 +294,9 @@ export default function App() {
               <p className="eyebrow">What you gain</p>
               <div className="upgrade-value-heading">
                 {findings.length > 0 && upgradeSummary && <UrgencyIcon urgency={upgradeSummary.urgency} />}
-                <div>
-                  <h3>{upgradeSummary?.heading ?? `Move to ${targetRelease.name}`}</h3>
-                  {upgradeSummary && <p>{upgradeSummary.detail}</p>}
-                </div>
+                <h3>{upgradeSummary?.heading ?? `Move to ${targetRelease.name}`}</h3>
               </div>
+              {upgradeSummary && <p>{upgradeSummary.detail}</p>}
               <p className="upgrade-value-target"><strong>Recommended target:</strong> {targetRelease.name}. The official materials below help identify the support coverage, product changes, and documented fixes that matter to your environment.</p>
               <div className="upgrade-value-grid">
                 <article>
