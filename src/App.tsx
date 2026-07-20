@@ -125,6 +125,10 @@ export default function App() {
     ...targetHighlightSourceIds,
     ...targetMaterialSourceIds,
   ])] : []
+  const executiveSources = executiveSourceIds.flatMap((sourceId) => {
+    const source = sourceById(catalog, sourceId)
+    return source ? [{ title: source.title, url: source.url }] : []
+  })
   const hasLegacySecurityRisk = lifecycle?.state === 'end-of-support' && findings.length === 0
   const upgradeSummary = release ? buildUpgradeSummary({
     findings,
@@ -154,8 +158,28 @@ export default function App() {
     })
   }
 
-  function exportExecutiveSummary() {
-    window.print()
+  async function exportExecutiveSummary() {
+    if (!release || !upgradeSummary) return
+    const { downloadExecutiveSummaryPdf } = await import('./lib/executive-summary-pdf')
+    downloadExecutiveSummaryPdf({
+      productName: product.name,
+      installedRelease: release.name,
+      preparedOn: new Date().toLocaleDateString(),
+      recommendation: upgradeSummary,
+      lifecycle: {
+        heading: lifecycle?.state.replaceAll('-', ' ') ?? 'Source check required',
+        detail: lifecycle?.summary ?? 'No release-specific lifecycle statement has been curated for this result.',
+      },
+      upgradeRoute: {
+        heading: targetRelease ? `Recommended target: ${targetRelease.name}` : 'Confirm the supported route',
+        detail: executiveRoute ?? 'No exact route is currently curated. Use the linked vendor guidance to plan the next step.',
+      },
+      securitySummary: findings.length > 0
+        ? `${findings.length} matching cataloged ${findings.length === 1 ? 'security advisory' : 'security advisories'}, including ${advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}. Individual advisory details are excluded from this executive summary.`
+        : undefined,
+      highlights: targetRelease?.highlights?.map(({ title, summary }) => ({ title, summary })) ?? [],
+      sources: executiveSources,
+    })
   }
 
   return (
@@ -239,61 +263,8 @@ export default function App() {
                 </span>
               </p>
             )}
-            <button className="export-summary" type="button" onClick={exportExecutiveSummary} title="Opens the print dialog. Choose Save as PDF to export.">Export executive summary</button>
+            <button className="export-summary" type="button" onClick={exportExecutiveSummary}>Download executive summary (PDF)</button>
           </div>
-
-          <section className="executive-summary-print" aria-label="Executive summary for export">
-            <p className="brand">Upgrade Brief</p>
-            <p className="eyebrow">Executive summary</p>
-            <h1>{product.name} {release.name}</h1>
-            <p className="print-generated">Prepared {new Date().toLocaleDateString()}</p>
-
-            <section>
-              <p className="eyebrow">Recommendation</p>
-              <h2>{upgradeSummary?.heading ?? 'Review the documented upgrade guidance.'}</h2>
-              <p>{upgradeSummary?.detail}</p>
-            </section>
-
-            <div className="executive-summary-grid">
-              <section>
-                <p className="eyebrow">Lifecycle</p>
-                <h2>{lifecycle?.state.replaceAll('-', ' ') ?? 'Source check required'}</h2>
-                <p>{lifecycle?.summary ?? 'No release-specific lifecycle statement has been curated for this result.'}</p>
-              </section>
-              <section>
-                <p className="eyebrow">Upgrade route</p>
-                <h2>{targetRelease ? `Recommended target: ${targetRelease.name}` : 'Confirm the supported route'}</h2>
-                <p>{executiveRoute ?? 'No exact route is currently curated. Use the linked vendor guidance to plan the next step.'}</p>
-              </section>
-            </div>
-
-            {findings.length > 0 && (
-              <section>
-                <p className="eyebrow">Security posture</p>
-                <p>{findings.length} matching cataloged {findings.length === 1 ? 'security advisory' : 'security advisories'}, including {advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}. Individual advisory details are excluded from this executive summary.</p>
-              </section>
-            )}
-
-            {targetRelease?.highlights?.length ? (
-              <section>
-                <p className="eyebrow">What the target can add</p>
-                <ul>
-                  {targetRelease.highlights.map((highlight) => <li key={highlight.title}><strong>{highlight.title}.</strong> {highlight.summary}</li>)}
-                </ul>
-              </section>
-            ) : targetRelease && (
-              <section>
-                <p className="eyebrow">What the target can add</p>
-                <p>Review Veeam’s documented capabilities, release notes, and fixes for the recommended target before deciding whether a feature or fix is important to your environment.</p>
-              </section>
-            )}
-
-            <section>
-              <p className="eyebrow">Source scope</p>
-              <p>This executive summary reflects the linked, source-backed records. It does not assess the environment or certify upgrade safety. Review the official Veeam sources before acting.</p>
-              <SourceLinks sourceIds={executiveSourceIds} />
-            </section>
-          </section>
 
           {upgradeSummary && (!targetRelease || isCurrentCatalogRelease) && (
             <section className={`upgrade-summary ${upgradeSummary.urgency}`} aria-label="Why upgrade">
