@@ -99,6 +99,18 @@
       "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
+      "id": "vsa-conversion",
+      "title": "Veeam Software Appliance conversion portal",
+      "url": "https://go.veeam.com/vsa-conversion",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
+      "id": "kb4800",
+      "title": "Veeam KB4800: VBR Platform Migration Guide (Windows to Linux)",
+      "url": "https://www.veeam.com/kb4800",
+      "checkedAt": "2026-07-20T16:00:00.000Z"
+    },
+    {
       "id": "vdp-release-materials",
       "title": "Veeam Data Platform 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/category/vdp.html",

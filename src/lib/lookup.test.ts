@@ -159,4 +159,11 @@ describe('catalog lookup', () => {
       expect.objectContaining({ title: 'Modern management and identity controls', sourceIds: ['vbr-whats-new'] }),
     ]))
   })
+
+  it('includes the VSA conversion portal and platform migration guide as catalog sources', () => {
+    expect(catalog.sources).toEqual(expect.arrayContaining([
+      expect.objectContaining({ id: 'vsa-conversion', url: 'https://go.veeam.com/vsa-conversion' }),
+      expect.objectContaining({ id: 'kb4800', url: 'https://www.veeam.com/kb4800' }),
+    ]))
+  })
 })

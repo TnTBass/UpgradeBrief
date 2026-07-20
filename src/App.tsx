@@ -124,6 +124,7 @@ export default function App() {
   const targetMaterialSourceIds = releaseMaterialSourceIds(productId)
   const targetHighlightSourceIds = targetRelease ? [...new Set(targetRelease.highlights?.flatMap((highlight) => highlight.sourceIds) ?? [])] : []
   const targetFixSourceIds = targetRelease ? documentedFixSourceIds(catalog, targetRelease) : []
+  const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
   const executiveRoute = path && release
     ? [release.name, ...path.hopReleaseIds.flatMap((releaseId) => catalog.releases.find((item) => item.id === releaseId)?.name ?? [])].join(' → ')
@@ -328,6 +329,14 @@ export default function App() {
                       <p>Review Veeam’s documented capabilities and release notes for this target release.</p>
                       <SourceLinks sourceIds={targetMaterialSourceIds} />
                     </>
+                  )}
+                  {showVsaConversionGuidance && (
+                    <details className="vsa-conversion-guidance">
+                      <summary>Planning a Windows-to-VSA conversion?</summary>
+                      <p>Veeam’s Windows-to-Veeam Software Appliance configuration migration is currently a limited pilot, not an ordinary in-place upgrade. Preparation includes instance-based VUL licensing, the latest Windows patch level, registration through Veeam’s conversion portal, and proactive support.</p>
+                      <p>Review the documented limitations and post-migration considerations before deciding whether this route fits your environment.</p>
+                      <SourceLinks sourceIds={['vsa-conversion', 'kb4800']} />
+                    </details>
                   )}
                 </article>
                 {targetFixSourceIds.length > 0 && (
