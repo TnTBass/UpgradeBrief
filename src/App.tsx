@@ -334,9 +334,9 @@ export default function App() {
                   {findings.length > 0 && <a className="security-support-link" href="#security-reasons">View matching advisories</a>}
                   <div className="target-support-coverage">
                     <p className="eyebrow">Support coverage</p>
-                    <h3>{targetLifecycle ? formatLifecycleHeading(targetLifecycle.state) : 'Source check required'}</h3>
-                    <p>{targetLifecycle?.summary ?? 'Review the vendor lifecycle record for support coverage of this target release.'}</p>
-                    {targetLifecycle && <SourceLinks sourceIds={targetLifecycle.sourceIds} />}
+                    <h3>{lifecycle ? formatLifecycleHeading(lifecycle.state) : 'Source check required'}</h3>
+                    <p>{lifecycle?.summary ?? 'Review the vendor lifecycle record for support coverage of this installed release.'}</p>
+                    {lifecycle && <SourceLinks sourceIds={lifecycle.sourceIds} />}
                   </div>
                 </article>
               </div>
