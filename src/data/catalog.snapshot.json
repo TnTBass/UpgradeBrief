@@ -6191,19 +6191,14 @@
       ],
       "heading": "Documented resolved issues in 13.0.2",
       "summary": "This is a point release, not a new feature release. Veeam documents resolved issues across console administration, repository operations, and protection workflows.",
-      "groups": [
-        {
-          "title": "Console administration",
-          "summary": "Users and Roles, activity history, and remote-console update behavior."
-        },
-        {
-          "title": "Repository operations",
-          "summary": "High availability, NFS and Azure object storage, plus Data Domain behavior."
-        },
-        {
-          "title": "Protection workflows",
-          "summary": "Guest processing, Enterprise Manager SAML sign-in, and Veeam Agent operations."
-        }
+      "topics": [
+        "Remote Console",
+        "High Availability",
+        "NFS Repository",
+        "Object Storage Repository",
+        "Guest Processing",
+        "Veeam Agents",
+        "And more"
       ],
       "sourceIds": [
         "kb4738"

@@ -41,7 +41,7 @@ assert(Array.isArray(catalog.releaseImprovements), 'releaseImprovements must be 
 for (const improvement of catalog.releaseImprovements) {
   assert(catalog.products.some((product) => product.id === improvement.productId), `${improvement.id} references an unknown product`)
   assert(releaseIds.has(improvement.targetReleaseId), `${improvement.id} references an unknown target release`)
-  assert(Array.isArray(improvement.groups) && improvement.groups.length > 0, `${improvement.id} must include at least one documented group`)
+  assert(Array.isArray(improvement.topics) && improvement.topics.length > 0, `${improvement.id} must include at least one documented topic`)
   for (const sourceId of improvement.sourceIds) assert(sourceIds.has(sourceId), `${improvement.id} references unknown source ${sourceId}`)
 }
 

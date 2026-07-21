@@ -326,14 +326,9 @@ export default function App() {
                       <h3>{improvement.heading}</h3>
                       <p>{improvement.summary}</p>
                       <section className="release-improvement-details" aria-label="Fixes covered in this release">
-                        <p className="release-improvement-label">Fixes covered in this release</p>
-                        <ul className="release-highlights">
-                          {improvement.groups.map((group) => (
-                            <li key={group.title}>
-                              <strong>{group.title}</strong>
-                              <span>{group.summary}</span>
-                            </li>
-                          ))}
+                        <p className="release-improvement-label">Fixes covered in this release include the following:</p>
+                        <ul className="release-fix-topics">
+                          {improvement.topics.map((topic) => <li key={topic}>{topic}</li>)}
                         </ul>
                       </section>
                       <details className="release-sources-details">

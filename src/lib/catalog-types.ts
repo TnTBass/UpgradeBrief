@@ -69,10 +69,7 @@ export interface ReleaseImprovement {
   fromVersionPrefixes?: string[]
   heading: string
   summary: string
-  groups: Array<{
-    title: string
-    summary: string
-  }>
+  topics: string[]
   sourceIds: string[]
 }
 
