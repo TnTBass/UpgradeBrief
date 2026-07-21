@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
-import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, releaseMaterialSourceIds, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
+import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, releaseImprovementsForRelease, releaseMaterialSourceIds, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
 import { classifyUrgency } from './urgency'
 
 describe('catalog lookup', () => {
@@ -30,6 +30,20 @@ describe('catalog lookup', () => {
 
     expect(path.id).toBe('vbr-13.0.1-to-13.0.2')
     expect(path.hopReleaseIds).toEqual(['vbr-13.0.2'])
+  })
+
+  it('shows source-backed resolved-issue context for a VBR 13.0 point-release update without presenting it as a new feature', () => {
+    const release = findRelease(catalog, 'vbr', '13.0.1.180')!
+    const target = findRelease(catalog, 'vbr', '13.0.2.29')!
+
+    expect(upgradeHighlightsForRelease(catalog, release, target)).toEqual([])
+    expect(releaseImprovementsForRelease(catalog, release, target)).toEqual([
+      expect.objectContaining({
+        id: 'vbr-13.0.2-resolved-issues',
+        heading: 'Documented resolved issues in 13.0.2',
+        sourceIds: ['kb4738'],
+      }),
+    ])
   })
 
   it('routes the VBR 13.0.0 Software Appliance through its in-appliance update workflow', () => {

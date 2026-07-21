@@ -37,6 +37,14 @@ for (const capability of catalog.capabilities) {
   for (const sourceId of capability.sourceIds) assert(sourceIds.has(sourceId), `${capability.id} references unknown source ${sourceId}`)
 }
 
+assert(Array.isArray(catalog.releaseImprovements), 'releaseImprovements must be an array')
+for (const improvement of catalog.releaseImprovements) {
+  assert(catalog.products.some((product) => product.id === improvement.productId), `${improvement.id} references an unknown product`)
+  assert(releaseIds.has(improvement.targetReleaseId), `${improvement.id} references an unknown target release`)
+  assert(Array.isArray(improvement.groups) && improvement.groups.length > 0, `${improvement.id} must include at least one documented group`)
+  for (const sourceId of improvement.sourceIds) assert(sourceIds.has(sourceId), `${improvement.id} references unknown source ${sourceId}`)
+}
+
 for (const source of catalog.sources) {
   if (source.releaseFamily !== undefined) assert(/^\d+\.\d+$/.test(source.releaseFamily), `${source.id} has an invalid releaseFamily`)
   if (source.materialKind !== undefined) assert(['release-notes', 'whats-new'].includes(source.materialKind), `${source.id} has an invalid materialKind`)

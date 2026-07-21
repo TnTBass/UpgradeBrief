@@ -1,4 +1,4 @@
-import type { Catalog, LifecycleNotice, ProductId, Release, ReleaseHighlight, SecurityFinding, UpgradePath } from './catalog-types'
+import type { Catalog, LifecycleNotice, ProductId, Release, ReleaseHighlight, ReleaseImprovement, SecurityFinding, UpgradePath } from './catalog-types'
 import { classifyUrgency } from './urgency'
 
 const urgencyOrder = { critical: 0, high: 1, standard: 2 } as const
@@ -164,6 +164,16 @@ export function releaseMaterialSourceIds(catalog: Catalog, productId: ProductId,
     .sort((left, right) => left.materialKind === 'whats-new' ? -1 : right.materialKind === 'whats-new' ? 1 : left.title.localeCompare(right.title))
     .map((source) => source.id)
   return materialSources.length ? materialSources : releaseMaterialSources[productId]
+}
+
+export function releaseImprovementsForRelease(catalog: Catalog, release: Release, targetRelease: Release): ReleaseImprovement[] {
+  return catalog.releaseImprovements.filter((improvement) =>
+    improvement.productId === release.productId
+    && improvement.targetReleaseId === targetRelease.id
+    && (improvement.fromVersionPrefixes ?? []).some((prefix) =>
+      release.aliases.some((alias) => normalizeInput(alias).startsWith(normalizeInput(prefix))),
+    ),
+  )
 }
 
 export function documentedFixSourceIds(catalog: Catalog, release: Release): string[] {

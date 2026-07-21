@@ -6181,6 +6181,35 @@
       "isCisaKev": false
     }
   ],
+  "releaseImprovements": [
+    {
+      "id": "vbr-13.0.2-resolved-issues",
+      "productId": "vbr",
+      "targetReleaseId": "vbr-13.0.2",
+      "fromVersionPrefixes": [
+        "13.0."
+      ],
+      "heading": "Documented resolved issues in 13.0.2",
+      "summary": "This is a point release, not a new feature release. Veeam documents resolved issues across console administration, repository operations, and protection workflows.",
+      "groups": [
+        {
+          "title": "Console administration",
+          "summary": "Users and Roles, activity history, and remote-console update behavior."
+        },
+        {
+          "title": "Repository operations",
+          "summary": "High availability, NFS and Azure object storage, plus Data Domain behavior."
+        },
+        {
+          "title": "Protection workflows",
+          "summary": "Guest processing, Enterprise Manager SAML sign-in, and Veeam Agent operations."
+        }
+      ],
+      "sourceIds": [
+        "kb4738"
+      ]
+    }
+  ],
   "capabilities": [
     {
       "id": "vbr-hardened-repositories",

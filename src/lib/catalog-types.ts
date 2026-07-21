@@ -62,6 +62,20 @@ export interface ProductCapability {
   sourceIds: string[]
 }
 
+export interface ReleaseImprovement {
+  id: string
+  productId: ProductId
+  targetReleaseId: string
+  fromVersionPrefixes?: string[]
+  heading: string
+  summary: string
+  groups: Array<{
+    title: string
+    summary: string
+  }>
+  sourceIds: string[]
+}
+
 export interface LifecycleNotice {
   productId: ProductId
   releaseId?: string
@@ -117,5 +131,6 @@ export interface Catalog {
   lifecycleNotices: LifecycleNotice[]
   upgradePaths: UpgradePath[]
   securityFindings: SecurityFinding[]
+  releaseImprovements: ReleaseImprovement[]
   capabilities: ProductCapability[]
 }

@@ -2,7 +2,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding, Urgency } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, releaseMaterialSourceIds, sourceById, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
+import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, releaseImprovementsForRelease, releaseMaterialSourceIds, sourceById, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './lib/upgrade-summary'
 import { classifyUrgency } from './lib/urgency'
@@ -125,6 +125,8 @@ export default function App() {
   const targetMaterialSourceIds = releaseMaterialSourceIds(catalog, productId, targetRelease)
   const targetHighlights = release && targetRelease ? upgradeHighlightsForRelease(catalog, release, targetRelease) : []
   const targetHighlightSourceIds = [...new Set(targetHighlights.flatMap((highlight) => highlight.sourceIds))]
+  const targetReleaseImprovements = release && targetRelease ? releaseImprovementsForRelease(catalog, release, targetRelease) : []
+  const targetReleaseImprovementSourceIds = [...new Set(targetReleaseImprovements.flatMap((improvement) => improvement.sourceIds))]
   const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
   const lifecycleNeedsAttention = lifecycle?.state === 'end-of-support' || lifecycle?.state === 'end-of-fix'
   const legacyLifecycleRelease = release ? isLegacyLifecycleRelease(productId, release) : false
@@ -139,6 +141,7 @@ export default function App() {
     ...pathHowTo,
     ...(targetLifecycle?.sourceIds ?? []),
     ...targetHighlightSourceIds,
+    ...targetReleaseImprovementSourceIds,
     ...targetMaterialSourceIds,
   ])] : []
   const executiveSources = executiveSourceIds.flatMap((sourceId) => {
@@ -317,7 +320,28 @@ export default function App() {
                         <SourceLinks sourceIds={[...new Set([...targetHighlightSourceIds, ...targetMaterialSourceIds])]} />
                       </details>
                     </>
-                  ) : (
+                  ) : targetReleaseImprovements.length > 0 ? targetReleaseImprovements.map((improvement) => (
+                    <div className="release-improvement" key={improvement.id}>
+                      <p className="eyebrow">Also improved in this release</p>
+                      <h3>{improvement.heading}</h3>
+                      <p>{improvement.summary}</p>
+                      <details className="release-improvement-details">
+                        <summary>View areas covered by the release information</summary>
+                        <ul className="release-highlights">
+                          {improvement.groups.map((group) => (
+                            <li key={group.title}>
+                              <strong>{group.title}</strong>
+                              <span>{group.summary}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                      <details className="release-sources-details">
+                        <summary>View source materials</summary>
+                        <SourceLinks sourceIds={[...new Set([...improvement.sourceIds, ...targetMaterialSourceIds])]} />
+                      </details>
+                    </div>
+                  )) : (
                     <>
                       <p>Review Veeam’s documented capabilities and release notes for this target release.</p>
                       <details className="release-sources-details">
