@@ -2,7 +2,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding, Urgency } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, sourceById, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
+import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, releaseMaterialSourceIds, sourceById, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './lib/upgrade-summary'
 import { classifyUrgency } from './lib/urgency'
@@ -127,6 +127,7 @@ export default function App() {
   const targetHighlightSourceIds = [...new Set(targetHighlights.flatMap((highlight) => highlight.sourceIds))]
   const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
   const lifecycleNeedsAttention = lifecycle?.state === 'end-of-support' || lifecycle?.state === 'end-of-fix'
+  const legacyLifecycleRelease = release ? isLegacyLifecycleRelease(productId, release) : false
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
   const executiveRoute = path && release
     ? formatExecutiveRoute([release.name, ...path.hopReleaseIds.flatMap((releaseId) => catalog.releases.find((item) => item.id === releaseId)?.name ?? [])])
@@ -346,11 +347,11 @@ export default function App() {
           )}
 
           <div className="result-grid">
-            <article className={`lifecycle-card${lifecycleNeedsAttention ? ' needs-attention' : ''}`}>
+            <article className={`lifecycle-card${legacyLifecycleRelease ? ' legacy' : lifecycleNeedsAttention ? ' needs-attention' : ''}`}>
               <p className="eyebrow">Lifecycle</p>
               <div className="lifecycle-heading">
                 <h3>{lifecycle ? formatLifecycleHeading(lifecycle.state) : 'Source check required'}</h3>
-                {lifecycleNeedsAttention && <span className="lifecycle-attention">Attention needed</span>}
+                {(legacyLifecycleRelease || lifecycleNeedsAttention) && <span className="lifecycle-attention">{legacyLifecycleRelease ? 'Legacy release' : 'Attention needed'}</span>}
               </div>
               <p>{lifecycle?.summary ?? 'No release-specific lifecycle statement has been curated for this result.'}</p>
               {lifecycle && <SourceLinks sourceIds={lifecycle.sourceIds} />}

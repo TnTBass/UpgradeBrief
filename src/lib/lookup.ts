@@ -78,6 +78,12 @@ function releaseVersion(release: Release): string | undefined {
   return versionFromText(release.name) ?? release.aliases.map(versionFromText).find(Boolean)
 }
 
+export function isLegacyLifecycleRelease(productId: ProductId, release: Release): boolean {
+  if (!['vbr', 'veeam-one', 'enterprise-manager'].includes(productId)) return false
+  const major = Number(releaseVersion(release)?.split('.')[0])
+  return Number.isFinite(major) && major < 11
+}
+
 function releaseMaterialFamily(version: string | undefined): string | undefined {
   if (!version) return undefined
   const [major, minor = '0'] = version.split('.')

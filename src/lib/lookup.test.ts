@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
-import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isRecommendedRelease, releaseMaterialSourceIds, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
+import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, releaseMaterialSourceIds, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
 import { classifyUrgency } from './urgency'
 
 describe('catalog lookup', () => {
@@ -97,6 +97,16 @@ describe('catalog lookup', () => {
   it('applies the refreshed lifecycle row to related builds in the same major version', () => {
     const release = findRelease(catalog, 'vbr', '13.0.1.180')!
     expect(findLifecycleNotice(catalog, 'vbr', release.id)?.state).toBe('supported')
+  })
+
+  it('marks VBR, Veeam ONE, and Enterprise Manager releases before version 11 as legacy lifecycle releases', () => {
+    const release = (name: string) => ({ name, aliases: [] }) as unknown as Parameters<typeof isLegacyLifecycleRelease>[1]
+
+    expect(isLegacyLifecycleRelease('vbr', release('10.0'))).toBe(true)
+    expect(isLegacyLifecycleRelease('veeam-one', release('6.5'))).toBe(true)
+    expect(isLegacyLifecycleRelease('enterprise-manager', release('10.0'))).toBe(true)
+    expect(isLegacyLifecycleRelease('vbr', release('11.0'))).toBe(false)
+    expect(isLegacyLifecycleRelease('vspc', release('9.2'))).toBe(false)
   })
 
   it('applies a documented VBR build range through its final vulnerable build', () => {
