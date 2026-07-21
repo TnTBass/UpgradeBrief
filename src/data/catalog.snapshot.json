@@ -6195,9 +6195,6 @@
         "Remote Console",
         "High Availability",
         "NFS Repository",
-        "Object Storage Repository",
-        "Guest Processing",
-        "Veeam Agents",
         "And more"
       ],
       "sourceIds": [
