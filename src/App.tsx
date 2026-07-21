@@ -325,8 +325,8 @@ export default function App() {
                       <p className="eyebrow">Also improved in this release</p>
                       <h3>{improvement.heading}</h3>
                       <p>{improvement.summary}</p>
-                      <details className="release-improvement-details">
-                        <summary>View areas covered by the release information</summary>
+                      <section className="release-improvement-details" aria-label="Fixes covered in this release">
+                        <p className="release-improvement-label">Fixes covered in this release</p>
                         <ul className="release-highlights">
                           {improvement.groups.map((group) => (
                             <li key={group.title}>
@@ -335,7 +335,7 @@ export default function App() {
                             </li>
                           ))}
                         </ul>
-                      </details>
+                      </section>
                       <details className="release-sources-details">
                         <summary>View source materials</summary>
                         <SourceLinks sourceIds={[...new Set([...improvement.sourceIds, ...targetMaterialSourceIds])]} />
