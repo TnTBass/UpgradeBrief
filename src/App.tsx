@@ -302,7 +302,7 @@ export default function App() {
               <p className="upgrade-value-target"><strong>Recommended target:</strong> {targetRelease.name}. Upgrade to receive current product improvements and supported security fixes.</p>
               <div className="upgrade-value-grid">
                 <article className="feature-highlights-panel">
-                  <p className="eyebrow">What this upgrade adds</p>
+                  <p className="eyebrow">{targetHighlights.length ? 'What this upgrade adds' : targetReleaseImprovements.length ? 'Also improved in this release' : 'Release information'}</p>
                   {targetHighlights.length ? (
                     <>
                       <h3>Explore {targetHighlights.length} feature highlights</h3>
@@ -322,7 +322,6 @@ export default function App() {
                     </>
                   ) : targetReleaseImprovements.length > 0 ? targetReleaseImprovements.map((improvement) => (
                     <div className="release-improvement" key={improvement.id}>
-                      <p className="eyebrow">Also improved in this release</p>
                       <h3>{improvement.heading}</h3>
                       <p>{improvement.summary}</p>
                       <section className="release-improvement-details" aria-label="Fixes covered in this release">
