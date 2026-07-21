@@ -1,4 +1,12 @@
+# AI coding-assistant working files and generated workflow documents
 .agent-review/
+.agents/
+.claude/
+.codex/
+.codex-remote-attachments/
+docs/superpowers/
+
+# Local build artifacts
 node_modules/
 dist/
 *.tsbuildinfo
