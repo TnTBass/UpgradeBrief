@@ -6190,7 +6190,7 @@
         "13.0."
       ],
       "heading": "Documented resolved issues in 13.0.2",
-      "summary": "This is a minor point release, not a new feature release. Veeam documents resolved issues across console administration, repository operations, and protection workflows.",
+      "summary": "This is a patch release, not a new feature release. Veeam documents resolved issues across console administration, repository operations, and protection workflows.",
       "topics": [
         "Remote Console",
         "High Availability",
