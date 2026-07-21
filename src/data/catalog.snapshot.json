@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-20T22:53:35.632Z",
+  "generatedAt": "2026-07-21T06:42:12.147Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4357",
       "title": "Veeam KB4357: Veeam ONE build numbers",
       "url": "https://www.veeam.com/kb4357",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4358",
       "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
       "url": "https://www.veeam.com/kb4358",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4464",
       "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
       "url": "https://www.veeam.com/kb4464",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4581",
@@ -66,7 +66,7 @@
       "id": "lifecycle",
       "title": "Veeam Product Lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "em-upgrade",
@@ -90,7 +90,7 @@
       "id": "vbr-whats-new",
       "title": "Veeam Backup & Replication 13 What's New v13",
       "url": "https://www.veeam.com/veeam_backup_13_whats_new__wn.pdf",
-      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "checkedAt": "2026-07-21T06:42:12.147Z",
       "productId": "vbr",
       "releaseFamily": "13.0",
       "materialKind": "whats-new",
@@ -131,7 +131,7 @@
       "id": "one-13-whats-new",
       "title": "Veeam ONE 13 What's New v13",
       "url": "https://www.veeam.com/veeam_one_13_whats_new_wn.pdf",
-      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "checkedAt": "2026-07-21T06:42:12.147Z",
       "productId": "veeam-one",
       "releaseFamily": "13.0",
       "materialKind": "whats-new",
@@ -148,7 +148,7 @@
       "id": "vro-13-whats-new",
       "title": "Veeam Recovery Orchestrator 13 What's New",
       "url": "https://www.veeam.com/veeam_orchestrator_13_whats_new_wn.pdf",
-      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "checkedAt": "2026-07-21T06:42:12.147Z",
       "productId": "vro",
       "releaseFamily": "13.0",
       "materialKind": "whats-new",
@@ -159,7 +159,7 @@
       "id": "vro-13-release-notes",
       "title": "Veeam Recovery Orchestrator 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_release_notes.html",
-      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "checkedAt": "2026-07-21T06:42:12.147Z",
       "productId": "vro",
       "releaseFamily": "13.0",
       "materialKind": "release-notes",
@@ -188,7 +188,7 @@
       "id": "vbr-release-materials",
       "title": "Veeam Backup & Replication 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbr",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "vsa-conversion",
@@ -212,19 +212,19 @@
       "id": "one-release-materials",
       "title": "Veeam ONE 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=one",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "vro-release-materials",
       "title": "Veeam Recovery Orchestrator 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vro",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "vspc-release-materials",
       "title": "Veeam Service Provider Console release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vac",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "em-how-to",
@@ -254,7 +254,7 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4771",
@@ -266,73 +266,73 @@
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4869",
       "title": "Veeam KB4869: Vulnerability Resolved in Veeam Backup & Replication 12.3.2.4854",
       "url": "https://www.veeam.com/kb4869",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4696",
       "title": "Veeam KB4696: Release Information for Veeam Backup & Replication 12.3 and updates",
       "url": "https://www.veeam.com/kb4696",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4738",
       "title": "Veeam KB4738: Release Information for Veeam Backup & Replication 13 and updates",
       "url": "https://www.veeam.com/kb4738",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
-      "checkedAt": "2026-07-20T22:53:35.632Z"
+      "checkedAt": "2026-07-21T06:42:12.147Z"
     },
     {
       "id": "release-material-vbr-13-0-release-notes",
       "title": "Veeam Backup & Replication 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_13_0_2_release_notes.html",
-      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "checkedAt": "2026-07-21T06:42:12.147Z",
       "productId": "vbr",
       "releaseFamily": "13.0",
       "materialKind": "release-notes",
@@ -343,7 +343,7 @@
       "id": "release-material-veeam-one-13-0-release-notes",
       "title": "Veeam ONE 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_one_13_0_2_release_notes.html",
-      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "checkedAt": "2026-07-21T06:42:12.147Z",
       "productId": "veeam-one",
       "releaseFamily": "13.0",
       "materialKind": "release-notes",
@@ -354,7 +354,7 @@
       "id": "release-material-vspc-9-2-release-notes",
       "title": "Veeam Service Provider Console 9.2 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/vspc_9_2_release_notes.html",
-      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "checkedAt": "2026-07-21T06:42:12.147Z",
       "productId": "vspc",
       "releaseFamily": "9.2",
       "materialKind": "release-notes",
@@ -365,7 +365,7 @@
       "id": "release-material-vspc-9-2-whats-new",
       "title": "Veeam Service Provider Console 9.2 What's New",
       "url": "https://www.veeam.com/veeam_console_9_2_whats_new_wn.pdf",
-      "checkedAt": "2026-07-20T22:53:35.632Z",
+      "checkedAt": "2026-07-21T06:42:12.147Z",
       "productId": "vspc",
       "releaseFamily": "9.2",
       "materialKind": "whats-new",
