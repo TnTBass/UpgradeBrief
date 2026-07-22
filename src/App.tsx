@@ -127,6 +127,21 @@ export default function App() {
   const targetHighlightSourceIds = [...new Set(targetHighlights.flatMap((highlight) => highlight.sourceIds))]
   const targetReleaseImprovements = release && targetRelease ? releaseImprovementsForRelease(catalog, release, targetRelease) : []
   const targetReleaseImprovementSourceIds = [...new Set(targetReleaseImprovements.flatMap((improvement) => improvement.sourceIds))]
+  const executiveTargetUpdates = targetHighlights.length > 0
+    ? {
+        label: 'What the target can add',
+        heading: 'Feature highlights',
+        detail: 'Veeam documents the following capability improvements in the recommended target release.',
+        items: targetHighlights.map(({ title, summary }) => ({ title, summary })),
+      }
+    : targetReleaseImprovements.length > 0
+      ? {
+          label: 'Patch release updates',
+          heading: targetReleaseImprovements[0].heading,
+          detail: targetReleaseImprovements[0].summary,
+          items: targetReleaseImprovements.flatMap((improvement) => improvement.topics).map((title) => ({ title })),
+        }
+      : undefined
   const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
   const lifecycleNeedsAttention = lifecycle?.state === 'end-of-support' || lifecycle?.state === 'end-of-fix'
   const legacyLifecycleRelease = release ? isLegacyLifecycleRelease(productId, release) : false
@@ -196,7 +211,7 @@ export default function App() {
       securitySummary: findings.length > 0
         ? `${findings.length} matching cataloged ${findings.length === 1 ? 'security advisory' : 'security advisories'}, including ${advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}. Individual advisory details are excluded from this executive summary.`
         : undefined,
-      highlights: targetHighlights.map(({ title, summary }) => ({ title, summary })),
+      targetUpdates: executiveTargetUpdates,
       sources: executiveSources,
     })
   }

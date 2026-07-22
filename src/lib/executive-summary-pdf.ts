@@ -8,7 +8,12 @@ export interface ExecutiveSummaryPdfInput {
   lifecycle: { heading: string; detail: string }
   upgradeRoute: { heading: string; detail: string }
   securitySummary?: string
-  highlights: Array<{ title: string; summary: string }>
+  targetUpdates?: {
+    label: string
+    heading: string
+    detail: string
+    items: Array<{ title: string; summary?: string }>
+  }
   sources: Array<{ title: string; url: string }>
 }
 
@@ -52,7 +57,7 @@ function safeFileSegment(value: string): string {
   return value.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-').replaceAll(/(^-|-$)/g, '')
 }
 
-export function downloadExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): void {
+export function buildExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): jsPDF {
   const document = new jsPDF({ format: 'letter', orientation: 'portrait', unit: 'pt' })
   let y = margin
 
@@ -76,13 +81,19 @@ export function downloadExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): vo
   document.text(`Prepared ${input.preparedOn}`, margin, y + 12)
   y += 34
 
-  y = addSection(document, 'Recommendation', input.recommendation.heading, input.recommendation.detail, y)
+  y = addSection(
+    document,
+    'Decision summary',
+    input.recommendation.heading,
+    `${input.recommendation.detail} ${input.upgradeRoute.heading}. Next step: Review the documented upgrade route and vendor checklist before scheduling the change.`,
+    y,
+  )
   y = addSection(document, 'Lifecycle', input.lifecycle.heading, input.lifecycle.detail, y)
   y = addSection(document, 'Upgrade route', input.upgradeRoute.heading, input.upgradeRoute.detail, y)
 
   if (input.securitySummary) y = addSection(document, 'Security posture', 'Cataloged security advisory summary', input.securitySummary, y)
 
-  if (input.highlights.length > 0) {
+  if (input.targetUpdates) {
     y = ensureSpace(document, y, 86)
     document.setDrawColor(219, 226, 229)
     document.line(margin, y, pageWidth - margin, y)
@@ -90,17 +101,35 @@ export function downloadExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): vo
     document.setTextColor(0, 110, 109)
     document.setFont('helvetica', 'bold')
     document.setFontSize(8)
-    document.text('WHAT THE TARGET CAN ADD', margin, y)
+    document.text(input.targetUpdates.label.toUpperCase(), margin, y)
     y += 17
-    for (const highlight of input.highlights) {
-      y = ensureSpace(document, y, 44)
+    document.setTextColor(29, 42, 53)
+    document.setFont('helvetica', 'bold')
+    document.setFontSize(13)
+    y = addWrappedText(document, input.targetUpdates.heading, margin, y, contentWidth, 16)
+    document.setFont('helvetica', 'normal')
+    document.setFontSize(9)
+    y = addWrappedText(document, input.targetUpdates.detail, margin, y + 3, contentWidth, 12) + 8
+    const hasItemSummaries = input.targetUpdates.items.some((item) => item.summary)
+    if (!hasItemSummaries) {
       document.setTextColor(29, 42, 53)
       document.setFont('helvetica', 'bold')
       document.setFontSize(10)
-      y = addWrappedText(document, highlight.title, margin, y, contentWidth, 13)
-      document.setFont('helvetica', 'normal')
-      document.setFontSize(9)
-      y = addWrappedText(document, highlight.summary, margin, y + 2, contentWidth, 12) + 8
+      y = addWrappedText(document, input.targetUpdates.items.map(({ title }) => title).join(' • '), margin, y, contentWidth, 13) + 8
+    } else {
+      for (const item of input.targetUpdates.items) {
+        y = ensureSpace(document, y, 44)
+        document.setTextColor(29, 42, 53)
+        document.setFont('helvetica', 'bold')
+        document.setFontSize(10)
+        y = addWrappedText(document, item.title, margin, y, contentWidth, 13)
+        if (item.summary) {
+          document.setFont('helvetica', 'normal')
+          document.setFontSize(9)
+          y = addWrappedText(document, item.summary, margin, y + 2, contentWidth, 12)
+        }
+        y += 8
+      }
     }
   }
 
@@ -129,5 +158,10 @@ export function downloadExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): vo
     y = addWrappedText(document, source.url, margin, y + 1, contentWidth, 9) + 5
   }
 
+  return document
+}
+
+export function downloadExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): void {
+  const document = buildExecutiveSummaryPdf(input)
   document.save(`upgrade-brief-${safeFileSegment(input.productName)}-${safeFileSegment(input.installedRelease)}-executive-summary.pdf`)
 }
