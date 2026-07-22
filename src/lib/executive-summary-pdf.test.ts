@@ -16,7 +16,7 @@ const patchReleaseInput: ExecutiveSummaryPdfInput = {
   },
   upgradeRoute: {
     heading: 'Recommended target: 13.0.2 (build 13.0.2.29)',
-    detail: '13.0.1 (build 13.0.1.180) > 13.0.2 (build 13.0.2.29)',
+    detail: '13.0.1 (build 13.0.1.180) -> 13.0.2 (build 13.0.2.29)',
   },
   securitySummary: '12 matching cataloged security advisories, including 4 Critical, 7 High Priority, 1 Standard. Individual advisory details are excluded from this executive summary.',
   targetUpdates: {

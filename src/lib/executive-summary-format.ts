@@ -4,5 +4,5 @@ export function formatLifecycleHeading(state?: string): string {
 }
 
 export function formatExecutiveRoute(releases: string[]): string {
-  return releases.join(' > ')
+  return releases.join(' -> ')
 }
