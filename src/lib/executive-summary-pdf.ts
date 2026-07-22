@@ -6,7 +6,7 @@ export interface ExecutiveSummaryPdfInput {
   preparedOn: string
   recommendation: { heading: string; detail: string }
   lifecycle: { heading: string; detail: string }
-  upgradeRoute: { heading: string; detail: string }
+  upgradeRoute?: { heading: string; detail: string }
   securitySummary?: string
   targetUpdates?: {
     label: string
@@ -81,15 +81,12 @@ export function buildExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): jsPDF
   document.text(`Prepared ${input.preparedOn}`, margin, y + 12)
   y += 34
 
-  y = addSection(
-    document,
-    'Decision summary',
-    input.recommendation.heading,
-    `${input.recommendation.detail} ${input.upgradeRoute.heading}. Next step: Review the documented upgrade route and vendor checklist before scheduling the change.`,
-    y,
-  )
+  const routeDecision = input.upgradeRoute
+    ? ` ${input.upgradeRoute.heading}. Next step: Review the documented upgrade route and vendor checklist before scheduling the change.`
+    : ''
+  y = addSection(document, 'Decision summary', input.recommendation.heading, `${input.recommendation.detail}${routeDecision}`, y)
   y = addSection(document, 'Lifecycle', input.lifecycle.heading, input.lifecycle.detail, y)
-  y = addSection(document, 'Upgrade route', input.upgradeRoute.heading, input.upgradeRoute.detail, y)
+  if (input.upgradeRoute) y = addSection(document, 'Upgrade route', input.upgradeRoute.heading, input.upgradeRoute.detail, y)
 
   if (input.securitySummary) y = addSection(document, 'Security posture', 'Cataloged security advisory summary', input.securitySummary, y)
 

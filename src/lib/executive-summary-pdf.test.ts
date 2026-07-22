@@ -67,4 +67,23 @@ describe('executive summary PDF', () => {
     expect(pdf).toContain('Strengthen cyber resilience')
     expect(pdf).toContain('Modernize backup management')
   })
+
+  it('omits target-specific content for the current cataloged release', () => {
+    const document = buildExecutiveSummaryPdf({
+      ...patchReleaseInput,
+      installedRelease: '13.0.2 (build 13.0.2.29)',
+      recommendation: {
+        heading: 'This is the current cataloged release.',
+        detail: 'No newer target is currently recorded. Continue to review vendor guidance and security advisories for subsequent patches.',
+      },
+      upgradeRoute: undefined,
+      targetUpdates: undefined,
+    })
+    const pdf = new TextDecoder('latin1').decode(document.output('arraybuffer'))
+
+    expect(pdf).toContain('This is the current cataloged release.')
+    expect(pdf).not.toContain('UPGRADE ROUTE')
+    expect(pdf).not.toContain('PATCH RELEASE UPDATES')
+    expect(pdf).not.toContain('Recommended target:')
+  })
 })

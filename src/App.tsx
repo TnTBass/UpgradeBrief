@@ -120,7 +120,7 @@ export default function App() {
   const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
   const findings = release ? findingsForRelease(catalog, release) : []
   const advisoryUrgencies = summarizeAdvisoryUrgencies(findings)
-  const targetRelease = release ? upgradeTargetRelease(catalog, productId, path) : undefined
+  const targetRelease = release && !isCurrentCatalogRelease ? upgradeTargetRelease(catalog, productId, path) : undefined
   const targetLifecycle = targetRelease ? findLifecycleNotice(catalog, productId, targetRelease.id) : undefined
   const targetMaterialSourceIds = releaseMaterialSourceIds(catalog, productId, targetRelease)
   const targetHighlights = release && targetRelease ? upgradeHighlightsForRelease(catalog, release, targetRelease) : []
@@ -204,10 +204,12 @@ export default function App() {
         heading: formatLifecycleHeading(lifecycle?.state),
         detail: lifecycle?.summary ?? 'No release-specific lifecycle statement has been curated for this result.',
       },
-      upgradeRoute: {
-        heading: targetRelease ? `Recommended target: ${targetRelease.name}` : 'Confirm the supported route',
-        detail: executiveRoute ?? 'No exact route is currently curated. Use the linked vendor guidance to plan the next step.',
-      },
+      upgradeRoute: targetRelease
+        ? {
+            heading: `Recommended target: ${targetRelease.name}`,
+            detail: executiveRoute ?? 'No exact route is currently curated. Use the linked vendor guidance to plan the next step.',
+          }
+        : undefined,
       securitySummary: findings.length > 0
         ? `${findings.length} matching cataloged ${findings.length === 1 ? 'security advisory' : 'security advisories'}, including ${advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}. Individual advisory details are excluded from this executive summary.`
         : undefined,
