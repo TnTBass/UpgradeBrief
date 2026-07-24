@@ -10,6 +10,13 @@ import { formatExecutiveRoute, formatLifecycleHeading } from './lib/executive-su
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
 const initialVersion = new URLSearchParams(window.location.search).get('version') || ''
+type Theme = 'light' | 'dark'
+
+function initialTheme(): Theme {
+  const savedTheme = window.localStorage.getItem('upgrade-brief-theme')
+  if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
 
 const versionHelp: Record<ProductId, { instruction: string; sourceIds: string[] }> = {
   vbr: {
@@ -99,6 +106,7 @@ function UrgencyIcon({ urgency }: { urgency: Urgency | 'clear' }) {
 export default function App() {
   const [productId, setProductId] = useState<ProductId>(catalog.products.some((product) => product.id === initialProduct) ? initialProduct : 'vbr')
   const [version, setVersion] = useState(initialVersion)
+  const [theme, setTheme] = useState<Theme>(initialTheme)
   const [versionPickerOpen, setVersionPickerOpen] = useState(false)
   const [versionFilter, setVersionFilter] = useState('')
   const versionPickerRef = useRef<HTMLDivElement>(null)
@@ -179,6 +187,11 @@ export default function App() {
     window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`)
   }, [hasVersion, productId, version])
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    window.localStorage.setItem('upgrade-brief-theme', theme)
+  }, [theme])
+
   function changeProduct(nextProductId: ProductId) {
     setProductId(nextProductId)
     setVersion('')
@@ -226,6 +239,15 @@ export default function App() {
           <h1>Upgrade with confidence.</h1>
           <p className="lede">Independent, evidence-based upgrade guidance for Veeam software.</p>
         </div>
+        <button
+          className="theme-toggle"
+          type="button"
+          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          aria-pressed={theme === 'dark'}
+          onClick={() => setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light')}
+        >
+          {theme === 'light' ? 'Dark mode' : 'Light mode'}
+        </button>
       </header>
 
       <section className="lookup" aria-labelledby="lookup-heading">
