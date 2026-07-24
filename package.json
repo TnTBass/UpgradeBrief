@@ -13,6 +13,7 @@
     "test": "vitest",
     "test:adapters": "node scripts/test-vbr-build-adapter.mjs",
     "test:product-build-adapter": "node scripts/test-product-builds-adapter.mjs",
+    "test:vb365-build-adapter": "node scripts/test-vb365-build-adapter.mjs",
     "test:enterprise-manager-build-adapter": "node scripts/test-enterprise-manager-build-adapter.mjs",
     "test:security-adapter": "node scripts/test-vbr-security-adapter.mjs",
     "test:release-security-adapter": "node scripts/test-vbr-release-security-adapter.mjs",

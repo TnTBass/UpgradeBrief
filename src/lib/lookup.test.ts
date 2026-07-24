@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
-import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, releaseImprovementsForRelease, releaseMaterialSourceIds, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
+import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, operationalNoticesForRelease, releaseImprovementsForRelease, releaseMaterialSourceIds, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
 import { classifyUrgency } from './urgency'
 
 describe('catalog lookup', () => {
@@ -164,6 +164,25 @@ describe('catalog lookup', () => {
   it('provides a Help Center how-to link for each product', () => {
     expect(upgradeHowToSourceIds('veeam-one')).toEqual(['one-how-to'])
     expect(upgradeHowToSourceIds('vbr')).toEqual(['vbr-how-to'])
+    expect(upgradeHowToSourceIds('vb365')).toEqual(['vb365-upgrade', 'vb365-after-upgrade'])
+  })
+
+  it('resolves VB365 console and log builds to one release with a documented route', () => {
+    const consoleRelease = findRelease(catalog, 'vb365', '8.4.0.1457')!
+    const logRelease = findRelease(catalog, 'vb365', '13.4.0.1457')!
+
+    expect(consoleRelease.id).toBe(logRelease.id)
+    expect(findUpgradePath(catalog, consoleRelease)?.hopReleaseIds).toEqual(['vb365-build-8-5-0-1014'])
+    expect(releaseMaterialSourceIds(catalog, 'vb365', findRelease(catalog, 'vb365', '8.5.0.1014'))).toContain('release-material-vb365-8-5-release-notes')
+  })
+
+  it('keeps the older VB365 retention issue separate from security findings', () => {
+    const release = findRelease(catalog, 'vb365', '5.0.3.1033')!
+
+    expect(findingsForRelease(catalog, release)).toEqual([])
+    expect(operationalNoticesForRelease(catalog, release)).toEqual([
+      expect.objectContaining({ id: 'vb365-retention-policy-data-risk', sourceIds: ['kb4103'] }),
+    ])
   })
 
   it('links target release material and source-backed fixes without treating them as matching advisories', () => {
@@ -215,6 +234,7 @@ describe('catalog lookup', () => {
       ['veeam-one', '12.2', '13.0.2'],
       ['vro', '7.2.1', '13'],
       ['vspc', '8.1', '9.2'],
+      ['vb365', '7.0.0.4901', '8.5.0.1014'],
     ] as const
     for (const [productId, installed, targetVersion] of cases) {
       const release = findRelease(catalog, productId, installed)!

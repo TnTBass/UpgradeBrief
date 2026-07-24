@@ -16,11 +16,12 @@ function articleId(url) {
   return url.match(/\/kb(\d+)$/i)?.[0] ?.slice(1).toLowerCase()
 }
 
-export function selectProductReleaseSecurityArticles(feed, productName) {
+export function selectProductReleaseSecurityArticles(feed, productNames) {
   if (!Array.isArray(feed.articles)) throw new Error('Security feed does not include an articles array.')
+  const names = Array.isArray(productNames) ? productNames : [productNames]
   return feed.articles.filter((article) =>
     article.type === 'security' &&
-    (new RegExp(productName, 'i').test(article.seoTitle ?? '') || (article.product ?? []).some((product) => product.title === productName)) &&
+    (names.some((productName) => new RegExp(productName, 'i').test(article.seoTitle ?? '')) || (article.product ?? []).some((product) => names.includes(product.title))) &&
     /^\/kb\d+$/i.test(article.url ?? ''),
   )
 }
@@ -78,7 +79,7 @@ export function mergeProductReleaseSecurityArticles(catalog, advisories) {
     const fixedReleaseId = next.releases.find((release) => release.productId === advisory.productId && release.aliases.includes(advisory.fixedBuild))?.id
     if (!fixedReleaseId) throw new Error(`${advisory.source.id} fixed build ${advisory.fixedBuild} is missing from KB2680 data.`)
     return advisory.records.map((record) => ({
-      id: `vbr-${record.cve.toLowerCase()}`,
+      id: `${advisory.productId}-${record.cve.toLowerCase()}`,
       productId: advisory.productId,
       title: record.title,
       cves: [record.cve],

@@ -29,6 +29,13 @@ for (const release of catalog.releases) {
   }
 }
 
+assert(Array.isArray(catalog.operationalNotices), 'operationalNotices must be an array')
+for (const notice of catalog.operationalNotices) {
+  assert(catalog.products.some((product) => product.id === notice.productId), `${notice.id} references an unknown product`)
+  for (const releaseId of notice.affectedReleaseIds) assert(releaseIds.has(releaseId), `${notice.id} affected release must exist`)
+  for (const sourceId of notice.sourceIds) assert(sourceIds.has(sourceId), `${notice.id} references unknown source ${sourceId}`)
+}
+
 assert(Array.isArray(catalog.capabilities), 'capabilities must be an array')
 for (const capability of catalog.capabilities) {
   assert(catalog.products.some((product) => product.id === capability.productId), `${capability.id} references an unknown product`)

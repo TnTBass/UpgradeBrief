@@ -31,4 +31,16 @@ describe('release options', () => {
     expect(options).toContainEqual({ value: '12.3.1.1139', label: '12.3.1 (build 12.3.1.1139)' })
     expect(options).toContainEqual({ value: '13.0.1.2067', label: '13.0.1 P2 (build 13.0.1.2067)' })
   })
+
+  it('uses the VB365 console build rather than its higher log-build alias', () => {
+    const options = releaseOptions([{
+      id: 'vb365-8-5',
+      productId: 'vb365',
+      name: '8.5 (build 8.5.0.1014)',
+      aliases: ['8.5.0.1014', '13.5.0.1014', '8.5'],
+      sourceIds: ['kb4106'],
+    }])
+
+    expect(options).toEqual([{ value: '8.5.0.1014', label: '8.5 (build 8.5.0.1014)' }])
+  })
 })

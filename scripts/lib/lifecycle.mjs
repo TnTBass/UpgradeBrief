@@ -3,6 +3,7 @@ const productIds = {
   'Veeam ONE': 'veeam-one',
   'Veeam Recovery Orchestrator': 'vro',
   'Veeam Service Provider Console': 'vspc',
+  'Veeam Backup for Microsoft 365': 'vb365',
 }
 
 function text(value) {
@@ -10,6 +11,7 @@ function text(value) {
 }
 
 function monthEnd(value) {
+  if (!/^(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}$/i.test(value ?? '')) return undefined
   const date = new Date(`${value} 1, 00:00:00 UTC`)
   if (Number.isNaN(date.valueOf())) return undefined
   return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0, 23, 59, 59, 999))
@@ -21,8 +23,10 @@ function releaseMajor(release) {
 }
 
 function stateFor(policy, asOf) {
-  if (monthEnd(policy.endOfSupport) < asOf) return 'end-of-support'
-  if (monthEnd(policy.endOfFix) < asOf) return 'end-of-fix'
+  const endOfSupport = monthEnd(policy.endOfSupport)
+  const endOfFix = monthEnd(policy.endOfFix)
+  if (endOfSupport && endOfSupport < asOf) return 'end-of-support'
+  if (endOfFix && endOfFix < asOf) return 'end-of-fix'
   return 'supported'
 }
 
@@ -30,7 +34,8 @@ function summary(productName, policy, state, reference = false) {
   const context = reference ? `Veeam does not list ${productName} separately; this uses the corresponding Veeam Backup & Replication ${policy.version} lifecycle row as a reference. ` : ''
   if (state === 'end-of-support') return `${context}${productName} ${policy.version} reached end of support and security fixes in ${policy.endOfSupport}.`
   if (state === 'end-of-fix') return `${context}${productName} ${policy.version} reached end of fix in ${policy.endOfFix}; support and security fixes are listed through ${policy.endOfSupport}.`
-  return `${context}${productName} ${policy.version} is listed with support and security fixes through ${policy.endOfSupport}.`
+  const endOfFix = monthEnd(policy.endOfFix) ? '' : ` End of fix is listed as ${policy.endOfFix}.`
+  return `${context}${productName} ${policy.version} is listed with support and security fixes through ${policy.endOfSupport}.${endOfFix}`
 }
 
 export function parseLifecyclePolicies(html) {

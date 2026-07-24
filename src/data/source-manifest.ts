@@ -3,6 +3,8 @@ export const sourceManifest = [
   { id: 'kb4357', parser: 'product-builds.fixture.html', mode: 'fixture-required' },
   { id: 'kb4358', parser: 'product-builds.fixture.html', mode: 'fixture-required' },
   { id: 'kb4464', parser: 'product-builds.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4106', parser: 'vb365-builds.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4098', parser: 'vb365-upgrade-path.fixture.html', mode: 'fixture-required' },
   { id: 'kb4581', parser: 'enterprise-manager-security.fixture.html', mode: 'fixture-required' },
   { id: 'kb4585', parser: 'vro-security.fixture.html', mode: 'fixture-required' },
   { id: 'kb4541', parser: 'vro-security.fixture.html', mode: 'fixture-required' },

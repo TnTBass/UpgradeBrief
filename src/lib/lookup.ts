@@ -1,4 +1,4 @@
-import type { Catalog, LifecycleNotice, ProductId, Release, ReleaseHighlight, ReleaseImprovement, SecurityFinding, UpgradePath } from './catalog-types'
+import type { Catalog, LifecycleNotice, OperationalNotice, ProductId, Release, ReleaseHighlight, ReleaseImprovement, SecurityFinding, UpgradePath } from './catalog-types'
 import { classifyUrgency } from './urgency'
 
 const urgencyOrder = { critical: 0, high: 1, standard: 2 } as const
@@ -8,6 +8,7 @@ const releaseMaterialSources: Record<ProductId, string[]> = {
   'veeam-one': ['one-release-materials'],
   vro: ['vro-release-materials'],
   vspc: ['vspc-release-materials'],
+  vb365: ['vb365-release-materials'],
 }
 
 export function normalizeInput(value: string): string {
@@ -44,6 +45,7 @@ export function checklistSourceIds(productId: ProductId): string[] {
     'veeam-one': ['kb4646'],
     vro: ['vro-upgrade'],
     vspc: ['vspc-upgrade'],
+    vb365: ['vb365-upgrade', 'vb365-after-upgrade'],
   }[productId]
 }
 
@@ -54,6 +56,7 @@ export function upgradeHowToSourceIds(productId: ProductId): string[] {
     'veeam-one': ['one-how-to'],
     vro: ['vro-upgrade'],
     vspc: ['vspc-upgrade'],
+    vb365: ['vb365-upgrade', 'vb365-after-upgrade'],
   }[productId]
 }
 
@@ -79,6 +82,10 @@ function releaseVersion(release: Release): string | undefined {
 }
 
 export function isLegacyLifecycleRelease(productId: ProductId, release: Release): boolean {
+  if (productId === 'vb365') {
+    const major = Number(releaseVersion(release)?.split('.')[0])
+    return Number.isFinite(major) && major < 7
+  }
   if (!['vbr', 'veeam-one', 'enterprise-manager'].includes(productId)) return false
   const major = Number(releaseVersion(release)?.split('.')[0])
   return Number.isFinite(major) && major < 11
@@ -149,6 +156,17 @@ export function findingsForRelease(catalog: Catalog, release: Release): Security
     .map((finding, index) => ({ finding, index }))
     .sort((left, right) => urgencyOrder[classifyUrgency(left.finding)] - urgencyOrder[classifyUrgency(right.finding)] || left.index - right.index)
     .map(({ finding }) => finding)
+}
+
+export function operationalNoticesForRelease(catalog: Catalog, release: Release): OperationalNotice[] {
+  return catalog.operationalNotices.filter((notice) =>
+    notice.productId === release.productId && (
+      notice.affectedReleaseIds.includes(release.id)
+      || (notice.affectedVersionPrefixes ?? []).some((prefix) =>
+        release.aliases.some((alias) => normalizeInput(alias).startsWith(normalizeInput(prefix))),
+      )
+    ),
+  )
 }
 
 export function upgradeTargetRelease(catalog: Catalog, productId: ProductId, path?: UpgradePath): Release | undefined {

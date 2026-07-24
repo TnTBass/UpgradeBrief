@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-24T06:40:33.966Z",
+  "generatedAt": "2026-07-24T17:13:16.346Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4357",
       "title": "Veeam KB4357: Veeam ONE build numbers",
       "url": "https://www.veeam.com/kb4357",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4358",
       "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
       "url": "https://www.veeam.com/kb4358",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4464",
       "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
       "url": "https://www.veeam.com/kb4464",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4581",
@@ -66,7 +66,7 @@
       "id": "lifecycle",
       "title": "Veeam Product Lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "em-upgrade",
@@ -90,7 +90,7 @@
       "id": "vbr-whats-new",
       "title": "Veeam Backup & Replication 13 What's New v13",
       "url": "https://www.veeam.com/veeam_backup_13_whats_new__wn.pdf",
-      "checkedAt": "2026-07-24T06:40:33.966Z",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
       "productId": "vbr",
       "releaseFamily": "13.0",
       "materialKind": "whats-new",
@@ -131,7 +131,7 @@
       "id": "one-13-whats-new",
       "title": "Veeam ONE 13 What's New v13",
       "url": "https://www.veeam.com/veeam_one_13_whats_new_wn.pdf",
-      "checkedAt": "2026-07-24T06:40:33.966Z",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
       "productId": "veeam-one",
       "releaseFamily": "13.0",
       "materialKind": "whats-new",
@@ -148,7 +148,7 @@
       "id": "vro-13-whats-new",
       "title": "Veeam Recovery Orchestrator 13 What's New",
       "url": "https://www.veeam.com/veeam_orchestrator_13_whats_new_wn.pdf",
-      "checkedAt": "2026-07-24T06:40:33.966Z",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
       "productId": "vro",
       "releaseFamily": "13.0",
       "materialKind": "whats-new",
@@ -159,7 +159,7 @@
       "id": "vro-13-release-notes",
       "title": "Veeam Recovery Orchestrator 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_release_notes.html",
-      "checkedAt": "2026-07-24T06:40:33.966Z",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
       "productId": "vro",
       "releaseFamily": "13.0",
       "materialKind": "release-notes",
@@ -188,7 +188,7 @@
       "id": "vbr-release-materials",
       "title": "Veeam Backup & Replication 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbr",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "vsa-conversion",
@@ -212,19 +212,19 @@
       "id": "one-release-materials",
       "title": "Veeam ONE 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=one",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "vro-release-materials",
       "title": "Veeam Recovery Orchestrator 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vro",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "vspc-release-materials",
       "title": "Veeam Service Provider Console release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vac",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "em-how-to",
@@ -254,7 +254,7 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4771",
@@ -266,73 +266,73 @@
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4869",
       "title": "Veeam KB4869: Vulnerability Resolved in Veeam Backup & Replication 12.3.2.4854",
       "url": "https://www.veeam.com/kb4869",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4696",
       "title": "Veeam KB4696: Release Information for Veeam Backup & Replication 12.3 and updates",
       "url": "https://www.veeam.com/kb4696",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4738",
       "title": "Veeam KB4738: Release Information for Veeam Backup & Replication 13 and updates",
       "url": "https://www.veeam.com/kb4738",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
-      "checkedAt": "2026-07-24T06:40:33.966Z"
+      "checkedAt": "2026-07-24T17:13:16.346Z"
     },
     {
       "id": "release-material-vbr-13-0-release-notes",
       "title": "Veeam Backup & Replication 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_13_0_2_release_notes.html",
-      "checkedAt": "2026-07-24T06:40:33.966Z",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
       "productId": "vbr",
       "releaseFamily": "13.0",
       "materialKind": "release-notes",
@@ -343,7 +343,7 @@
       "id": "release-material-veeam-one-13-0-release-notes",
       "title": "Veeam ONE 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_one_13_0_2_release_notes.html",
-      "checkedAt": "2026-07-24T06:40:33.966Z",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
       "productId": "veeam-one",
       "releaseFamily": "13.0",
       "materialKind": "release-notes",
@@ -354,7 +354,7 @@
       "id": "release-material-vspc-9-2-release-notes",
       "title": "Veeam Service Provider Console 9.2 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/vspc_9_2_release_notes.html",
-      "checkedAt": "2026-07-24T06:40:33.966Z",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
       "productId": "vspc",
       "releaseFamily": "9.2",
       "materialKind": "release-notes",
@@ -365,12 +365,72 @@
       "id": "release-material-vspc-9-2-whats-new",
       "title": "Veeam Service Provider Console 9.2 What's New",
       "url": "https://www.veeam.com/veeam_console_9_2_whats_new_wn.pdf",
-      "checkedAt": "2026-07-24T06:40:33.966Z",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
       "productId": "vspc",
       "releaseFamily": "9.2",
       "materialKind": "whats-new",
       "contentHash": "7562a223ec001be9b27b3436736d1096994622ac9c7c991ff13efa046cbed0c5",
       "contentChangedAt": "2026-07-20T22:53:35.632Z"
+    },
+    {
+      "id": "kb4106",
+      "title": "Veeam KB4106: Veeam Backup for Microsoft 365 build numbers",
+      "url": "https://www.veeam.com/kb4106",
+      "checkedAt": "2026-07-24T17:13:16.346Z"
+    },
+    {
+      "id": "kb4098",
+      "title": "Veeam KB4098: Veeam Backup for Microsoft 365 upgrade paths",
+      "url": "https://www.veeam.com/kb4098",
+      "checkedAt": "2026-07-24T17:13:16.346Z"
+    },
+    {
+      "id": "vb365-upgrade",
+      "title": "Veeam Backup for Microsoft 365 upgrade instructions",
+      "url": "https://helpcenter.veeam.com/docs/vbo365/guide/vbo_upgrading.html",
+      "checkedAt": "2026-07-24T06:40:33.966Z"
+    },
+    {
+      "id": "vb365-after-upgrade",
+      "title": "Veeam Backup for Microsoft 365 post-upgrade tasks",
+      "url": "https://helpcenter.veeam.com/docs/vbo365/guide/after_upgrade.html",
+      "checkedAt": "2026-07-24T06:40:33.966Z"
+    },
+    {
+      "id": "vb365-release-materials",
+      "title": "Veeam Backup for Microsoft 365 release notes and What’s New",
+      "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbo365",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
+      "productId": "vb365"
+    },
+    {
+      "id": "kb4103",
+      "title": "Veeam KB4103: Retention policy calculation issue in older Veeam Backup for Microsoft 365 releases",
+      "url": "https://www.veeam.com/kb4103",
+      "checkedAt": "2026-07-24T06:40:33.966Z",
+      "productId": "vb365"
+    },
+    {
+      "id": "release-material-vb365-8-5-release-notes",
+      "title": "Veeam Backup for Microsoft 365 8 Release Notes",
+      "url": "https://helpcenter.veeam.com/rn/veeam_backup_m365_8_5_release_notes.html",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
+      "productId": "vb365",
+      "releaseFamily": "8.5",
+      "materialKind": "release-notes",
+      "contentHash": "2232dc863510e16d80414150c4f9b1f80dfa3f85479e1243c80dd9adc19204a8",
+      "contentChangedAt": "2026-07-24T17:07:57.226Z"
+    },
+    {
+      "id": "release-material-vb365-8-0-whats-new",
+      "title": "Veeam Backup for Microsoft 365 8 What's New",
+      "url": "https://www.veeam.com/veeam_backup_m365_8_whats_new_wn.pdf",
+      "checkedAt": "2026-07-24T17:13:16.346Z",
+      "productId": "vb365",
+      "releaseFamily": "8.0",
+      "materialKind": "whats-new",
+      "contentHash": "ea6be9fad023d0655ba38250b4b1a85573e963f4a445e7daf7f6284d189c30a6",
+      "contentChangedAt": "2026-07-24T17:07:57.226Z"
     }
   ],
   "products": [
@@ -438,6 +498,21 @@
         "Veeam Service Provider Console"
       ],
       "recommendedReleaseId": "vspc-build-9-2-1-33875",
+      "coverage": {
+        "security": "partial",
+        "lifecycle": "partial",
+        "upgradePath": "partial"
+      }
+    },
+    {
+      "id": "vb365",
+      "name": "Veeam Backup for Microsoft 365",
+      "aliases": [
+        "VB365",
+        "Veeam Backup for Microsoft 365",
+        "Veeam Backup for Microsoft Office 365"
+      ],
+      "recommendedReleaseId": "vb365-build-8-5-0-1014",
       "coverage": {
         "security": "partial",
         "lifecycle": "partial",
@@ -2642,6 +2717,916 @@
       "sourceIds": [
         "kb4464"
       ]
+    },
+    {
+      "id": "vb365-build-8-5-0-1014",
+      "productId": "vb365",
+      "name": "8.5 (build 8.5.0.1014)",
+      "aliases": [
+        "8.5.0.1014",
+        "13.5.0.1014",
+        "8.5"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-4-0-1457",
+      "productId": "vb365",
+      "name": "8.4 (build 8.4.0.1457)",
+      "aliases": [
+        "8.4.0.1457",
+        "13.4.0.1457",
+        "8.4"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-3-0-2201",
+      "productId": "vb365",
+      "name": "8.3 (build 8.3.0.2201)",
+      "aliases": [
+        "8.3.0.2201",
+        "13.3.0.2201",
+        "8.3"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-2-0-2202",
+      "productId": "vb365",
+      "name": "8.2 P20251031 (build 8.2.0.2202)",
+      "aliases": [
+        "8.2.0.2202",
+        "13.2.0.2202",
+        "8.2 P20251031"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-2-0-2008",
+      "productId": "vb365",
+      "name": "8.2 (build 8.2.0.2008)",
+      "aliases": [
+        "8.2.0.2008",
+        "13.2.0.2008",
+        "8.2"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-1-2-3301",
+      "productId": "vb365",
+      "name": "8.1.2.3301 (build 8.1.2.3301)",
+      "aliases": [
+        "8.1.2.3301",
+        "13.1.2.3301",
+        "8.1.2.3301"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-1-2-180",
+      "productId": "vb365",
+      "name": "8.1.2.180 (build 8.1.2.180)",
+      "aliases": [
+        "8.1.2.180",
+        "13.1.2.180",
+        "8.1.2.180"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-1-1-159",
+      "productId": "vb365",
+      "name": "8.1.1.159 (build 8.1.1.159)",
+      "aliases": [
+        "8.1.1.159",
+        "13.1.1.159",
+        "8.1.1.159"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-1-0-3503",
+      "productId": "vb365",
+      "name": "8.1.0.3503 (build 8.1.0.3503)",
+      "aliases": [
+        "8.1.0.3503",
+        "13.1.0.3503",
+        "8.1.0.3503"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-1-0-331",
+      "productId": "vb365",
+      "name": "8.1.0.331 (build 8.1.0.331)",
+      "aliases": [
+        "8.1.0.331",
+        "13.1.0.331",
+        "8.1.0.331"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-1-0-305",
+      "productId": "vb365",
+      "name": "8.1 (build 8.1.0.305)",
+      "aliases": [
+        "8.1.0.305",
+        "13.1.0.305",
+        "8.1"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-0-5-20",
+      "productId": "vb365",
+      "name": "8.0.5 (build 8.0.5.20)",
+      "aliases": [
+        "8.0.5.20",
+        "13.0.5.20",
+        "8.0.5"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-0-4-29",
+      "productId": "vb365",
+      "name": "8.0.4 (build 8.0.4.29)",
+      "aliases": [
+        "8.0.4.29",
+        "13.0.4.29",
+        "8.0.4"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-0-3-1073",
+      "productId": "vb365",
+      "name": "8.0.3.1073 (build 8.0.3.1073)",
+      "aliases": [
+        "8.0.3.1073",
+        "13.0.3.1073",
+        "8.0.3.1073"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-0-3-1044",
+      "productId": "vb365",
+      "name": "8 P20241004 (build 8.0.3.1044)",
+      "aliases": [
+        "8.0.3.1044",
+        "13.0.3.1044",
+        "8 P20241004"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-0-2-200",
+      "productId": "vb365",
+      "name": "8 P20240910 (build 8.0.2.200)",
+      "aliases": [
+        "8.0.2.200",
+        "13.0.2.200",
+        "8 P20240910"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-8-0-2-159",
+      "productId": "vb365",
+      "name": "8 (build 8.0.2.159)",
+      "aliases": [
+        "8.0.2.159",
+        "13.0.2.159",
+        "8"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-1-0-2031",
+      "productId": "vb365",
+      "name": "7a P20240418 (build 7.1.0.2031)",
+      "aliases": [
+        "7.1.0.2031",
+        "12.1.0.2031",
+        "7a P20240418"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-1-0-1502",
+      "productId": "vb365",
+      "name": "7a P20240411 (build 7.1.0.1502)",
+      "aliases": [
+        "7.1.0.1502",
+        "12.1.0.1502",
+        "7a P20240411"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-1-0-1501",
+      "productId": "vb365",
+      "name": "7a P20240123 (build 7.1.0.1501)",
+      "aliases": [
+        "7.1.0.1501",
+        "12.1.0.1501",
+        "7a P20240123"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-1-0-1401",
+      "productId": "vb365",
+      "name": "7a P20231218 (build 7.1.0.1401)",
+      "aliases": [
+        "7.1.0.1401",
+        "12.1.0.1401",
+        "7a P20231218"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-1-0-1301",
+      "productId": "vb365",
+      "name": "7a (build 7.1.0.1301)",
+      "aliases": [
+        "7.1.0.1301",
+        "12.1.0.1301",
+        "7a"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-0-0-4901",
+      "productId": "vb365",
+      "name": "7 P20240123 (build 7.0.0.4901)",
+      "aliases": [
+        "7.0.0.4901",
+        "12.0.0.4901",
+        "7 P20240123"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-0-0-4551",
+      "productId": "vb365",
+      "name": "7 P20231218 (build 7.0.0.4551)",
+      "aliases": [
+        "7.0.0.4551",
+        "12.0.0.4551",
+        "7 P20231218"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-0-0-4388",
+      "productId": "vb365",
+      "name": "7 P20231015 (build 7.0.0.4388)",
+      "aliases": [
+        "7.0.0.4388",
+        "12.0.0.4388",
+        "7 P20231015"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-0-0-4385",
+      "productId": "vb365",
+      "name": "7 P20231005 (build 7.0.0.4385)",
+      "aliases": [
+        "7.0.0.4385",
+        "12.0.0.4385",
+        "7 P20231005"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-0-0-3968",
+      "productId": "vb365",
+      "name": "7 P20230704 (build 7.0.0.3968)",
+      "aliases": [
+        "7.0.0.3968",
+        "12.0.0.3968",
+        "7 P20230704"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-0-0-3604",
+      "productId": "vb365",
+      "name": "7 P20230512 (build 7.0.0.3604)",
+      "aliases": [
+        "7.0.0.3604",
+        "12.0.0.3604",
+        "7 P20230512"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-0-0-3007",
+      "productId": "vb365",
+      "name": "7 P20230421 (build 7.0.0.3007)",
+      "aliases": [
+        "7.0.0.3007",
+        "12.0.0.3007",
+        "7 P20230421"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-0-0-2914",
+      "productId": "vb365",
+      "name": "7 P20230302 (build 7.0.0.2914)",
+      "aliases": [
+        "7.0.0.2914",
+        "12.0.0.2914",
+        "7 P20230302"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-7-0-0-2911",
+      "productId": "vb365",
+      "name": "7 (build 7.0.0.2911)",
+      "aliases": [
+        "7.0.0.2911",
+        "12.0.0.2911",
+        "7"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-6-1-0-1015",
+      "productId": "vb365",
+      "name": "6a P20230322 (build 6.1.0.1015)",
+      "aliases": [
+        "6.1.0.1015",
+        "11.2.0.1015",
+        "6a P20230322"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-6-1-0-438",
+      "productId": "vb365",
+      "name": "6a P20221215 (build 6.1.0.438)",
+      "aliases": [
+        "6.1.0.438",
+        "11.2.0.438",
+        "6a P20221215"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-6-1-0-423",
+      "productId": "vb365",
+      "name": "6a P20220926 (build 6.1.0.423)",
+      "aliases": [
+        "6.1.0.423",
+        "11.2.0.423",
+        "6a P20220926"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-6-1-0-254",
+      "productId": "vb365",
+      "name": "6a P20220825 (build 6.1.0.254)",
+      "aliases": [
+        "6.1.0.254",
+        "11.2.0.254",
+        "6a P20220825"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-6-1-0-222",
+      "productId": "vb365",
+      "name": "6a (build 6.1.0.222)",
+      "aliases": [
+        "6.1.0.222",
+        "11.2.0.222",
+        "6a"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-6-0-0-400",
+      "productId": "vb365",
+      "name": "6 P20220718 (build 6.0.0.400)",
+      "aliases": [
+        "6.0.0.400",
+        "11.1.0.400",
+        "6 P20220718"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-6-0-0-385",
+      "productId": "vb365",
+      "name": "6 P20220524 (build 6.0.0.385)",
+      "aliases": [
+        "6.0.0.385",
+        "11.1.0.385",
+        "6 P20220524"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-6-0-0-379",
+      "productId": "vb365",
+      "name": "6 P20220413 (build 6.0.0.379)",
+      "aliases": [
+        "6.0.0.379",
+        "11.1.0.379",
+        "6 P20220413"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-6-0-0-367",
+      "productId": "vb365",
+      "name": "6 GA (build 6.0.0.367)",
+      "aliases": [
+        "6.0.0.367",
+        "11.1.0.367",
+        "6 GA"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-3-1063",
+      "productId": "vb365",
+      "name": "5d Cumulative Patch KB4278 (build 5.0.3.1063)",
+      "aliases": [
+        "5.0.3.1063",
+        "10.0.5.1063",
+        "5d Cumulative Patch KB4278"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-3-1060",
+      "productId": "vb365",
+      "name": "5d Cumulative Patch KB4270 (build 5.0.3.1060)",
+      "aliases": [
+        "5.0.3.1060",
+        "10.0.5.1060",
+        "5d Cumulative Patch KB4270"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-3-1051",
+      "productId": "vb365",
+      "name": "5d Cumulative Patch KB4235 (build 5.0.3.1051)",
+      "aliases": [
+        "5.0.3.1051",
+        "10.0.5.1051",
+        "5d Cumulative Patch KB4235"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-3-1035",
+      "productId": "vb365",
+      "name": "5d Cumulative Patch KB4222 (build 5.0.3.1035)",
+      "aliases": [
+        "5.0.3.1035",
+        "10.0.5.1035",
+        "5d Cumulative Patch KB4222"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-3-1033",
+      "productId": "vb365",
+      "name": "5d (build 5.0.3.1033)",
+      "aliases": [
+        "5.0.3.1033",
+        "10.0.5.1033",
+        "5d"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-2-42",
+      "productId": "vb365",
+      "name": "5c Cumulative Patch KB4187 (build 5.0.2.42)",
+      "aliases": [
+        "5.0.2.42",
+        "10.0.4.42",
+        "5c Cumulative Patch KB4187"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-2-22",
+      "productId": "vb365",
+      "name": "5c (build 5.0.2.22)",
+      "aliases": [
+        "5.0.2.22",
+        "10.0.4.22",
+        "5c"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-1-252",
+      "productId": "vb365",
+      "name": "5b Cumulative Patch KB4158 (build 5.0.1.252)",
+      "aliases": [
+        "5.0.1.252",
+        "10.0.3.252",
+        "5b Cumulative Patch KB4158"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-1-225",
+      "productId": "vb365",
+      "name": "5b Cumulative Patch KB4135 (build 5.0.1.225)",
+      "aliases": [
+        "5.0.1.225",
+        "10.0.3.225",
+        "5b Cumulative Patch KB4135"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-1-207",
+      "productId": "vb365",
+      "name": "5b Cumulative Patch KB4124 (build 5.0.1.207)",
+      "aliases": [
+        "5.0.1.207",
+        "10.0.3.207",
+        "5b Cumulative Patch KB4124"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-1-179",
+      "productId": "vb365",
+      "name": "5b (build 5.0.1.179)",
+      "aliases": [
+        "5.0.1.179",
+        "10.0.3.179",
+        "5b"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-0-1070",
+      "productId": "vb365",
+      "name": "5a (build 5.0.0.1070)",
+      "aliases": [
+        "5.0.0.1070",
+        "10.0.2.1070",
+        "5a"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-0-1063",
+      "productId": "vb365",
+      "name": "5 Day 0 Update (build 5.0.0.1063)",
+      "aliases": [
+        "5.0.0.1063",
+        "10.0.2.1063",
+        "5 Day 0 Update"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-5-0-0-1061",
+      "productId": "vb365",
+      "name": "5 GA (build 5.0.0.1061)",
+      "aliases": [
+        "5.0.0.1061",
+        "10.0.2.1061",
+        "5 GA"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-4-0-1-625",
+      "productId": "vb365",
+      "name": "4c Cumulative Patch KB4099 (build 4.0.1.625)",
+      "aliases": [
+        "4.0.1.625",
+        "10.0.1.625",
+        "4c Cumulative Patch KB4099"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-4-0-1-612",
+      "productId": "vb365",
+      "name": "4c Cumulative Patch KB4083 (build 4.0.1.612)",
+      "aliases": [
+        "4.0.1.612",
+        "10.0.1.612",
+        "4c Cumulative Patch KB4083"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-4-0-1-545",
+      "productId": "vb365",
+      "name": "4c Cumulative Patch KB3222 (build 4.0.1.545)",
+      "aliases": [
+        "4.0.1.545",
+        "10.0.1.545",
+        "4c Cumulative Patch KB3222"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-4-0-1-531",
+      "productId": "vb365",
+      "name": "4c Day 0 Update (build 4.0.1.531)",
+      "aliases": [
+        "4.0.1.531",
+        "10.0.1.531",
+        "4c Day 0 Update"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-4-0-0-2549",
+      "productId": "vb365",
+      "name": "4b Cumulative Patch KB3119 (build 4.0.0.2549)",
+      "aliases": [
+        "4.0.0.2549",
+        "9.6.6.2549",
+        "4b Cumulative Patch KB3119"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-4-0-0-2516",
+      "productId": "vb365",
+      "name": "4b (build 4.0.0.2516)",
+      "aliases": [
+        "4.0.0.2516",
+        "9.6.6.2516",
+        "4b"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-4-0-0-1580",
+      "productId": "vb365",
+      "name": "4a Cumulative Patch KB3089 (build 4.0.0.1580)",
+      "aliases": [
+        "4.0.0.1580",
+        "9.6.6.1580",
+        "4a Cumulative Patch KB3089"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-4-0-0-1553",
+      "productId": "vb365",
+      "name": "4a (build 4.0.0.1553)",
+      "aliases": [
+        "4.0.0.1553",
+        "9.6.6.1553",
+        "4a"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-4-0-0-1345",
+      "productId": "vb365",
+      "name": "4 GA (build 4.0.0.1345)",
+      "aliases": [
+        "4.0.0.1345",
+        "9.6.6.1345",
+        "4 GA"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-3-0-0-422",
+      "productId": "vb365",
+      "name": "3 GA (build 3.0.0.422)",
+      "aliases": [
+        "3.0.0.422",
+        "9.6.5.422",
+        "3 GA"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-2-0-0-814",
+      "productId": "vb365",
+      "name": "2 Cumulative Patch KB2809 (build 2.0.0.814)",
+      "aliases": [
+        "2.0.0.814",
+        "9.6.3.814",
+        "2 Cumulative Patch KB2809"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-2-0-0-594",
+      "productId": "vb365",
+      "name": "2 Cumulative Patch KB2765 (build 2.0.0.594)",
+      "aliases": [
+        "2.0.0.594",
+        "9.6.3.594",
+        "2 Cumulative Patch KB2765"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-2-0-0-567",
+      "productId": "vb365",
+      "name": "2 GA (build 2.0.0.567)",
+      "aliases": [
+        "2.0.0.567",
+        "9.6.3.567",
+        "2 GA"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-1-5-0-1099",
+      "productId": "vb365",
+      "name": "1.5 GA (build 1.5.0.1099)",
+      "aliases": [
+        "1.5.0.1099",
+        "9.6.0.1099",
+        "1.5 GA"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-1-0-0-912",
+      "productId": "vb365",
+      "name": "1 Update 1 (build 1.0.0.912)",
+      "aliases": [
+        "1.0.0.912",
+        "9.5.0.912",
+        "1 Update 1"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
+    },
+    {
+      "id": "vb365-build-1-0-0-860",
+      "productId": "vb365",
+      "name": "1 GA (build 1.0.0.860)",
+      "aliases": [
+        "1.0.0.860",
+        "9.5.0.860",
+        "1 GA"
+      ],
+      "sourceIds": [
+        "kb4106"
+      ]
     }
   ],
   "lifecycleNotices": [
@@ -4264,6 +5249,348 @@
       "sourceIds": [
         "lifecycle"
       ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-5-0-1014",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-4-0-1457",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-3-0-2201",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-2-0-2202",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-2-0-2008",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-1-2-3301",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-1-2-180",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-1-1-159",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-1-0-3503",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-1-0-331",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-1-0-305",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-0-5-20",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-0-4-29",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-0-3-1073",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-0-3-1044",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-0-2-200",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-8-0-2-159",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 8 is listed with support and security fixes through September 2026. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-1-0-2031",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-1-0-1502",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-1-0-1501",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-1-0-1401",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-1-0-1301",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-0-0-4901",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-0-0-4551",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-0-0-4388",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-0-0-4385",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-0-0-3968",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-0-0-3604",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-0-0-3007",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-0-0-2914",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-7-0-0-2911",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 7 reached end of support and security fixes in June 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-3-0-0-422",
+      "state": "supported",
+      "summary": "Veeam Backup for Microsoft 365 3 is listed with support and security fixes through September 2027. End of fix is listed as Next GA Date.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-2-0-0-814",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup for Microsoft 365 2 reached end of fix in September 2024; support and security fixes are listed through August 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-2-0-0-594",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup for Microsoft 365 2 reached end of fix in September 2024; support and security fixes are listed through August 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-2-0-0-567",
+      "state": "end-of-fix",
+      "summary": "Veeam Backup for Microsoft 365 2 reached end of fix in September 2024; support and security fixes are listed through August 2026.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-1-5-0-1099",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 1 reached end of support and security fixes in October 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-1-0-0-912",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 1 reached end of support and security fixes in October 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
+    },
+    {
+      "productId": "vb365",
+      "releaseId": "vb365-build-1-0-0-860",
+      "state": "end-of-support",
+      "summary": "Veeam Backup for Microsoft 365 1 reached end of support and security fixes in October 2025.",
+      "sourceIds": [
+        "lifecycle"
+      ]
     }
   ],
   "upgradePaths": [
@@ -4659,6 +5986,162 @@
       ],
       "sourceIds": [
         "vspc-upgrade"
+      ]
+    },
+    {
+      "id": "vb365-7-0-to-vb365-build-8-5-0-1014",
+      "productId": "vb365",
+      "fromReleaseId": "vb365-build-7-0-0-4901",
+      "fromVersionPrefixes": [
+        "7.0."
+      ],
+      "toReleaseId": "vb365-build-8-5-0-1014",
+      "hopReleaseIds": [
+        "vb365-build-8-4-0-1457",
+        "vb365-build-8-5-0-1014"
+      ],
+      "notes": [
+        "Veeam documents this route. Plan for stopped backup jobs and review repositories, proxies, proxy pools, and Veeam Explorers after the upgrade."
+      ],
+      "howToSourceIds": [
+        "vb365-upgrade",
+        "vb365-after-upgrade"
+      ],
+      "sourceIds": [
+        "kb4098"
+      ]
+    },
+    {
+      "id": "vb365-7-1-to-vb365-build-8-5-0-1014",
+      "productId": "vb365",
+      "fromReleaseId": "vb365-build-7-1-0-2031",
+      "fromVersionPrefixes": [
+        "7.1."
+      ],
+      "toReleaseId": "vb365-build-8-5-0-1014",
+      "hopReleaseIds": [
+        "vb365-build-8-4-0-1457",
+        "vb365-build-8-5-0-1014"
+      ],
+      "notes": [
+        "Veeam documents this route. Plan for stopped backup jobs and review repositories, proxies, proxy pools, and Veeam Explorers after the upgrade."
+      ],
+      "howToSourceIds": [
+        "vb365-upgrade",
+        "vb365-after-upgrade"
+      ],
+      "sourceIds": [
+        "kb4098"
+      ]
+    },
+    {
+      "id": "vb365-8-0-to-vb365-build-8-5-0-1014",
+      "productId": "vb365",
+      "fromReleaseId": "vb365-build-8-0-5-20",
+      "fromVersionPrefixes": [
+        "8.0."
+      ],
+      "toReleaseId": "vb365-build-8-5-0-1014",
+      "hopReleaseIds": [
+        "vb365-build-8-5-0-1014"
+      ],
+      "notes": [
+        "Veeam documents this route. Plan for stopped backup jobs and review repositories, proxies, proxy pools, and Veeam Explorers after the upgrade."
+      ],
+      "howToSourceIds": [
+        "vb365-upgrade",
+        "vb365-after-upgrade"
+      ],
+      "sourceIds": [
+        "kb4098"
+      ]
+    },
+    {
+      "id": "vb365-8-1-to-vb365-build-8-5-0-1014",
+      "productId": "vb365",
+      "fromReleaseId": "vb365-build-8-1-2-3301",
+      "fromVersionPrefixes": [
+        "8.1."
+      ],
+      "toReleaseId": "vb365-build-8-5-0-1014",
+      "hopReleaseIds": [
+        "vb365-build-8-5-0-1014"
+      ],
+      "notes": [
+        "Veeam documents this route. Plan for stopped backup jobs and review repositories, proxies, proxy pools, and Veeam Explorers after the upgrade."
+      ],
+      "howToSourceIds": [
+        "vb365-upgrade",
+        "vb365-after-upgrade"
+      ],
+      "sourceIds": [
+        "kb4098"
+      ]
+    },
+    {
+      "id": "vb365-8-2-to-vb365-build-8-5-0-1014",
+      "productId": "vb365",
+      "fromReleaseId": "vb365-build-8-2-0-2202",
+      "fromVersionPrefixes": [
+        "8.2."
+      ],
+      "toReleaseId": "vb365-build-8-5-0-1014",
+      "hopReleaseIds": [
+        "vb365-build-8-5-0-1014"
+      ],
+      "notes": [
+        "Veeam documents this route. Plan for stopped backup jobs and review repositories, proxies, proxy pools, and Veeam Explorers after the upgrade."
+      ],
+      "howToSourceIds": [
+        "vb365-upgrade",
+        "vb365-after-upgrade"
+      ],
+      "sourceIds": [
+        "kb4098"
+      ]
+    },
+    {
+      "id": "vb365-8-3-to-vb365-build-8-5-0-1014",
+      "productId": "vb365",
+      "fromReleaseId": "vb365-build-8-3-0-2201",
+      "fromVersionPrefixes": [
+        "8.3."
+      ],
+      "toReleaseId": "vb365-build-8-5-0-1014",
+      "hopReleaseIds": [
+        "vb365-build-8-5-0-1014"
+      ],
+      "notes": [
+        "Veeam documents this route. Plan for stopped backup jobs and review repositories, proxies, proxy pools, and Veeam Explorers after the upgrade."
+      ],
+      "howToSourceIds": [
+        "vb365-upgrade",
+        "vb365-after-upgrade"
+      ],
+      "sourceIds": [
+        "kb4098"
+      ]
+    },
+    {
+      "id": "vb365-8-4-to-vb365-build-8-5-0-1014",
+      "productId": "vb365",
+      "fromReleaseId": "vb365-build-8-4-0-1457",
+      "fromVersionPrefixes": [
+        "8.4."
+      ],
+      "toReleaseId": "vb365-build-8-5-0-1014",
+      "hopReleaseIds": [
+        "vb365-build-8-5-0-1014"
+      ],
+      "notes": [
+        "Veeam documents this route. Plan for stopped backup jobs and review repositories, proxies, proxy pools, and Veeam Explorers after the upgrade."
+      ],
+      "howToSourceIds": [
+        "vb365-upgrade",
+        "vb365-after-upgrade"
+      ],
+      "sourceIds": [
+        "kb4098"
       ]
     }
   ],
@@ -6158,7 +7641,7 @@
       "isCisaKev": false
     },
     {
-      "id": "vbr-cve-2026-32998",
+      "id": "vspc-cve-2026-32998",
       "productId": "vspc",
       "title": "A vulnerability in Veeam Service Provider Console allows for remote code execution.",
       "cves": [
@@ -6477,6 +7960,54 @@
       ]
     },
     {
+      "id": "vb365-immutable-backup-data",
+      "productId": "vb365",
+      "family": "backup-resilience",
+      "title": "Strengthen Microsoft 365 backup resilience",
+      "summary": "Use immutable backups and immutable backup copies in supported object storage to help protect backup data from ransomware, accidental deletion, and malicious deletion.",
+      "introducedIn": "8.0",
+      "priority": 100,
+      "sourceIds": [
+        "release-material-vb365-8-0-whats-new"
+      ]
+    },
+    {
+      "id": "vb365-proxy-pool-scale",
+      "productId": "vb365",
+      "family": "scale-operations",
+      "title": "Scale protection and recovery operations",
+      "summary": "Use Proxy Pools to distribute backup and restore work across Windows and Linux proxies with automatic load balancing and without interrupting operations when proxies are maintained.",
+      "introducedIn": "8.0",
+      "priority": 94,
+      "sourceIds": [
+        "release-material-vb365-8-0-whats-new"
+      ]
+    },
+    {
+      "id": "vb365-teams-channel-protection",
+      "productId": "vb365",
+      "family": "broader-protection",
+      "title": "Protect private and shared Teams channels",
+      "summary": "Back up and restore shared and private Teams channels, including their tabs, files, messages, settings, and membership.",
+      "introducedIn": "8.0",
+      "priority": 90,
+      "sourceIds": [
+        "release-material-vb365-8-0-whats-new"
+      ]
+    },
+    {
+      "id": "vb365-admin-access-controls",
+      "productId": "vb365",
+      "family": "access-control",
+      "title": "Improve backup administration controls",
+      "summary": "Use role-based access control for the backup console and Veeam Explorers, with multifactor authentication support for backup administrators.",
+      "introducedIn": "8.0",
+      "priority": 86,
+      "sourceIds": [
+        "release-material-vb365-8-0-whats-new"
+      ]
+    },
+    {
       "id": "auto-vspc-9-2-centralized-veeam-vault-management",
       "productId": "vspc",
       "family": "source-9.2-centralized-veeam-vault-management",
@@ -6540,6 +8071,23 @@
         "release-material-vspc-9-2-whats-new"
       ],
       "generated": true
+    }
+  ],
+  "operationalNotices": [
+    {
+      "id": "vb365-retention-policy-data-risk",
+      "productId": "vb365",
+      "title": "Older retention policy builds can place protected data at risk",
+      "summary": "Veeam documents a retention policy calculation issue in certain version 3.0 through 5.0 releases that can cause unintended deletion of protected data. Review the vendor remediation guidance and plan an upgrade promptly.",
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "3.",
+        "4.",
+        "5."
+      ],
+      "sourceIds": [
+        "kb4103"
+      ]
     }
   ]
 }

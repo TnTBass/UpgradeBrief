@@ -6,7 +6,7 @@ Upgrade Brief is an independent community tool, not affiliated with or endorsed 
 
 ## What it does today
 
-- Looks up Veeam Backup & Replication, Veeam Backup Enterprise Manager, Veeam ONE, Veeam Recovery Orchestrator, and Veeam Service Provider Console versions and builds.
+- Looks up Veeam Backup & Replication, Veeam Backup Enterprise Manager, Veeam ONE, Veeam Recovery Orchestrator, Veeam Service Provider Console, and Veeam Backup for Microsoft 365 versions and builds.
 - Shows source-linked lifecycle status, documented upgrade routes, and supporting upgrade instructions when Veeam publishes an applicable path.
 - Highlights documented capabilities available in the recommended target release, with links to the corresponding What's New and release-note material.
 - Presents build-aware security reasons to upgrade. CVSS 9+, CISA KEV, or Veeam-confirmed active exploitation is critical; CVSS 7–8.9 is high. Environment controls never downgrade a matching advisory.

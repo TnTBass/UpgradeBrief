@@ -26,6 +26,8 @@ function compareVersionLike(left: string, right: string): number {
 }
 
 function canonicalInput(release: Release): string {
+  const declaredBuild = release.name.match(/\bbuild\s+(\d+(?:\.\d+)+)/i)?.[1]
+  if (declaredBuild && release.aliases.includes(declaredBuild)) return declaredBuild
   const numericAliases = release.aliases.filter((alias) => /^\d+(?:\.\d+)+$/.test(alias))
   return numericAliases.sort((left, right) => compareVersionLike(right, left))[0]
     ?? release.aliases.find((alias) => /^\d+(?:\.\d+)*$/.test(alias))

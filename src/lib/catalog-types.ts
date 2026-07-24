@@ -4,6 +4,7 @@ export const productIds = [
   'veeam-one',
   'vro',
   'vspc',
+  'vb365',
 ] as const
 
 export type ProductId = (typeof productIds)[number]
@@ -119,6 +120,16 @@ export interface SecurityFinding {
   sourceIds: string[]
 }
 
+export interface OperationalNotice {
+  id: string
+  productId: ProductId
+  title: string
+  summary: string
+  affectedReleaseIds: string[]
+  affectedVersionPrefixes?: string[]
+  sourceIds: string[]
+}
+
 export interface Catalog {
   schemaVersion: 1
   generatedAt: string
@@ -128,6 +139,7 @@ export interface Catalog {
   lifecycleNotices: LifecycleNotice[]
   upgradePaths: UpgradePath[]
   securityFindings: SecurityFinding[]
+  operationalNotices: OperationalNotice[]
   releaseImprovements: ReleaseImprovement[]
   capabilities: ProductCapability[]
 }

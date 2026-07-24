@@ -2,7 +2,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding, Urgency } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
-import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, releaseImprovementsForRelease, releaseMaterialSourceIds, sourceById, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
+import { checklistSourceIds, documentedFixSourceIds, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, operationalNoticesForRelease, releaseImprovementsForRelease, releaseMaterialSourceIds, sourceById, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lib/lookup'
 import { releaseOptions } from './lib/release-options'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './lib/upgrade-summary'
 import { classifyUrgency } from './lib/urgency'
@@ -38,6 +38,10 @@ const versionHelp: Record<ProductId, { instruction: string; sourceIds: string[] 
   vspc: {
     instruction: 'Use the Veeam Service Provider Console server version, not a management agent or a managed backup server. Administrators can also retrieve it from the VSPC About API resource.',
     sourceIds: ['kb4464'],
+  },
+  vb365: {
+    instruction: 'In Veeam Backup for Microsoft 365, open Help > About and use the Console Build. The corresponding Build in Logs value is also accepted by this lookup.',
+    sourceIds: ['kb4106'],
   },
 }
 
@@ -127,6 +131,7 @@ export default function App() {
   const freshness = catalogFreshness(catalog.generatedAt)
   const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
   const findings = release ? findingsForRelease(catalog, release) : []
+  const operationalNotices = release ? operationalNoticesForRelease(catalog, release) : []
   const advisoryUrgencies = summarizeAdvisoryUrgencies(findings)
   const targetRelease = release && !isCurrentCatalogRelease ? upgradeTargetRelease(catalog, productId, path) : undefined
   const targetLifecycle = targetRelease ? findLifecycleNotice(catalog, productId, targetRelease.id) : undefined
@@ -309,7 +314,7 @@ export default function App() {
         <section className="result empty">
           <h2>We could not match that version safely.</h2>
           <p>Try the exact version or build number. Upgrade Brief does not infer a route when its catalog lacks an exact source-backed match.</p>
-          <SourceLinks sourceIds={['kb2680', 'kb4646', 'em-upgrade', 'vro-upgrade', 'vspc-upgrade']} />
+          <SourceLinks sourceIds={productId === 'vb365' ? ['kb4106', 'kb4098', 'vb365-upgrade'] : ['kb2680', 'kb4646', 'em-upgrade', 'vro-upgrade', 'vspc-upgrade']} />
         </section>
       )}
 
@@ -509,6 +514,19 @@ export default function App() {
             )}
             <SourceLinks sourceIds={['security-kb']} />
           </section>
+
+          {operationalNotices.length > 0 && (
+            <section className="resources operational-notices">
+              <p className="eyebrow">Data protection notice</p>
+              {operationalNotices.map((notice) => (
+                <article key={notice.id}>
+                  <h2>{notice.title}</h2>
+                  <p>{notice.summary}</p>
+                  <SourceLinks sourceIds={notice.sourceIds} />
+                </article>
+              ))}
+            </section>
+          )}
 
           <section className="resources release-materials">
             <p className="eyebrow">About this installed release</p>

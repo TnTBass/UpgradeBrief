@@ -27,12 +27,19 @@ function selectedVersion(payload) {
     ?? versions.find((version) => releaseMaterialFamily(version.title))
 }
 
+function documentReleaseFamily(document, fallback) {
+  const url = document.links?.html ?? document.links?.pdf ?? ''
+  const match = url.match(/(?:_|-)(\d+)_(\d+)(?:_\d+)?_(?:release_notes|whats_new)/i)
+  return match ? `${match[1]}.${match[2]}` : fallback
+}
+
 export function parseReleaseMaterials(payload, productId) {
   const version = selectedVersion(payload)
   const releaseFamily = version && releaseMaterialFamily(version.title)
   const product = payload?.payload?.products?.[0]
   if (!product || !releaseFamily) return []
 
+  const productTitle = compact(product.productTitle.replace(/<[^>]+>/g, '').replace(/&nbsp;|\u00a0/gi, ' ').replace(/&amp;/gi, '&'))
   return (product.documentGroups ?? []).flatMap((group) => {
     const kind = trackedKinds.get(group.resourceType)
     if (!kind) return []
@@ -41,9 +48,9 @@ export function parseReleaseMaterials(payload, productId) {
       if (!url) return []
       return [{
         productId,
-        releaseFamily,
+        releaseFamily: documentReleaseFamily(document, releaseFamily),
         kind,
-        title: `${product.productTitle} ${version.title} ${document.documentTitle}`,
+        title: `${productTitle} ${version.title} ${document.documentTitle}`,
         url,
       }]
     })
