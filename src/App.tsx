@@ -107,6 +107,13 @@ function UrgencyIcon({ urgency }: { urgency: Urgency | 'clear' }) {
   return <span className={`urgency-icon ${urgency}`} aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false">{paths}</svg></span>
 }
 
+function emptySecurityAdvisoryMessage(productName: string) {
+  return {
+    heading: `No ${productName} advisory is currently listed in Veeam’s public security feed.`,
+    detail: 'This does not mean the product has no vulnerabilities. Upgrade Brief will show matching advisories if Veeam publishes applicable security information.',
+  }
+}
+
 export default function App() {
   const [productId, setProductId] = useState<ProductId>(catalog.products.some((product) => product.id === initialProduct) ? initialProduct : 'vbr')
   const [version, setVersion] = useState(initialVersion)
@@ -177,6 +184,7 @@ export default function App() {
     return source ? [{ title: source.title, url: source.url }] : []
   })
   const hasLegacySecurityRisk = lifecycle?.state === 'end-of-support' && findings.length === 0
+  const emptySecurityAdvisory = emptySecurityAdvisoryMessage(product.name)
   const upgradeSummary = release ? buildUpgradeSummary({
     findings,
     lifecycle,
@@ -398,9 +406,9 @@ export default function App() {
                   <p className="eyebrow">Security and support</p>
                   <div className="security-support-heading">
                     {findings.length > 0 && upgradeSummary && <UrgencyIcon urgency={upgradeSummary.urgency} />}
-                    <h3>{findings.length > 0 && upgradeSummary ? upgradeSummary.heading : hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : 'No matching published security advisory is currently cataloged.'}</h3>
+                    <h3>{findings.length > 0 && upgradeSummary ? upgradeSummary.heading : hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : emptySecurityAdvisory.heading}</h3>
                   </div>
-                  <p>{findings.length > 0 && upgradeSummary ? upgradeSummary.detail : hasLegacySecurityRisk ? 'This end-of-support release should be treated as an urgent replacement candidate.' : 'Review the linked security resources and the advisory section below as new vendor information is published.'}</p>
+                  <p>{findings.length > 0 && upgradeSummary ? upgradeSummary.detail : hasLegacySecurityRisk ? 'This end-of-support release should be treated as an urgent replacement candidate.' : emptySecurityAdvisory.detail}</p>
                   {findings.length > 0 && <a className="security-support-link" href="#security-reasons">View matching advisories</a>}
                   <div className="target-support-coverage">
                     <p className="eyebrow">Support coverage</p>
@@ -487,7 +495,7 @@ export default function App() {
               {findings.length === 0 && <UrgencyIcon urgency={hasLegacySecurityRisk ? 'critical' : 'clear'} />}
               <div>
               <p className="eyebrow">Security reasons to upgrade</p>
-              {findings.length === 0 && <h2>{hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : 'No matching published security advisory is currently cataloged.'}</h2>}
+              {findings.length === 0 && <h2>{hasLegacySecurityRisk ? 'Unsupported release: assume unpatched security risk' : emptySecurityAdvisory.heading}</h2>}
               </div>
             </div>
             {findings.length > 0 ? (
@@ -510,7 +518,7 @@ export default function App() {
                   <p>No matching product advisory is currently curated. That is not evidence that this release is safe: it no longer receives security fixes, so assume it may contain unpatched vulnerabilities beyond this catalogue and treat upgrading or replacing with a new version as absolutely critical.</p>
                   <SourceLinks sourceIds={['lifecycle']} />
                 </article>
-              ) : <p className="security-empty">No curated vulnerability currently applies to this installed build. This does not mean the release contains no documented fixes; review the installed-release material below and Veeam’s security advisories directly.</p>
+              ) : <p className="security-empty">{emptySecurityAdvisory.detail}</p>
             )}
             <SourceLinks sourceIds={['security-kb']} />
           </section>
