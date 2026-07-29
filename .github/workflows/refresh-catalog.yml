@@ -27,6 +27,7 @@ jobs:
       - run: npm run test:release-material-adapter
       - run: npm run test:lifecycle-adapter
       - run: npm run test:kev-adapter
+      - run: npm run test:source-fetch
       - run: npm run refresh:catalog -- --live
       - name: Commit a validated catalog refresh when data changed
         run: |

@@ -23,7 +23,7 @@ Scheduled GitHub Actions refreshes publicly available Veeam and CISA information
 - Veeam security advisories, Veeam lifecycle information, and CISA KEV exploitation status.
 - VBR release-information records and current Help Center What's New and release-note materials for the tracked products.
 
-Release materials are fingerprinted so changes to a version family’s What's New or release notes can be detected. Feature highlights are generated only from statements the official source material directly supports. The refresh validates the candidate catalog before automatically committing a changed snapshot to `main` for Cloudflare Pages deployment. If a source cannot be safely parsed or validated, the last known-good catalog remains in place.
+Release materials are fingerprinted so changes to a version family’s What's New or release notes can be detected. Feature highlights are generated only from statements the official source material directly supports. Veeam-hosted sources are fetched one request at a time per host with a three-second minimum interval; transient network, 408, 429, and 5xx failures are retried up to three times while 403 responses fail immediately with redacted diagnostic headers and a short response preview. The refresh validates the candidate catalog before automatically committing a changed snapshot to `main` for Cloudflare Pages deployment. If a source cannot be safely parsed or validated, the last known-good catalog remains in place.
 
 ## Project status and limits
 

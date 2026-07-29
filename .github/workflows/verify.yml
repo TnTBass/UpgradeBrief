@@ -23,5 +23,6 @@ jobs:
       - run: npm run test:release-information-adapter
       - run: npm run test:lifecycle-adapter
       - run: npm run test:kev-adapter
+      - run: npm run test:source-fetch
       - run: npm run validate:catalog
       - run: npm run build

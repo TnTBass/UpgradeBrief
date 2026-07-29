@@ -14,6 +14,7 @@ import { mergeCisaKev, parseCisaKev } from './lib/cisa-kev.mjs'
 import { mergeLifecyclePolicies, parseLifecyclePolicies } from './lib/lifecycle.mjs'
 import { mergeVbrReleaseInformation, parseVbrReleaseInformation } from './lib/vbr-release-information.mjs'
 import { contentFingerprint, extractSourceSupportedHighlights, mergeReleaseMaterials, mergeSourceSupportedHighlights, parseReleaseMaterials, textFromDocument } from './lib/release-materials.mjs'
+import { createCatalogSourceFetcher } from './lib/source-fetch.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const args = process.argv.slice(2)
@@ -65,22 +66,15 @@ const lifecycleSource = current.sources.find((item) => item.id === 'lifecycle')
 const releaseInformationSource = current.sources.find((item) => item.id === 'kb4696')
 const releaseInformation13Source = current.sources.find((item) => item.id === 'kb4738')
 if (!buildSource || !oneBuildSource || !vroBuildSource || !vspcBuildSource || !vb365BuildSource || !vb365UpgradeSource || !securitySource || !securityFeedSource || !kevSource || !lifecycleSource || !releaseInformationSource || !releaseInformation13Source) throw new Error('A required catalog source is missing from the catalog.')
+const sourceFetcher = createCatalogSourceFetcher()
 
 async function fetchSource(source) {
-  const response = await fetch(source.url, {
-    headers: { 'user-agent': 'UpgradeBrief catalog refresher (+https://github.com/TnTBass/UpgradeBrief)' },
-    signal: AbortSignal.timeout(30_000),
-  })
-  if (!response.ok) throw new Error(`${source.id} request failed with HTTP ${response.status}`)
+  const response = await sourceFetcher.request(source.url, { sourceId: source.id })
   return response.text()
 }
 
-async function fetchDocument(url) {
-  const response = await fetch(url, {
-    headers: { 'user-agent': 'UpgradeBrief catalog refresher (+https://github.com/TnTBass/UpgradeBrief)' },
-    signal: AbortSignal.timeout(30_000),
-  })
-  if (!response.ok) throw new Error(`${url} request failed with HTTP ${response.status}`)
+async function fetchDocument(url, sourceId) {
+  const response = await sourceFetcher.request(url, { sourceId })
   return { bytes: new Uint8Array(await response.arrayBuffer()), contentType: response.headers.get('content-type') ?? '' }
 }
 
@@ -106,7 +100,7 @@ if (!releaseMaterialPayloads.every(({ productTitle, payload }) => normalizedTitl
 const discoveredReleaseMaterials = releaseMaterialPayloads.flatMap(({ productId, payload }) => parseReleaseMaterials(payload, productId))
 if (!releaseMaterialProducts.every((product) => discoveredReleaseMaterials.some((material) => material.productId === product.productId))) throw new Error('Help Center release-material discovery returned no current document for one or more tracked products.')
 const releaseMaterialDocuments = await Promise.allSettled(discoveredReleaseMaterials.map(async (material) => {
-  const document = await fetchDocument(material.url)
+  const document = await fetchDocument(material.url, `release-material-${material.productId}-${material.releaseFamily}-${material.kind}`)
   const contentHash = contentFingerprint(document.bytes)
   let text
   try { text = await textFromDocument(document.bytes, document.contentType, material.url) } catch { text = undefined }
