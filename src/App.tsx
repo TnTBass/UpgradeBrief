@@ -482,6 +482,7 @@ export default function App() {
               {showVsaConversionGuidance && (
                 <details className="vsa-conversion-guidance">
                   <summary>Planning a Windows-to-VSA conversion?</summary>
+                  <p><strong>Important:</strong> Upgrading a Windows-based Veeam Backup &amp; Replication server from 13.0.2 to 13.1 makes it ineligible for the Windows-to-Veeam Software Appliance conversion.</p>
                   <p>Veeam’s Windows-to-Veeam Software Appliance configuration migration is currently a limited pilot, not an ordinary in-place upgrade. Preparation includes instance-based VUL licensing, the latest Windows patch level, registration through Veeam’s conversion portal, and proactive support.</p>
                   <p>Review the documented limitations and post-migration considerations before deciding whether this route fits your environment.</p>
                   <SourceLinks sourceIds={['vsa-conversion', 'kb4800']} />
