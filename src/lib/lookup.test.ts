@@ -193,6 +193,20 @@ describe('catalog lookup', () => {
     expect(documentedFixSourceIds(catalog, previousFixedRelease)).toContain('kb4852')
   })
 
+  it('shows VBR 13.1 improvements when upgrading from 13.0.2', () => {
+    const release = findRelease(catalog, 'vbr', '13.0.2.29')!
+    const target = upgradeTargetRelease(catalog, 'vbr', findUpgradePath(catalog, release))!
+
+    expect(releaseMaterialSourceIds(catalog, 'vbr', target)).toContain('release-material-vbr-13-1-whats-new')
+    expect(upgradeHighlightsForRelease(catalog, release, target)).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        title: 'Automated Active Directory Forest Recovery',
+        sourceIds: ['release-material-vbr-13-1-whats-new'],
+      }),
+      expect.objectContaining({ title: 'Broader hypervisor protection' }),
+    ]))
+  })
+
   it('uses the target release family for automatic material links, including Enterprise Manager', () => {
     const vspcTarget = findRelease(catalog, 'vspc', '9.2.1')!
     const enterpriseManagerTarget = findRelease(catalog, 'enterprise-manager', '13.0.2.29')!

@@ -444,6 +444,17 @@
       "contentChangedAt": "2026-07-30T20:57:44.023Z"
     },
     {
+      "id": "release-material-vbr-13-1-whats-new",
+      "title": "Veeam Backup & Replication 13.1 What's New",
+      "url": "https://www.veeam.com/veeam_backup_13_1_whats_new_wn.pdf",
+      "checkedAt": "2026-07-30T21:20:00.000Z",
+      "productId": "vbr",
+      "releaseFamily": "13.1",
+      "materialKind": "whats-new",
+      "contentHash": "54dedac974752b4d7afe32725ec0028317f81d3332e544407252710b51a531a2",
+      "contentChangedAt": "2026-07-30T21:20:00.000Z"
+    },
+    {
       "id": "release-material-vbr-13-0-whats-new",
       "title": "Veeam Backup & Replication 13 What's New v13.1",
       "url": "https://helpcenter.veeam.com/docs/vbr/wn/introduction.html?ver=13",
@@ -8331,134 +8342,149 @@
       "generated": true
     },
     {
-      "id": "auto-veeam-one-13-1-broader-hypervisor-coverage",
-      "productId": "veeam-one",
-      "family": "source-13.1-broader-hypervisor-coverage",
-      "title": "Broader Hypervisor Coverage",
-      "summary": "Veeam lists Broader Hypervisor Coverage in its What's New material for version 13.1.",
+      "id": "vbr-13-1-active-directory-forest-recovery",
+      "productId": "vbr",
+      "family": "active-directory-forest-recovery",
+      "title": "Automated Active Directory Forest Recovery",
+      "summary": "Guided recovery automates the restoration of single-domain, multi-domain, and multi-tree Active Directory forests.",
       "introducedIn": "13.1",
-      "priority": 60,
+      "priority": 100,
+      "availabilityNote": "Available with paid Veeam Universal License editions.",
       "sourceIds": [
-        "release-material-veeam-one-13-1-whats-new"
-      ],
-      "generated": true
+        "release-material-vbr-13-1-whats-new"
+      ]
     },
     {
-      "id": "auto-veeam-one-13-1-single-sign-on",
-      "productId": "veeam-one",
-      "family": "source-13.1-single-sign-on",
-      "title": "Single Sign-On",
-      "summary": "Veeam lists Single Sign-On in its What's New material for version 13.1.",
+      "id": "vbr-13-1-hypervisor-coverage",
+      "productId": "vbr",
+      "family": "hypervisor-coverage",
+      "title": "Broader hypervisor protection",
+      "summary": "Adds native protection for Citrix XenServer, XCP-ng, and Sangfor aSV, plus Universal Hypervisor API integrations for Platform9 and VergeOS.",
       "introducedIn": "13.1",
-      "priority": 59,
+      "priority": 95,
       "sourceIds": [
-        "release-material-veeam-one-13-1-whats-new"
-      ],
-      "generated": true
+        "release-material-vbr-13-1-whats-new"
+      ]
     },
     {
-      "id": "auto-veeam-one-13-1-role-based-access-control",
-      "productId": "veeam-one",
-      "family": "source-13.1-role-based-access-control",
-      "title": "Role-Based Access Control",
-      "summary": "Veeam lists Role-Based Access Control in its What's New material for version 13.1.",
+      "id": "vbr-13-1-entra-id-recovery",
+      "productId": "vbr",
+      "family": "entra-id-recovery",
+      "title": "Enhanced Microsoft Entra ID recovery",
+      "summary": "Reconstructs persistent object relationships and adds protection for organization contacts, device objects, and BitLocker recovery keys.",
       "introducedIn": "13.1",
-      "priority": 58,
+      "priority": 90,
       "sourceIds": [
-        "release-material-veeam-one-13-1-whats-new"
-      ],
-      "generated": true
+        "release-material-vbr-13-1-whats-new"
+      ]
     },
     {
-      "id": "auto-veeam-one-13-1-multi-factor-authentication",
-      "productId": "veeam-one",
-      "family": "source-13.1-multi-factor-authentication",
-      "title": "Multi-Factor Authentication",
-      "summary": "Veeam lists Multi-Factor Authentication in its What's New material for version 13.1.",
+      "id": "vbr-13-1-security-controls",
+      "productId": "vbr",
+      "family": "security-controls",
+      "title": "Stronger security controls",
+      "summary": "Expands enhanced malware detection and adds Hybrid FIPS plus post-quantum cryptography processing, firewall-friendly single-port transport, and MFA for sensitive configuration operations.",
       "introducedIn": "13.1",
-      "priority": 57,
+      "priority": 85,
       "sourceIds": [
-        "release-material-veeam-one-13-1-whats-new"
-      ],
-      "generated": true
+        "release-material-vbr-13-1-whats-new"
+      ]
     },
     {
-      "id": "auto-veeam-one-13-1-web-client-enhancements",
+      "id": "veeam-one-13-1-hypervisor-coverage",
       "productId": "veeam-one",
-      "family": "source-13.1-web-client-enhancements",
-      "title": "Web Client Enhancements",
-      "summary": "Veeam lists Web Client Enhancements in its What's New material for version 13.1.",
+      "family": "hypervisor-coverage",
+      "title": "Broader hypervisor coverage",
+      "summary": "Extends monitoring, reporting, alerting, dashboards, desktop views, and REST API data to Scale Computing HyperCore, HPE Morpheus VM Essentials, Sangfor aSV, Citrix Xen, and XCP-ng.",
       "introducedIn": "13.1",
-      "priority": 56,
+      "priority": 100,
       "sourceIds": [
         "release-material-veeam-one-13-1-whats-new"
-      ],
-      "generated": true
+      ]
     },
     {
-      "id": "auto-vro-13-1-hyper-v-recovery",
+      "id": "veeam-one-13-1-identity-and-access",
+      "productId": "veeam-one",
+      "family": "identity-and-access",
+      "title": "Enterprise identity and access management",
+      "summary": "Adds standards-based SAML 2.0 single sign-on, role-based access control, and multi-factor authentication for Veeam ONE services.",
+      "introducedIn": "13.1",
+      "priority": 95,
+      "sourceIds": [
+        "release-material-veeam-one-13-1-whats-new"
+      ]
+    },
+    {
+      "id": "veeam-one-13-1-web-client-workflows",
+      "productId": "veeam-one",
+      "family": "web-client-workflows",
+      "title": "Expanded Web Client workflows",
+      "summary": "Brings license management, intelligent diagnostics, and in-context alarm visibility into the Web Client.",
+      "introducedIn": "13.1",
+      "priority": 90,
+      "sourceIds": [
+        "release-material-veeam-one-13-1-whats-new"
+      ]
+    },
+    {
+      "id": "veeam-one-13-1-public-cloud-and-storage",
+      "productId": "veeam-one",
+      "family": "public-cloud-and-storage",
+      "title": "Public cloud and storage enhancements",
+      "summary": "Adds public cloud enhancements, storage snapshot support, and enhanced monitoring for database plug-in tape jobs.",
+      "introducedIn": "13.1",
+      "priority": 85,
+      "sourceIds": [
+        "release-material-veeam-one-13-1-whats-new"
+      ]
+    },
+    {
+      "id": "vro-13-1-hyper-v-recovery",
       "productId": "vro",
-      "family": "source-13.1-hyper-v-recovery",
-      "title": "Hyper-V recovery",
-      "summary": "Veeam lists Hyper-V recovery in its What's New material for version 13.1.",
+      "family": "hyper-v-recovery",
+      "title": "Expanded Hyper-V recovery",
+      "summary": "Adds stand-alone Hyper-V hosts as recovery targets and restores Hyper-V VM backups to Azure through Cloud Plans.",
       "introducedIn": "13.1",
-      "priority": 60,
+      "priority": 100,
       "sourceIds": [
         "release-material-vro-13-1-whats-new"
-      ],
-      "generated": true
+      ]
     },
     {
-      "id": "auto-vro-13-1-stand-alone-hyper-v-host-target",
+      "id": "vro-13-1-cleanroom-recovery",
       "productId": "vro",
-      "family": "source-13.1-stand-alone-hyper-v-host-target",
-      "title": "Stand-alone Hyper-V host target",
-      "summary": "Veeam lists Stand-alone Hyper-V host target in its What's New material for version 13.1.",
+      "family": "cleanroom-recovery",
+      "title": "More resilient Cleanroom recovery",
+      "summary": "Cleanroom plans can connect directly to backup repositories with read-only access and stay current independently of production infrastructure.",
       "introducedIn": "13.1",
-      "priority": 59,
+      "priority": 95,
       "sourceIds": [
         "release-material-vro-13-1-whats-new"
-      ],
-      "generated": true
+      ]
     },
     {
-      "id": "auto-vro-13-1-restore-hyper-v-backups-to-azure",
+      "id": "vro-13-1-veeam-updater",
       "productId": "vro",
-      "family": "source-13.1-restore-hyper-v-backups-to-azure",
-      "title": "Restore Hyper-V backups to Azure",
-      "summary": "Veeam lists Restore Hyper-V backups to Azure in its What's New material for version 13.1.",
-      "introducedIn": "13.1",
-      "priority": 58,
-      "sourceIds": [
-        "release-material-vro-13-1-whats-new"
-      ],
-      "generated": true
-    },
-    {
-      "id": "auto-vro-13-1-veeam-updater",
-      "productId": "vro",
-      "family": "source-13.1-veeam-updater",
+      "family": "veeam-updater",
       "title": "Veeam Updater",
-      "summary": "Veeam lists Veeam Updater in its What's New material for version 13.1.",
+      "summary": "Adds scheduled, mandatory, and bulk update management for Veeam Backup & Replication components.",
       "introducedIn": "13.1",
-      "priority": 57,
+      "priority": 90,
       "sourceIds": [
         "release-material-vro-13-1-whats-new"
-      ],
-      "generated": true
+      ]
     },
     {
-      "id": "auto-vro-13-1-additional-supported-scenarios-for-cleanroom-recovery",
+      "id": "vro-13-1-recovery-controls",
       "productId": "vro",
-      "family": "source-13.1-additional-supported-scenarios-for-cleanroom-recovery",
-      "title": "Additional supported scenarios for Cleanroom recovery",
-      "summary": "Veeam lists Additional supported scenarios for Cleanroom recovery in its What's New material for version 13.1.",
+      "family": "recovery-controls",
+      "title": "More recovery controls",
+      "summary": "Adds enhanced Recovery Location configuration, failback proxy selection for replica plans, and scheduled tasks in the Web UI.",
       "introducedIn": "13.1",
-      "priority": 56,
+      "priority": 85,
       "sourceIds": [
         "release-material-vro-13-1-whats-new"
-      ],
-      "generated": true
+      ]
     },
     {
       "id": "auto-vspc-9-3-broader-hypervisor-coverage",
