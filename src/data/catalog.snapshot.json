@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-30T06:44:42.277Z",
+  "generatedAt": "2026-07-30T20:57:44.023Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4357",
       "title": "Veeam KB4357: Veeam ONE build numbers",
       "url": "https://www.veeam.com/kb4357",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4358",
       "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
       "url": "https://www.veeam.com/kb4358",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4464",
       "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
       "url": "https://www.veeam.com/kb4464",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4581",
@@ -54,7 +54,7 @@
       "id": "kb2053",
       "title": "Veeam KB2053: Upgrade path for Veeam Backup & Replication",
       "url": "https://www.veeam.com/kb2053",
-      "checkedAt": "2026-07-18T18:00:00.000Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4646",
@@ -66,7 +66,7 @@
       "id": "lifecycle",
       "title": "Veeam Product Lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "em-upgrade",
@@ -159,7 +159,7 @@
       "id": "vro-13-release-notes",
       "title": "Veeam Recovery Orchestrator 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_release_notes.html",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "vro",
       "releaseFamily": "13.0",
       "materialKind": "release-notes",
@@ -188,7 +188,7 @@
       "id": "vbr-release-materials",
       "title": "Veeam Backup & Replication 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbr",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "vsa-conversion",
@@ -212,19 +212,19 @@
       "id": "one-release-materials",
       "title": "Veeam ONE 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=one",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "vro-release-materials",
       "title": "Veeam Recovery Orchestrator 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vro",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "vspc-release-materials",
       "title": "Veeam Service Provider Console release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vac",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "em-how-to",
@@ -254,7 +254,7 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4771",
@@ -266,67 +266,67 @@
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4869",
       "title": "Veeam KB4869: Vulnerability Resolved in Veeam Backup & Replication 12.3.2.4854",
       "url": "https://www.veeam.com/kb4869",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4696",
       "title": "Veeam KB4696: Release Information for Veeam Backup & Replication 12.3 and updates",
       "url": "https://www.veeam.com/kb4696",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4738",
       "title": "Veeam KB4738: Release Information for Veeam Backup & Replication 13 and updates",
       "url": "https://www.veeam.com/kb4738",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "release-material-vbr-13-0-release-notes",
@@ -376,13 +376,13 @@
       "id": "kb4106",
       "title": "Veeam KB4106: Veeam Backup for Microsoft 365 build numbers",
       "url": "https://www.veeam.com/kb4106",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "kb4098",
       "title": "Veeam KB4098: Veeam Backup for Microsoft 365 upgrade paths",
       "url": "https://www.veeam.com/kb4098",
-      "checkedAt": "2026-07-30T06:44:42.277Z"
+      "checkedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "vb365-upgrade",
@@ -400,7 +400,7 @@
       "id": "vb365-release-materials",
       "title": "Veeam Backup for Microsoft 365 release notes and What’s New",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbo365",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "vb365"
     },
     {
@@ -414,7 +414,7 @@
       "id": "release-material-vb365-8-5-release-notes",
       "title": "Veeam Backup for Microsoft 365 8 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_m365_8_5_release_notes.html",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "vb365",
       "releaseFamily": "8.5",
       "materialKind": "release-notes",
@@ -425,7 +425,7 @@
       "id": "release-material-vb365-8-0-whats-new",
       "title": "Veeam Backup for Microsoft 365 8 What's New",
       "url": "https://www.veeam.com/veeam_backup_m365_8_whats_new_wn.pdf",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "vb365",
       "releaseFamily": "8.0",
       "materialKind": "whats-new",
@@ -436,18 +436,18 @@
       "id": "release-material-vbr-13-1-release-notes",
       "title": "Veeam Backup & Replication 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_13_1_release_notes.html",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "vbr",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
-      "contentHash": "f3bfc77f17e02fa201ec62dffabaf94cd00fca45fd651f9c9ddf7499ca4d189f",
-      "contentChangedAt": "2026-07-30T06:44:42.277Z"
+      "contentHash": "c7f6f8ab23d54951c5d82552035ccabc6f01fc5df2340a55d98c9814c9e7be23",
+      "contentChangedAt": "2026-07-30T20:57:44.023Z"
     },
     {
       "id": "release-material-vbr-13-0-whats-new",
       "title": "Veeam Backup & Replication 13 What's New v13.1",
       "url": "https://helpcenter.veeam.com/docs/vbr/wn/introduction.html?ver=13",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "vbr",
       "releaseFamily": "13.0",
       "materialKind": "whats-new",
@@ -458,7 +458,7 @@
       "id": "release-material-veeam-one-13-1-release-notes",
       "title": "Veeam ONE 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_one_13_1_release_notes.html",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "veeam-one",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
@@ -469,7 +469,7 @@
       "id": "release-material-veeam-one-13-1-whats-new",
       "title": "Veeam ONE 13 What's New v13.1",
       "url": "https://www.veeam.com/veeam_one_13_1_whats_new_wn.pdf",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "veeam-one",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -480,7 +480,7 @@
       "id": "release-material-vro-13-1-whats-new",
       "title": "Veeam Recovery Orchestrator 13 What's New v13.1",
       "url": "https://www.veeam.com/veeam_orchestrator_13_1_whats_new_wn.pdf",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "vro",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -491,12 +491,34 @@
       "id": "release-material-vspc-9-3-whats-new",
       "title": "Veeam Service Provider Console 9.3 What's New",
       "url": "https://www.veeam.com/veeam_console_9_3_whats_new_wn.pdf",
-      "checkedAt": "2026-07-30T06:44:42.277Z",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
       "productId": "vspc",
       "releaseFamily": "9.3",
       "materialKind": "whats-new",
       "contentHash": "33a7ac66fbb34ac6c9cf7397fdbe727dee73544c219a23393f9d2210da4d1d46",
       "contentChangedAt": "2026-07-30T01:22:38.405Z"
+    },
+    {
+      "id": "release-material-vro-13-1-release-notes",
+      "title": "Veeam Recovery Orchestrator 13 Release Notes",
+      "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_1_release_notes.html",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
+      "productId": "vro",
+      "releaseFamily": "13.1",
+      "materialKind": "release-notes",
+      "contentHash": "98d74cec7a01c027b75d6b1b1d42790135291262ad3af944d39a984bb0856416",
+      "contentChangedAt": "2026-07-30T20:57:44.023Z"
+    },
+    {
+      "id": "release-material-vspc-9-3-release-notes",
+      "title": "Veeam Service Provider Console 9.3 Release Notes",
+      "url": "https://helpcenter.veeam.com/rn/vspc_9_3_release_notes.html",
+      "checkedAt": "2026-07-30T20:57:44.023Z",
+      "productId": "vspc",
+      "releaseFamily": "9.3",
+      "materialKind": "release-notes",
+      "contentHash": "2b8d9e926e91f0e8b5349248aeb39eeeeb872c848d5bbd3006a9513c7d47d62a",
+      "contentChangedAt": "2026-07-30T20:57:44.023Z"
     }
   ],
   "products": [
@@ -5769,206 +5791,13 @@
   ],
   "upgradePaths": [
     {
-      "id": "vbr-10a-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-build-10-0-1-4854",
-      "fromVersionPrefixes": [
-        "10.0.1."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-12.0",
-        "vbr-12.3.2",
-        "vbr-13.0.2"
-      ],
-      "notes": [
-        "Veeam documents this staged route from 10a, with version 12.0 required before 12.3.2. Review the VBR upgrade checklist before each hop."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-11-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-build-11-0-0-837",
-      "fromVersionPrefixes": [
-        "11.0.0."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-12.0",
-        "vbr-12.3.2",
-        "vbr-13.0.2"
-      ],
-      "notes": [
-        "Veeam documents this staged route from version 11, with version 12.0 required before 12.3.2. Review the VBR upgrade checklist before each hop."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-11a-p20230227-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-11a-p20230227",
-      "fromVersionPrefixes": [
-        "11.0.1."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-12.0",
-        "vbr-12.3.2",
-        "vbr-13.0.2"
-      ],
-      "notes": [
-        "This 11a path requires version 12.0 before 12.3.2 when Nutanix AHV is present. If the deployment does not interact with Nutanix AHV, Veeam documents that 11a can skip 12.0 and upgrade directly to the latest 12.3 release."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-12.0-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-12.0",
-      "fromVersionPrefixes": [
-        "12.0."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-12.3.2",
-        "vbr-13.0.2"
-      ],
-      "notes": [
-        "Veeam documents this staged route from version 12.0. Review the VBR upgrade checklist before each hop."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-12.1-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-12.1",
-      "fromVersionPrefixes": [
-        "12.1."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-12.3.2",
-        "vbr-13.0.2"
-      ],
-      "notes": [
-        "Review the VBR upgrade checklist before each hop."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-12.2-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-12.2",
-      "fromVersionPrefixes": [
-        "12.2."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-12.3.2",
-        "vbr-13.0.2"
-      ],
-      "notes": [
-        "Veeam documents this staged route from version 12.2. Review the VBR upgrade checklist before each hop."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-12.3-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-build-12-3-0-310",
-      "fromVersionPrefixes": [
-        "12.3.0."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-12.3.2",
-        "vbr-13.0.2"
-      ],
-      "notes": [
-        "Veeam documents this staged route from version 12.3. Review the VBR upgrade checklist before each hop."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-12.3.1-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-build-12-3-1-1139",
-      "fromVersionPrefixes": [
-        "12.3.1."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-13.0.2"
-      ],
-      "notes": [
-        "Veeam documents a direct update from version 12.3.1 to 13.0.2. Review the VBR upgrade checklist before updating."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-12.3.2-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-12.3.2",
-      "fromVersionPrefixes": [
-        "12.3.2."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-13.0.2"
-      ],
-      "guidanceNote": "Veeam documents 12.3.2 → 13.0.2 directly, but this broad version entry does not identify the installed build. If you are on 12.3.2.3617, the build-specific guidance adds the 12.3.2.4165 security patch first because that build has known vulnerabilities. Enter the exact build for security-first guidance.",
-      "alternatives": [
-        {
-          "releaseId": "vbr-build-12-3-2-4854",
-          "heading": "Alternative if you must remain on VBR 12",
-          "note": "Veeam documents 12.3.2 P3 (build 12.3.2.4854) as an available VBR 12 update. Upgrade Brief recommends 13.0.2 (build 13.0.2.29) as the primary destination.",
-          "sourceIds": [
-            "kb4696"
-          ]
-        }
-      ],
-      "notes": [
-        "Review the VBR upgrade checklist before upgrading."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "kb4771",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-12.3.2.3617-to-13.0.2",
+      "id": "vbr-12.3.2.3617-to-vbr-build-13-1-0-411",
       "productId": "vbr",
       "fromReleaseId": "vbr-12.3.2.3617",
-      "toReleaseId": "vbr-13.0.2",
+      "toReleaseId": "vbr-build-13-1-0-411",
       "hopReleaseIds": [
         "vbr-12.3.2.4165",
-        "vbr-13.0.2"
+        "vbr-build-13-1-0-411"
       ],
       "guidanceNote": "Veeam's generic 12.3.2 upgrade path proceeds directly to 13.0.2. Upgrade Brief adds 12.3.2.4165 first for this exact build because Veeam identifies 12.3.2.3617 as affected by vulnerabilities fixed in that patch. This is a security-first recommendation, not a claim that Veeam blocks the direct upgrade.",
       "notes": [
@@ -5977,26 +5806,6 @@
       "sourceIds": [
         "kb4771",
         "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-13.0.1-to-13.0.2",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-build-13-0-1-180",
-      "fromVersionPrefixes": [
-        "13.0.1."
-      ],
-      "toReleaseId": "vbr-13.0.2",
-      "hopReleaseIds": [
-        "vbr-13.0.2"
-      ],
-      "notes": [
-        "Veeam documents a direct update from Veeam Backup & Replication 13.0.1 to 13.0.2. Review the VBR upgrade checklist before updating."
-      ],
-      "sourceIds": [
-        "kb2053",
-        "kb4738",
         "vbr-checklist"
       ]
     },
@@ -6160,6 +5969,258 @@
       ],
       "sourceIds": [
         "vspc-upgrade"
+      ]
+    },
+    {
+      "id": "vbr-10a-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-10-0-1-4854-p20220304",
+      "fromVersionPrefixes": [
+        "10.0.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-11-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-11-0-0-837-p20210525",
+      "fromVersionPrefixes": [
+        "11.0.0."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-11a-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-11a-p20230227",
+      "fromVersionPrefixes": [
+        "11.0.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-0-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.0",
+      "fromVersionPrefixes": [
+        "12.0."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-1-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.1",
+      "fromVersionPrefixes": [
+        "12.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-2-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.2",
+      "fromVersionPrefixes": [
+        "12.2."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-3-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-12-3-0-310",
+      "fromVersionPrefixes": [
+        "12.3."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-3-1-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-12-3-1-1139",
+      "fromVersionPrefixes": [
+        "12.3.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-3-2-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.3.2",
+      "fromVersionPrefixes": [
+        "12.3.2."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-13-0-1-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-13-0-1-180",
+      "fromVersionPrefixes": [
+        "13.0.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-13-0-2-to-vbr-build-13-1-0-411",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-13.0.2",
+      "fromVersionPrefixes": [
+        "13.0.2."
+      ],
+      "toReleaseId": "vbr-build-13-1-0-411",
+      "hopReleaseIds": [
+        "vbr-build-13-1-0-411"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
       ]
     },
     {

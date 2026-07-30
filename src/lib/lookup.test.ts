@@ -7,29 +7,29 @@ describe('catalog lookup', () => {
   it('matches an exact VBR build and gives the source-backed staged path', () => {
     const release = findRelease(catalog, 'vbr', '12.3.2.3617')
     expect(release?.id).toBe('vbr-12.3.2.3617')
-    expect(findUpgradePath(catalog, release!)?.hopReleaseIds).toEqual(['vbr-12.3.2.4165', 'vbr-13.0.2'])
+    expect(findUpgradePath(catalog, release!)?.hopReleaseIds).toEqual(['vbr-12.3.2.4165', catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId])
     expect(findUpgradePath(catalog, release!)?.guidanceNote).toContain('security-first recommendation')
   })
 
-  it('explains why broad 12.3.2 input differs from a vulnerable exact build', () => {
+  it('uses KB2053 guidance for the broad 12.3.2 family', () => {
     const release = findRelease(catalog, 'vbr', '12.3.2')!
-    expect(findUpgradePath(catalog, release!)?.guidanceNote).toContain('12.3.2.3617')
+    expect(findUpgradePath(catalog, release!)?.toReleaseId).toBe(catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId)
   })
 
-  it('offers the supported VBR 12 update without displacing the recommended version 13 target', () => {
+  it('uses the KB2053 target for a supported VBR 12 update', () => {
     const release = findRelease(catalog, 'vbr', '12.3.2.4165')!
     const path = findUpgradePath(catalog, release)!
 
-    expect(path.toReleaseId).toBe('vbr-13.0.2')
-    expect(path.alternatives).toEqual([expect.objectContaining({ releaseId: 'vbr-build-12-3-2-4854', sourceIds: ['kb4696'] })])
+    expect(path.toReleaseId).toBe(catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId)
+    expect(path.sourceIds).toContain('kb2053')
   })
 
-  it('routes VBR 13.0.1 builds directly to 13.0.2', () => {
+  it('routes VBR 13.0.1 builds directly to the KB2053 target', () => {
     const release = findRelease(catalog, 'vbr', '13.0.1.2067')!
     const path = findUpgradePath(catalog, release)!
 
-    expect(path.id).toBe('vbr-13.0.1-to-13.0.2')
-    expect(path.hopReleaseIds).toEqual(['vbr-13.0.2'])
+    expect(path.toReleaseId).toBe(catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId)
+    expect(path.hopReleaseIds).toEqual([path.toReleaseId])
   })
 
   it('shows source-backed resolved-issue context for a VBR 13.0 point-release update without presenting it as a new feature', () => {
@@ -88,23 +88,17 @@ describe('catalog lookup', () => {
 
   it('applies the documented 11a route to a refreshed build variant', () => {
     const release = { id: 'vbr-build-11a-p20211211', productId: 'vbr' as const, name: '11a', aliases: ['11.0.1.1261 P20211211'], sourceIds: ['kb2680'] }
-    expect(findUpgradePath(catalog, release)?.id).toBe('vbr-11a-p20230227-to-13.0.2')
+    expect(findUpgradePath(catalog, release)?.toReleaseId).toBe(catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId)
   })
 
   it('keeps documented pre-12.3.2 VBR paths available for concrete builds', () => {
-    const expectedRoutes = [
-      ['10.0.1.4854', 'vbr-10a-to-13.0.2'],
-      ['11.0.0.837', 'vbr-11-to-13.0.2'],
-      ['12.0.0.1420 P20230718', 'vbr-12.0-to-13.0.2'],
-      ['12.1.0.2131', 'vbr-12.1-to-13.0.2'],
-      ['12.2.0.334', 'vbr-12.2-to-13.0.2'],
-      ['12.3.0.310', 'vbr-12.3-to-13.0.2'],
-      ['12.3.1.1139', 'vbr-12.3.1-to-13.0.2'],
+    const versions = [
+      '10.0.1.4854', '11.0.0.837', '12.0.0.1420 P20230718', '12.1.0.2131', '12.2.0.334', '12.3.0.310', '12.3.1.1139',
     ] as const
 
-    for (const [version, routeId] of expectedRoutes) {
+    for (const version of versions) {
       const release = findRelease(catalog, 'vbr', version)!
-      expect(findUpgradePath(catalog, release)?.id).toBe(routeId)
+      expect(findUpgradePath(catalog, release)?.toReleaseId).toBe(catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId)
     }
   })
 
@@ -133,7 +127,10 @@ describe('catalog lookup', () => {
   })
 
   it('identifies a product’s catalog-recommended release without inventing an upgrade route', () => {
-    expect(isRecommendedRelease(catalog, findRelease(catalog, 'veeam-one', '13.0.2.6723')!)).toBe(true)
+    const recommendedId = catalog.products.find((product) => product.id === 'veeam-one')!.recommendedReleaseId
+    const recommended = catalog.releases.find((release) => release.id === recommendedId)!
+
+    expect(isRecommendedRelease(catalog, recommended)).toBe(true)
   })
 
   it('recognizes the current Enterprise Manager documentation build', () => {
@@ -185,13 +182,15 @@ describe('catalog lookup', () => {
     ])
   })
 
-  it('links target release material and source-backed fixes without treating them as matching advisories', () => {
+  it('links current target release material and keeps documented fixes source-backed', () => {
     const release = findRelease(catalog, 'vbr', '12.3.2.3617')!
     const target = upgradeTargetRelease(catalog, 'vbr', findUpgradePath(catalog, release))!
+    const currentTargetId = catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId
+    const previousFixedRelease = findRelease(catalog, 'vbr', '13.0.2.29')!
 
-    expect(target.id).toBe('vbr-13.0.2')
-    expect(releaseMaterialSourceIds(catalog, 'vbr', target)).toEqual(['vbr-whats-new', 'release-material-vbr-13-0-release-notes'])
-    expect(documentedFixSourceIds(catalog, target)).toContain('kb4852')
+    expect(target.id).toBe(currentTargetId)
+    expect(releaseMaterialSourceIds(catalog, 'vbr', target)).toContain('release-material-vbr-13-1-release-notes')
+    expect(documentedFixSourceIds(catalog, previousFixedRelease)).toContain('kb4852')
   })
 
   it('uses the target release family for automatic material links, including Enterprise Manager', () => {

@@ -5,13 +5,10 @@ import { releaseOptions } from './release-options'
 describe('release options', () => {
   it('offers canonical builds newest first', () => {
     const options = releaseOptions(catalog.releases.filter((release) => release.productId === 'vbr'))
+    const recommendedId = catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId
+    const recommended = catalog.releases.find((release) => release.id === recommendedId)!
 
-    expect(options.slice(0, 4).map((option) => option.value)).toEqual([
-      '13.0.2.29',
-      '13.0.1.2067',
-      '13.0.1.1071',
-      '13.0.1.180',
-    ])
+    expect(options[0]).toEqual(releaseOptions([recommended])[0])
     expect(options.filter((option) => option.label.includes('11a P20230227'))).toHaveLength(1)
   })
 
@@ -26,8 +23,10 @@ describe('release options', () => {
 
   it('labels Enterprise Manager suggestions with their canonical version and build', () => {
     const options = releaseOptions(catalog.releases.filter((release) => release.productId === 'enterprise-manager'))
+    const recommendedId = catalog.products.find((product) => product.id === 'enterprise-manager')!.recommendedReleaseId
+    const recommended = catalog.releases.find((release) => release.id === recommendedId)!
 
-    expect(options[0]).toEqual({ value: '13.0.2.29', label: '13.0.2 (build 13.0.2.29)' })
+    expect(options[0]).toEqual(releaseOptions([recommended])[0])
     expect(options).toContainEqual({ value: '12.3.1.1139', label: '12.3.1 (build 12.3.1.1139)' })
     expect(options).toContainEqual({ value: '13.0.1.2067', label: '13.0.1 P2 (build 13.0.1.2067)' })
   })

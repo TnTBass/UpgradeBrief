@@ -19,6 +19,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test:adapters
+      - run: npm run test:vbr-upgrade-path-adapter
       - run: npm run test:product-build-adapter
       - run: npm run test:enterprise-manager-build-adapter
       - run: npm run test:security-adapter
