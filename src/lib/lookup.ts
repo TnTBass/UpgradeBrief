@@ -26,12 +26,24 @@ export function findUpgradePath(catalog: Catalog, release: Release): UpgradePath
   const exact = catalog.upgradePaths.find((path) => path.fromReleaseId === release.id)
   if (exact) return exact
 
-  return catalog.upgradePaths.find((path) =>
-    path.productId === release.productId &&
-    (path.fromVersionPrefixes ?? []).some((prefix) =>
-      release.aliases.some((alias) => normalizeInput(alias).startsWith(normalizeInput(prefix))),
-    ),
-  )
+  const normalizedAliases = release.aliases.map(normalizeInput)
+  let mostSpecificPath: UpgradePath | undefined
+  let longestPrefixLength = -1
+
+  for (const path of catalog.upgradePaths) {
+    if (path.productId !== release.productId) continue
+
+    for (const prefix of path.fromVersionPrefixes ?? []) {
+      const normalizedPrefix = normalizeInput(prefix)
+      if (!normalizedPrefix || normalizedPrefix.length <= longestPrefixLength) continue
+      if (!normalizedAliases.some((alias) => alias.startsWith(normalizedPrefix))) continue
+
+      mostSpecificPath = path
+      longestPrefixLength = normalizedPrefix.length
+    }
+  }
+
+  return mostSpecificPath
 }
 
 export function isRecommendedRelease(catalog: Catalog, release: Release): boolean {

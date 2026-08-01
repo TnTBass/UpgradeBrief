@@ -16,12 +16,17 @@ describe('catalog lookup', () => {
     expect(findUpgradePath(catalog, release!)?.toReleaseId).toBe(catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId)
   })
 
-  it('uses the KB2053 target for a supported VBR 12 update', () => {
-    const release = findRelease(catalog, 'vbr', '12.3.2.4165')!
-    const path = findUpgradePath(catalog, release)!
+  it('routes patched VBR 12.3.2 builds directly using the most specific KB2053 prefix', () => {
+    const targetId = catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId
 
-    expect(path.toReleaseId).toBe(catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId)
-    expect(path.sourceIds).toContain('kb2053')
+    for (const version of ['12.3.2.4165', '12.3.2.4854']) {
+      const release = findRelease(catalog, 'vbr', version)!
+      const path = findUpgradePath(catalog, release)!
+
+      expect(path.fromVersionPrefixes).toEqual(['12.3.2.'])
+      expect(path.hopReleaseIds).toEqual([targetId])
+      expect(path.sourceIds).toContain('kb2053')
+    }
   })
 
   it('routes VBR 13.0.1 builds directly to the KB2053 target', () => {
