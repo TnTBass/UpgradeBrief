@@ -89,6 +89,7 @@ function SecurityFindingCard({ finding }: { finding: SecurityFinding }) {
       <h3>{finding.title}</h3>
       {finding.cves.length > 0 && <p>{finding.cves.join(', ')}</p>}
       {fixedRelease && <p>Fixed starting in: {fixedRelease.name}</p>}
+      {finding.remediation && <p>Remediation: {finding.remediation}</p>}
       {finding.conditions.length > 0 && <p>Verify: {finding.conditions.join(' ')}</p>}
       <SourceLinks sourceIds={finding.sourceIds} />
     </article>

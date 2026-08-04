@@ -27,6 +27,11 @@ export function selectProductReleaseSecurityArticles(feed, productNames) {
 }
 
 export const selectVbrSecurityArticles = (feed) => selectProductReleaseSecurityArticles(feed, 'Veeam Backup & Replication')
+  .filter((article) => article.id.toLowerCase() !== 'kb4649')
+
+const knownVeeamOneNonReleaseArticleIds = new Set(['kb3144', 'kb3221', 'kb4508', 'kb4649', 'kb4858'])
+export const selectVeeamOneReleaseSecurityArticles = (feed) => selectProductReleaseSecurityArticles(feed, 'Veeam ONE')
+  .filter((article) => !knownVeeamOneNonReleaseArticleIds.has(article.id.toLowerCase()))
 
 export function parseProductReleaseSecurityArticle(html, article, { productId, productName }) {
   const text = decodeHtml(html)
@@ -35,16 +40,19 @@ export function parseProductReleaseSecurityArticle(html, article, { productId, p
   const affected = text.match(new RegExp(`affect\\s+${productPattern}\\s+(\\d+(?:\\.\\d+){3})\\s+and\\s+all\\s+earlier\\s+version\\s+(\\d+)\\s+builds`, 'i'))
   if (!fixedBuild || !affected) throw new Error(`${article.id} does not state a supported ${productName} fixed and affected build range.`)
 
-  const headings = [...html.matchAll(/<h[45]\b[^>]*>[\s\S]*?(CVE-\d{4}-\d+)[\s\S]*?<\/h[45]>/gi)]
+  const headings = [...html.matchAll(/<h([45])\b[^>]*>([\s\S]*?)<\/h\1>/gi)].flatMap((heading) => {
+    const cve = decodeHtml(heading[2]).match(/CVE-\d{4}-\d+/i)?.[0]
+    return cve ? [{ index: heading.index, cve }] : []
+  })
   const records = headings.map((heading, index) => {
     const block = html.slice(heading.index, headings[index + 1]?.index)
     const paragraphs = [...block.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((match) => decodeHtml(match[1]))
     const title = paragraphs.find((paragraph) => !/^Severity:/i.test(paragraph) && !/^Please,? try again later\.?$/i.test(paragraph))
-    const score = Number(decodeHtml(block).match(/CVSS\s+v(?:3\.1|4)\s+Score:\s*([0-9]+(?:\.[0-9]+)?)/i)?.[1])
+    const score = Number(decodeHtml(block).match(/CVSS\s+v(?:3\.1|4(?:\.0)?)\s+Score:\s*([0-9]+(?:\.[0-9]+)?)/i)?.[1])
     const deploymentType = decodeHtml(block).match(/Affected Deployment Type:\s*(.*?)(?:\s+Source:|$)/i)?.[1]
-    if (!title || !Number.isFinite(score)) throw new Error(`${article.id} could not parse ${heading[1]} safely.`)
+    if (!title || !Number.isFinite(score)) throw new Error(`${article.id} could not parse ${heading.cve} safely.`)
     return {
-      cve: heading[1].toUpperCase(),
+      cve: heading.cve.toUpperCase(),
       title,
       cvssScore: score,
       conditions: deploymentType ? [`Veeam lists affected deployment type: ${deploymentType}. Verify applicability; this does not downgrade the upgrade reason.`] : [],
@@ -87,6 +95,7 @@ export function mergeProductReleaseSecurityArticles(catalog, advisories) {
       affectedBuildRanges: [advisory.affectedBuildRange],
       fixedReleaseId,
       cvssScore: record.cvssScore,
+      isCisaKev: false,
       conditions: record.conditions,
       sourceIds: ['security-kb', advisory.source.id],
     }))

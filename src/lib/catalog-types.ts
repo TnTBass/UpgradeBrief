@@ -112,7 +112,8 @@ export interface SecurityFinding {
     versionPrefix: string
     throughBuild: string
   }>
-  fixedReleaseId: string
+  fixedReleaseId?: string
+  remediation?: string
   cvssScore?: number
   isCisaKev?: boolean
   veeamConfirmedActiveExploitation?: boolean

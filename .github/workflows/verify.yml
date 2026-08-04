@@ -21,6 +21,8 @@ jobs:
       - run: npm run test:vbr-upgrade-path-adapter
       - run: npm run test:enterprise-manager-build-adapter
       - run: npm run test:security-adapter
+      - run: npm run test:release-security-adapter
+      - run: npm run test:veeam-one-legacy-security-adapter
       - run: npm run test:release-information-adapter
       - run: npm run test:lifecycle-adapter
       - run: npm run test:kev-adapter

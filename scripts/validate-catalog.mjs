@@ -69,7 +69,8 @@ for (const path of catalog.upgradePaths) {
 }
 
 for (const finding of catalog.securityFindings) {
-  assert(releaseIds.has(finding.fixedReleaseId), `${finding.id} fixed release must exist`)
+  assert(finding.fixedReleaseId || finding.remediation, `${finding.id} must document a fixed release or remediation`)
+  if (finding.fixedReleaseId) assert(releaseIds.has(finding.fixedReleaseId), `${finding.id} fixed release must exist`)
   for (const releaseId of finding.affectedReleaseIds) assert(releaseIds.has(releaseId), `${finding.id} affected release must exist`)
 }
 

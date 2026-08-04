@@ -74,6 +74,35 @@ describe('catalog lookup', () => {
     expect(findingsForRelease(catalog, fixed).some((finding) => finding.cves.includes('CVE-2026-44963'))).toBe(false)
   })
 
+  it('shows the KB4892 Veeam ONE advisories through 13.0.2.6723 but not on 13.1.0.7034', () => {
+    const vulnerable = findRelease(catalog, 'veeam-one', '13.0.2.6723')!
+    const fixed = findRelease(catalog, 'veeam-one', '13.1.0.7034')!
+
+    expect(findingsForRelease(catalog, vulnerable).some((finding) => finding.cves.includes('CVE-2026-64633'))).toBe(true)
+    expect(findingsForRelease(catalog, fixed).some((finding) => finding.cves.includes('CVE-2026-64633'))).toBe(false)
+  })
+
+  it('preserves build-specific Veeam ONE hotfix remediation without inventing a fixed server build', () => {
+    const vulnerable = findRelease(catalog, 'veeam-one', '10.0.0.750')!
+    const finding = findingsForRelease(catalog, vulnerable).find((item) => item.cves.includes('CVE-2020-10914'))!
+
+    expect(finding.fixedReleaseId).toBeUndefined()
+    expect(finding.remediation).toContain('KB3144 hotfix')
+    expect(finding.conditions.join(' ')).toContain('Veeam ONE Agent component')
+  })
+
+  it('does not stamp other KB4649 product sections as VBR findings', () => {
+    const release = findRelease(catalog, 'vbr', '12.1.2.172')!
+    const cves = findingsForRelease(catalog, release).flatMap((finding) => finding.cves)
+    const kevFinding = catalog.securityFindings.find((finding) => finding.cves.includes('CVE-2024-40711'))!
+
+    expect(cves).not.toContain('CVE-2024-42024')
+    expect(cves).not.toContain('CVE-2024-40709')
+    expect(cves).not.toContain('CVE-2024-38650')
+    expect(kevFinding.isCisaKev).toBe(true)
+    expect(kevFinding.sourceIds).toContain('cisa-kev')
+  })
+
   it('does not infer an unmatched build from a nearby release', () => {
     expect(findRelease(catalog, 'vbr', '12.3.2.4000')).toBeUndefined()
   })

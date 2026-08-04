@@ -10,7 +10,8 @@ import { mergeVb365Builds, parseVb365Builds } from './lib/vb365-builds.mjs'
 import { mergeVb365UpgradePaths, parseVb365UpgradePaths } from './lib/vb365-upgrade-paths.mjs'
 import { mergeVbrUpgradePaths, parseVbrUpgradePaths } from './lib/vbr-upgrade-paths.mjs'
 import { mergeVbrSecurityBulletin, mergeVeeamOneSecurityBulletin, parseVbrSecurityBulletin, parseVeeamOneSecurityBulletin } from './lib/vbr-security.mjs'
-import { mergeProductReleaseSecurityArticles, parseProductReleaseSecurityArticle, parseVbrReleaseSecurityArticle, selectProductReleaseSecurityArticles, selectVbrSecurityArticles } from './lib/vbr-release-security.mjs'
+import { mergeProductReleaseSecurityArticles, parseProductReleaseSecurityArticle, parseVbrReleaseSecurityArticle, selectProductReleaseSecurityArticles, selectVbrSecurityArticles, selectVeeamOneReleaseSecurityArticles } from './lib/vbr-release-security.mjs'
+import { mergeVeeamOneLegacySecurityArticles, parseVeeamOneLegacySecurityArticle, selectVeeamOneLegacySecurityArticles } from './lib/veeam-one-legacy-security.mjs'
 import { mergeCisaKev, parseCisaKev } from './lib/cisa-kev.mjs'
 import { mergeLifecyclePolicies, parseLifecyclePolicies } from './lib/lifecycle.mjs'
 import { mergeVbrReleaseInformation, parseVbrReleaseInformation } from './lib/vbr-release-information.mjs'
@@ -124,10 +125,19 @@ const vb365Builds = parseVb365Builds(vb365BuildHtml)
 const vb365Routes = parseVb365UpgradePaths(vb365UpgradeHtml)
 const vbrAdvisories = parseVbrSecurityBulletin(securityHtml)
 const veeamOneAdvisories = parseVeeamOneSecurityBulletin(securityHtml)
-const discoveredVbrArticles = selectVbrSecurityArticles(JSON.parse(securityFeedPayload))
-const discoveredVspcArticles = selectProductReleaseSecurityArticles(JSON.parse(securityFeedPayload), 'Veeam Service Provider Console')
-const discoveredVb365Articles = selectProductReleaseSecurityArticles(JSON.parse(securityFeedPayload), ['Veeam Backup for Microsoft 365', 'Veeam Backup for Microsoft Office 365'])
-const discoveredResponses = await Promise.allSettled([...discoveredVbrArticles.map((article) => ({ article, product: { productId: 'vbr', productName: 'Veeam Backup & Replication' } })), ...discoveredVspcArticles.map((article) => ({ article, product: { productId: 'vspc', productName: 'Veeam Service Provider Console' } })), ...discoveredVb365Articles.map((article) => ({ article, product: { productId: 'vb365', productName: 'Veeam Backup for Microsoft 365' } }))].map(async ({ article, product }) => ({
+const securityFeed = JSON.parse(securityFeedPayload)
+const discoveredVbrArticles = selectVbrSecurityArticles(securityFeed)
+const discoveredVspcArticles = selectProductReleaseSecurityArticles(securityFeed, 'Veeam Service Provider Console')
+const discoveredVb365Articles = selectProductReleaseSecurityArticles(securityFeed, ['Veeam Backup for Microsoft 365', 'Veeam Backup for Microsoft Office 365'])
+const discoveredVeeamOneReleaseArticles = selectVeeamOneReleaseSecurityArticles(securityFeed)
+const discoveredVeeamOneLegacyArticles = selectVeeamOneLegacySecurityArticles(securityFeed)
+const discoveredVeeamOneInventoryArticle = selectProductReleaseSecurityArticles(securityFeed, 'Veeam ONE').find((article) => article.id.toLowerCase() === 'kb4858')
+const discoveredResponses = await Promise.allSettled([
+  ...discoveredVbrArticles.map((article) => ({ article, product: { productId: 'vbr', productName: 'Veeam Backup & Replication' } })),
+  ...discoveredVspcArticles.map((article) => ({ article, product: { productId: 'vspc', productName: 'Veeam Service Provider Console' } })),
+  ...discoveredVb365Articles.map((article) => ({ article, product: { productId: 'vb365', productName: 'Veeam Backup for Microsoft 365' } })),
+  ...discoveredVeeamOneReleaseArticles.map((article) => ({ article, product: { productId: 'veeam-one', productName: 'Veeam ONE' } })),
+].map(async ({ article, product }) => ({
   article,
   product,
   html: await fetchSource({ id: article.id, url: new URL(article.url, 'https://www.veeam.com').toString() }),
@@ -142,6 +152,14 @@ const discoveredReleaseAdvisories = discoveredResponses.flatMap((response) => {
     return []
   }
 })
+const discoveredVeeamOneLegacyResponses = await Promise.allSettled(discoveredVeeamOneLegacyArticles.map(async (article) => ({
+  article,
+  html: await fetchSource({ id: article.id, url: new URL(article.url, 'https://www.veeam.com').toString() }),
+})))
+const discoveredVeeamOneLegacyAdvisories = discoveredVeeamOneLegacyResponses.flatMap((response) => {
+  if (response.status !== 'fulfilled') return []
+  try { return [parseVeeamOneLegacySecurityArticle(response.value.html, response.value.article)] } catch { return [] }
+})
 const kevCves = parseCisaKev(JSON.parse(kevPayload))
 const lifecyclePolicies = parseLifecyclePolicies(lifecycleHtml)
 const releaseInformationBuilds = parseVbrReleaseInformation(releaseInformationHtml)
@@ -152,6 +170,13 @@ if (vb365Routes.length < 7) throw new Error(`VB365 upgrade-path parser returned 
 if (shouldCheckVbrUpgradeGuidance && vbrRoutes.length < 1) throw new Error('VBR KB2053 parser returned no documented routes; refusing to replace the catalog.')
 if (vbrAdvisories.length < 6 || veeamOneAdvisories.length < 6) throw new Error(`Security parser returned ${vbrAdvisories.length} VBR and ${veeamOneAdvisories.length} Veeam ONE advisories; refusing to replace the catalog.`)
 if (!discoveredReleaseAdvisories.some((advisory) => advisory.source.id === 'kb4831')) throw new Error('Security feed did not yield the supported KB4831 VBR advisory; refusing to replace the catalog.')
+const parsedVeeamOneReleaseSourceIds = new Set(discoveredReleaseAdvisories.filter((advisory) => advisory.productId === 'veeam-one').map((advisory) => advisory.source.id))
+const missingVeeamOneReleaseArticles = discoveredVeeamOneReleaseArticles.filter((article) => !parsedVeeamOneReleaseSourceIds.has(article.id.toLowerCase()))
+if (discoveredVeeamOneReleaseArticles.length < 1 || missingVeeamOneReleaseArticles.length) throw new Error(`Veeam ONE release-security parsing was incomplete${missingVeeamOneReleaseArticles.length ? ` for ${missingVeeamOneReleaseArticles.map((article) => article.id).join(', ')}` : ''}; refusing to replace the catalog.`)
+const parsedVeeamOneLegacySourceIds = new Set(discoveredVeeamOneLegacyAdvisories.map((advisory) => advisory.source.id))
+const missingVeeamOneLegacyArticles = discoveredVeeamOneLegacyArticles.filter((article) => !parsedVeeamOneLegacySourceIds.has(article.id.toLowerCase()))
+if (discoveredVeeamOneLegacyArticles.length !== 3 || missingVeeamOneLegacyArticles.length || discoveredVeeamOneLegacyAdvisories.flatMap((advisory) => advisory.records).length !== 8) throw new Error(`Legacy Veeam ONE security parsing was incomplete${missingVeeamOneLegacyArticles.length ? ` for ${missingVeeamOneLegacyArticles.map((article) => article.id).join(', ')}` : ''}; refusing to replace the catalog.`)
+if (!discoveredVeeamOneInventoryArticle) throw new Error('Security feed did not yield the KB4858 Veeam ONE security-fix inventory; refusing to replace the catalog.')
 if (lifecyclePolicies.length < 10) throw new Error(`Lifecycle parser returned only ${lifecyclePolicies.length} rows; refusing to replace lifecycle guidance.`)
 if (!releaseInformationBuilds.includes('12.3.2.4465')) throw new Error('VBR release-information KB did not yield build 12.3.2.4465; refusing to update release-note links.')
 if (!releaseInformation13Builds.includes('13.0.0.4967')) throw new Error('VBR 13 release-information KB did not yield build 13.0.0.4967; refusing to update release-note links.')
@@ -169,7 +194,8 @@ const enterpriseManagerBuildsMerged = mergeEnterpriseManagerBuilds(releaseInform
 const vbrMerged = mergeVbrSecurityBulletin(enterpriseManagerBuildsMerged.catalog, vbrAdvisories)
 const oneMerged = mergeVeeamOneSecurityBulletin(vbrMerged.catalog, veeamOneAdvisories)
 const releaseSecurityMerged = mergeProductReleaseSecurityArticles(oneMerged.catalog, discoveredReleaseAdvisories)
-const lifecycleMerged = mergeLifecyclePolicies(releaseSecurityMerged.catalog, lifecyclePolicies)
+const oneLegacyMerged = mergeVeeamOneLegacySecurityArticles(releaseSecurityMerged.catalog, discoveredVeeamOneLegacyAdvisories)
+const lifecycleMerged = mergeLifecyclePolicies(oneLegacyMerged.catalog, lifecyclePolicies)
 const merged = mergeCisaKev(lifecycleMerged.catalog, kevCves)
 const refreshedAt = new Date().toISOString()
 const releaseMaterialsMerged = mergeReleaseMaterials(merged.catalog, fetchedReleaseMaterials, refreshedAt)
@@ -180,7 +206,15 @@ const generatedHighlights = fetchedReleaseMaterials.flatMap((material) => materi
 const highlightsMerged = mergeSourceSupportedHighlights(releaseMaterialsMerged.catalog, generatedHighlights, fetchedReleaseMaterials.map((material) => materialSourceByUrl.get(material.url)).filter(Boolean))
 merged.catalog = highlightsMerged.catalog
 merged.catalog.generatedAt = refreshedAt
-const discoveredSources = discoveredReleaseAdvisories.map((advisory) => ({ ...advisory.source, checkedAt: refreshedAt }))
+const discoveredSources = [
+  ...[...discoveredReleaseAdvisories, ...discoveredVeeamOneLegacyAdvisories].map((advisory) => ({ ...advisory.source, checkedAt: refreshedAt })),
+  {
+    id: discoveredVeeamOneInventoryArticle.id.toLowerCase(),
+    title: `Veeam ${discoveredVeeamOneInventoryArticle.id.toUpperCase()}: ${discoveredVeeamOneInventoryArticle.seoTitle}`,
+    url: new URL(discoveredVeeamOneInventoryArticle.url, 'https://www.veeam.com').toString(),
+    checkedAt: refreshedAt,
+  },
+]
 merged.catalog.sources = merged.catalog.sources.map((item) =>
   item.id === buildSource.id || item.id === oneBuildSource.id || item.id === vroBuildSource.id || item.id === vspcBuildSource.id || item.id === vb365BuildSource.id || item.id === vb365UpgradeSource.id || (shouldCheckVbrUpgradeGuidance && item.id === vbrUpgradeSource.id) || item.id === securitySource.id || item.id === securityFeedSource.id || item.id === kevSource.id || item.id === lifecycleSource.id || item.id === releaseInformationSource.id || item.id === releaseInformation13Source.id || ['vbr-release-materials', 'one-release-materials', 'vro-release-materials', 'vspc-release-materials', 'vb365-release-materials'].includes(item.id) ? { ...item, checkedAt: refreshedAt } : item,
 )
@@ -191,4 +225,5 @@ for (const source of discoveredSources) {
 }
 
 await validateThenInstall(merged.catalog)
-console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, ${vspcBuilds.length} VSPC, and ${vb365Builds.length} VB365 builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + vb365BuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${shouldCheckVbrUpgradeGuidance ? `${vbrPathsMerged.paths} VBR KB2053 routes checked; ` : ''}${vb365PathsMerged.paths} VB365 documented routes; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${releaseMaterialsMerged.additions} release materials added, ${releaseMaterialsMerged.changes} changed, and ${highlightsMerged.additions} source-supported highlights added; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} VBR/VSPC/VB365 release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${oneMerged.findings} Veeam ONE advisories; ${merged.matches} KEV matches.`)
+const veeamOneReleaseFindings = discoveredReleaseAdvisories.filter((advisory) => advisory.productId === 'veeam-one').reduce((total, advisory) => total + advisory.records.length, 0)
+console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, ${vspcBuilds.length} VSPC, and ${vb365Builds.length} VB365 builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + vb365BuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${shouldCheckVbrUpgradeGuidance ? `${vbrPathsMerged.paths} VBR KB2053 routes checked; ` : ''}${vb365PathsMerged.paths} VB365 documented routes; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${releaseMaterialsMerged.additions} release materials added, ${releaseMaterialsMerged.changes} changed, and ${highlightsMerged.additions} source-supported highlights added; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${oneMerged.findings + oneLegacyMerged.findings + veeamOneReleaseFindings} Veeam ONE CVE findings; ${merged.matches} KEV matches.`)

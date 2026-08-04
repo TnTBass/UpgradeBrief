@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-04T06:43:52.611Z",
+  "generatedAt": "2026-08-04T15:48:46.475Z",
   "sources": [
     {
       "id": "kb2680",
@@ -254,7 +254,7 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-08-04T06:43:52.611Z"
+      "checkedAt": "2026-08-04T15:48:46.475Z"
     },
     {
       "id": "kb4771",
@@ -266,7 +266,7 @@
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-08-04T06:43:52.611Z"
+      "checkedAt": "2026-08-04T15:48:46.475Z"
     },
     {
       "id": "cisa-kev",
@@ -530,6 +530,36 @@
       "materialKind": "release-notes",
       "contentHash": "2b8d9e926e91f0e8b5349248aeb39eeeeb872c848d5bbd3006a9513c7d47d62a",
       "contentChangedAt": "2026-07-30T20:57:44.023Z"
+    },
+    {
+      "id": "kb4892",
+      "title": "Veeam KB4892: Vulnerabilities Resolved in Veeam ONE 13.1",
+      "url": "https://www.veeam.com/kb4892",
+      "checkedAt": "2026-08-04T15:48:46.475Z"
+    },
+    {
+      "id": "kb4858",
+      "title": "Veeam KB4858: List of Security Fixes and Improvements in Veeam ONE",
+      "url": "https://www.veeam.com/kb4858",
+      "checkedAt": "2026-08-04T15:48:46.475Z"
+    },
+    {
+      "id": "kb4508",
+      "title": "Veeam KB4508: CVE-2023-38547 | CVE-2023-38548 | CVE-2023-38549 | CVE-2023-41723",
+      "url": "https://www.veeam.com/kb4508",
+      "checkedAt": "2026-08-04T15:48:46.475Z"
+    },
+    {
+      "id": "kb3221",
+      "title": "Veeam KB3221: Veeam ONE XML External Entity Processing vulnerabilities",
+      "url": "https://www.veeam.com/kb3221",
+      "checkedAt": "2026-08-04T15:48:46.475Z"
+    },
+    {
+      "id": "kb3144",
+      "title": "Veeam KB3144: Veeam ONE Remote Code Execution Vulnerabilities",
+      "url": "https://www.veeam.com/kb3144",
+      "checkedAt": "2026-08-04T15:48:46.475Z"
     }
   ],
   "products": [
@@ -6647,150 +6677,6 @@
       "isCisaKev": false
     },
     {
-      "id": "one-cve-2024-42024",
-      "title": "A vulnerability that allows an attacker in possession of the Veeam ONE Agent service account credentials to perform remote code execution on the machine where the Veeam ONE Agent is installed.",
-      "cves": [
-        "CVE-2024-42024"
-      ],
-      "cvssScore": 9.1,
-      "productId": "veeam-one",
-      "affectedReleaseIds": [
-        "one-12.1"
-      ],
-      "affectedVersionPrefixes": [
-        "12.0.",
-        "12.1."
-      ],
-      "fixedReleaseId": "one-12.2",
-      "conditions": [
-        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
-      ],
-      "sourceIds": [
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "one-cve-2024-42019",
-      "title": "A vulnerability that allows an attacker to access the NTLM hash of the Veeam Reporter Service service account. This attack requires user interaction and data collected from Veeam Backup & Replication.",
-      "cves": [
-        "CVE-2024-42019"
-      ],
-      "cvssScore": 9,
-      "productId": "veeam-one",
-      "affectedReleaseIds": [
-        "one-12.1"
-      ],
-      "affectedVersionPrefixes": [
-        "12.0.",
-        "12.1."
-      ],
-      "fixedReleaseId": "one-12.2",
-      "conditions": [
-        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
-      ],
-      "sourceIds": [
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "one-cve-2024-42023",
-      "title": "A vulnerability that allows low-privileged users to execute code with Administrator privileges remotely.",
-      "cves": [
-        "CVE-2024-42023"
-      ],
-      "cvssScore": 8.8,
-      "productId": "veeam-one",
-      "affectedReleaseIds": [
-        "one-12.1"
-      ],
-      "affectedVersionPrefixes": [
-        "12.0.",
-        "12.1."
-      ],
-      "fixedReleaseId": "one-12.2",
-      "conditions": [
-        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
-      ],
-      "sourceIds": [
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "one-cve-2024-42021",
-      "title": "A vulnerability that allows an attacker with valid access tokens to access saved credentials.",
-      "cves": [
-        "CVE-2024-42021"
-      ],
-      "cvssScore": 7.5,
-      "productId": "veeam-one",
-      "affectedReleaseIds": [
-        "one-12.1"
-      ],
-      "affectedVersionPrefixes": [
-        "12.0.",
-        "12.1."
-      ],
-      "fixedReleaseId": "one-12.2",
-      "conditions": [
-        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
-      ],
-      "sourceIds": [
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "one-cve-2024-42022",
-      "title": "A vulnerability that allows an attacker to modify product configuration files.",
-      "cves": [
-        "CVE-2024-42022"
-      ],
-      "cvssScore": 7.5,
-      "productId": "veeam-one",
-      "affectedReleaseIds": [
-        "one-12.1"
-      ],
-      "affectedVersionPrefixes": [
-        "12.0.",
-        "12.1."
-      ],
-      "fixedReleaseId": "one-12.2",
-      "conditions": [
-        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
-      ],
-      "sourceIds": [
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "one-cve-2024-42020",
-      "title": "A vulnerability in Reporter Widgets that allows HTML injection.",
-      "cves": [
-        "CVE-2024-42020"
-      ],
-      "cvssScore": 7.3,
-      "productId": "veeam-one",
-      "affectedReleaseIds": [
-        "one-12.1"
-      ],
-      "affectedVersionPrefixes": [
-        "12.0.",
-        "12.1."
-      ],
-      "fixedReleaseId": "one-12.2",
-      "conditions": [
-        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
-      ],
-      "sourceIds": [
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
       "id": "vbr-cve-2026-44963",
       "productId": "vbr",
       "title": "All vulnerabilities documented in this article were resolved in Veeam Backup & Replication 12.3.2.4854.",
@@ -7449,444 +7335,6 @@
       "isCisaKev": false
     },
     {
-      "id": "vbr-cve-2024-40711",
-      "productId": "vbr",
-      "title": "All vulnerabilities documented in this article are resolved in the latest version of each product.",
-      "cves": [
-        "CVE-2024-40711"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 9.8,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649",
-        "cisa-kev"
-      ],
-      "isCisaKev": true
-    },
-    {
-      "id": "vbr-cve-2024-40713",
-      "productId": "vbr",
-      "title": "A vulnerability that allows a user who has been assigned a low-privileged role within Veeam Backup & Replication to alter Multi-Factor Authentication (MFA) settings and bypass MFA.",
-      "cves": [
-        "CVE-2024-40713"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 8.8,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-40710",
-      "productId": "vbr",
-      "title": "A series of related high-severity vulnerabilities, the most notable enabling remote code execution (RCE) as the service account and extraction of sensitive information (saved credentials and passwords). Exploiting these vulnerabilities requires a user who has been assigned a low-privileged role within Veeam Backup & Replication.",
-      "cves": [
-        "CVE-2024-40710"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 8.8,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-39718",
-      "productId": "vbr",
-      "title": "A vulnerability that allows a low-privileged user to remotely remove files on the system with permissions equivalent to those of the service account.",
-      "cves": [
-        "CVE-2024-39718"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 8.1,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-40714",
-      "productId": "vbr",
-      "title": "A vulnerability in TLS certificate validation allows an attacker on the same network to intercept sensitive credentials during restore operations.",
-      "cves": [
-        "CVE-2024-40714"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 8.3,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-40712",
-      "productId": "vbr",
-      "title": "A path traversal vulnerability allows an attacker with a low-privileged account and local access to the system to perform local privilege escalation (LPE).",
-      "cves": [
-        "CVE-2024-40712"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 7.8,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-40709",
-      "productId": "vbr",
-      "title": "A vulnerability that allows a local low-privileged user on the machine to escalate their privileges to root level.",
-      "cves": [
-        "CVE-2024-40709"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 7.8,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-42024",
-      "productId": "vbr",
-      "title": "A vulnerability that allows an attacker in possession of the Veeam ONE Agent service account credentials to perform remote code execution on the machine where the Veeam ONE Agent is installed.",
-      "cves": [
-        "CVE-2024-42024"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 9.1,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-42019",
-      "productId": "vbr",
-      "title": "A vulnerability that allows an attacker to access the NTLM hash of the Veeam Reporter Service service account. This attack requires user interaction and data collected from Veeam Backup & Replication.",
-      "cves": [
-        "CVE-2024-42019"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 9,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-42023",
-      "productId": "vbr",
-      "title": "A vulnerability that allows low-privileged users to execute code with Administrator privileges remotely.",
-      "cves": [
-        "CVE-2024-42023"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 8.8,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-42021",
-      "productId": "vbr",
-      "title": "A vulnerability that allows an attacker with valid access tokens to access saved credentials.",
-      "cves": [
-        "CVE-2024-42021"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 7.5,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-42022",
-      "productId": "vbr",
-      "title": "A vulnerability that allows an attacker to modify product configuration files.",
-      "cves": [
-        "CVE-2024-42022"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 7.5,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-42020",
-      "productId": "vbr",
-      "title": "A vulnerability in Reporter Widgets that allows HTML injection.",
-      "cves": [
-        "CVE-2024-42020"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 7.3,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-38650",
-      "productId": "vbr",
-      "title": "A vulnerability that allows a low privileged attacker to access the NTLM hash of service account on the VSPC server.",
-      "cves": [
-        "CVE-2024-38650"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 9.9,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-39714",
-      "productId": "vbr",
-      "title": "A vulnerability that permits a low-privileged user to upload arbitrary files to the server, leading to remote code execution on VSPC server.",
-      "cves": [
-        "CVE-2024-39714"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 9.9,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-39715",
-      "productId": "vbr",
-      "title": "A vulnerability that allows a low-privileged user with REST API access granted to remotely upload arbitrary files to the VSPC server using REST API, leading to remote code execution on VSPC server.",
-      "cves": [
-        "CVE-2024-39715"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 8.5,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-38651",
-      "productId": "vbr",
-      "title": "A vulnerability that permits a low-privileged user to overwrite files on that VSPC server, which can lead to remote code execution on VSPC server.",
-      "cves": [
-        "CVE-2024-38651"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 8.5,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-45206",
-      "productId": "vbr",
-      "title": "A vulnerability that allows an attacker to perform arbitrary HTTP requests to arbitrary hosts of the network and get information about internal resources.",
-      "cves": [
-        "CVE-2024-45206"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 6.5,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
-      "id": "vbr-cve-2024-40718",
-      "productId": "vbr",
-      "title": "A vulnerability that allows a low-privileged user to perform local privilege escalation through exploiting an SSRF vulnerability.",
-      "cves": [
-        "CVE-2024-40718"
-      ],
-      "affectedReleaseIds": [],
-      "affectedBuildRanges": [
-        {
-          "versionPrefix": "12.",
-          "throughBuild": "12.1.2.172"
-        }
-      ],
-      "fixedReleaseId": "vbr-build-12-1-2-172",
-      "cvssScore": 8.8,
-      "conditions": [],
-      "sourceIds": [
-        "security-kb",
-        "kb4649"
-      ],
-      "isCisaKev": false
-    },
-    {
       "id": "vspc-cve-2026-32998",
       "productId": "vspc",
       "title": "A vulnerability in Veeam Service Provider Console allows for remote code execution.",
@@ -7931,6 +7379,612 @@
         "kb4853"
       ],
       "isCisaKev": false
+    },
+    {
+      "id": "vbr-cve-2024-40711",
+      "title": "A vulnerability allowing unauthenticated remote code execution (RCE).",
+      "cves": [
+        "CVE-2024-40711"
+      ],
+      "cvssScore": 9.8,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649",
+        "cisa-kev"
+      ],
+      "isCisaKev": true
+    },
+    {
+      "id": "vbr-cve-2024-40713",
+      "title": "A vulnerability that allows a user who has been assigned a low-privileged role within Veeam Backup & Replication to alter Multi-Factor Authentication (MFA) settings and bypass MFA.",
+      "cves": [
+        "CVE-2024-40713"
+      ],
+      "cvssScore": 8.8,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-40710",
+      "title": "A series of related high-severity vulnerabilities, the most notable enabling remote code execution (RCE) as the service account and extraction of sensitive information (saved credentials and passwords). Exploiting these vulnerabilities requires a user who has been assigned a low-privileged role within Veeam Backup & Replication.",
+      "cves": [
+        "CVE-2024-40710"
+      ],
+      "cvssScore": 8.8,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-39718",
+      "title": "A vulnerability that allows a low-privileged user to remotely remove files on the system with permissions equivalent to those of the service account.",
+      "cves": [
+        "CVE-2024-39718"
+      ],
+      "cvssScore": 8.1,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-40714",
+      "title": "A vulnerability in TLS certificate validation allows an attacker on the same network to intercept sensitive credentials during restore operations.",
+      "cves": [
+        "CVE-2024-40714"
+      ],
+      "cvssScore": 8.3,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "vbr-cve-2024-40712",
+      "title": "A path traversal vulnerability allows an attacker with a low-privileged account and local access to the system to perform local privilege escalation (LPE).",
+      "cves": [
+        "CVE-2024-40712"
+      ],
+      "cvssScore": 7.8,
+      "productId": "vbr",
+      "affectedReleaseIds": [
+        "vbr-11a-p20230227",
+        "vbr-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "11.0.1.",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "vbr-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "one-cve-2024-42024",
+      "title": "A vulnerability that allows an attacker in possession of the Veeam ONE Agent service account credentials to perform remote code execution on the machine where the Veeam ONE Agent is installed.",
+      "cves": [
+        "CVE-2024-42024"
+      ],
+      "cvssScore": 9.1,
+      "productId": "veeam-one",
+      "affectedReleaseIds": [
+        "one-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "one-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "one-cve-2024-42019",
+      "title": "A vulnerability that allows an attacker to access the NTLM hash of the Veeam Reporter Service service account. This attack requires user interaction and data collected from Veeam Backup & Replication.",
+      "cves": [
+        "CVE-2024-42019"
+      ],
+      "cvssScore": 9,
+      "productId": "veeam-one",
+      "affectedReleaseIds": [
+        "one-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "one-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "one-cve-2024-42023",
+      "title": "A vulnerability that allows low-privileged users to execute code with Administrator privileges remotely.",
+      "cves": [
+        "CVE-2024-42023"
+      ],
+      "cvssScore": 8.8,
+      "productId": "veeam-one",
+      "affectedReleaseIds": [
+        "one-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "one-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "one-cve-2024-42021",
+      "title": "A vulnerability that allows an attacker with valid access tokens to access saved credentials.",
+      "cves": [
+        "CVE-2024-42021"
+      ],
+      "cvssScore": 7.5,
+      "productId": "veeam-one",
+      "affectedReleaseIds": [
+        "one-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "one-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "one-cve-2024-42022",
+      "title": "A vulnerability that allows an attacker to modify product configuration files.",
+      "cves": [
+        "CVE-2024-42022"
+      ],
+      "cvssScore": 7.5,
+      "productId": "veeam-one",
+      "affectedReleaseIds": [
+        "one-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "one-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "one-cve-2024-42020",
+      "title": "A vulnerability in Reporter Widgets that allows HTML injection.",
+      "cves": [
+        "CVE-2024-42020"
+      ],
+      "cvssScore": 7.3,
+      "productId": "veeam-one",
+      "affectedReleaseIds": [
+        "one-12.1"
+      ],
+      "affectedVersionPrefixes": [
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "one-12.2",
+      "conditions": [
+        "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "sourceIds": [
+        "kb4649"
+      ]
+    },
+    {
+      "id": "veeam-one-cve-2026-64633",
+      "productId": "veeam-one",
+      "title": "A vulnerability allowing remote unauthenticated code execution on the agent host.",
+      "cves": [
+        "CVE-2026-64633"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.0.2.6723"
+        }
+      ],
+      "fixedReleaseId": "veeam-one-build-13-1-0-7034",
+      "cvssScore": 10,
+      "isCisaKev": false,
+      "conditions": [],
+      "sourceIds": [
+        "security-kb",
+        "kb4892"
+      ]
+    },
+    {
+      "id": "veeam-one-cve-2026-58075",
+      "productId": "veeam-one",
+      "title": "A vulnerability allowing an unauthenticated attacker to read arbitrary files from the host, which can be further leveraged to escalate privileges locally.",
+      "cves": [
+        "CVE-2026-58075"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.0.2.6723"
+        }
+      ],
+      "fixedReleaseId": "veeam-one-build-13-1-0-7034",
+      "cvssScore": 8.7,
+      "isCisaKev": false,
+      "conditions": [],
+      "sourceIds": [
+        "security-kb",
+        "kb4892"
+      ]
+    },
+    {
+      "id": "veeam-one-cve-2026-58074",
+      "productId": "veeam-one",
+      "title": "A vulnerability allowing a high-privileged user to execute arbitrary code on the server.",
+      "cves": [
+        "CVE-2026-58074"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.0.2.6723"
+        }
+      ],
+      "fixedReleaseId": "veeam-one-build-13-1-0-7034",
+      "cvssScore": 8.6,
+      "isCisaKev": false,
+      "conditions": [],
+      "sourceIds": [
+        "security-kb",
+        "kb4892"
+      ]
+    },
+    {
+      "id": "veeam-one-cve-2026-64631",
+      "productId": "veeam-one",
+      "title": "A vulnerability allowing a low-privileged user to inject SQL and extract database contents.",
+      "cves": [
+        "CVE-2026-64631"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.0.2.6723"
+        }
+      ],
+      "fixedReleaseId": "veeam-one-build-13-1-0-7034",
+      "cvssScore": 8.6,
+      "isCisaKev": false,
+      "conditions": [],
+      "sourceIds": [
+        "security-kb",
+        "kb4892"
+      ]
+    },
+    {
+      "id": "veeam-one-cve-2026-64634",
+      "productId": "veeam-one",
+      "title": "A vulnerability allowing local privilege escalation to the Reporter service context.",
+      "cves": [
+        "CVE-2026-64634"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.0.2.6723"
+        }
+      ],
+      "fixedReleaseId": "veeam-one-build-13-1-0-7034",
+      "cvssScore": 8.4,
+      "isCisaKev": false,
+      "conditions": [],
+      "sourceIds": [
+        "security-kb",
+        "kb4892"
+      ]
+    },
+    {
+      "id": "veeam-one-cve-2026-64630",
+      "productId": "veeam-one",
+      "title": "A vulnerability allowing a low-privileged user to retrieve report data outside the scope of a shared report link.",
+      "cves": [
+        "CVE-2026-64630"
+      ],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.0.2.6723"
+        }
+      ],
+      "fixedReleaseId": "veeam-one-build-13-1-0-7034",
+      "cvssScore": 5.3,
+      "isCisaKev": false,
+      "conditions": [],
+      "sourceIds": [
+        "security-kb",
+        "kb4892"
+      ]
+    },
+    {
+      "id": "one-cve-2023-38547",
+      "productId": "veeam-one",
+      "title": "A vulnerability in Veeam ONE allows an unauthenticated user to gain information about the SQL server connection Veeam ONE uses to access its configuration database. This may lead to remote code execution on the SQL server hosting the Veeam ONE configuration database.",
+      "cves": [
+        "CVE-2023-38547"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "11.0.0.",
+        "11.0.1.",
+        "12.0."
+      ],
+      "cvssScore": 9.9,
+      "isCisaKev": false,
+      "remediation": "Apply the KB4508 hotfix that matches build 12.0.1.2591, 11.0.1.1880, or 11.0.0.1379. Build 12.0.0.2498 must first be updated to 12.0.1.2591.",
+      "conditions": [
+        "The hotfix does not change the displayed Veeam ONE build. Validate the deployed file hashes as documented in KB4508. Veeam ONE 12.1 is not affected."
+      ],
+      "sourceIds": [
+        "kb4508"
+      ]
+    },
+    {
+      "id": "one-cve-2023-38548",
+      "productId": "veeam-one",
+      "title": "A vulnerability in Veeam ONE allows an unprivileged user who has access to the Veeam ONE Web Client the ability to acquire the NTLM hash of the account used by the Veeam ONE Reporting Service.",
+      "cves": [
+        "CVE-2023-38548"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "12.0."
+      ],
+      "cvssScore": 9.8,
+      "isCisaKev": false,
+      "remediation": "Apply the KB4508 hotfix that matches build 12.0.1.2591, 11.0.1.1880, or 11.0.0.1379. Build 12.0.0.2498 must first be updated to 12.0.1.2591.",
+      "conditions": [
+        "The hotfix does not change the displayed Veeam ONE build. Validate the deployed file hashes as documented in KB4508. Veeam ONE 12.1 is not affected."
+      ],
+      "sourceIds": [
+        "kb4508"
+      ]
+    },
+    {
+      "id": "one-cve-2023-38549",
+      "productId": "veeam-one",
+      "title": "A vulnerability in Veeam ONE allows a user with the Veeam ONE Power User role to obtain the access token of a user with the Veeam ONE Administrator role through the use of XSS. Note: The criticality of this vulnerability is reduced as it requires interaction by a user with the Veeam ONE Administrator role.",
+      "cves": [
+        "CVE-2023-38549"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "11.0.0.",
+        "11.0.1.",
+        "12.0."
+      ],
+      "cvssScore": 4.5,
+      "isCisaKev": false,
+      "remediation": "Apply the KB4508 hotfix that matches build 12.0.1.2591, 11.0.1.1880, or 11.0.0.1379. Build 12.0.0.2498 must first be updated to 12.0.1.2591.",
+      "conditions": [
+        "The hotfix does not change the displayed Veeam ONE build. Validate the deployed file hashes as documented in KB4508. Veeam ONE 12.1 is not affected."
+      ],
+      "sourceIds": [
+        "kb4508"
+      ]
+    },
+    {
+      "id": "one-cve-2023-41723",
+      "productId": "veeam-one",
+      "title": "A vulnerability in Veeam ONE allows a user with the Veeam ONE Read-Only User role to view the Dashboard Schedule. Note: The criticality of this vulnerability is reduced because the user with the Read-Only role is only able to view the schedule and cannot make changes.",
+      "cves": [
+        "CVE-2023-41723"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "11.0.0.",
+        "11.0.1.",
+        "12.0."
+      ],
+      "cvssScore": 4.3,
+      "isCisaKev": false,
+      "remediation": "Apply the KB4508 hotfix that matches build 12.0.1.2591, 11.0.1.1880, or 11.0.0.1379. Build 12.0.0.2498 must first be updated to 12.0.1.2591.",
+      "conditions": [
+        "The hotfix does not change the displayed Veeam ONE build. Validate the deployed file hashes as documented in KB4508. Veeam ONE 12.1 is not affected."
+      ],
+      "sourceIds": [
+        "kb4508"
+      ]
+    },
+    {
+      "id": "one-cve-2020-15418",
+      "productId": "veeam-one",
+      "title": "XML External Entity Processing vulnerabilities in Veeam ONE Reporter make possible to read arbitrary files without authentication.",
+      "cves": [
+        "CVE-2020-15418"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "9.5.4.",
+        "10.0.0."
+      ],
+      "cvssScore": 7.5,
+      "isCisaKev": false,
+      "remediation": "Apply the KB3221 hotfix that matches Veeam ONE 10 build 10.0.0.750 or 9.5 Update 4a build 9.5.4.4587. Veeam ONE 9.5 Update 4 build 9.5.4.4566 must be upgraded first.",
+      "conditions": [
+        "Veeam labels the article Critical while publishing a CVSS v3 score of 7.5. Veeam does not document a changed Veeam ONE server build after this hotfix; verify the deployed hotfix files."
+      ],
+      "sourceIds": [
+        "kb3221"
+      ]
+    },
+    {
+      "id": "one-cve-2020-15419",
+      "productId": "veeam-one",
+      "title": "XML External Entity Processing vulnerabilities in Veeam ONE Reporter make possible to read arbitrary files without authentication.",
+      "cves": [
+        "CVE-2020-15419"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "9.5.4.",
+        "10.0.0."
+      ],
+      "cvssScore": 7.5,
+      "isCisaKev": false,
+      "remediation": "Apply the KB3221 hotfix that matches Veeam ONE 10 build 10.0.0.750 or 9.5 Update 4a build 9.5.4.4587. Veeam ONE 9.5 Update 4 build 9.5.4.4566 must be upgraded first.",
+      "conditions": [
+        "Veeam labels the article Critical while publishing a CVSS v3 score of 7.5. Veeam does not document a changed Veeam ONE server build after this hotfix; verify the deployed hotfix files."
+      ],
+      "sourceIds": [
+        "kb3221"
+      ]
+    },
+    {
+      "id": "one-cve-2020-10914",
+      "productId": "veeam-one",
+      "title": "Vulnerabilities in Veeam ONE Agent components residing on Veeam ONE and Veeam Backup & Replication servers allow executing malicious code remotely without authentication. This may lead to gaining control over the target system.",
+      "cves": [
+        "CVE-2020-10914"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "9.5.4.",
+        "10.0.0."
+      ],
+      "cvssScore": 9.8,
+      "isCisaKev": false,
+      "remediation": "Apply the KB3144 hotfix that matches Veeam ONE 10 build 10.0.0.750 or 9.5 Update 4a build 9.5.4.4587. Veeam ONE 9.5 Update 4 build 9.5.4.4566 must be upgraded first.",
+      "conditions": [
+        "The main Veeam ONE build does not change after this hotfix. Verify that the Veeam ONE Agent component is 10.0.1.750 or 9.5.5.4587, as applicable."
+      ],
+      "sourceIds": [
+        "kb3144"
+      ]
+    },
+    {
+      "id": "one-cve-2020-10915",
+      "productId": "veeam-one",
+      "title": "Vulnerabilities in Veeam ONE Agent components residing on Veeam ONE and Veeam Backup & Replication servers allow executing malicious code remotely without authentication. This may lead to gaining control over the target system.",
+      "cves": [
+        "CVE-2020-10915"
+      ],
+      "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "9.5.4.",
+        "10.0.0."
+      ],
+      "cvssScore": 9.8,
+      "isCisaKev": false,
+      "remediation": "Apply the KB3144 hotfix that matches Veeam ONE 10 build 10.0.0.750 or 9.5 Update 4a build 9.5.4.4587. Veeam ONE 9.5 Update 4 build 9.5.4.4566 must be upgraded first.",
+      "conditions": [
+        "The main Veeam ONE build does not change after this hotfix. Verify that the Veeam ONE Agent component is 10.0.1.750 or 9.5.5.4587, as applicable."
+      ],
+      "sourceIds": [
+        "kb3144"
+      ]
     }
   ],
   "releaseImprovements": [

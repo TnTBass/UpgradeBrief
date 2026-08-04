@@ -17,6 +17,7 @@
     "test:vb365-build-adapter": "node scripts/test-vb365-build-adapter.mjs",
     "test:enterprise-manager-build-adapter": "node scripts/test-enterprise-manager-build-adapter.mjs",
     "test:security-adapter": "node scripts/test-vbr-security-adapter.mjs",
+    "test:veeam-one-legacy-security-adapter": "node scripts/test-veeam-one-legacy-security-adapter.mjs",
     "test:release-security-adapter": "node scripts/test-vbr-release-security-adapter.mjs",
     "test:release-information-adapter": "node scripts/test-vbr-release-information-adapter.mjs",
     "test:release-material-adapter": "node scripts/test-release-material-adapter.mjs",
