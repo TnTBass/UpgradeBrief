@@ -38,6 +38,10 @@ export function parseVeeamOneSecurityBulletin(html) {
   return parseSection(html, /<h2\b[^>]*>[\s\S]{0,120}?Veeam ONE/i, 'vonesolution')
 }
 
+export function parseVspcSecurityBulletin(html) {
+  return parseSection(html, /<h2\b[^>]*>[\s\S]{0,160}?Veeam Service Provider Console/i, 'vspcsolution')
+}
+
 const vbrMetadata = {
   productId: 'vbr',
   affectedReleaseIds: ['vbr-11a-p20230227', 'vbr-12.1'],
@@ -52,6 +56,19 @@ const veeamOneMetadata = {
   affectedReleaseIds: ['one-12.1'],
   affectedVersionPrefixes: ['12.0.', '12.1.'],
   fixedReleaseId: 'one-12.2',
+  conditions: ['Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable.'],
+  sourceIds: ['kb4649'],
+}
+
+const vspcMetadata = {
+  productId: 'vspc',
+  affectedReleaseIds: [],
+  affectedVersionPrefixes: ['4.', '5.', '6.'],
+  affectedBuildRanges: [
+    { versionPrefix: '7.', throughBuild: '7.0.0.19551' },
+    { versionPrefix: '8.', throughBuild: '8.0.0.19552' },
+  ],
+  fixedReleaseId: 'vspc-build-8-1-0-21377',
   conditions: ['Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable.'],
   sourceIds: ['kb4649'],
 }
@@ -76,4 +93,8 @@ export function mergeVbrSecurityBulletin(catalog, records) {
 
 export function mergeVeeamOneSecurityBulletin(catalog, records) {
   return mergeBulletin(catalog, records, veeamOneMetadata, 'one')
+}
+
+export function mergeVspcSecurityBulletin(catalog, records) {
+  return mergeBulletin(catalog, records, vspcMetadata, 'vspc')
 }

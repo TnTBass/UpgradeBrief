@@ -9,6 +9,7 @@ export const sourceManifest = [
   { id: 'kb4585', parser: 'vro-security.fixture.html', mode: 'fixture-required' },
   { id: 'kb4541', parser: 'vro-security.fixture.html', mode: 'fixture-required' },
   { id: 'kb4679', parser: 'vspc-security.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4575', parser: 'vspc-kb4575-security.fixture.html', mode: 'fixture-required' },
   { id: 'kb2053', parser: 'vbr-upgrade-path.fixture.html', mode: 'fixture-required' },
   { id: 'kb4646', parser: 'veeam-one-upgrade-path.fixture.html', mode: 'fixture-required' },
   { id: 'lifecycle', parser: 'lifecycle.fixture.html', mode: 'fixture-required' },
@@ -18,5 +19,7 @@ export const sourceManifest = [
   { id: 'security-kb', parser: 'security-index.fixture.html', mode: 'fixture-required' },
   { id: 'kb4771', parser: 'vbr-12.3.2.4165-security.fixture.html', mode: 'fixture-required' },
   { id: 'kb4649', parser: 'vbr-security.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4893', parser: 'vspc-9.3-security.fixture.html', mode: 'fixture-required' },
+  { id: 'kb4853', parser: 'vspc-9.2.1-security.fixture.html', mode: 'fixture-required' },
   { id: 'cisa-kev', parser: 'cisa-kev.fixture.json', mode: 'fixture-required' },
 ] as const

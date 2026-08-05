@@ -33,6 +33,10 @@ const knownVeeamOneNonReleaseArticleIds = new Set(['kb3144', 'kb3221', 'kb4508',
 export const selectVeeamOneReleaseSecurityArticles = (feed) => selectProductReleaseSecurityArticles(feed, 'Veeam ONE')
   .filter((article) => !knownVeeamOneNonReleaseArticleIds.has(article.id.toLowerCase()))
 
+const knownVspcNonReleaseArticleIds = new Set(['kb4163', 'kb4575', 'kb4649', 'kb4679', 'kb4856'])
+export const selectVspcReleaseSecurityArticles = (feed) => selectProductReleaseSecurityArticles(feed, 'Veeam Service Provider Console')
+  .filter((article) => !knownVspcNonReleaseArticleIds.has(article.id.toLowerCase()))
+
 export function parseProductReleaseSecurityArticle(html, article, { productId, productName }) {
   const text = decodeHtml(html)
   const productPattern = productName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')

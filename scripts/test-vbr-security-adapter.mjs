@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises'
-import { mergeVbrSecurityBulletin, mergeVeeamOneSecurityBulletin, parseVbrSecurityBulletin, parseVeeamOneSecurityBulletin } from './lib/vbr-security.mjs'
+import { mergeVbrSecurityBulletin, mergeVeeamOneSecurityBulletin, mergeVspcSecurityBulletin, parseVbrSecurityBulletin, parseVeeamOneSecurityBulletin, parseVspcSecurityBulletin } from './lib/vbr-security.mjs'
 
 const fixture = await readFile(new URL('../src/data/fixtures/vbr-security.fixture.html', import.meta.url), 'utf8')
 const records = parseVbrSecurityBulletin(fixture)
@@ -12,4 +12,8 @@ if (merged.findings !== 2 || merged.catalog.securityFindings.length !== 3) throw
 const oneRecords = parseVeeamOneSecurityBulletin(fixture)
 if (oneRecords.length !== 1 || oneRecords[0].cve !== 'CVE-2024-42024') throw new Error('Veeam ONE section was not isolated and parsed')
 if (mergeVeeamOneSecurityBulletin({ securityFindings: [] }, oneRecords).catalog.securityFindings[0].productId !== 'veeam-one') throw new Error('Veeam ONE advisories were not assigned to the correct product')
+const vspcRecords = parseVspcSecurityBulletin(fixture)
+if (vspcRecords.length !== 5 || vspcRecords[0].cve !== 'CVE-2024-38650' || vspcRecords.at(-1).cve !== 'CVE-2024-45206') throw new Error('VSPC bulletin section was not isolated and parsed')
+const vspcMerged = mergeVspcSecurityBulletin({ securityFindings: [] }, vspcRecords)
+if (vspcMerged.findings !== 5 || vspcMerged.catalog.securityFindings[0].fixedReleaseId !== 'vspc-build-8-1-0-21377' || vspcMerged.catalog.securityFindings[0].affectedVersionPrefixes.join(',') !== '4.,5.,6.') throw new Error('VSPC bulletin findings were not assigned to the documented affected and fixed builds')
 console.log('VBR security adapter fixture test passed.')

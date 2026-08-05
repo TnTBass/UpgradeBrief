@@ -82,6 +82,38 @@ describe('catalog lookup', () => {
     expect(findingsForRelease(catalog, fixed).some((finding) => finding.cves.includes('CVE-2026-64633'))).toBe(false)
   })
 
+  it('applies each legacy VSPC advisory through its documented final vulnerable build', () => {
+    const unsupported = findRelease(catalog, 'vspc', '6.0.0.8787')!
+    const v7EnhancedFix = findRelease(catalog, 'vspc', '7.0.0.19551')!
+    const v81BulletinFix = findRelease(catalog, 'vspc', '8.1.0.21377')!
+    const v81FinalFix = findRelease(catalog, 'vspc', '8.1.0.21999')!
+    const unsupportedCves = findingsForRelease(catalog, unsupported).flatMap((finding) => finding.cves)
+    const v7Cves = findingsForRelease(catalog, v7EnhancedFix).flatMap((finding) => finding.cves)
+    const bulletinFixCves = findingsForRelease(catalog, v81BulletinFix).flatMap((finding) => finding.cves)
+    const finalFixCves = findingsForRelease(catalog, v81FinalFix).flatMap((finding) => finding.cves)
+
+    expect(unsupportedCves).not.toContain('CVE-2024-29212')
+    expect(unsupportedCves).toEqual(expect.arrayContaining(['CVE-2024-38650', 'CVE-2024-42448']))
+    expect(v7Cves).not.toContain('CVE-2024-29212')
+    expect(v7Cves).toEqual(expect.arrayContaining(['CVE-2024-38650', 'CVE-2024-42448']))
+    expect(bulletinFixCves).not.toContain('CVE-2024-38650')
+    expect(bulletinFixCves).toEqual(expect.arrayContaining(['CVE-2024-42448', 'CVE-2024-42449']))
+    expect(finalFixCves).not.toContain('CVE-2024-42448')
+    expect(finalFixCves).not.toContain('CVE-2024-42449')
+  })
+
+  it('shows the KB4893 VSPC advisories on 9.2.1 but not on their 9.3 fix', () => {
+    const vulnerable = findRelease(catalog, 'vspc', '9.2.1.33875')!
+    const fixed = findRelease(catalog, 'vspc', '9.3.0.35057')!
+    const vulnerableCves = findingsForRelease(catalog, vulnerable).flatMap((finding) => finding.cves)
+    const fixedCves = findingsForRelease(catalog, fixed).flatMap((finding) => finding.cves)
+
+    expect(vulnerableCves).not.toContain('CVE-2026-32998')
+    expect(vulnerableCves).not.toContain('CVE-2026-64635')
+    expect(vulnerableCves).toEqual(expect.arrayContaining(['CVE-2026-58073', 'CVE-2026-58072', 'CVE-2026-58067', 'CVE-2026-58071']))
+    for (const cve of ['CVE-2026-58073', 'CVE-2026-58072', 'CVE-2026-58067', 'CVE-2026-58071']) expect(fixedCves).not.toContain(cve)
+  })
+
   it('preserves build-specific Veeam ONE hotfix remediation without inventing a fixed server build', () => {
     const vulnerable = findRelease(catalog, 'veeam-one', '10.0.0.750')!
     const finding = findingsForRelease(catalog, vulnerable).find((item) => item.cves.includes('CVE-2020-10914'))!
