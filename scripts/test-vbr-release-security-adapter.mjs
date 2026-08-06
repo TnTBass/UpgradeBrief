@@ -24,6 +24,9 @@ if (selectVbrSecurityArticles(feed).length !== 1 || article.id !== 'kb4831') thr
 const advisory = parseVbrReleaseSecurityArticle(fixture, article)
 if (advisory.fixedBuild !== '13.0.1.2067' || advisory.affectedBuildRange.throughBuild !== '13.0.1.1071' || advisory.records.length !== 2) throw new Error('VBR release security advisory was not parsed correctly.')
 if (advisory.records[0].cve !== 'CVE-2026-21669' || advisory.records[0].cvssScore !== 9.9) throw new Error('Critical VBR CVE was not retained.')
+const trailingSection = '<h4>CVE-2099-9999</h4><p>Different product issue.</p><p>CVSS v3.1 Score: 9.8</p>'
+const boundedAdvisory = parseVbrReleaseSecurityArticle(`${fixture}${trailingSection}`, article, { vulnerabilityHtml: fixture })
+if (boundedAdvisory.records.length !== advisory.records.length || boundedAdvisory.records.some((record) => record.cve === 'CVE-2099-9999')) throw new Error('Release parser crossed the supplied vulnerability-section boundary.')
 
 const v4Advisory = parseVbrReleaseSecurityArticle(v4Fixture, { id: 'kb4869', type: 'security', url: '/kb4869', seoTitle: 'Vulnerability Resolved in Veeam Backup & Replication 12.3.2.4854' })
 if (v4Advisory.fixedBuild !== '12.3.2.4854' || v4Advisory.affectedBuildRange.throughBuild !== '12.3.2.4465' || v4Advisory.records[0].cve !== 'CVE-2026-44963' || v4Advisory.records[0].cvssScore !== 9.4) throw new Error('CVSS v4 VBR advisory was not parsed correctly.')
@@ -55,4 +58,16 @@ const base = {
 }
 const merged = mergeVbrReleaseSecurityArticles(base, [advisory])
 if (merged.findings !== 2 || merged.catalog.securityFindings.length !== 3 || merged.catalog.securityFindings[1].fixedReleaseId !== 'vbr-build-13-0-1-2067') throw new Error('VBR release security findings were not merged safely.')
+
+const duplicateCveMerged = mergeVbrReleaseSecurityArticles({
+  releases: [
+    { id: 'vbr-fixed-12', productId: 'vbr', aliases: ['12.3.2.4465'] },
+    { id: 'vbr-fixed-13', productId: 'vbr', aliases: ['13.0.1.2067'] },
+  ],
+  securityFindings: [],
+}, [
+  { ...advisory, source: { ...advisory.source, id: 'kb4830' }, fixedBuild: '12.3.2.4465', records: [advisory.records[0]] },
+  { ...advisory, source: { ...advisory.source, id: 'kb4831' }, fixedBuild: '13.0.1.2067', records: [advisory.records[0]] },
+])
+if (new Set(duplicateCveMerged.catalog.securityFindings.map((finding) => finding.id)).size !== 2 || !duplicateCveMerged.catalog.securityFindings.every((finding) => /-kb483[01]$/.test(finding.id))) throw new Error('Branch-specific duplicate CVEs did not receive stable unique finding IDs.')
 console.log('VBR release security adapter fixture test passed.')

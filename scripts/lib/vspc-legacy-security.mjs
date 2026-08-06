@@ -95,6 +95,7 @@ export function parseVspcLegacySecurityArticle(html, article) {
   }
 
   return {
+    productId: 'vspc',
     source: sourceFor(article),
     fixedBuild: config.fixedBuild,
     remediation: config.remediation,

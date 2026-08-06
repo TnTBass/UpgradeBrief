@@ -22,6 +22,7 @@ for (const article of articles) {
 }
 
 if (advisories.flatMap((advisory) => advisory.records).length !== 3) throw new Error('Legacy VSPC parser did not retain all three CVEs.')
+if (advisories.some((advisory) => advisory.productId !== 'vspc')) throw new Error('Legacy VSPC parser did not identify its coverage product.')
 const kb4575 = advisories.find((advisory) => advisory.source.id === 'kb4575')
 if (kb4575.fixedBuild || !kb4575.remediation.includes('7.0.0.19551') || !kb4575.remediation.includes('8.0.0.19552') || kb4575.affectedBuildRanges[0].throughBuild !== '7.0.0.18899') throw new Error('KB4575 parallel enhanced fixed builds were not retained.')
 const kb4679 = advisories.find((advisory) => advisory.source.id === 'kb4679')

@@ -37,19 +37,19 @@ const knownVspcNonReleaseArticleIds = new Set(['kb4163', 'kb4575', 'kb4649', 'kb
 export const selectVspcReleaseSecurityArticles = (feed) => selectProductReleaseSecurityArticles(feed, 'Veeam Service Provider Console')
   .filter((article) => !knownVspcNonReleaseArticleIds.has(article.id.toLowerCase()))
 
-export function parseProductReleaseSecurityArticle(html, article, { productId, productName }) {
+export function parseProductReleaseSecurityArticle(html, article, { productId, productName }, { vulnerabilityHtml = html } = {}) {
   const text = decodeHtml(html)
   const productPattern = productName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const fixedBuild = text.match(new RegExp(`resolved in.*?${productPattern}\\s+(\\d+(?:\\.\\d+){3})`, 'i'))?.[1]
   const affected = text.match(new RegExp(`affect\\s+${productPattern}\\s+(\\d+(?:\\.\\d+){3})\\s+and\\s+all\\s+earlier\\s+version\\s+(\\d+)\\s+builds`, 'i'))
   if (!fixedBuild || !affected) throw new Error(`${article.id} does not state a supported ${productName} fixed and affected build range.`)
 
-  const headings = [...html.matchAll(/<h([45])\b[^>]*>([\s\S]*?)<\/h\1>/gi)].flatMap((heading) => {
+  const headings = [...vulnerabilityHtml.matchAll(/<h([45])\b[^>]*>([\s\S]*?)<\/h\1>/gi)].flatMap((heading) => {
     const cve = decodeHtml(heading[2]).match(/CVE-\d{4}-\d+/i)?.[0]
     return cve ? [{ index: heading.index, cve }] : []
   })
   const records = headings.map((heading, index) => {
-    const block = html.slice(heading.index, headings[index + 1]?.index)
+    const block = vulnerabilityHtml.slice(heading.index, headings[index + 1]?.index)
     const paragraphs = [...block.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((match) => decodeHtml(match[1]))
     const title = paragraphs.find((paragraph) => !/^Severity:/i.test(paragraph) && !/^Please,? try again later\.?$/i.test(paragraph))
     const score = Number(decodeHtml(block).match(/CVSS\s+v(?:3\.1|4(?:\.0)?)\s+Score:\s*([0-9]+(?:\.[0-9]+)?)/i)?.[1])
@@ -77,12 +77,14 @@ export function parseProductReleaseSecurityArticle(html, article, { productId, p
   }
 }
 
-export const parseVbrReleaseSecurityArticle = (html, article) => parseProductReleaseSecurityArticle(html, article, { productId: 'vbr', productName: 'Veeam Backup & Replication' })
+export const parseVbrReleaseSecurityArticle = (html, article, options) => parseProductReleaseSecurityArticle(html, article, { productId: 'vbr', productName: 'Veeam Backup & Replication' }, options)
 
 export function mergeProductReleaseSecurityArticles(catalog, advisories) {
   const next = structuredClone(catalog)
   const sourceIds = new Set(advisories.map((advisory) => advisory.source.id))
   const productIds = new Set(advisories.map((advisory) => advisory.productId))
+  const findingKeyCounts = advisories.flatMap((advisory) => advisory.records.map((record) => `${advisory.productId}:${record.cve}`))
+    .reduce((counts, key) => counts.set(key, (counts.get(key) ?? 0) + 1), new Map())
   const retained = next.securityFindings.filter((finding) =>
     !(productIds.has(finding.productId) && (finding.sourceIds.includes('security-kb') || finding.sourceIds.some((sourceId) => sourceIds.has(sourceId)))),
   )
@@ -91,7 +93,7 @@ export function mergeProductReleaseSecurityArticles(catalog, advisories) {
     const fixedReleaseId = next.releases.find((release) => release.productId === advisory.productId && release.aliases.includes(advisory.fixedBuild))?.id
     if (!fixedReleaseId) throw new Error(`${advisory.source.id} fixed build ${advisory.fixedBuild} is missing from KB2680 data.`)
     return advisory.records.map((record) => ({
-      id: `${advisory.productId}-${record.cve.toLowerCase()}`,
+      id: `${advisory.productId}-${record.cve.toLowerCase()}${findingKeyCounts.get(`${advisory.productId}:${record.cve}`) > 1 ? `-${advisory.source.id}` : ''}`,
       productId: advisory.productId,
       title: record.title,
       cves: [record.cve],

@@ -63,7 +63,7 @@ function createClock() {
     if (error.message !== 'kb2680 request failed with HTTP 403') throw error
   }
   const diagnostic = diagnostics.at(-1)
-  if (attempts !== 1 || diagnostic?.headers?.['cf-ray'] !== 'example-ray' || diagnostic?.headers?.['set-cookie'] || diagnostic?.bodyPreview !== '<title>Access denied</title>') throw new Error('Expected a single-attempt 403 with a sanitized blocked-response diagnostic')
+  if (attempts !== 1 || diagnostic?.headers?.['cf-ray'] !== 'example-ray' || diagnostic?.headers?.['set-cookie'] || diagnostic?.bodyPreview !== undefined) throw new Error('Expected a single-attempt 403 with a metadata-only blocked-response diagnostic')
 }
 
 console.log('Catalog source fetch policy test passed.')

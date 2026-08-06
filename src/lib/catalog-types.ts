@@ -134,6 +134,20 @@ export interface OperationalNotice {
 export interface Catalog {
   schemaVersion: 1
   generatedAt: string
+  securityFeedArticleIds?: string[]
+  securityFeedRoutes?: Array<{
+    articleId: string
+    classification: string
+    productIds: ProductId[]
+    multiProduct: boolean
+  }>
+  securityFeedPageStates?: Array<{
+    articleId: string
+    productIds: ProductId[]
+    hasOutOfScopeProduct: boolean
+    contentFingerprint?: string
+    observedCveIds?: string[]
+  }>
   sources: Source[]
   products: Product[]
   releases: Release[]

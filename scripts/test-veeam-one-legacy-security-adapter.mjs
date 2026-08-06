@@ -18,6 +18,7 @@ for (const article of articles) {
 }
 
 if (advisories.flatMap((advisory) => advisory.records).length !== 8) throw new Error('Legacy Veeam ONE parser did not retain all eight CVEs.')
+if (advisories.some((advisory) => advisory.productId !== 'veeam-one')) throw new Error('Legacy Veeam ONE parser did not identify its coverage product.')
 const kb3144 = advisories.find((advisory) => advisory.source.id === 'kb3144')
 if (kb3144.records[0].cvssScore !== 9.8 || !kb3144.records[0].remediation.includes('10.0.0.750')) throw new Error('KB3144 shared CVSS and hotfix remediation were not retained.')
 const kb4508 = advisories.find((advisory) => advisory.source.id === 'kb4508')

@@ -21,18 +21,12 @@ function retryDelayMilliseconds(response, attempt, now) {
   return Math.max(1_000 * 2 ** (attempt - 1), retryAfter ?? 0)
 }
 
-async function responseDiagnostic(response, sourceId, url) {
+function responseDiagnostic(response, sourceId, url) {
   const headers = Object.fromEntries(SAFE_DIAGNOSTIC_HEADERS.flatMap((name) => {
     const value = response.headers.get(name)
     return value ? [[name, value]] : []
   }))
-  let bodyPreview
-  try {
-    bodyPreview = (await response.clone().text()).replace(/[\r\n\t]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 400)
-  } catch {
-    bodyPreview = undefined
-  }
-  return { sourceId, host: new URL(url).host, status: response.status, headers, bodyPreview: bodyPreview || undefined }
+  return { sourceId, host: new URL(url).host, status: response.status, headers }
 }
 
 export class CatalogSourceFetchError extends Error {
@@ -106,7 +100,7 @@ export function createCatalogSourceFetcher({
           continue
         }
 
-        const diagnostic = await responseDiagnostic(response, label, url)
+        const diagnostic = responseDiagnostic(response, label, url)
         logger.warn('[catalog-refresh] source request failed', diagnostic)
         throw new CatalogSourceFetchError(label, response.status, diagnostic)
       }

@@ -20,6 +20,8 @@
     "test:veeam-one-legacy-security-adapter": "node scripts/test-veeam-one-legacy-security-adapter.mjs",
     "test:vspc-legacy-security-adapter": "node scripts/test-vspc-legacy-security-adapter.mjs",
     "test:release-security-adapter": "node scripts/test-vbr-release-security-adapter.mjs",
+    "test:security-feed-coverage": "node scripts/test-security-feed-coverage.mjs",
+    "test:reviewed-security-advisories": "node scripts/test-reviewed-security-advisories.mjs",
     "test:release-information-adapter": "node scripts/test-vbr-release-information-adapter.mjs",
     "test:release-material-adapter": "node scripts/test-release-material-adapter.mjs",
     "test:lifecycle-adapter": "node scripts/test-lifecycle-adapter.mjs",

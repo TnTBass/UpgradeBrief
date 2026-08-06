@@ -112,6 +112,7 @@ export function parseVeeamOneLegacySecurityArticle(html, article) {
   const records = articleId === 'kb4508' ? parseKb4508(html, article, config) : parseSharedArticle(html, article, config)
 
   return {
+    productId: 'veeam-one',
     source: sourceFor(article),
     records: records.map((record) => ({
       ...record,

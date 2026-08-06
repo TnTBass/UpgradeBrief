@@ -10,9 +10,10 @@ function decodeHtml(value) {
 
 function sectionFor(html, headingPattern, solutionAnchor) {
   const start = html.search(headingPattern)
-  if (start < 0) return ''
+  if (start < 0) throw new Error(`Security bulletin is missing the ${solutionAnchor} product heading.`)
   const solution = html.indexOf(`id="${solutionAnchor}"`, start)
-  return html.slice(start, solution < 0 ? undefined : solution)
+  if (solution < 0) throw new Error(`Security bulletin is missing the ${solutionAnchor} section boundary.`)
+  return html.slice(start, solution)
 }
 
 function parseSection(html, headingPattern, solutionAnchor) {

@@ -23,6 +23,9 @@ jobs:
       - run: npm run test:security-adapter
       - run: npm run test:release-security-adapter
       - run: npm run test:veeam-one-legacy-security-adapter
+      - run: npm run test:vspc-legacy-security-adapter
+      - run: npm run test:security-feed-coverage
+      - run: npm run test:reviewed-security-advisories
       - run: npm run test:release-information-adapter
       - run: npm run test:lifecycle-adapter
       - run: npm run test:kev-adapter
