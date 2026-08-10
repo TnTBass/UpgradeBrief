@@ -306,12 +306,12 @@ const observationSpecs = Object.freeze({
   kb4712: {
     classification: 'informational', productCves: { vbr: [] }, ignoredCveIds: ['CVE-2025-23114'],
     informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
-    contentFingerprint: 'sha256:e312be8d42e2055bb09a42f603a42b57ffd0bbae881da39d92130edfb70936b8',
+    contentFingerprint: 'sha256:79b149d9e0e1d6368e066c2e6b6399ba0a164dac5a006c85e89434c1eeb87430',
   },
   kb4709: {
     classification: 'informational', productCves: { vbr: [] }, ignoredCveIds: ['CVE-2025-23082'],
     informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
-    contentFingerprint: 'sha256:cdb899b15b9879e788eceae02ca1ee67b85044985ef6d0c3f54f6ba1723aca16',
+    contentFingerprint: 'sha256:a096adba278170536471bb4b3c05582d7e75a97e08dd5a79f70e4049b6d593ad',
   },
 })
 
