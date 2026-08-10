@@ -31,6 +31,14 @@ Upgrade Brief is actively maintained, but its coverage is intentionally conserva
 
 Source code and issue tracking: [TnTBass/UpgradeBrief](https://github.com/TnTBass/UpgradeBrief).
 
+## A note on attribution
+
+Upgrade Brief is shared openly, but good etiquette still matters. If this project inspires your own work, or you reuse substantial parts of its code or approach, please credit Upgrade Brief and its original author, Tyler (`TnTBass`). Taking the idea and presenting it as entirely your own without attribution is generally considered pretty uncouth.
+
+## License
+
+Upgrade Brief is licensed under the [Apache License 2.0](LICENSE). Attribution information is provided in [NOTICE](NOTICE).
+
 ## Local development
 
 Requires Node 24.
