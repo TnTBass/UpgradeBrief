@@ -39,7 +39,9 @@ export function mergeVbrUpgradePaths(catalog, routes) {
   const product = next.products.find((item) => item.id === 'vbr')
   const target = product && next.releases.find((release) => release.id === product.recommendedReleaseId)
   if (!target) throw new Error('VBR recommended release is missing from the build catalog.')
-  const targetFamily = target.aliases.find((alias) => /^\d+\.\d+$/.test(alias))
+  const targetFamily = [...new Set(routes.map((route) => route.families.at(-1)).filter(Boolean))]
+    .sort((left, right) => right.split('.').length - left.split('.').length || right.length - left.length)
+    .find((family) => target.aliases.some((alias) => alias === family || alias.startsWith(`${family}.`)))
 
   const retained = next.upgradePaths
     .filter((path) => path.productId !== 'vbr' || !path.sourceIds.includes('kb2053') || !Array.isArray(path.fromVersionPrefixes))
@@ -60,10 +62,10 @@ export function mergeVbrUpgradePaths(catalog, routes) {
     const fromRelease = releaseForFamily(next, route.families[0], route.fromPrefix)
     const sourceTargetFamily = route.families.at(-1)
     if (!fromRelease || !targetFamily || sourceTargetFamily !== targetFamily) return []
-    const hopReleaseIds = route.families.slice(1)
+    const hopReleaseIds = route.families.slice(1, -1)
       .map((family) => releaseForFamily(next, family)?.id)
       .filter(Boolean)
-    if (hopReleaseIds.at(-1) !== target.id) hopReleaseIds.push(target.id)
+    hopReleaseIds.push(target.id)
     return [{
       id: `vbr-${route.label.replace(/\./g, '-')}-to-${target.id}`,
       productId: 'vbr',

@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<body>
+<main>
+  <h1>Release History for Veeam Service Provider Console 9</h1>
+  <h2>Veeam Service Provider Console 9 Builds</h2>
+  <h3>9.2.1.33875</h3>
+  <h5>2026-05-27</h5>
+  <h4><b>Resolved Issues</b></h4>
+  <h5><b>Security</b></h5>
+  <ul>
+    <li><a href="https://www.veeam.com/kb4853">CVE-2026-32998</a> | Severity: Critical (9.4)<br>A vulnerability in Veeam Service Provider Console allows for remote code execution.</li>
+    <li><a href="https://www.veeam.com/kb4853">CVE-2026-64635</a> | Severity: Medium (5.3)<br>A vulnerability in Veeam Service Provider Console that allows an unauthenticated attacker to hijack the password reset link and take over a user account.</li>
+    <li>Third-party libraries and packages used in Veeam Service Provider Console and its components have been updated to their latest versions to address discovered vulnerabilities. (See: <a href="https://www.veeam.com/kb4856">KB4856</a> )</li>
+  </ul>
+  <h5><b>General</b></h5>
+  <ul><li>A managed company cannot be deleted under certain conditions.</li></ul>
+
+  <h3>9.2.0.33215 (9.2 GA)</h3>
+  <h5>2026-04-09</h5>
+  <h4>Release Information</h4>
+  <p>This is an unrelated release-note edit surface.</p>
+
+  <h3>9.1.0.30713</h3>
+  <h5>2025-12-05</h5>
+  <h5><b>New Features and Enhancements</b></h5>
+  <h5>General</h5>
+  <p><b>Scalability and Optimizations</b></p>
+  <ul><li>The data collection procedures have been optimized.</li></ul>
+  <p><b>Security</b></p>
+  <ul><li>The reset user password functionality has been optimized to further minimize the possibility of user data hijacking.</li></ul>
+  <p><b>Alarms</b></p>
+  <ul><li>The minimal threshold for PRO-based alarms has been set to 15 minutes.</li></ul>
+  <h5><b>Resolved Issues</b></h5>
+  <p><b>General</b></p>
+  <ul><li>Veeam Cloud Connect servers may be unregistered from the backup portal.</li></ul>
+  <p><b>Security</b></p>
+  <ul><li>When logging into the web PowerShell console in the backup portal, the session always runs under the account used by the management agent service (e.g., Local System), not the actual user’s credentials who started the PowerShell session. This allows privilege escalation for any authenticated user.</li></ul>
+  <p><b>Deployment</b></p>
+  <ul><li>VSPC cannot be installed on Microsoft Windows 10 22H2.</li></ul>
+
+  <h3>9.1.0.30636 (9.1 GA)</h3>
+  <h5>2025-11-19</h5>
+  <h4>Release Information</h4>
+</main>
+</body>
+</html>

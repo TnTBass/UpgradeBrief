@@ -1,60 +1,60 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-14T05:50:11.780Z",
+  "generatedAt": "2026-08-14T15:53:45.609Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4357",
       "title": "Veeam KB4357: Veeam ONE build numbers",
       "url": "https://www.veeam.com/kb4357",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4358",
       "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
       "url": "https://www.veeam.com/kb4358",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4464",
       "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
       "url": "https://www.veeam.com/kb4464",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4581",
       "title": "Veeam KB4581: Veeam Backup Enterprise Manager Vulnerabilities",
       "url": "https://www.veeam.com/kb4581",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4585",
       "title": "Veeam KB4585: Veeam Recovery Orchestrator Vulnerability (CVE-2024-29855)",
       "url": "https://www.veeam.com/kb4585",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4541",
       "title": "Veeam KB4541: Veeam Recovery Orchestrator Vulnerabilities",
       "url": "https://www.veeam.com/kb4541",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4679",
       "title": "Veeam KB4679: Veeam Service Provider Console Vulnerability (CVE-2024-42448 | CVE-2024-42449)",
       "url": "https://www.veeam.com/kb4679",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb2053",
       "title": "Veeam KB2053: Upgrade path for Veeam Backup & Replication",
       "url": "https://www.veeam.com/kb2053",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4646",
@@ -66,7 +66,7 @@
       "id": "lifecycle",
       "title": "Veeam Product Lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "em-upgrade",
@@ -159,7 +159,7 @@
       "id": "vro-13-release-notes",
       "title": "Veeam Recovery Orchestrator 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_release_notes.html",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vro",
       "releaseFamily": "13.0",
       "materialKind": "release-notes",
@@ -188,7 +188,7 @@
       "id": "vbr-release-materials",
       "title": "Veeam Backup & Replication 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbr",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "vsa-conversion",
@@ -212,19 +212,19 @@
       "id": "one-release-materials",
       "title": "Veeam ONE 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=one",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "vro-release-materials",
       "title": "Veeam Recovery Orchestrator 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vro",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "vspc-release-materials",
       "title": "Veeam Service Provider Console release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vac",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "em-how-to",
@@ -254,79 +254,79 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4771",
       "title": "Veeam KB4771: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4165 Patch",
       "url": "https://www.veeam.com/kb4771",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4869",
       "title": "Veeam KB4869: Vulnerability Resolved in Veeam Backup & Replication 12.3.2.4854",
       "url": "https://www.veeam.com/kb4869",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4696",
       "title": "Veeam KB4696: Release Information for Veeam Backup & Replication 12.3 and updates",
       "url": "https://www.veeam.com/kb4696",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4738",
       "title": "Veeam KB4738: Release Information for Veeam Backup & Replication 13 and updates",
       "url": "https://www.veeam.com/kb4738",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "release-material-vbr-13-0-release-notes",
@@ -376,13 +376,13 @@
       "id": "kb4106",
       "title": "Veeam KB4106: Veeam Backup for Microsoft 365 build numbers",
       "url": "https://www.veeam.com/kb4106",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4098",
       "title": "Veeam KB4098: Veeam Backup for Microsoft 365 upgrade paths",
       "url": "https://www.veeam.com/kb4098",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "vb365-upgrade",
@@ -400,7 +400,7 @@
       "id": "vb365-release-materials",
       "title": "Veeam Backup for Microsoft 365 release notes and What’s New",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbo365",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vb365"
     },
     {
@@ -414,7 +414,7 @@
       "id": "release-material-vb365-8-5-release-notes",
       "title": "Veeam Backup for Microsoft 365 8 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_m365_8_5_release_notes.html",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vb365",
       "releaseFamily": "8.5",
       "materialKind": "release-notes",
@@ -425,7 +425,7 @@
       "id": "release-material-vb365-8-0-whats-new",
       "title": "Veeam Backup for Microsoft 365 8 What's New",
       "url": "https://www.veeam.com/veeam_backup_m365_8_whats_new_wn.pdf",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vb365",
       "releaseFamily": "8.0",
       "materialKind": "whats-new",
@@ -436,7 +436,7 @@
       "id": "release-material-vbr-13-1-release-notes",
       "title": "Veeam Backup & Replication 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_13_1_release_notes.html",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vbr",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
@@ -458,7 +458,7 @@
       "id": "release-material-vbr-13-0-whats-new",
       "title": "Veeam Backup & Replication 13 What's New v13.1",
       "url": "https://helpcenter.veeam.com/docs/vbr/wn/introduction.html?ver=13",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vbr",
       "releaseFamily": "13.0",
       "materialKind": "whats-new",
@@ -469,7 +469,7 @@
       "id": "release-material-veeam-one-13-1-release-notes",
       "title": "Veeam ONE 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_one_13_1_release_notes.html",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "veeam-one",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
@@ -480,7 +480,7 @@
       "id": "release-material-veeam-one-13-1-whats-new",
       "title": "Veeam ONE 13 What's New v13.1",
       "url": "https://www.veeam.com/veeam_one_13_1_whats_new_wn.pdf",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "veeam-one",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -491,7 +491,7 @@
       "id": "release-material-vro-13-1-whats-new",
       "title": "Veeam Recovery Orchestrator 13 What's New v13.1",
       "url": "https://www.veeam.com/veeam_orchestrator_13_1_whats_new_wn.pdf",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vro",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -502,7 +502,7 @@
       "id": "release-material-vspc-9-3-whats-new",
       "title": "Veeam Service Provider Console 9.3 What's New",
       "url": "https://www.veeam.com/veeam_console_9_3_whats_new_wn.pdf",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vspc",
       "releaseFamily": "9.3",
       "materialKind": "whats-new",
@@ -513,7 +513,7 @@
       "id": "release-material-vro-13-1-release-notes",
       "title": "Veeam Recovery Orchestrator 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_1_release_notes.html",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vro",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
@@ -524,7 +524,7 @@
       "id": "release-material-vspc-9-3-release-notes",
       "title": "Veeam Service Provider Console 9.3 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/vspc_9_3_release_notes.html",
-      "checkedAt": "2026-08-14T05:50:11.780Z",
+      "checkedAt": "2026-08-14T15:53:45.609Z",
       "productId": "vspc",
       "releaseFamily": "9.3",
       "materialKind": "release-notes",
@@ -535,121 +535,145 @@
       "id": "kb4892",
       "title": "Veeam KB4892: Vulnerabilities Resolved in Veeam ONE 13.1",
       "url": "https://www.veeam.com/kb4892",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4858",
       "title": "Veeam KB4858: List of Security Fixes and Improvements in Veeam ONE",
       "url": "https://www.veeam.com/kb4858",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4508",
       "title": "Veeam KB4508: CVE-2023-38547 | CVE-2023-38548 | CVE-2023-38549 | CVE-2023-41723",
       "url": "https://www.veeam.com/kb4508",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb3221",
       "title": "Veeam KB3221: Veeam ONE XML External Entity Processing vulnerabilities",
       "url": "https://www.veeam.com/kb3221",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb3144",
       "title": "Veeam KB3144: Veeam ONE Remote Code Execution Vulnerabilities",
       "url": "https://www.veeam.com/kb3144",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4893",
       "title": "Veeam KB4893: Vulnerabilities Resolved in Veeam Service Provider Console 9.3",
       "url": "https://www.veeam.com/kb4893",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4575",
       "title": "Veeam KB4575: Veeam Service Provider Console Vulnerability ( CVE-2024-29212 )",
       "url": "https://www.veeam.com/kb4575",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4856",
       "title": "Veeam KB4856: List of Security Fixes and Improvements in Veeam Service Provider Console",
       "url": "https://www.veeam.com/kb4856",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4743",
       "title": "Veeam KB4743: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2",
       "url": "https://www.veeam.com/kb4743",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4724",
       "title": "Veeam KB4724: CVE-2025-23120",
       "url": "https://www.veeam.com/kb4724",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4424",
       "title": "Veeam KB4424: CVE-2023-27532",
       "url": "https://www.veeam.com/kb4424",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4290",
       "title": "Veeam KB4290: CVE-2022-26504",
       "url": "https://www.veeam.com/kb4290",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4288",
       "title": "Veeam KB4288: CVE-2022-26500 and CVE-2022-26501",
       "url": "https://www.veeam.com/kb4288",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb2662",
       "title": "Veeam KB2662: Zip Slip Vulnerability",
       "url": "https://www.veeam.com/kb2662",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb2180",
       "title": "Veeam KB2180: Veeam Backup & Replication Local Privilege Escalation Vulnerability",
       "url": "https://www.veeam.com/kb2180",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb3103",
       "title": "Veeam KB3103: List of Security Fixes and Improvements in Veeam Backup & Replication",
       "url": "https://www.veeam.com/kb3103",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4879",
       "title": "Veeam KB4879: Veeam Software Appliance and Veeam Infrastructure Appliance Updater Component Vulnerability",
       "url": "https://www.veeam.com/kb4879",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4491",
       "title": "Veeam KB4491: Security Issue in Microsoft Azure Plug-In for Veeam Backup & Replication",
       "url": "https://www.veeam.com/kb4491",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4682",
       "title": "Veeam KB4682: Veeam Backup Enterprise Manager Vulnerability (CVE-2024-40715)",
       "url": "https://www.veeam.com/kb4682",
-      "checkedAt": "2026-08-14T05:50:11.780Z"
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     },
     {
       "id": "kb4857",
       "title": "Veeam KB4857: List of Security Fixes and Improvements in Veeam Recovery Orchestrator",
       "url": "https://www.veeam.com/kb4857",
       "checkedAt": "2026-08-06T22:44:52.716Z"
+    },
+    {
+      "id": "kb4788",
+      "title": "Veeam KB4788: Release History for Veeam Service Provider Console 9",
+      "url": "https://www.veeam.com/kb4788",
+      "checkedAt": "2026-08-14T15:53:45.609Z"
+    },
+    {
+      "id": "kb4277",
+      "title": "Veeam KB4277: Release Information for Veeam Service Provider Console v6 Patch 1",
+      "url": "https://www.veeam.com/kb4277",
+      "checkedAt": "2026-08-14T15:53:45.609Z"
+    },
+    {
+      "id": "kb4223",
+      "title": "Veeam KB4223: Veeam Service Provider Console v5 Patch 4",
+      "url": "https://www.veeam.com/kb4223",
+      "checkedAt": "2026-08-14T15:53:45.609Z"
+    },
+    {
+      "id": "kb4651",
+      "title": "Veeam KB4651: Release History for Veeam Service Provider Console 8.1",
+      "url": "https://www.veeam.com/kb4651",
+      "checkedAt": "2026-08-14T15:53:45.609Z"
     }
   ],
   "products": [
@@ -5967,13 +5991,13 @@
   ],
   "upgradePaths": [
     {
-      "id": "vbr-12.3.2.3617-to-vbr-build-13-1-0-411",
+      "id": "vbr-12.3.2.3617-to-vbr-build-13-1-1-18",
       "productId": "vbr",
       "fromReleaseId": "vbr-12.3.2.3617",
-      "toReleaseId": "vbr-build-13-1-0-411",
+      "toReleaseId": "vbr-build-13-1-1-18",
       "hopReleaseIds": [
         "vbr-12.3.2.4165",
-        "vbr-build-13-1-0-411"
+        "vbr-build-13-1-1-18"
       ],
       "guidanceNote": "Veeam's generic 12.3.2 upgrade path proceeds directly to 13.0.2. Upgrade Brief adds 12.3.2.4165 first for this exact build because Veeam identifies 12.3.2.3617 as affected by vulnerabilities fixed in that patch. This is a security-first recommendation, not a claim that Veeam blocks the direct upgrade.",
       "notes": [
@@ -6145,6 +6169,258 @@
       ],
       "sourceIds": [
         "vspc-upgrade"
+      ]
+    },
+    {
+      "id": "vbr-10a-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-10-0-1-4854-p20220304",
+      "fromVersionPrefixes": [
+        "10.0.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-11-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-11-0-0-837-p20210525",
+      "fromVersionPrefixes": [
+        "11.0.0."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-11a-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-11a-p20230227",
+      "fromVersionPrefixes": [
+        "11.0.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-0-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.0",
+      "fromVersionPrefixes": [
+        "12.0."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-1-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.1",
+      "fromVersionPrefixes": [
+        "12.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-2-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.2",
+      "fromVersionPrefixes": [
+        "12.2."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-3-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-12-3-0-310",
+      "fromVersionPrefixes": [
+        "12.3."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-3-1-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-12-3-1-1139",
+      "fromVersionPrefixes": [
+        "12.3.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-3-2-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.3.2",
+      "fromVersionPrefixes": [
+        "12.3.2."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-13-0-1-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-13-0-1-180",
+      "fromVersionPrefixes": [
+        "13.0.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-13-0-2-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-13.0.2",
+      "fromVersionPrefixes": [
+        "13.0.2."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
       ]
     },
     {
@@ -6929,7 +7205,8 @@
       "conditions": [],
       "sourceIds": [
         "security-kb",
-        "kb4893"
+        "kb4893",
+        "kb4856"
       ]
     },
     {
@@ -6952,7 +7229,8 @@
       "conditions": [],
       "sourceIds": [
         "security-kb",
-        "kb4893"
+        "kb4893",
+        "kb4856"
       ]
     },
     {
@@ -6975,7 +7253,8 @@
       "conditions": [],
       "sourceIds": [
         "security-kb",
-        "kb4893"
+        "kb4893",
+        "kb4856"
       ]
     },
     {
@@ -6998,7 +7277,8 @@
       "conditions": [],
       "sourceIds": [
         "security-kb",
-        "kb4893"
+        "kb4893",
+        "kb4856"
       ]
     },
     {
@@ -7032,6 +7312,13 @@
         "CVE-2026-32998"
       ],
       "affectedReleaseIds": [],
+      "affectedVersionPrefixes": [
+        "4.",
+        "5.",
+        "6.",
+        "7.",
+        "8."
+      ],
       "affectedBuildRanges": [
         {
           "versionPrefix": "9.",
@@ -7041,10 +7328,14 @@
       "fixedReleaseId": "vspc-build-9-2-1-33875",
       "cvssScore": 9.4,
       "isCisaKev": false,
-      "conditions": [],
+      "conditions": [
+        "VSPC 9.2.0.33215 is affected only when alarm script execution is enabled. Earlier builds do not support this mitigation and must be upgraded."
+      ],
       "sourceIds": [
         "security-kb",
-        "kb4853"
+        "kb4853",
+        "kb4788",
+        "kb4856"
       ]
     },
     {
@@ -7067,7 +7358,9 @@
       "conditions": [],
       "sourceIds": [
         "security-kb",
-        "kb4853"
+        "kb4853",
+        "kb4788",
+        "kb4856"
       ]
     },
     {
@@ -7657,7 +7950,8 @@
         "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
       ],
       "sourceIds": [
-        "kb4679"
+        "kb4679",
+        "kb4651"
       ]
     },
     {
@@ -7691,7 +7985,8 @@
         "Veeam states that unsupported releases are not tested but are likely affected and should be considered vulnerable."
       ],
       "sourceIds": [
-        "kb4679"
+        "kb4679",
+        "kb4651"
       ]
     },
     {
@@ -7720,6 +8015,87 @@
       ],
       "sourceIds": [
         "kb4575"
+      ]
+    },
+    {
+      "id": "vspc-kb4788-web-powershell-privilege-escalation",
+      "productId": "vspc",
+      "title": "When logging into the web PowerShell console in the backup portal, the session always runs under the account used by the management agent service (e.g., Local System), not the actual user’s credentials who started the PowerShell session. This allows privilege escalation for any authenticated user.",
+      "cves": [],
+      "affectedReleaseIds": [
+        "vspc-build-9-1-0-30345",
+        "vspc-9.1"
+      ],
+      "fixedReleaseId": "vspc-build-9-1-0-30713",
+      "isCisaKev": false,
+      "conditions": [
+        "KB4788 lists this issue under Resolved Issues for VSPC 9.1.0.30713. It does not assign a CVE or publish a CVSS score for it."
+      ],
+      "sourceIds": [
+        "kb4788"
+      ]
+    },
+    {
+      "id": "vspc-kb4277-cross-reseller-repository-data-exposure",
+      "productId": "vspc",
+      "title": "Resellers can see data about Veeam Cloud Connect repositories on the Infrastructure Overview tab belonging to tenants managed by other resellers or a service provider.",
+      "cves": [],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "6.",
+          "throughBuild": "6.0.0.7739"
+        }
+      ],
+      "fixedReleaseId": "vspc-build-6-0-0-8787",
+      "isCisaKev": false,
+      "conditions": [
+        "KB4277 lists this issue under Security and states that the post-update VSPC server build is 6.0.0.8787. It does not assign a CVE or publish a CVSS score for it."
+      ],
+      "sourceIds": [
+        "kb4277"
+      ]
+    },
+    {
+      "id": "vspc-kb4223-unauthorized-server-file-download",
+      "productId": "vspc",
+      "title": "Under certain conditions, backup portal users who do not have any access to the VSPC server can call an endpoint to download specific files from the server.",
+      "cves": [],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "5.",
+          "throughBuild": "5.0.0.6959"
+        }
+      ],
+      "fixedReleaseId": "vspc-build-5-0-0-7151",
+      "isCisaKev": false,
+      "conditions": [
+        "KB4223 lists these issues under Security and states that the post-update VSPC server build is 5.0.0.7151. It does not assign CVEs or publish CVSS scores for them."
+      ],
+      "sourceIds": [
+        "kb4223"
+      ]
+    },
+    {
+      "id": "vspc-kb4223-unauthorized-server-file-upload",
+      "productId": "vspc",
+      "title": "When running a remote backup agent patch operation, backup portal users can upload files to the VSPC server without having any access to the machine.",
+      "cves": [],
+      "affectedReleaseIds": [],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "5.",
+          "throughBuild": "5.0.0.6959"
+        }
+      ],
+      "fixedReleaseId": "vspc-build-5-0-0-7151",
+      "isCisaKev": false,
+      "conditions": [
+        "KB4223 lists these issues under Security and states that the post-update VSPC server build is 5.0.0.7151. It does not assign CVEs or publish CVSS scores for them."
+      ],
+      "sourceIds": [
+        "kb4223"
       ]
     },
     {
@@ -10064,6 +10440,172 @@
         "vspc"
       ],
       "hasOutOfScopeProduct": false
+    }
+  ],
+  "vspcKbArticleIds": [
+    "kb1471",
+    "kb1974",
+    "kb1975",
+    "kb2143",
+    "kb2157",
+    "kb2261",
+    "kb2408",
+    "kb2418",
+    "kb2465",
+    "kb2642",
+    "kb2644",
+    "kb2665",
+    "kb2694",
+    "kb2705",
+    "kb2715",
+    "kb2766",
+    "kb2773",
+    "kb2781",
+    "kb2795",
+    "kb2835",
+    "kb2902",
+    "kb2913",
+    "kb2933",
+    "kb2934",
+    "kb2960",
+    "kb3003",
+    "kb3036",
+    "kb3040",
+    "kb3138",
+    "kb3158",
+    "kb3170",
+    "kb3200",
+    "kb3211",
+    "kb3237",
+    "kb3242",
+    "kb4069",
+    "kb4111",
+    "kb4114",
+    "kb4116",
+    "kb4127",
+    "kb4130",
+    "kb4131",
+    "kb4132",
+    "kb4163",
+    "kb4189",
+    "kb4195",
+    "kb4210",
+    "kb4212",
+    "kb4223",
+    "kb4255",
+    "kb4269",
+    "kb4277",
+    "kb4311",
+    "kb4431",
+    "kb4441",
+    "kb4464",
+    "kb4509",
+    "kb4534",
+    "kb4539",
+    "kb4544",
+    "kb4575",
+    "kb4649",
+    "kb4651",
+    "kb4670",
+    "kb4679",
+    "kb4788",
+    "kb4853",
+    "kb4856",
+    "kb4893"
+  ],
+  "vspcKbCvePageStates": [
+    {
+      "articleId": "kb4539",
+      "observedCveIds": [
+        "CVE-2025-27789"
+      ],
+      "securityFingerprint": "sha256:0cd399526eef4de9fb38debbc135a07ca9ee6671064915f2e8511a42fe26f595",
+      "catalogFingerprint": "sha256:ade24c5da04e74b5cb1b521ae3faf64b466b3ab5ce4b5252c565351d3b9e9f5d"
+    },
+    {
+      "articleId": "kb4575",
+      "observedCveIds": [
+        "CVE-2024-29212"
+      ],
+      "securityFingerprint": "sha256:0e05f985e03e950f1d64d45259cc2ce5a3789c6dab6bfb6efe301f81c6dd340b",
+      "catalogFingerprint": "sha256:cf741f5101de56545b1618657d00b6407385583f7b70f0de14c28919cee7cbd5",
+      "parsedModelFingerprint": "sha256:7e017d1fe7e65322480e952e363de2cc85a87c1c98e6d374e0621b31a7468f6b"
+    },
+    {
+      "articleId": "kb4649",
+      "observedCveIds": [
+        "CVE-2024-38650",
+        "CVE-2024-38651",
+        "CVE-2024-39714",
+        "CVE-2024-39715",
+        "CVE-2024-45206"
+      ],
+      "securityFingerprint": "sha256:9e148edfec871e14719dc696e2b31dbd4e46e2390ddd0e91f3c0c592f5017cd1",
+      "catalogFingerprint": "sha256:95fc2ca8dd270c319a2d4af98fa75d92e6b7f958903b61d99c7b538c085a16aa",
+      "parsedModelFingerprint": "sha256:aaa19f896e1afa920f4a222051f36fb009d2c2abfd67a5626115f4a932fce184"
+    },
+    {
+      "articleId": "kb4651",
+      "observedCveIds": [
+        "CVE-2024-42448",
+        "CVE-2024-42449"
+      ],
+      "securityFingerprint": "sha256:a1e244a1ba9c90144a1861f3955945ba87e1f93ea9dbba22cd6834e1440488df",
+      "catalogFingerprint": "sha256:e9af0de545513b190c42854e4555d951970c8d1485c9bc966c0080667785adb4"
+    },
+    {
+      "articleId": "kb4679",
+      "observedCveIds": [
+        "CVE-2024-42448",
+        "CVE-2024-42449"
+      ],
+      "securityFingerprint": "sha256:a490173cb6d2bf0449de6c5411f760385dc36d945e8c8a6bde090a3aca8485dc",
+      "catalogFingerprint": "sha256:e9af0de545513b190c42854e4555d951970c8d1485c9bc966c0080667785adb4",
+      "parsedModelFingerprint": "sha256:152ce466100fd679a1c24dae621527a3c3c1891e424c35aac35ec369f926d532"
+    },
+    {
+      "articleId": "kb4788",
+      "observedCveIds": [
+        "CVE-2026-32998",
+        "CVE-2026-64635"
+      ],
+      "securityFingerprint": "sha256:b921c196c217c1b40caf89ef71d1f613071e801266452b8a3873742875dec71a",
+      "catalogFingerprint": "sha256:ea7a930a2eb0da31df1809d825c02891eabe3a2b8023ec11ae3db8a19557d437"
+    },
+    {
+      "articleId": "kb4853",
+      "observedCveIds": [
+        "CVE-2026-32998",
+        "CVE-2026-64635"
+      ],
+      "securityFingerprint": "sha256:cd2c847ceb794d08cc5a69e7f8f06df684b6f4450eed9264199e7e85eb679dfc",
+      "catalogFingerprint": "sha256:ea7a930a2eb0da31df1809d825c02891eabe3a2b8023ec11ae3db8a19557d437",
+      "parsedModelFingerprint": "sha256:3a00db45f4d7bc3ae1b4c3d4dfe82c06ed2e8130a93f798719d9230f62e1c32d"
+    },
+    {
+      "articleId": "kb4856",
+      "observedCveIds": [
+        "CVE-2026-32998",
+        "CVE-2026-58067",
+        "CVE-2026-58071",
+        "CVE-2026-58072",
+        "CVE-2026-58073",
+        "CVE-2026-64635"
+      ],
+      "securityFingerprint": "sha256:069cf446aacfecbc6886c333868c98c7245e1eea96103af54f52b3ee2edb7e02",
+      "catalogFingerprint": "sha256:83f0da69b188d48d0df6bcfe4c4627f8d3f361ca47f162bae21acabe93a2fe8e"
+    },
+    {
+      "articleId": "kb4893",
+      "observedCveIds": [
+        "CVE-2026-58067",
+        "CVE-2026-58071",
+        "CVE-2026-58072",
+        "CVE-2026-58073"
+      ],
+      "securityFingerprint": "sha256:ad303a9aca274c34489ec971a2be24a65f2f30beb746d6993e715b23c44da4eb",
+      "catalogFingerprint": "sha256:bfdc1bfa2e3c66643ec0487c25d1613dcc2234019adb5398b9a5d9f09f18640a",
+      "parsedModelFingerprint": "sha256:853df24cd54313f91d2c3746329a87e300b95aab8d6e699ed22087781e27c953"
     }
   ]
 }

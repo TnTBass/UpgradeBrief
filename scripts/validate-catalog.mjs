@@ -40,6 +40,18 @@ for (const route of catalog.securityFeedRoutes) {
   if (['dedicated', 'inventory', 'informational', 'out-of-scope'].includes(route.classification)) assert(state.contentFingerprint, `reviewed security feed route ${route.articleId} must retain a content fingerprint`)
   if (route.classification === 'inventory') assert(Array.isArray(state.observedCveIds), `inventory security feed route ${route.articleId} must retain observed CVEs`)
 }
+assert(Array.isArray(catalog.vspcKbArticleIds) && catalog.vspcKbArticleIds.length >= 69, 'vspcKbArticleIds must retain the full VSPC KB inventory')
+assert(new Set(catalog.vspcKbArticleIds).size === catalog.vspcKbArticleIds.length, 'vspcKbArticleIds must be unique')
+for (const articleId of catalog.vspcKbArticleIds) assert(/^kb\d+$/.test(articleId), `VSPC KB article ID ${articleId} must be canonical`)
+assert(Array.isArray(catalog.vspcKbCvePageStates) && catalog.vspcKbCvePageStates.length > 0, 'vspcKbCvePageStates must retain CVE-bearing VSPC page state')
+assert(new Set(catalog.vspcKbCvePageStates.map((state) => state.articleId)).size === catalog.vspcKbCvePageStates.length, 'vspcKbCvePageStates article IDs must be unique')
+for (const state of catalog.vspcKbCvePageStates) {
+  assert(catalog.vspcKbArticleIds.includes(state.articleId), `VSPC KB CVE page state ${state.articleId} must reference a discovered article`)
+  assert(Array.isArray(state.observedCveIds) && state.observedCveIds.length > 0 && new Set(state.observedCveIds).size === state.observedCveIds.length && state.observedCveIds.every((cve) => /^CVE-\d{4}-\d{4,}$/.test(cve)), `VSPC KB CVE page state ${state.articleId} has invalid observed CVEs`)
+  assert(/^sha256:[a-f0-9]{64}$/.test(state.securityFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid semantic fingerprint`)
+  assert(/^sha256:[a-f0-9]{64}$/.test(state.catalogFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid catalog fingerprint`)
+  if (state.parsedModelFingerprint !== undefined) assert(/^sha256:[a-f0-9]{64}$/.test(state.parsedModelFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid parsed-model fingerprint`)
+}
 assert(sourceIds.size === catalog.sources.length, 'source IDs must be unique')
 assert(productIds.size === catalog.products.length, 'product IDs must be unique')
 assert(releaseIds.size === catalog.releases.length, 'release IDs must be unique')

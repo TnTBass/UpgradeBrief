@@ -37,7 +37,26 @@ const knownVspcNonReleaseArticleIds = new Set(['kb4163', 'kb4575', 'kb4649', 'kb
 export const selectVspcReleaseSecurityArticles = (feed) => selectProductReleaseSecurityArticles(feed, 'Veeam Service Provider Console')
   .filter((article) => !knownVspcNonReleaseArticleIds.has(article.id.toLowerCase()))
 
-export function parseProductReleaseSecurityArticle(html, article, { productId, productName }, { vulnerabilityHtml = html } = {}) {
+function applyVspcMitigationScope(text, records, legacyVersionPrefixes) {
+  const mitigationBuild = text.match(/all\s+builds\s+prior\s+to\s+(\d+(?:\.\d+){3})\s*\(e\.g\.,\s*9\.1,\s*9\.0,\s*and\s*8\)\s+are\s+affected/i)?.[1]
+  if (!mitigationBuild || !/alarm\s+script\s+execution/i.test(text)) return records
+
+  const rceRecords = records.filter((record) => /remote\s+code\s+execution/i.test(record.title))
+  if (rceRecords.length !== 1 || !legacyVersionPrefixes.length) {
+    throw new Error('VSPC mitigation documents an expanded legacy scope that could not be assigned safely.')
+  }
+
+  return records.map((record) => record === rceRecords[0] ? {
+    ...record,
+    affectedVersionPrefixes: [...legacyVersionPrefixes],
+    conditions: [
+      ...record.conditions,
+      `VSPC ${mitigationBuild} is affected only when alarm script execution is enabled. Earlier builds do not support this mitigation and must be upgraded.`,
+    ],
+  } : record)
+}
+
+export function parseProductReleaseSecurityArticle(html, article, { productId, productName, legacyVersionPrefixes = [] }, { vulnerabilityHtml = html } = {}) {
   const text = decodeHtml(html)
   const productPattern = productName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const fixedBuild = text.match(new RegExp(`resolved in.*?${productPattern}\\s+(\\d+(?:\\.\\d+){3})`, 'i'))?.[1]
@@ -48,7 +67,7 @@ export function parseProductReleaseSecurityArticle(html, article, { productId, p
     const cve = decodeHtml(heading[2]).match(/CVE-\d{4}-\d+/i)?.[0]
     return cve ? [{ index: heading.index, cve }] : []
   })
-  const records = headings.map((heading, index) => {
+  let records = headings.map((heading, index) => {
     const block = vulnerabilityHtml.slice(heading.index, headings[index + 1]?.index)
     const paragraphs = [...block.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((match) => decodeHtml(match[1]))
     const title = paragraphs.find((paragraph) => !/^Severity:/i.test(paragraph) && !/^Please,? try again later\.?$/i.test(paragraph))
@@ -63,6 +82,7 @@ export function parseProductReleaseSecurityArticle(html, article, { productId, p
     }
   })
   if (!records.length) throw new Error(`${article.id} contains no parseable CVEs.`)
+  if (productId === 'vspc') records = applyVspcMitigationScope(text, records, legacyVersionPrefixes)
 
   return {
     productId,
@@ -98,7 +118,8 @@ export function mergeProductReleaseSecurityArticles(catalog, advisories) {
       title: record.title,
       cves: [record.cve],
       affectedReleaseIds: [],
-      affectedBuildRanges: [advisory.affectedBuildRange],
+      ...(record.affectedVersionPrefixes ? { affectedVersionPrefixes: record.affectedVersionPrefixes } : {}),
+      affectedBuildRanges: record.affectedBuildRanges ?? [advisory.affectedBuildRange],
       fixedReleaseId,
       cvssScore: record.cvssScore,
       isCisaKev: false,

@@ -114,6 +114,28 @@ describe('catalog lookup', () => {
     for (const cve of ['CVE-2026-58073', 'CVE-2026-58072', 'CVE-2026-58067', 'CVE-2026-58071']) expect(fixedCves).not.toContain(cve)
   })
 
+  it('applies the KB4853 alarm-script RCE to legacy VSPC builds without widening the password-reset CVE', () => {
+    for (const version of ['4.0.0.4914', '5.0.0.7151', '6.0.0.8787', '7.0.0.19551', '8.1.0.21999']) {
+      const vulnerable = findRelease(catalog, 'vspc', version)!
+      const cves = findingsForRelease(catalog, vulnerable).flatMap((finding) => finding.cves)
+
+      expect(cves).toContain('CVE-2026-32998')
+      expect(cves).not.toContain('CVE-2026-64635')
+    }
+  })
+
+  it('shows CVE-less VSPC release Security fixes only on their documented pre-fix builds', () => {
+    const v5 = findingsForRelease(catalog, findRelease(catalog, 'vspc', '5.0.0.6959')!)
+    const v6 = findingsForRelease(catalog, findRelease(catalog, 'vspc', '6.0.0.7739')!)
+    const v91 = findingsForRelease(catalog, findRelease(catalog, 'vspc', '9.1.0.30636')!)
+    const v91Fixed = findingsForRelease(catalog, findRelease(catalog, 'vspc', '9.1.0.30713')!)
+
+    expect(v5.filter((finding) => finding.sourceIds.includes('kb4223'))).toHaveLength(2)
+    expect(v6.some((finding) => finding.sourceIds.includes('kb4277'))).toBe(true)
+    expect(v91.some((finding) => finding.sourceIds.includes('kb4788') && finding.cves.length === 0)).toBe(true)
+    expect(v91Fixed.some((finding) => finding.sourceIds.includes('kb4788') && finding.cves.length === 0)).toBe(false)
+  })
+
   it('preserves build-specific Veeam ONE hotfix remediation without inventing a fixed server build', () => {
     const vulnerable = findRelease(catalog, 'veeam-one', '10.0.0.750')!
     const finding = findingsForRelease(catalog, vulnerable).find((item) => item.cves.includes('CVE-2020-10914'))!

@@ -20,6 +20,8 @@ import { contentFingerprint, extractSourceSupportedHighlights, mergeReleaseMater
 import { createCatalogSourceFetcher } from './lib/source-fetch.mjs'
 import { SecurityFeedCoverageError, assertSecurityFeedContinuity, assertSecurityFeedCoverage, assertSecurityFeedPageStateContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractCveIds, extractSecurityArticleScope, fetchSecurityFeedPages, fingerprintSecurityArticleContent, splitSecurityArticleVulnerabilityContent } from './lib/security-feed-coverage.mjs'
 import { REVIEWED_SECURITY_CLASSIFICATIONS, REVIEWED_SECURITY_PARSED_COVERAGE, REVIEWED_SECURITY_OBSERVATION_POLICY, mergeReviewedSecurityAdvisories, normalizeReviewedSecurityMainArticle, observeReviewedSecurityArticle } from './lib/reviewed-security-advisories.mjs'
+import { VSPC_REVIEWED_CVE_EXCLUSIONS, VspcKbCveCoverageError, assertVspcKbCveCoverage, fetchVspcKbInventory, fingerprintVspcParsedModel, inspectVspcKbCveCoverage } from './lib/vspc-kb-cve-coverage.mjs'
+import { createVspcReleaseSecurityReviewFromParsedCves, extractVspcReleaseSecuritySections, mergeVspcReleaseSecurityArticles, parseVspcReleaseSecurityPages } from './lib/vspc-release-security.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const args = process.argv.slice(2)
@@ -133,6 +135,13 @@ const securityFeed = await fetchSecurityFeedPages({
     url: `https://www.veeam.com/services/kb-articles?${new URLSearchParams({ type: 'security', offset: String(offset), limit: String(limit) })}`,
   }),
 })
+const vspcKbInventory = await fetchVspcKbInventory({
+  minimumArticleCount: 69,
+  fetchPage: ({ offset, limit }) => fetchSource({
+    id: `vspc-kb-inventory-${offset}`,
+    url: `https://www.veeam.com/services/kb-articles?${new URLSearchParams({ product: 'VAC', offset: String(offset), limit: String(limit) })}`,
+  }),
+})
 const securityFeedArticleIds = assertSecurityFeedContinuity(current.securityFeedArticleIds, securityFeed.articles)
 const securityArticles = [...securityFeed.articles, ...pinnedSecurityArticles.filter((pinned) => !securityFeed.articles.some((article) => article.id.toLowerCase() === pinned.id))]
 const securityClassifications = buildSecurityArticleClassifications(securityArticles, securityClassificationOverrides)
@@ -146,8 +155,23 @@ const classifiedArticlesToFetch = classifiedSecurityArticles.filter((article) =>
 const classifiedArticleResponses = await Promise.allSettled(classifiedArticlesToFetch.map(async (article) => ({
     article,
     html: await fetchSource({ id: article.articleId, url: new URL(sourceArticleById.get(article.articleId).url, 'https://www.veeam.com').toString() }),
-  })))
+})))
 const articleResponseById = new Map(classifiedArticleResponses.map((response, index) => [classifiedArticlesToFetch[index].articleId, response]))
+const vspcKbPageResponses = await Promise.allSettled(vspcKbInventory.articles.map(async (article) => {
+  const securityResponse = articleResponseById.get(article.id)
+  if (securityResponse?.status === 'fulfilled') return securityResponse.value.html
+  if (securityResponse?.status === 'rejected') throw securityResponse.reason
+  return fetchSource({ id: `vspc-kb-page-${article.id}`, url: new URL(article.url, 'https://www.veeam.com').toString() })
+}))
+const vspcKbPages = Object.fromEntries(vspcKbInventory.articles.map((article, index) => {
+  const response = vspcKbPageResponses[index]
+  return [article.id, response.status === 'fulfilled' ? { html: response.value } : { error: response.reason?.message ?? 'fetch failed' }]
+}))
+const preliminaryVspcKbCoverage = inspectVspcKbCveCoverage({
+  articles: vspcKbInventory.articles,
+  pages: vspcKbPages,
+  catalog: current,
+})
 const securityFeedPageStates = assertSecurityFeedPageStateContinuity(current.securityFeedPageStates, classifiedArticlesToFetch.flatMap((article) => {
   const response = articleResponseById.get(article.articleId)
   if (response.status !== 'fulfilled') return []
@@ -228,13 +252,17 @@ try {
   // The product-agnostic coverage gate below reports a safe, structured failure.
 }
 const parsedReleaseArticles = classifiedSecurityArticles.filter((article) => article.classification === 'parsed')
-const discoveredReleaseAdvisories = parsedReleaseArticles.flatMap((classifiedArticle) => {
+const discoveredSecurityReleaseAdvisories = parsedReleaseArticles.flatMap((classifiedArticle) => {
   const html = fulfilledArticleHtml(classifiedArticle.articleId)
   if (!html) return []
   const vulnerabilityHtml = securityArticlePages[classifiedArticle.articleId]?.html
   const article = sourceArticleById.get(classifiedArticle.articleId)
   const productId = classifiedArticle.productIds[0]
-  const product = { productId, productName: securityProducts[productId] }
+  const product = {
+    productId,
+    productName: securityProducts[productId],
+    ...(productId === 'vspc' ? { legacyVersionPrefixes: ['4.', '5.', '6.', '7.', '8.'] } : {}),
+  }
   try {
     return [productId === 'vbr'
       ? parseVbrReleaseSecurityArticle(html, article, { vulnerabilityHtml })
@@ -243,6 +271,29 @@ const discoveredReleaseAdvisories = parsedReleaseArticles.flatMap((classifiedArt
     return []
   }
 })
+const currentVspcCves = new Set(current.securityFindings.filter((finding) => finding.productId === 'vspc').flatMap((finding) => finding.cves))
+const vspcArticleById = new Map(vspcKbInventory.articles.map((article) => [article.id, article]))
+const previouslyAutomaticallyParsedVspcArticleIds = new Set((current.vspcKbCvePageStates ?? [])
+  .filter((state) => state.parsedModelFingerprint)
+  .map((state) => state.articleId))
+const automaticallyParsedVspcArticles = preliminaryVspcKbCoverage.pageStates.flatMap((state) => {
+  const article = vspcArticleById.get(state.articleId)
+  const missingCves = state.observedCveIds.filter((cve) => !currentVspcCves.has(cve))
+  const continuingAutomaticArticle = previouslyAutomaticallyParsedVspcArticleIds.has(state.articleId)
+  const entirelyNewCveSet = missingCves.length > 0 && missingCves.length === state.observedCveIds.length
+  if (!article || article.type === 'security' || (!continuingAutomaticArticle && !entirelyNewCveSet) || VSPC_REVIEWED_CVE_EXCLUSIONS[state.articleId]) return []
+  try {
+    const advisory = parseProductReleaseSecurityArticle(vspcKbPages[state.articleId].html, article, {
+      productId: 'vspc',
+      productName: 'Veeam Service Provider Console',
+      legacyVersionPrefixes: ['4.', '5.', '6.', '7.', '8.'],
+    })
+    return state.observedCveIds.every((cve) => advisory.records.some((record) => record.cve === cve)) ? [advisory] : []
+  } catch {
+    return []
+  }
+})
+const discoveredReleaseAdvisories = [...discoveredSecurityReleaseAdvisories, ...automaticallyParsedVspcArticles]
 const discoveredVeeamOneLegacyArticles = selectVeeamOneLegacySecurityArticles(securityFeed)
 const discoveredVspcLegacyArticles = selectVspcLegacySecurityArticles(securityFeed)
 const discoveredVeeamOneInventoryArticle = sourceArticleById.get('kb4858')
@@ -257,6 +308,36 @@ const discoveredVspcLegacyAdvisories = discoveredVspcLegacyArticles.flatMap((art
   if (!html) return []
   try { return [parseVspcLegacySecurityArticle(html, article)] } catch { return [] }
 })
+const dynamicallyReviewableVspcAdvisoryById = new Map()
+for (const advisory of [...discoveredSecurityReleaseAdvisories, ...automaticallyParsedVspcArticles, ...discoveredVspcLegacyAdvisories]) {
+  if (advisory.productId === 'vspc') dynamicallyReviewableVspcAdvisoryById.set(advisory.source.id.toLowerCase(), advisory)
+}
+let dynamicVspcReleaseSecurityReview
+for (const [articleId, advisory] of dynamicallyReviewableVspcAdvisoryById) {
+  const article = vspcArticleById.get(articleId)
+  const html = vspcKbPages[articleId]?.html
+  if (!article || typeof html !== 'string' || !extractVspcReleaseSecuritySections(html, article).length) continue
+  dynamicVspcReleaseSecurityReview = createVspcReleaseSecurityReviewFromParsedCves(html, article, advisory, {
+    ...(dynamicVspcReleaseSecurityReview ? { reviewedArticles: dynamicVspcReleaseSecurityReview } : {}),
+  })
+}
+const vspcReleaseSecurityPages = vspcKbInventory.articles.flatMap((article) =>
+  typeof vspcKbPages[article.id]?.html === 'string' ? [{ article, html: vspcKbPages[article.id].html }] : [],
+)
+const vspcReleaseSecurity = parseVspcReleaseSecurityPages(vspcReleaseSecurityPages, {
+  ...(dynamicVspcReleaseSecurityReview ? { reviewedArticles: dynamicVspcReleaseSecurityReview } : {}),
+})
+const parsedVspcModelsByArticleId = new Map()
+for (const advisory of [...discoveredSecurityReleaseAdvisories, ...automaticallyParsedVspcArticles, ...discoveredVspcLegacyAdvisories]) {
+  if (advisory.productId !== 'vspc') continue
+  const articleId = advisory.source.id.toLowerCase()
+  parsedVspcModelsByArticleId.set(articleId, [...(parsedVspcModelsByArticleId.get(articleId) ?? []), advisory])
+}
+if (vspcBulletinAdvisories.length) {
+  parsedVspcModelsByArticleId.set('kb4649', [{ productId: 'vspc', source: { id: 'kb4649' }, records: vspcBulletinAdvisories }])
+}
+const parsedVspcModelFingerprints = Object.fromEntries([...parsedVspcModelsByArticleId]
+  .map(([articleId, models]) => [articleId, fingerprintVspcParsedModel(models)]))
 const kevCves = parseCisaKev(JSON.parse(kevPayload))
 const lifecyclePolicies = parseLifecyclePolicies(lifecycleHtml)
 const releaseInformationBuilds = parseVbrReleaseInformation(releaseInformationHtml)
@@ -271,6 +352,7 @@ if (!releaseInformation13Builds.includes('13.0.0.4967')) throw new Error('VBR 13
 
 const buildsMerged = preliminaryVbrBuildsMerged
 const vbrPathsMerged = shouldCheckVbrUpgradeGuidance ? mergeVbrUpgradePaths(buildsMerged.catalog, vbrRoutes) : { catalog: buildsMerged.catalog, paths: 0 }
+if (shouldCheckVbrUpgradeGuidance && vbrPathsMerged.paths < 1) throw new Error('VBR KB2053 merge produced no source-backed routes to the recommended release; refusing to replace the catalog.')
 const oneBuildsMerged = mergeProductBuilds(vbrPathsMerged.catalog, { productId: 'veeam-one', sourceId: oneBuildSource.id, records: oneBuilds })
 const vroBuildsMerged = mergeProductBuilds(oneBuildsMerged.catalog, { productId: 'vro', sourceId: vroBuildSource.id, records: vroBuilds })
 const vspcBuildsMerged = mergeProductBuilds(vroBuildsMerged.catalog, { productId: 'vspc', sourceId: vspcBuildSource.id, records: vspcBuilds })
@@ -286,7 +368,8 @@ const releaseSecurityMerged = mergeProductReleaseSecurityArticles(vspcBulletinMe
 const oneLegacyMerged = mergeVeeamOneLegacySecurityArticles(releaseSecurityMerged.catalog, discoveredVeeamOneLegacyAdvisories)
 const vspcLegacyMerged = mergeVspcLegacySecurityArticles(oneLegacyMerged.catalog, discoveredVspcLegacyAdvisories)
 const refreshedAt = new Date().toISOString()
-const reviewedSecurityMerged = mergeReviewedSecurityAdvisories(vspcLegacyMerged.catalog, { checkedAt: refreshedAt })
+const vspcReleaseSecurityMerged = mergeVspcReleaseSecurityArticles(vspcLegacyMerged.catalog, vspcReleaseSecurity.advisories, { checkedAt: refreshedAt })
+const reviewedSecurityMerged = mergeReviewedSecurityAdvisories(vspcReleaseSecurityMerged.catalog, { checkedAt: refreshedAt })
 const lifecycleMerged = mergeLifecyclePolicies(reviewedSecurityMerged.catalog, lifecyclePolicies)
 const merged = mergeCisaKev(lifecycleMerged.catalog, kevCves)
 const releaseMaterialsMerged = mergeReleaseMaterials(merged.catalog, fetchedReleaseMaterials, refreshedAt)
@@ -323,9 +406,49 @@ for (const source of discoveredSources) {
   if (index < 0) merged.catalog.sources.push(source)
   else merged.catalog.sources[index] = source
 }
+for (const state of preliminaryVspcKbCoverage.pageStates) {
+  if (VSPC_REVIEWED_CVE_EXCLUSIONS[state.articleId]) continue
+  const article = vspcArticleById.get(state.articleId)
+  const source = {
+    id: state.articleId,
+    title: `Veeam ${state.articleId.toUpperCase()}: ${article.seoTitle ?? article.title}`,
+    url: new URL(article.url, 'https://www.veeam.com').toString(),
+    checkedAt: refreshedAt,
+  }
+  const index = merged.catalog.sources.findIndex((item) => item.id === source.id)
+  if (index < 0) merged.catalog.sources.push(source)
+  else merged.catalog.sources[index] = source
+  const cves = new Set(state.observedCveIds)
+  for (const finding of merged.catalog.securityFindings) {
+    if (finding.productId === 'vspc' && finding.cves.some((cve) => cves.has(cve)) && !finding.sourceIds.includes(state.articleId)) {
+      finding.sourceIds.push(state.articleId)
+    }
+  }
+}
+
+let vspcKbCveCoverage
+try {
+  vspcKbCveCoverage = assertVspcKbCveCoverage({
+    previousArticleIds: current.vspcKbArticleIds,
+    previousPageStates: current.vspcKbCvePageStates,
+    previousCatalog: current,
+    parsedModelFingerprints: parsedVspcModelFingerprints,
+    articles: vspcKbInventory.articles,
+    pages: vspcKbPages,
+    catalog: merged.catalog,
+  })
+} catch (error) {
+  if (error instanceof VspcKbCveCoverageError) {
+    const annotation = JSON.stringify(error.report).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A')
+    console.error(`::error title=VSPC full-KB CVE coverage gate failed::${annotation}`)
+  }
+  throw error
+}
+merged.catalog.vspcKbArticleIds = vspcKbCveCoverage.articleIds
+merged.catalog.vspcKbCvePageStates = vspcKbCveCoverage.pageStates
 
 const parsedSecurityCoverage = [
-  ...discoveredReleaseAdvisories,
+  ...discoveredSecurityReleaseAdvisories,
   ...discoveredVeeamOneLegacyAdvisories,
   ...discoveredVspcLegacyAdvisories,
   ...REVIEWED_SECURITY_PARSED_COVERAGE,
@@ -353,4 +476,4 @@ try {
 await validateThenInstall(merged.catalog)
 const veeamOneReleaseFindings = discoveredReleaseAdvisories.filter((advisory) => advisory.productId === 'veeam-one').reduce((total, advisory) => total + advisory.records.length, 0)
 const vspcReleaseFindings = discoveredReleaseAdvisories.filter((advisory) => advisory.productId === 'vspc').reduce((total, advisory) => total + advisory.records.length, 0)
-console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, ${vspcBuilds.length} VSPC, and ${vb365Builds.length} VB365 builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + vb365BuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${shouldCheckVbrUpgradeGuidance ? `${vbrPathsMerged.paths} VBR KB2053 routes checked; ` : ''}${vb365PathsMerged.paths} VB365 documented routes; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${releaseMaterialsMerged.additions} release materials added, ${releaseMaterialsMerged.changes} changed, and ${highlightsMerged.additions} source-supported highlights added; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${reviewedSecurityMerged.findings} reviewed cross-product findings; ${securityCoverage.report.articleCount} security KBs classified with fingerprint ${securityCoverage.report.fingerprint}; ${oneMerged.findings + oneLegacyMerged.findings + veeamOneReleaseFindings} Veeam ONE CVE findings; ${vspcBulletinMerged.findings + vspcLegacyMerged.findings + vspcReleaseFindings} VSPC CVE findings; ${merged.matches} KEV matches.`)
+console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, ${vspcBuilds.length} VSPC, and ${vb365Builds.length} VB365 builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + vb365BuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${shouldCheckVbrUpgradeGuidance ? `${vbrPathsMerged.paths} VBR KB2053 routes checked; ` : ''}${vb365PathsMerged.paths} VB365 documented routes; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${releaseMaterialsMerged.additions} release materials added, ${releaseMaterialsMerged.changes} changed, and ${highlightsMerged.additions} source-supported highlights added; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${vspcReleaseSecurityMerged.findings} CVE-less VSPC release findings; ${reviewedSecurityMerged.findings} reviewed cross-product findings; ${securityCoverage.report.articleCount} security KBs classified with fingerprint ${securityCoverage.report.fingerprint}; ${vspcKbCveCoverage.report.articleCount} VSPC KBs and ${vspcKbCveCoverage.report.cvePageCount} CVE-bearing pages checked; ${oneMerged.findings + oneLegacyMerged.findings + veeamOneReleaseFindings} Veeam ONE CVE findings; ${vspcBulletinMerged.findings + vspcLegacyMerged.findings + vspcReleaseFindings} VSPC CVE findings; ${merged.matches} KEV matches.`)

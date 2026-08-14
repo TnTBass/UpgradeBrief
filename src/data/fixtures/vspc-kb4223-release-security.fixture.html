@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<body>
+<main>
+  <h1>Veeam Service Provider Console v5 Patch 4</h1>
+  <h2>Requirements</h2>
+  <p>Please confirm you are running version <b>5.0.0.6726</b> or later before installing Patch 4. After upgrading, your server build will be <b>5.0.0.7151</b></p>
+  <h2>Enhancements</h2>
+  <h5><b>General</b></h5>
+  <ul><li>The user login process has been optimized for large-scale Active Directories.</li></ul>
+  <h2>Resolved Issues</h2>
+  <h5><b>General</b></h5>
+  <ul><li>VSPC fails to upgrade when special characters are used in a SQL Server connection-string password.</li></ul>
+  <h5><b>Security</b></h5>
+  <ul>
+    <li>Under certain conditions, backup portal users who do not have any access to the VSPC server can call an endpoint to download specific files from the server.</li>
+    <li>When running a remote backup agent patch operation, backup portal users can upload files to the VSPC server without having any access to the machine.</li>
+  </ul>
+  <h5><b>Monitoring</b></h5>
+  <ul><li>Under certain conditions, an alarm returns incorrect duration values.</li></ul>
+</main>
+</body>
+</html>

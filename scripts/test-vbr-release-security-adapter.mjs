@@ -39,10 +39,11 @@ if (veeamOneAdvisory.fixedBuild !== '13.1.0.7034' || veeamOneAdvisory.affectedBu
 const vspcArticles = selectVspcReleaseSecurityArticles(feed)
 if (vspcArticles.length !== 2 || vspcArticles.map((article) => article.id).join(',') !== 'kb4853,kb4893') throw new Error('VSPC release advisory discovery did not exclude legacy and inventory articles.')
 const vspcAdvisories = [
-  parseProductReleaseSecurityArticle(vspc921Fixture, vspcArticles[0], { productId: 'vspc', productName: 'Veeam Service Provider Console' }),
-  parseProductReleaseSecurityArticle(vspc93Fixture, vspcArticles[1], { productId: 'vspc', productName: 'Veeam Service Provider Console' }),
+  parseProductReleaseSecurityArticle(vspc921Fixture, vspcArticles[0], { productId: 'vspc', productName: 'Veeam Service Provider Console', legacyVersionPrefixes: ['4.', '5.', '6.', '7.', '8.'] }),
+  parseProductReleaseSecurityArticle(vspc93Fixture, vspcArticles[1], { productId: 'vspc', productName: 'Veeam Service Provider Console', legacyVersionPrefixes: ['4.', '5.', '6.', '7.', '8.'] }),
 ]
 if (vspcAdvisories[0].records.length !== 2 || vspcAdvisories[1].records.length !== 4 || vspcAdvisories[1].records[0].cvssScore !== 9.5) throw new Error('VSPC release advisories were not parsed completely.')
+if (vspcAdvisories[0].records[0].affectedVersionPrefixes?.join(',') !== '4.,5.,6.,7.,8.' || vspcAdvisories[0].records[1].affectedVersionPrefixes) throw new Error('KB4853 mitigation scope was not assigned only to its RCE CVE.')
 const vspcMerged = mergeProductReleaseSecurityArticles({
   releases: [
     { id: 'vspc-build-9-2-1-33875', productId: 'vspc', aliases: ['9.2.1.33875'] },
@@ -51,6 +52,9 @@ const vspcMerged = mergeProductReleaseSecurityArticles({
   securityFindings: [{ id: 'keep', productId: 'vspc', sourceIds: ['kb4679'] }],
 }, vspcAdvisories)
 if (vspcMerged.findings !== 6 || vspcMerged.catalog.securityFindings.length !== 7) throw new Error('VSPC release advisories were not merged safely.')
+const vspcRce = vspcMerged.catalog.securityFindings.find((finding) => finding.cves?.includes('CVE-2026-32998'))
+const vspcReset = vspcMerged.catalog.securityFindings.find((finding) => finding.cves?.includes('CVE-2026-64635'))
+if (vspcRce.affectedVersionPrefixes?.join(',') !== '4.,5.,6.,7.,8.' || vspcReset.affectedVersionPrefixes) throw new Error('Per-CVE VSPC mitigation scope was not merged safely.')
 
 const base = {
   releases: [{ id: 'vbr-build-13-0-1-2067', productId: 'vbr', aliases: ['13.0.1.2067'] }],

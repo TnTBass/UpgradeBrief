@@ -10,3 +10,6 @@
 <p>CVSS v3.1 Score: 5.3</p>
 <h2>Solution</h2>
 <p>These vulnerabilities were fixed starting with Veeam Service Provider Console 9.2.1.33875.</p>
+<h2>Mitigation</h2>
+<p>This vulnerability can only be exploited when alarm script execution is enabled. Starting in Veeam Service Provider Console 9.2.0.33215, alarm script execution is disabled by default.</p>
+<p>The mitigation cannot be applied to builds older than Veeam Service Provider Console 9.2.0.33215 because the setting was introduced in that build. Therefore, all builds prior to 9.2.0.33215 (e.g., 9.1, 9.0, and 8) are affected and must be upgraded to 9.2.1.33875.</p>
