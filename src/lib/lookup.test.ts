@@ -102,26 +102,48 @@ describe('catalog lookup', () => {
     expect(finalFixCves).not.toContain('CVE-2024-42449')
   })
 
-  it('shows the KB4893 VSPC advisories on 9.2.1 but not on their 9.3 fix', () => {
-    const vulnerable = findRelease(catalog, 'vspc', '9.2.1.33875')!
+  it('applies every KB4893 CVE through pre-9.3 VSPC releases after CVE-record reconciliation', () => {
+    const kb4893Cves = ['CVE-2026-58073', 'CVE-2026-58072', 'CVE-2026-58067', 'CVE-2026-58071']
+    const vulnerableVersions = [
+      '4.0.0.4914',
+      '5.0.0.7151',
+      '6.0.0.8787',
+      '7.0.0.19551',
+      '8.0.0.19552',
+      '8.1.0.21999',
+      '9.2.1.33875',
+    ]
+
+    for (const version of vulnerableVersions) {
+      const vulnerable = findRelease(catalog, 'vspc', version)!
+      const vulnerableCves = findingsForRelease(catalog, vulnerable).flatMap((finding) => finding.cves)
+      expect(vulnerableCves).toEqual(expect.arrayContaining(kb4893Cves))
+    }
+
     const fixed = findRelease(catalog, 'vspc', '9.3.0.35057')!
-    const vulnerableCves = findingsForRelease(catalog, vulnerable).flatMap((finding) => finding.cves)
     const fixedCves = findingsForRelease(catalog, fixed).flatMap((finding) => finding.cves)
 
-    expect(vulnerableCves).not.toContain('CVE-2026-32998')
-    expect(vulnerableCves).not.toContain('CVE-2026-64635')
-    expect(vulnerableCves).toEqual(expect.arrayContaining(['CVE-2026-58073', 'CVE-2026-58072', 'CVE-2026-58067', 'CVE-2026-58071']))
-    for (const cve of ['CVE-2026-58073', 'CVE-2026-58072', 'CVE-2026-58067', 'CVE-2026-58071']) expect(fixedCves).not.toContain(cve)
+    for (const cve of kb4893Cves) expect(fixedCves).not.toContain(cve)
   })
 
-  it('applies the KB4853 alarm-script RCE to legacy VSPC builds without widening the password-reset CVE', () => {
+  it('applies the KB4853 alarm-script RCE to legacy VSPC builds', () => {
     for (const version of ['4.0.0.4914', '5.0.0.7151', '6.0.0.8787', '7.0.0.19551', '8.1.0.21999']) {
       const vulnerable = findRelease(catalog, 'vspc', version)!
       const cves = findingsForRelease(catalog, vulnerable).flatMap((finding) => finding.cves)
 
       expect(cves).toContain('CVE-2026-32998')
-      expect(cves).not.toContain('CVE-2026-64635')
     }
+  })
+
+  it('applies CVE-2026-64635 through VSPC 9.2 after CVE-record reconciliation but not to 9.2.1', () => {
+    for (const version of ['4.0.0.4914', '5.0.0.7151', '6.0.0.8787', '7.0.0.19551', '8.0.0.19552', '8.1.0.21999', '9.0.0.29860', '9.1.0.30713', '9.2.0.33215']) {
+      const vulnerable = findRelease(catalog, 'vspc', version)!
+      const cves = findingsForRelease(catalog, vulnerable).flatMap((finding) => finding.cves)
+      expect(cves).toContain('CVE-2026-64635')
+    }
+
+    const fixed = findRelease(catalog, 'vspc', '9.2.1.33875')!
+    expect(findingsForRelease(catalog, fixed).flatMap((finding) => finding.cves)).not.toContain('CVE-2026-64635')
   })
 
   it('shows CVE-less VSPC release Security fixes only on their documented pre-fix builds', () => {

@@ -21,6 +21,7 @@
     "test:veeam-one-legacy-security-adapter": "node scripts/test-veeam-one-legacy-security-adapter.mjs",
     "test:vspc-legacy-security-adapter": "node scripts/test-vspc-legacy-security-adapter.mjs",
     "test:vspc-kb-cve-coverage": "node scripts/test-vspc-kb-cve-coverage.mjs",
+    "test:vspc-cve-record-coverage": "node scripts/test-vspc-cve-record-coverage.mjs",
     "test:vspc-release-security": "node scripts/test-vspc-release-security.mjs",
     "test:release-security-adapter": "node scripts/test-vbr-release-security-adapter.mjs",
     "test:security-feed-coverage": "node scripts/test-security-feed-coverage.mjs",

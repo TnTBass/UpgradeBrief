@@ -153,8 +153,18 @@ export interface Catalog {
     articleId: string
     observedCveIds: string[]
     securityFingerprint: string
+    securityFingerprintVersion: 2
     catalogFingerprint: string
     parsedModelFingerprint?: string
+  }>
+  vspcCveRecordStates: Array<{
+    cveId: string
+    dateUpdated: string
+    rawAffectedFingerprint: string
+    parsedApplicabilityFingerprint: string
+    catalogApplicabilityFingerprint: string
+    applicableReleaseIds: string[]
+    derivedReleaseIds: string[]
   }>
   sources: Source[]
   products: Product[]

@@ -42,7 +42,36 @@ const vspcAdvisories = [
   parseProductReleaseSecurityArticle(vspc921Fixture, vspcArticles[0], { productId: 'vspc', productName: 'Veeam Service Provider Console', legacyVersionPrefixes: ['4.', '5.', '6.', '7.', '8.'] }),
   parseProductReleaseSecurityArticle(vspc93Fixture, vspcArticles[1], { productId: 'vspc', productName: 'Veeam Service Provider Console', legacyVersionPrefixes: ['4.', '5.', '6.', '7.', '8.'] }),
 ]
-if (vspcAdvisories[0].records.length !== 2 || vspcAdvisories[1].records.length !== 4 || vspcAdvisories[1].records[0].cvssScore !== 9.5) throw new Error('VSPC release advisories were not parsed completely.')
+if (vspcAdvisories[0].records.length !== 2) throw new Error('VSPC 9.2.1 release advisory was not parsed completely.')
+const kb4893Advisory = vspcAdvisories[1]
+const expectedKb4893Records = [
+  {
+    cve: 'CVE-2026-58073',
+    title: "A vulnerability in Veeam Service Provider Console allowing an unauthenticated attacker to impersonate a managed agent and obtain that agent's credentials.",
+    cvssScore: 9.5,
+  },
+  {
+    cve: 'CVE-2026-58072',
+    title: 'A vulnerability in Veeam Service Provider Console allowing arbitrary file write on the management server, which can lead to remote code execution.',
+    cvssScore: 9,
+  },
+  {
+    cve: 'CVE-2026-58067',
+    title: 'A vulnerability in Veeam Service Provider Console allowing an unauthenticated attacker to exhaust host memory and cause a denial of service.',
+    cvssScore: 8.7,
+  },
+  {
+    cve: 'CVE-2026-58071',
+    title: 'A vulnerability in Veeam Service Provider Console allowing an unauthenticated attacker to access the proxied appliance API as Portal Administrator during a short window after an administrator session begins.',
+    cvssScore: 8.2,
+  },
+]
+const actualKb4893Records = kb4893Advisory.records.map(({ cve, title, cvssScore }) => ({ cve, title, cvssScore }))
+if (JSON.stringify(actualKb4893Records) !== JSON.stringify(expectedKb4893Records)
+  || kb4893Advisory.fixedBuild !== '9.3.0.35057'
+  || JSON.stringify(kb4893Advisory.affectedBuildRange) !== JSON.stringify({ versionPrefix: '9.', throughBuild: '9.2.1.33875' })) {
+  throw new Error('KB4893 did not retain its exact four CVEs, titles, scores, fixed build, and KB-derived VSPC 9 range.')
+}
 if (vspcAdvisories[0].records[0].affectedVersionPrefixes?.join(',') !== '4.,5.,6.,7.,8.' || vspcAdvisories[0].records[1].affectedVersionPrefixes) throw new Error('KB4853 mitigation scope was not assigned only to its RCE CVE.')
 const vspcMerged = mergeProductReleaseSecurityArticles({
   releases: [

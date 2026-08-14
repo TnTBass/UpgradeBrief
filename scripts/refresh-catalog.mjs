@@ -21,6 +21,7 @@ import { createCatalogSourceFetcher } from './lib/source-fetch.mjs'
 import { SecurityFeedCoverageError, assertSecurityFeedContinuity, assertSecurityFeedCoverage, assertSecurityFeedPageStateContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractCveIds, extractSecurityArticleScope, fetchSecurityFeedPages, fingerprintSecurityArticleContent, splitSecurityArticleVulnerabilityContent } from './lib/security-feed-coverage.mjs'
 import { REVIEWED_SECURITY_CLASSIFICATIONS, REVIEWED_SECURITY_PARSED_COVERAGE, REVIEWED_SECURITY_OBSERVATION_POLICY, mergeReviewedSecurityAdvisories, normalizeReviewedSecurityMainArticle, observeReviewedSecurityArticle } from './lib/reviewed-security-advisories.mjs'
 import { VSPC_REVIEWED_CVE_EXCLUSIONS, VspcKbCveCoverageError, assertVspcKbCveCoverage, fetchVspcKbInventory, fingerprintVspcParsedModel, inspectVspcKbCveCoverage } from './lib/vspc-kb-cve-coverage.mjs'
+import { VspcCveRecordCoverageError, assertVspcCveRecordCoverage, fetchVspcCveRecords } from './lib/vspc-cve-record-coverage.mjs'
 import { createVspcReleaseSecurityReviewFromParsedCves, extractVspcReleaseSecuritySections, mergeVspcReleaseSecurityArticles, parseVspcReleaseSecurityPages } from './lib/vspc-release-security.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
@@ -172,6 +173,10 @@ const preliminaryVspcKbCoverage = inspectVspcKbCveCoverage({
   pages: vspcKbPages,
   catalog: current,
 })
+const observedVspcCveIds = [...new Set(preliminaryVspcKbCoverage.pageStates.flatMap((state) => {
+  const excluded = new Set(VSPC_REVIEWED_CVE_EXCLUSIONS[state.articleId]?.cveIds ?? [])
+  return state.observedCveIds.filter((cve) => !excluded.has(cve))
+}))].sort()
 const securityFeedPageStates = assertSecurityFeedPageStateContinuity(current.securityFeedPageStates, classifiedArticlesToFetch.flatMap((article) => {
   const response = articleResponseById.get(article.articleId)
   if (response.status !== 'fulfilled') return []
@@ -426,6 +431,30 @@ for (const state of preliminaryVspcKbCoverage.pageStates) {
   }
 }
 
+let vspcCveRecordCoverage
+try {
+  const vspcCveRecords = await fetchVspcCveRecords({
+    cveIds: observedVspcCveIds,
+    fetchRecord: ({ cveId, url }) => fetchSource({ id: `cve-record-${cveId.toLowerCase()}`, url }),
+  })
+  vspcCveRecordCoverage = assertVspcCveRecordCoverage({
+    observedCveIds: observedVspcCveIds,
+    records: vspcCveRecords,
+    previousStates: current.vspcCveRecordStates,
+    previousCatalog: current,
+    catalog: merged.catalog,
+    checkedAt: refreshedAt,
+  })
+} catch (error) {
+  if (error instanceof VspcCveRecordCoverageError) {
+    const annotation = JSON.stringify(error.report).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A')
+    console.error(`::error title=VSPC CVE-record coverage gate failed::${annotation}`)
+  }
+  throw error
+}
+merged.catalog = vspcCveRecordCoverage.catalog
+merged.catalog.vspcCveRecordStates = vspcCveRecordCoverage.states
+
 let vspcKbCveCoverage
 try {
   vspcKbCveCoverage = assertVspcKbCveCoverage({
@@ -476,4 +505,4 @@ try {
 await validateThenInstall(merged.catalog)
 const veeamOneReleaseFindings = discoveredReleaseAdvisories.filter((advisory) => advisory.productId === 'veeam-one').reduce((total, advisory) => total + advisory.records.length, 0)
 const vspcReleaseFindings = discoveredReleaseAdvisories.filter((advisory) => advisory.productId === 'vspc').reduce((total, advisory) => total + advisory.records.length, 0)
-console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, ${vspcBuilds.length} VSPC, and ${vb365Builds.length} VB365 builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + vb365BuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${shouldCheckVbrUpgradeGuidance ? `${vbrPathsMerged.paths} VBR KB2053 routes checked; ` : ''}${vb365PathsMerged.paths} VB365 documented routes; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${releaseMaterialsMerged.additions} release materials added, ${releaseMaterialsMerged.changes} changed, and ${highlightsMerged.additions} source-supported highlights added; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${vspcReleaseSecurityMerged.findings} CVE-less VSPC release findings; ${reviewedSecurityMerged.findings} reviewed cross-product findings; ${securityCoverage.report.articleCount} security KBs classified with fingerprint ${securityCoverage.report.fingerprint}; ${vspcKbCveCoverage.report.articleCount} VSPC KBs and ${vspcKbCveCoverage.report.cvePageCount} CVE-bearing pages checked; ${oneMerged.findings + oneLegacyMerged.findings + veeamOneReleaseFindings} Veeam ONE CVE findings; ${vspcBulletinMerged.findings + vspcLegacyMerged.findings + vspcReleaseFindings} VSPC CVE findings; ${merged.matches} KEV matches.`)
+console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, ${vspcBuilds.length} VSPC, and ${vb365Builds.length} VB365 builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + vb365BuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${shouldCheckVbrUpgradeGuidance ? `${vbrPathsMerged.paths} VBR KB2053 routes checked; ` : ''}${vb365PathsMerged.paths} VB365 documented routes; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${releaseMaterialsMerged.additions} release materials added, ${releaseMaterialsMerged.changes} changed, and ${highlightsMerged.additions} source-supported highlights added; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${vspcReleaseSecurityMerged.findings} CVE-less VSPC release findings; ${reviewedSecurityMerged.findings} reviewed cross-product findings; ${securityCoverage.report.articleCount} security KBs classified with fingerprint ${securityCoverage.report.fingerprint}; ${vspcKbCveCoverage.report.articleCount} VSPC KBs and ${vspcKbCveCoverage.report.cvePageCount} CVE-bearing pages checked; ${vspcCveRecordCoverage.report.cveCount} official VSPC CVE records reconciled; ${oneMerged.findings + oneLegacyMerged.findings + veeamOneReleaseFindings} Veeam ONE CVE findings; ${vspcBulletinMerged.findings + vspcLegacyMerged.findings + vspcReleaseFindings} VSPC CVE findings; ${merged.matches} KEV matches.`)

@@ -25,6 +25,7 @@ jobs:
       - run: npm run test:veeam-one-legacy-security-adapter
       - run: npm run test:vspc-legacy-security-adapter
       - run: npm run test:vspc-kb-cve-coverage
+      - run: npm run test:vspc-cve-record-coverage
       - run: npm run test:vspc-release-security
       - run: npm run test:security-feed-coverage
       - run: npm run test:reviewed-security-advisories

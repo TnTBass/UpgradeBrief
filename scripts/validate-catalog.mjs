@@ -49,8 +49,34 @@ for (const state of catalog.vspcKbCvePageStates) {
   assert(catalog.vspcKbArticleIds.includes(state.articleId), `VSPC KB CVE page state ${state.articleId} must reference a discovered article`)
   assert(Array.isArray(state.observedCveIds) && state.observedCveIds.length > 0 && new Set(state.observedCveIds).size === state.observedCveIds.length && state.observedCveIds.every((cve) => /^CVE-\d{4}-\d{4,}$/.test(cve)), `VSPC KB CVE page state ${state.articleId} has invalid observed CVEs`)
   assert(/^sha256:[a-f0-9]{64}$/.test(state.securityFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid semantic fingerprint`)
+  assert(state.securityFingerprintVersion === 2, `VSPC KB CVE page state ${state.articleId} must retain semantic fingerprint version 2`)
   assert(/^sha256:[a-f0-9]{64}$/.test(state.catalogFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid catalog fingerprint`)
   if (state.parsedModelFingerprint !== undefined) assert(/^sha256:[a-f0-9]{64}$/.test(state.parsedModelFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid parsed-model fingerprint`)
+}
+assert(Array.isArray(catalog.vspcCveRecordStates) && catalog.vspcCveRecordStates.length > 0, 'vspcCveRecordStates must retain fetched CVE record state')
+assert(new Set(catalog.vspcCveRecordStates.map((state) => state.cveId)).size === catalog.vspcCveRecordStates.length, 'vspcCveRecordStates CVE IDs must be unique')
+const catalogVspcCveIds = new Set(catalog.securityFindings
+  .filter((finding) => finding.productId === 'vspc' && Array.isArray(finding.cves))
+  .flatMap((finding) => finding.cves))
+assert(catalog.vspcCveRecordStates.length === catalogVspcCveIds.size
+  && catalog.vspcCveRecordStates.every((state) => catalogVspcCveIds.has(state.cveId)), 'vspcCveRecordStates must retain exactly one state for every cataloged VSPC CVE')
+for (const state of catalog.vspcCveRecordStates) {
+  assert(/^CVE-\d{4}-\d{4,19}$/.test(state.cveId), `VSPC CVE record state ${state.cveId} must use a canonical CVE ID`)
+  assert(typeof state.dateUpdated === 'string' && new Date(state.dateUpdated).toString() !== 'Invalid Date', `VSPC CVE record state ${state.cveId} has an invalid update date`)
+  assert(/^sha256:[a-f0-9]{64}$/.test(state.rawAffectedFingerprint), `VSPC CVE record state ${state.cveId} has an invalid affected-data fingerprint`)
+  assert(/^sha256:[a-f0-9]{64}$/.test(state.parsedApplicabilityFingerprint), `VSPC CVE record state ${state.cveId} has an invalid parsed-applicability fingerprint`)
+  assert(/^sha256:[a-f0-9]{64}$/.test(state.catalogApplicabilityFingerprint), `VSPC CVE record state ${state.cveId} has an invalid catalog-applicability fingerprint`)
+  assert(Array.isArray(state.applicableReleaseIds) && new Set(state.applicableReleaseIds).size === state.applicableReleaseIds.length && state.applicableReleaseIds.every((id) => releaseIds.has(id)), `VSPC CVE record state ${state.cveId} has invalid applicable release IDs`)
+  assert(Array.isArray(state.derivedReleaseIds) && new Set(state.derivedReleaseIds).size === state.derivedReleaseIds.length && state.derivedReleaseIds.every((id) => state.applicableReleaseIds.includes(id)), `VSPC CVE record state ${state.cveId} has invalid derived release IDs`)
+  const matchingFindings = catalog.securityFindings.filter((finding) =>
+    finding.productId === 'vspc' && Array.isArray(finding.cves) && finding.cves.includes(state.cveId))
+  assert(matchingFindings.length === 1, `VSPC CVE record state ${state.cveId} must map to exactly one VSPC security finding`)
+  const [matchingFinding] = matchingFindings
+  assert(matchingFinding.cves.length === 1 && matchingFinding.cves[0] === state.cveId, `VSPC CVE record state ${state.cveId} finding must contain exactly that CVE`)
+  const recordSourceId = `cve-record-${state.cveId.toLowerCase()}`
+  assert(sourceIds.has(recordSourceId), `VSPC CVE record state ${state.cveId} source must exist`)
+  assert(Array.isArray(matchingFinding.sourceIds) && matchingFinding.sourceIds.includes(recordSourceId), `VSPC CVE record state ${state.cveId} finding must retain its CVE-record source`)
+  assert(Array.isArray(matchingFinding.affectedReleaseIds) && state.derivedReleaseIds.every((id) => matchingFinding.affectedReleaseIds.includes(id)), `VSPC CVE record state ${state.cveId} finding must retain every derived release ID`)
 }
 assert(sourceIds.size === catalog.sources.length, 'source IDs must be unique')
 assert(productIds.size === catalog.products.length, 'product IDs must be unique')
