@@ -57,6 +57,9 @@ const coverage = (articleId, productId) => REVIEWED_SECURITY_PARSED_COVERAGE
 assert.deepEqual(coverage('kb4771', 'vbr'), ['CVE-2025-48983', 'CVE-2025-48984'])
 assert.deepEqual(coverage('kb4743', 'vbr'), ['CVE-2025-23121', 'CVE-2025-24286'])
 assert.deepEqual(coverage('kb4693', 'vbr').includes('CVE-2024-45207'), false)
+assert.deepEqual(coverage('kb4902', 'vbr'), ['CVE-2026-58070'])
+assert.deepEqual(coverage('kb4892', 'veeam-one'), ['CVE-2026-64633', 'CVE-2026-58075', 'CVE-2026-58074', 'CVE-2026-64631', 'CVE-2026-64632', 'CVE-2026-64634', 'CVE-2026-64630'])
+assert.deepEqual(coverage('kb4905', 'veeam-one'), ['CVE-2026-65641'])
 assert.deepEqual(coverage('kb4852', 'vbr'), ['CVE-2026-32997'])
 assert.deepEqual(coverage('kb4581', 'enterprise-manager'), ['CVE-2024-29849', 'CVE-2024-29850', 'CVE-2024-29851', 'CVE-2024-29852'])
 assert.deepEqual(coverage('kb4541', 'vro'), ['CVE-2024-22021', 'CVE-2024-22022'])
@@ -89,6 +92,25 @@ assert.equal(merged.catalog.securityFindings.filter((finding) => finding.sourceI
 assert.equal(merged.catalog.securityFindings.filter((finding) => finding.sourceIds.includes('kb4581')).length, 4)
 assert.equal(merged.catalog.securityFindings.filter((finding) => finding.sourceIds.includes('kb4541')).length, 2)
 assert.equal(merged.catalog.securityFindings.filter((finding) => finding.sourceIds.includes('kb4585')).length, 1)
+
+const kb4902Finding = merged.catalog.securityFindings.find((finding) => finding.id === 'vbr-cve-2026-58070')
+assert.deepEqual(kb4902Finding.affectedBuildRanges, [{ versionPrefix: '13.', throughBuild: '13.0.2.29' }])
+assert.equal(kb4902Finding.fixedReleaseId, 'vbr-build-13-1-0-411')
+assert.equal(kb4902Finding.cvssScore, 6.8)
+assert.match(kb4902Finding.remediation, /13\.0\.3\.63/)
+
+const kb4892CredentialFinding = merged.catalog.securityFindings.find((finding) => finding.id === 'veeam-one-cve-2026-64632')
+assert.deepEqual(kb4892CredentialFinding.affectedBuildRanges, [
+  { versionPrefix: '12.', throughBuild: '12.3.0.4670' },
+  { versionPrefix: '13.', throughBuild: '13.0.2.6723' },
+])
+assert.equal(kb4892CredentialFinding.cvssScore, 8.5)
+assert.match(kb4892CredentialFinding.remediation, /12\.3\.0\.7165/)
+
+const kb4905Finding = merged.catalog.securityFindings.find((finding) => finding.id === 'veeam-one-cve-2026-65641')
+assert.deepEqual(kb4905Finding.affectedBuildRanges, [{ versionPrefix: '13.', throughBuild: '13.1.0.7034' }])
+assert.equal(kb4905Finding.fixedReleaseId, 'veeam-one-build-13-1-0-7233')
+assert.equal(kb4905Finding.cvssScore, 9.3)
 
 for (const articleId of ['kb4879', 'kb4491']) {
   const [finding] = merged.catalog.securityFindings.filter((item) => item.sourceIds.includes(articleId))

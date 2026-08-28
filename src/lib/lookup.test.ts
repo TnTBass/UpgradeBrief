@@ -82,6 +82,30 @@ describe('catalog lookup', () => {
     expect(findingsForRelease(catalog, fixed).some((finding) => finding.cves.includes('CVE-2026-64633'))).toBe(false)
   })
 
+  it('shows the KB4902 VBR credential advisory through 13.0.2.29 but not on 13.0.3.63', () => {
+    const vulnerable = findRelease(catalog, 'vbr', '13.0.2.29')!
+    const fixed = findRelease(catalog, 'vbr', '13.0.3.63')!
+
+    expect(findingsForRelease(catalog, vulnerable).some((finding) => finding.cves.includes('CVE-2026-58070'))).toBe(true)
+    expect(findingsForRelease(catalog, fixed).some((finding) => finding.cves.includes('CVE-2026-58070'))).toBe(false)
+  })
+
+  it('applies the KB4892 Reporter credential advisory to the documented version 12 range', () => {
+    const vulnerable = findRelease(catalog, 'veeam-one', '12.3.0.4670')!
+    const fixed = findRelease(catalog, 'veeam-one', '12.3.0.7165')!
+
+    expect(findingsForRelease(catalog, vulnerable).some((finding) => finding.cves.includes('CVE-2026-64632'))).toBe(true)
+    expect(findingsForRelease(catalog, fixed).some((finding) => finding.cves.includes('CVE-2026-64632'))).toBe(false)
+  })
+
+  it('shows the KB4905 SMB authentication advisory on 13.1.0.7034 but not on 13.1.0.7233', () => {
+    const vulnerable = findRelease(catalog, 'veeam-one', '13.1.0.7034')!
+    const fixed = findRelease(catalog, 'veeam-one', '13.1.0.7233')!
+
+    expect(findingsForRelease(catalog, vulnerable).some((finding) => finding.cves.includes('CVE-2026-65641'))).toBe(true)
+    expect(findingsForRelease(catalog, fixed).some((finding) => finding.cves.includes('CVE-2026-65641'))).toBe(false)
+  })
+
   it('applies each legacy VSPC advisory through its documented final vulnerable build', () => {
     const unsupported = findRelease(catalog, 'vspc', '6.0.0.8787')!
     const v7EnhancedFix = findRelease(catalog, 'vspc', '7.0.0.19551')!

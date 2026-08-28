@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 const PRODUCT_PREFIX = Object.freeze({
   vbr: 'vbr',
   'enterprise-manager': 'em',
+  'veeam-one': 'veeam-one',
   vro: 'vro',
 })
 
@@ -184,6 +185,92 @@ export const REVIEWED_SECURITY_ADVISORIES = Object.freeze([
     conditions: [unsupportedVersionsCondition],
     records: vbr4693Records,
   }),
+  article('kb4902', 'vbr', 'Veeam KB4902: Vulnerability Resolved in Veeam Backup & Replication 13.1', {
+    affectedBuildRanges: [{ versionPrefix: '13.', throughBuild: '13.0.2.29' }],
+    fixedReleaseId: 'vbr-build-13-1-0-411',
+    remediation: 'Upgrade to Veeam Backup & Replication 13.1.0.411 or 13.0.3.63, or a later release in the selected version branch.',
+    records: [{
+      cve: 'CVE-2026-58070',
+      title: 'Guest OS credentials used for application-aware processing can be recorded in cleartext in logs on the guest machine.',
+      cvssScore: 6.8,
+      conditions: [
+        'Veeam states that Veeam Backup & Replication 13.0.2.29 and all earlier version 13 builds are affected; older 12.x versions are not affected.',
+        'Verify access controls and retention for guest-machine logs that may contain recorded credentials; this does not remove the need to upgrade an affected build.',
+      ],
+    }],
+  }),
+  article('kb4892', 'veeam-one', 'Veeam KB4892: Vulnerabilities Resolved in Veeam ONE 13.1', {
+    affectedBuildRanges: [{ versionPrefix: '13.', throughBuild: '13.0.2.6723' }],
+    fixedReleaseId: 'veeam-one-build-13-1-0-7034',
+    remediation: 'Upgrade to Veeam ONE 13.1.0.7034 or 13.0.2.7159. For the findings that also affect version 12, upgrade that branch to 12.3.0.7165 or later.',
+    records: [
+      {
+        cve: 'CVE-2026-64633',
+        title: 'A vulnerability allows remote unauthenticated code execution on the agent host.',
+        cvssScore: 10,
+        conditions: ['Veeam states that older 12.x versions are not affected.'],
+      },
+      {
+        cve: 'CVE-2026-58075',
+        title: 'An unauthenticated attacker can read arbitrary files from the host and potentially escalate privileges locally.',
+        cvssScore: 8.7,
+        conditions: ['Veeam states that older 12.x versions are not affected.'],
+      },
+      {
+        cve: 'CVE-2026-58074',
+        title: 'A high-privileged user can execute arbitrary code on the server.',
+        cvssScore: 8.6,
+        affectedBuildRanges: [
+          { versionPrefix: '12.', throughBuild: '12.3.0.4670' },
+          { versionPrefix: '13.', throughBuild: '13.0.2.6723' },
+        ],
+        conditions: [unsupportedVersionsCondition],
+      },
+      {
+        cve: 'CVE-2026-64631',
+        title: 'A low-privileged user can inject SQL and extract database contents.',
+        cvssScore: 8.6,
+        affectedBuildRanges: [
+          { versionPrefix: '12.', throughBuild: '12.3.0.4670' },
+          { versionPrefix: '13.', throughBuild: '13.0.2.6723' },
+        ],
+        conditions: [unsupportedVersionsCondition],
+      },
+      {
+        cve: 'CVE-2026-64632',
+        title: 'A low-privileged user can capture the NTLM credentials of the Reporter service account.',
+        cvssScore: 8.5,
+        affectedBuildRanges: [
+          { versionPrefix: '12.', throughBuild: '12.3.0.4670' },
+          { versionPrefix: '13.', throughBuild: '13.0.2.6723' },
+        ],
+        conditions: [unsupportedVersionsCondition],
+      },
+      {
+        cve: 'CVE-2026-64634',
+        title: 'A local user can escalate privileges to the Reporter service context.',
+        cvssScore: 8.4,
+        conditions: ['Veeam states that older 12.x versions are not affected.'],
+      },
+      {
+        cve: 'CVE-2026-64630',
+        title: 'A low-privileged user can retrieve report data outside the scope of a shared report link.',
+        cvssScore: 5.3,
+        conditions: ['Veeam states that older 12.x versions are not affected.'],
+      },
+    ],
+  }),
+  article('kb4905', 'veeam-one', 'Veeam KB4905: Vulnerability Resolved in Veeam ONE 13.1 Patch 0', {
+    affectedBuildRanges: [{ versionPrefix: '13.', throughBuild: '13.1.0.7034' }],
+    fixedReleaseId: 'veeam-one-build-13-1-0-7233',
+    remediation: 'Upgrade to Veeam ONE 13.1.0.7233 or 13.0.2.7159, or a later release in the selected version branch.',
+    records: [{
+      cve: 'CVE-2026-65641',
+      title: 'An unauthenticated network attacker can coerce SMB authentication from the service account.',
+      cvssScore: 9.3,
+      conditions: ['Veeam states that older 12.x versions are not affected.'],
+    }],
+  }),
   article('kb4852', 'vbr', 'Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2', {
     affectedBuildRanges: [{ versionPrefix: '13.', throughBuild: '13.0.1.2067' }],
     fixedReleaseId: 'vbr-13.0.2',
@@ -235,7 +322,7 @@ const kb3103IgnoredCves = Object.freeze([
   'CVE-2025-23120', 'CVE-2025-23121', 'CVE-2025-24286', 'CVE-2025-48983', 'CVE-2025-48984', 'CVE-2025-55125',
   'CVE-2025-59468', 'CVE-2025-59469', 'CVE-2025-59470', 'CVE-2026-21666', 'CVE-2026-21667', 'CVE-2026-21668',
   'CVE-2026-21669', 'CVE-2026-21670', 'CVE-2026-21671', 'CVE-2026-21672', 'CVE-2026-21708', 'CVE-2026-32997',
-  'CVE-2026-44963',
+  'CVE-2026-44963', 'CVE-2026-58070',
 ])
 
 const observationSpecs = Object.freeze({
@@ -270,6 +357,9 @@ const observationSpecs = Object.freeze({
     multiProduct: true,
   },
   kb4693: { classification: 'dedicated', productCves: { vbr: vbr4693Records.map((record) => record.cve) }, ignoredCveIds: ['CVE-2024-45207'] },
+  kb4902: { classification: 'dedicated', productCves: { vbr: ['CVE-2026-58070'] } },
+  kb4892: { classification: 'dedicated', productCves: { 'veeam-one': ['CVE-2026-58074', 'CVE-2026-58075', 'CVE-2026-64630', 'CVE-2026-64631', 'CVE-2026-64632', 'CVE-2026-64633', 'CVE-2026-64634'] } },
+  kb4905: { classification: 'dedicated', productCves: { 'veeam-one': ['CVE-2026-65641'] } },
   kb4852: { classification: 'dedicated', productCves: { vbr: ['CVE-2026-32997'] }, ignoredCveIds: ['CVE-2026-32996'] },
   kb4581: { classification: 'dedicated', productCves: { 'enterprise-manager': ['CVE-2024-29849', 'CVE-2024-29850', 'CVE-2024-29851', 'CVE-2024-29852'] } },
   kb4541: { classification: 'dedicated', productCves: { vro: ['CVE-2024-22021', 'CVE-2024-22022'] } },

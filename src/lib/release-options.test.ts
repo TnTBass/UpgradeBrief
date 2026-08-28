@@ -16,6 +16,7 @@ describe('release options', () => {
     const options = releaseOptions(catalog.releases.filter((release) => release.productId === 'veeam-one'))
 
     expect(options.filter((option) => option.label.startsWith('13.0.2'))).toEqual([
+      { value: '13.0.2.7159', label: '13.0.2 P1 (build 13.0.2.7159)' },
       { value: '13.0.2.6723', label: '13.0.2 (build 13.0.2.6723)' },
     ])
     expect(options.some((option) => option.label.includes('retracted'))).toBe(false)
