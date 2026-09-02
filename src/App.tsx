@@ -555,6 +555,7 @@ export default function App() {
 
       <footer>
         <p>Upgrade Brief is an independent community tool, not affiliated with or endorsed by Veeam. It uses only publicly available information and does not access hidden, confidential, proprietary, or customer environment data. It does not assess your environment or certify upgrade safety. <a href="https://github.com/TnTBass/UpgradeBrief">View the project on GitHub</a>.</p>
+        <p className="site-footer-property">upgradebrief.com is a Two Geese property.</p>
       </footer>
     </main>
   )
