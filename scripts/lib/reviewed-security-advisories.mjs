@@ -391,7 +391,7 @@ const observationSpecs = Object.freeze({
   kb4857: {
     classification: 'informational', productCves: { vro: [] }, allowNoCves: true,
     informationalReason: 'NO_VENDOR_VULNERABILITY_FINDING',
-    contentFingerprint: 'sha256:8776ca729c1c40ad24d8b975d5dcd74e3b3fab2672bd2bf80089f31db28d3b7e',
+    contentFingerprint: 'sha256:16786d17bbf0801ab9d9339a6706d62d78b429e4fb430a7f8315ed4dc1d72138',
   },
   kb4712: {
     classification: 'informational', productCves: { vbr: [] }, ignoredCveIds: ['CVE-2025-23114'],
