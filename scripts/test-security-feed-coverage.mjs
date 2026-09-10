@@ -14,6 +14,7 @@ import {
   fingerprintSecurityArticleContent,
   inferSecurityArticleProducts,
   inspectSecurityFeedCoverage,
+  splitSecurityArticleVulnerabilityContent,
 } from './lib/security-feed-coverage.mjs'
 
 function article(id, products = [], seoTitle = '') {
@@ -273,6 +274,10 @@ assert.deepEqual(
 )
 assert.deepEqual(
   extractSecurityArticleScope('<h1>VBR advisory</h1><h4>CVE-2026-10001</h4><p>Affects Veeam Agent for Linux.</p><h2>Solution</h2>'),
+  { productIds: ['vbr'], hasOutOfScopeProduct: true },
+)
+assert.deepEqual(
+  extractSecurityArticleScope(splitSecurityArticleVulnerabilityContent('<h1>Veeam Plug-In for Nutanix AHV</h1><p>Veeam Backup & Replication</p><h3><h4><b>Related Articles</b></h4></h3><p>Veeam ONE and VSPC</p>').vulnerabilityContent),
   { productIds: ['vbr'], hasOutOfScopeProduct: true },
 )
 

@@ -388,10 +388,58 @@ const observationSpecs = Object.freeze({
     informationalReason: 'NO_VENDOR_VULNERABILITY_FINDING',
     contentFingerprint: 'sha256:c642a2dc79645c533c3aa4fab5ed7e123bb0c18042b223a91a2f84562fbd0323',
   },
+  kb4236: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:a2378cfad49493154f3e9530c9f01a9bdb531a75c135e68fee4ce9a3495b6a0c',
+  },
+  kb4917: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:0e9c2bcce19f20fa7fbd5c64523076ec0c3cb8317c1117adfabfdbba304894f9',
+  },
+  kb4919: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:f001b6c1c48d55ad657188c35456e08a96e42123b0b0b413dd299136ca35646f',
+  },
+  kb4920: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:6b49918d61c761bb0fb33f03cce81f5cb2bcadbfbbe16a75eab517ec9bb0cd0b',
+  },
+  kb4921: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:abc7e8d7870a23e1fa819420cbaeb733fcc7537e2289a9cdb458811666730455',
+  },
+  kb4922: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:37c4a1151fe9b5339678989f1c1d49ff1744c84ee9c3b1c0f326040a303e9974',
+  },
+  kb4923: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:06646d0504727a8860a69a0424a994a96b35a2da7bf1a952e3d87222dd8509ca',
+  },
+  kb4924: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:a6aaa391c61acf84faaa70559353d6d5160d8bf10aded375b197990d7e108f55',
+  },
+  kb4925: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:b99e32c0c53f1fe5dac7260c9256574c8b5a06795e01563b8ac0be80dded948a',
+  },
+  kb4926: {
+    classification: 'out-of-scope', productCves: {}, allowNoCves: true,
+  },
   kb4857: {
     classification: 'informational', productCves: { vro: [] }, allowNoCves: true,
     informationalReason: 'NO_VENDOR_VULNERABILITY_FINDING',
-    contentFingerprint: 'sha256:16786d17bbf0801ab9d9339a6706d62d78b429e4fb430a7f8315ed4dc1d72138',
+    contentFingerprint: 'sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f',
   },
   kb4712: {
     classification: 'informational', productCves: { vbr: [] }, ignoredCveIds: ['CVE-2025-23114'],
@@ -437,6 +485,7 @@ export function normalizeReviewedSecurityMainArticle(content) {
     .trim()
 
   const endMarkers = [
+    '\nRelated Articles',
     '\nThank you!',
     '\nKB Feedback/Suggestion',
     '\nSpelling error in text',

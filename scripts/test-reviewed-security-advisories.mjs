@@ -37,6 +37,16 @@ assert.deepEqual(REVIEWED_SECURITY_CLASSIFICATIONS.kb4508.productIds, ['veeam-on
 assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4508.multiProduct, true)
 assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4857.classification, 'informational')
 assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4857.allowNoCves, true)
+assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4236.classification, 'informational')
+assert.deepEqual(REVIEWED_SECURITY_CLASSIFICATIONS.kb4236.productIds, ['vbr'])
+assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4236.informationalReason, 'UNTRACKED_MANAGED_COMPONENT')
+for (const articleId of ['kb4917', 'kb4919', 'kb4920', 'kb4921', 'kb4922', 'kb4923', 'kb4924', 'kb4925']) {
+  assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS[articleId].classification, 'informational')
+  assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS[articleId].informationalReason, 'UNTRACKED_MANAGED_COMPONENT')
+  assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS[articleId].allowNoCves, true)
+}
+assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4926.classification, 'out-of-scope')
+assert.deepEqual(REVIEWED_SECURITY_CLASSIFICATIONS.kb4926.productIds, [])
 assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4712.informationalReason, 'UNTRACKED_MANAGED_COMPONENT')
 assert.deepEqual(REVIEWED_SECURITY_CLASSIFICATIONS.kb4712.ignoredCveIds, ['CVE-2025-23114'])
 assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4709.informationalReason, 'UNTRACKED_MANAGED_COMPONENT')
@@ -48,7 +58,7 @@ assert.equal(kb4649Observation.observedCvesByProduct.vbr.includes('CVE-2024-4070
 assert.equal(kb4649Observation.observedCvesByProduct.vspc.length, 5)
 
 const semanticOne = '<nav>first chrome</nav><h1>Reviewed article</h1><p>Stable issue text.</p><div>Thank you!</div><footer>first footer</footer>'
-const semanticTwo = '<nav>changed chrome</nav><h1>Reviewed article</h1><p>Stable issue text.</p><div>Thank you!</div><footer>changed footer</footer>'
+const semanticTwo = '<nav>changed chrome</nav><h1>Reviewed article</h1><p>Stable issue text.</p><h4>Related Articles</h4><p>Unrelated Veeam ONE article</p><div>Thank you!</div><footer>changed footer</footer>'
 assert.equal(normalizeReviewedSecurityMainArticle(semanticOne), 'Reviewed article Stable issue text.')
 assert.equal(fingerprintReviewedSecurityMainArticle(semanticOne), fingerprintReviewedSecurityMainArticle(semanticTwo))
 
@@ -64,6 +74,10 @@ assert.deepEqual(coverage('kb4852', 'vbr'), ['CVE-2026-32997'])
 assert.deepEqual(coverage('kb4581', 'enterprise-manager'), ['CVE-2024-29849', 'CVE-2024-29850', 'CVE-2024-29851', 'CVE-2024-29852'])
 assert.deepEqual(coverage('kb4541', 'vro'), ['CVE-2024-22021', 'CVE-2024-22022'])
 assert.deepEqual(coverage('kb4585', 'vro'), ['CVE-2024-29855'])
+assert.deepEqual(coverage('kb4236', 'vbr'), [])
+for (const articleId of ['kb4917', 'kb4919', 'kb4920', 'kb4921', 'kb4922', 'kb4923', 'kb4924', 'kb4925']) {
+  assert.deepEqual(coverage(articleId, 'vbr'), [])
+}
 assert.deepEqual(coverage('kb4857', 'vro'), [])
 
 const releaseProducts = new Map()

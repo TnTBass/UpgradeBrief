@@ -104,7 +104,6 @@ const securityClassificationOverrides = {
   kb4338: { classification: 'out-of-scope' },
   kb4289: { classification: 'out-of-scope' },
   kb4261: { classification: 'out-of-scope' },
-  kb4236: { classification: 'out-of-scope' },
   kb3108: { classification: 'out-of-scope' },
   kb3109: { classification: 'out-of-scope' },
 }

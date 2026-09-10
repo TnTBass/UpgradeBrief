@@ -1,54 +1,54 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-09T14:51:04.848Z",
+  "generatedAt": "2026-09-10T21:09:49.789Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4357",
       "title": "Veeam KB4357: Veeam ONE build numbers",
       "url": "https://www.veeam.com/kb4357",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4358",
       "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
       "url": "https://www.veeam.com/kb4358",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4464",
       "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
       "url": "https://www.veeam.com/kb4464",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4581",
       "title": "Veeam KB4581: Veeam Backup Enterprise Manager Vulnerabilities",
       "url": "https://www.veeam.com/kb4581",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4585",
       "title": "Veeam KB4585: Veeam Recovery Orchestrator Vulnerability (CVE-2024-29855)",
       "url": "https://www.veeam.com/kb4585",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4541",
       "title": "Veeam KB4541: Veeam Recovery Orchestrator Vulnerabilities",
       "url": "https://www.veeam.com/kb4541",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4679",
       "title": "Veeam KB4679: Veeam Service Provider Console Vulnerability (CVE-2024-42448 | CVE-2024-42449)",
       "url": "https://www.veeam.com/kb4679",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb2053",
@@ -66,7 +66,7 @@
       "id": "lifecycle",
       "title": "Veeam Product Lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "em-upgrade",
@@ -188,7 +188,7 @@
       "id": "vbr-release-materials",
       "title": "Veeam Backup & Replication 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbr",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "vsa-conversion",
@@ -212,19 +212,19 @@
       "id": "one-release-materials",
       "title": "Veeam ONE 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=one",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "vro-release-materials",
       "title": "Veeam Recovery Orchestrator 13 release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vro",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "vspc-release-materials",
       "title": "Veeam Service Provider Console release notes and What's New (Help Center)",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vac",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "em-how-to",
@@ -254,79 +254,79 @@
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4771",
       "title": "Veeam KB4771: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4165 Patch",
       "url": "https://www.veeam.com/kb4771",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4869",
       "title": "Veeam KB4869: Vulnerability Resolved in Veeam Backup & Replication 12.3.2.4854",
       "url": "https://www.veeam.com/kb4869",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4696",
       "title": "Veeam KB4696: Release Information for Veeam Backup & Replication 12.3 and updates",
       "url": "https://www.veeam.com/kb4696",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4738",
       "title": "Veeam KB4738: Release Information for Veeam Backup & Replication 13 and updates",
       "url": "https://www.veeam.com/kb4738",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "release-material-vbr-13-0-release-notes",
@@ -376,13 +376,13 @@
       "id": "kb4106",
       "title": "Veeam KB4106: Veeam Backup for Microsoft 365 build numbers",
       "url": "https://www.veeam.com/kb4106",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4098",
       "title": "Veeam KB4098: Veeam Backup for Microsoft 365 upgrade paths",
       "url": "https://www.veeam.com/kb4098",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "vb365-upgrade",
@@ -400,7 +400,7 @@
       "id": "vb365-release-materials",
       "title": "Veeam Backup for Microsoft 365 release notes and What’s New",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbo365",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "vb365"
     },
     {
@@ -414,7 +414,7 @@
       "id": "release-material-vb365-8-5-release-notes",
       "title": "Veeam Backup for Microsoft 365 8 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_m365_8_5_release_notes.html",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "vb365",
       "releaseFamily": "8.5",
       "materialKind": "release-notes",
@@ -425,7 +425,7 @@
       "id": "release-material-vb365-8-0-whats-new",
       "title": "Veeam Backup for Microsoft 365 8 What's New",
       "url": "https://www.veeam.com/veeam_backup_m365_8_whats_new_wn.pdf",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "vb365",
       "releaseFamily": "8.0",
       "materialKind": "whats-new",
@@ -436,12 +436,12 @@
       "id": "release-material-vbr-13-1-release-notes",
       "title": "Veeam Backup & Replication 13.1 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_13_1_release_notes.html",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "vbr",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
-      "contentHash": "f106eace59ea6075bc7ecce72ffa067a3c49b93e1874c04e7eb92f40f58c4084",
-      "contentChangedAt": "2026-09-09T14:41:02.200Z"
+      "contentHash": "f152b447cb866eea201808d23e42f532f56333a8894156f49b8107905c959e90",
+      "contentChangedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "release-material-vbr-13-1-whats-new",
@@ -458,7 +458,7 @@
       "id": "release-material-vbr-13-0-whats-new",
       "title": "Veeam Backup & Replication 13.1 What's New v13.1",
       "url": "https://helpcenter.veeam.com/docs/vbr/wn/introduction.html?ver=13",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "vbr",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -469,7 +469,7 @@
       "id": "release-material-veeam-one-13-1-release-notes",
       "title": "Veeam ONE 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_one_13_1_release_notes.html",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "veeam-one",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
@@ -480,7 +480,7 @@
       "id": "release-material-veeam-one-13-1-whats-new",
       "title": "Veeam ONE 13 What's New v13.1",
       "url": "https://www.veeam.com/veeam_one_13_1_whats_new_wn.pdf",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "veeam-one",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -491,7 +491,7 @@
       "id": "release-material-vro-13-1-whats-new",
       "title": "Veeam Recovery Orchestrator 13 What's New v13.1",
       "url": "https://www.veeam.com/veeam_orchestrator_13_1_whats_new_wn.pdf",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "vro",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -502,7 +502,7 @@
       "id": "release-material-vspc-9-3-whats-new",
       "title": "Veeam Service Provider Console 9.3 What's New",
       "url": "https://www.veeam.com/veeam_console_9_3_whats_new_wn.pdf",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "vspc",
       "releaseFamily": "9.3",
       "materialKind": "whats-new",
@@ -513,7 +513,7 @@
       "id": "release-material-vro-13-1-release-notes",
       "title": "Veeam Recovery Orchestrator 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_1_release_notes.html",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "vro",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
@@ -524,7 +524,7 @@
       "id": "release-material-vspc-9-3-release-notes",
       "title": "Veeam Service Provider Console 9.3 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/vspc_9_3_release_notes.html",
-      "checkedAt": "2026-09-09T14:51:04.848Z",
+      "checkedAt": "2026-09-10T21:09:49.789Z",
       "productId": "vspc",
       "releaseFamily": "9.3",
       "materialKind": "release-notes",
@@ -535,115 +535,115 @@
       "id": "kb4892",
       "title": "Veeam KB4892: Vulnerabilities Resolved in Veeam ONE 13.1",
       "url": "https://www.veeam.com/kb4892",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4858",
       "title": "Veeam KB4858: List of Security Fixes and Improvements in Veeam ONE",
       "url": "https://www.veeam.com/kb4858",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4508",
       "title": "Veeam KB4508: CVE-2023-38547 | CVE-2023-38548 | CVE-2023-38549 | CVE-2023-41723",
       "url": "https://www.veeam.com/kb4508",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb3221",
       "title": "Veeam KB3221: Veeam ONE XML External Entity Processing vulnerabilities",
       "url": "https://www.veeam.com/kb3221",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb3144",
       "title": "Veeam KB3144: Veeam ONE Remote Code Execution Vulnerabilities",
       "url": "https://www.veeam.com/kb3144",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4893",
       "title": "Veeam KB4893: Vulnerabilities Resolved in Veeam Service Provider Console 9.3",
       "url": "https://www.veeam.com/kb4893",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4575",
       "title": "Veeam KB4575: Veeam Service Provider Console Vulnerability ( CVE-2024-29212 )",
       "url": "https://www.veeam.com/kb4575",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4856",
       "title": "Veeam KB4856: List of Security Fixes and Improvements in Veeam Service Provider Console",
       "url": "https://www.veeam.com/kb4856",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4743",
       "title": "Veeam KB4743: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2",
       "url": "https://www.veeam.com/kb4743",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4724",
       "title": "Veeam KB4724: CVE-2025-23120",
       "url": "https://www.veeam.com/kb4724",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4424",
       "title": "Veeam KB4424: CVE-2023-27532",
       "url": "https://www.veeam.com/kb4424",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4290",
       "title": "Veeam KB4290: CVE-2022-26504",
       "url": "https://www.veeam.com/kb4290",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4288",
       "title": "Veeam KB4288: CVE-2022-26500 and CVE-2022-26501",
       "url": "https://www.veeam.com/kb4288",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb2662",
       "title": "Veeam KB2662: Zip Slip Vulnerability",
       "url": "https://www.veeam.com/kb2662",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb2180",
       "title": "Veeam KB2180: Veeam Backup & Replication Local Privilege Escalation Vulnerability",
       "url": "https://www.veeam.com/kb2180",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb3103",
       "title": "Veeam KB3103: List of Security Fixes and Improvements in Veeam Backup & Replication",
       "url": "https://www.veeam.com/kb3103",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4879",
       "title": "Veeam KB4879: Veeam Software Appliance and Veeam Infrastructure Appliance Updater Component Vulnerability",
       "url": "https://www.veeam.com/kb4879",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4491",
       "title": "Veeam KB4491: Security Issue in Microsoft Azure Plug-In for Veeam Backup & Replication",
       "url": "https://www.veeam.com/kb4491",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4682",
       "title": "Veeam KB4682: Veeam Backup Enterprise Manager Vulnerability (CVE-2024-40715)",
       "url": "https://www.veeam.com/kb4682",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4857",
@@ -655,121 +655,121 @@
       "id": "kb4788",
       "title": "Veeam KB4788: Release Information for Veeam Service Provider Console 9 and Updates",
       "url": "https://www.veeam.com/kb4788",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4277",
       "title": "Veeam KB4277: Release Information for Veeam Service Provider Console v6 Patch 1",
       "url": "https://www.veeam.com/kb4277",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4223",
       "title": "Veeam KB4223: Veeam Service Provider Console v5 Patch 4",
       "url": "https://www.veeam.com/kb4223",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4651",
       "title": "Veeam KB4651: Release History for Veeam Service Provider Console 8.1",
       "url": "https://www.veeam.com/kb4651",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2024-29212",
       "title": "CVE-2024-29212 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-29212",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2024-38650",
       "title": "CVE-2024-38650 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-38650",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2024-38651",
       "title": "CVE-2024-38651 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-38651",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2024-39714",
       "title": "CVE-2024-39714 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-39714",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2024-39715",
       "title": "CVE-2024-39715 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-39715",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2024-42448",
       "title": "CVE-2024-42448 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-42448",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2024-42449",
       "title": "CVE-2024-42449 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-42449",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2024-45206",
       "title": "CVE-2024-45206 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-45206",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2026-32998",
       "title": "CVE-2026-32998 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-32998",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2026-58067",
       "title": "CVE-2026-58067 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-58067",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2026-58071",
       "title": "CVE-2026-58071 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-58071",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2026-58072",
       "title": "CVE-2026-58072 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-58072",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2026-58073",
       "title": "CVE-2026-58073 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-58073",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "cve-record-cve-2026-64635",
       "title": "CVE-2026-64635 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-64635",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4902",
       "title": "Veeam KB4902: Vulnerability Resolved in Veeam Backup & Replication 13.1",
       "url": "https://www.veeam.com/kb4902",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     },
     {
       "id": "kb4905",
       "title": "Veeam KB4905: Vulnerability Resolved in Veeam ONE 13.1 Patch 0",
       "url": "https://www.veeam.com/kb4905",
-      "checkedAt": "2026-09-09T14:51:04.848Z"
+      "checkedAt": "2026-09-10T21:09:49.789Z"
     }
   ],
   "products": [
@@ -10135,7 +10135,16 @@
     "kb4892",
     "kb4893",
     "kb4902",
-    "kb4905"
+    "kb4905",
+    "kb4917",
+    "kb4919",
+    "kb4920",
+    "kb4921",
+    "kb4922",
+    "kb4923",
+    "kb4924",
+    "kb4925",
+    "kb4926"
   ],
   "securityFeedRoutes": [
     {
@@ -10221,8 +10230,10 @@
     },
     {
       "articleId": "kb4236",
-      "classification": "out-of-scope",
-      "productIds": [],
+      "classification": "informational",
+      "productIds": [
+        "vbr"
+      ],
       "multiProduct": false
     },
     {
@@ -10518,6 +10529,76 @@
         "veeam-one"
       ],
       "multiProduct": false
+    },
+    {
+      "articleId": "kb4917",
+      "classification": "informational",
+      "productIds": [
+        "vbr"
+      ],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4919",
+      "classification": "informational",
+      "productIds": [
+        "vbr"
+      ],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4920",
+      "classification": "informational",
+      "productIds": [
+        "vbr"
+      ],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4921",
+      "classification": "informational",
+      "productIds": [
+        "vbr"
+      ],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4922",
+      "classification": "informational",
+      "productIds": [
+        "vbr"
+      ],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4923",
+      "classification": "informational",
+      "productIds": [
+        "vbr"
+      ],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4924",
+      "classification": "informational",
+      "productIds": [
+        "vbr"
+      ],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4925",
+      "classification": "informational",
+      "productIds": [
+        "vbr"
+      ],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4926",
+      "classification": "out-of-scope",
+      "productIds": [],
+      "multiProduct": false
     }
   ],
   "securityFeedPageStates": [
@@ -10544,7 +10625,7 @@
         "vbr"
       ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:c7ef1a21738be22c179fd99589709040b1e1dca0431b3fcf8dd115ad471ce488",
+      "contentFingerprint": "sha256:b7a1a2065d884f50e6bd6cc2e5bf9edbdd43b1fef1036a6a941af026c7073e1c",
       "observedCveIds": [
         "CVE-2021-35971",
         "CVE-2022-26500",
@@ -10599,7 +10680,7 @@
         "vbr"
       ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:3d6865696e493bc8b77811a8a633aff24fec34d9cf7c60302cb6bcd3f4ffe2a9"
+      "contentFingerprint": "sha256:dcaf0dce0fbbcadc0bfd3a820166f95faa2582b024d11ebe460f4f7c8b731166"
     },
     {
       "articleId": "kb3109",
@@ -10607,7 +10688,7 @@
         "vbr"
       ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:62b98514e3b493c2dd2346b4a5d45a506b50582ba62796e6ace223048d702c34"
+      "contentFingerprint": "sha256:999e4246f470e3321eb46f6e653cfbab8d06cc11f5dab0d429ef55d136dcb270"
     },
     {
       "articleId": "kb3144",
@@ -10650,9 +10731,11 @@
     },
     {
       "articleId": "kb4236",
-      "productIds": [],
+      "productIds": [
+        "vbr"
+      ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:c4281bcfc9d784ee34020e365dc49c94c750827295875687f2e16f9086702e8a"
+      "contentFingerprint": "sha256:a2378cfad49493154f3e9530c9f01a9bdb531a75c135e68fee4ce9a3495b6a0c"
     },
     {
       "articleId": "kb4254",
@@ -10894,7 +10977,7 @@
         "vspc"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:90b5127c19b4f2b013be135ed3ca5fc63ce7f7de0b6863b963b51685643b4dfe",
+      "contentFingerprint": "sha256:5c7ba38e63f4aa2b76488196d61a354fe2a9be1398e454ce49f52366c32b4b81",
       "observedCveIds": [
         "CVE-2026-32998",
         "CVE-2026-58067",
@@ -10910,7 +10993,7 @@
         "vro"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:16786d17bbf0801ab9d9339a6706d62d78b429e4fb430a7f8315ed4dc1d72138"
+      "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
     },
     {
       "articleId": "kb4858",
@@ -10918,7 +11001,7 @@
         "veeam-one"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:533294eb28de37308c799283c4a3b7fa44b2fe48f6ed359a13c35f769e539d72",
+      "contentFingerprint": "sha256:1f05cabe2e1471f72fc0cfb3333ae9daf32fb01d2464897653db61a777c5e8d0",
       "observedCveIds": [
         "CVE-2026-58074",
         "CVE-2026-58075",
@@ -10975,6 +11058,76 @@
       ],
       "hasOutOfScopeProduct": false,
       "contentFingerprint": "sha256:4cd580ef6aea47d2212153de23db1fa56723e44243b54459036552ba40e4e3a6"
+    },
+    {
+      "articleId": "kb4917",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": false,
+      "contentFingerprint": "sha256:0e9c2bcce19f20fa7fbd5c64523076ec0c3cb8317c1117adfabfdbba304894f9"
+    },
+    {
+      "articleId": "kb4919",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": true,
+      "contentFingerprint": "sha256:f001b6c1c48d55ad657188c35456e08a96e42123b0b0b413dd299136ca35646f"
+    },
+    {
+      "articleId": "kb4920",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": false,
+      "contentFingerprint": "sha256:6b49918d61c761bb0fb33f03cce81f5cb2bcadbfbbe16a75eab517ec9bb0cd0b"
+    },
+    {
+      "articleId": "kb4921",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": false,
+      "contentFingerprint": "sha256:abc7e8d7870a23e1fa819420cbaeb733fcc7537e2289a9cdb458811666730455"
+    },
+    {
+      "articleId": "kb4922",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": false,
+      "contentFingerprint": "sha256:37c4a1151fe9b5339678989f1c1d49ff1744c84ee9c3b1c0f326040a303e9974"
+    },
+    {
+      "articleId": "kb4923",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": false,
+      "contentFingerprint": "sha256:06646d0504727a8860a69a0424a994a96b35a2da7bf1a952e3d87222dd8509ca"
+    },
+    {
+      "articleId": "kb4924",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": true,
+      "contentFingerprint": "sha256:a6aaa391c61acf84faaa70559353d6d5160d8bf10aded375b197990d7e108f55"
+    },
+    {
+      "articleId": "kb4925",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": true,
+      "contentFingerprint": "sha256:b99e32c0c53f1fe5dac7260c9256574c8b5a06795e01563b8ac0be80dded948a"
+    },
+    {
+      "articleId": "kb4926",
+      "productIds": [],
+      "hasOutOfScopeProduct": true,
+      "contentFingerprint": "sha256:d0b8477af528f3203e79603abbb0554edb3a3a9eb67acd3ee05aef3365fd357b"
     }
   ],
   "vspcKbArticleIds": [
@@ -11135,7 +11288,7 @@
         "CVE-2026-58073",
         "CVE-2026-64635"
       ],
-      "securityFingerprint": "sha256:2a5133a47f275f2f7c72757b03884df06fe524a1e01bf2c48022c2a55f75300d",
+      "securityFingerprint": "sha256:77c8e8dfeff135174171ba5c56c8d59414a195ef43c6efa7a844edc9dd68c0e6",
       "securityFingerprintVersion": 2,
       "catalogFingerprint": "sha256:0acbfbffdc842dea7cfbed9e85b3aef4bf30bfe41cdafe8cd99af2eb171fcf30"
     },

@@ -30,6 +30,7 @@ export const OUT_OF_SCOPE_SECURITY_PRODUCT_ALIASES = Object.freeze([
   'Veeam Backup for Google Cloud',
   'Veeam Backup for Microsoft Azure',
   'Veeam Backup for Nutanix AHV',
+  'Veeam Plug-In for Nutanix AHV',
   'Veeam Backup for Oracle Linux Virtualization Manager and Red Hat Virtualization',
   'Veeam Backup for Salesforce',
   'Veeam Cloud Connect',
@@ -456,6 +457,9 @@ export function splitSecurityArticleVulnerabilityContent(content) {
   if (typeof content !== 'string') throwCoverage([{ code: 'INVALID_COVERAGE_INPUT' }])
   const articleStart = content.search(/<h1\b/i)
   let scopedContent = articleStart >= 0 ? content.slice(articleStart) : content
+  const relatedArticles = [...scopedContent.matchAll(/<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/gi)]
+    .find((heading) => normalizedText(heading[1]) === 'related articles')
+  if (relatedArticles) scopedContent = scopedContent.slice(0, relatedArticles.index)
   const firstRawCve = scopedContent.search(/\bcve-\d{4}-\d{4,}\b/i)
   let sectionEndIndex
   if (firstRawCve >= 0) {
