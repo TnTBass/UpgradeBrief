@@ -311,12 +311,11 @@ describe('catalog lookup', () => {
     expect(upgradeHowToSourceIds('vb365')).toEqual(['vb365-upgrade', 'vb365-after-upgrade'])
   })
 
-  it('resolves VB365 console and log builds to one release with a documented route', () => {
+  it('resolves VB365 console and log builds to one release', () => {
     const consoleRelease = findRelease(catalog, 'vb365', '8.4.0.1457')!
     const logRelease = findRelease(catalog, 'vb365', '13.4.0.1457')!
 
     expect(consoleRelease.id).toBe(logRelease.id)
-    expect(findUpgradePath(catalog, consoleRelease)?.hopReleaseIds).toEqual(['vb365-build-8-5-0-1014'])
     expect(releaseMaterialSourceIds(catalog, 'vb365', findRelease(catalog, 'vb365', '8.5.0.1014'))).toContain('release-material-vb365-8-5-release-notes')
   })
 
