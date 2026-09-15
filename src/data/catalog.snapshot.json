@@ -87,6 +87,18 @@
       "checkedAt": "2026-07-19T15:31:04.870Z"
     },
     {
+      "id": "vbr-update",
+      "title": "Updating Veeam Backup & Replication on Windows (Help Center)",
+      "url": "https://helpcenter.veeam.com/docs/vbr/userguide/update_vbr_windows.html",
+      "checkedAt": "2026-09-15T17:45:30.880Z"
+    },
+    {
+      "id": "vsa-update",
+      "title": "Updating Veeam Appliances (Help Center)",
+      "url": "https://helpcenter.veeam.com/docs/vbr/userguide/update_appliances.html",
+      "checkedAt": "2026-09-15T17:45:30.880Z"
+    },
+    {
       "id": "vbr-whats-new",
       "title": "Veeam Backup & Replication 13 What's New v13",
       "url": "https://www.veeam.com/veeam_backup_13_whats_new__wn.pdf",
@@ -6270,40 +6282,22 @@
   ],
   "upgradePaths": [
     {
-      "id": "vbr-12.3.2.3617-to-vbr-build-13-1-1-18",
-      "productId": "vbr",
-      "fromReleaseId": "vbr-12.3.2.3617",
-      "toReleaseId": "vbr-build-13-1-1-18",
-      "hopReleaseIds": [
-        "vbr-12.3.2.4165",
-        "vbr-build-13-1-1-18"
-      ],
-      "guidanceNote": "Veeam's generic 12.3.2 upgrade path proceeds directly to 13.0.2. Upgrade Brief adds 12.3.2.4165 first for this exact build because Veeam identifies 12.3.2.3617 as affected by vulnerabilities fixed in that patch. This is a security-first recommendation, not a claim that Veeam blocks the direct upgrade.",
-      "notes": [
-        "Apply the security patch first, then follow the documented route to version 13."
-      ],
-      "sourceIds": [
-        "kb4771",
-        "kb2053",
-        "vbr-checklist"
-      ]
-    },
-    {
-      "id": "vbr-13.0.0-vsa-to-13.0.2",
+      "id": "vbr-13.0.0-vsa-to-vbr-build-13-1-1-18",
       "productId": "vbr",
       "fromReleaseId": "vbr-build-13-0-0-4967",
-      "toReleaseId": "vbr-13.0.2",
+      "toReleaseId": "vbr-build-13-1-1-18",
       "hopReleaseIds": [
-        "vbr-13.0.2"
+        "vbr-build-13-1-1-18"
       ],
       "howToSourceIds": [
-        "kb4738"
+        "vsa-update"
       ],
       "notes": [
-        "Veeam documents that Veeam Software Appliance updates are performed directly within the appliance. Use the appliance update workflow rather than the Windows installer."
+        "Veeam documents that Veeam Software Appliance updates, including major and minor releases, are installed through Veeam Updater within the appliance."
       ],
       "sourceIds": [
-        "kb4738"
+        "kb4738",
+        "vsa-update"
       ]
     },
     {
@@ -6722,6 +6716,25 @@
       "sourceIds": [
         "kb2053",
         "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-build-13-1-0-411-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-13-1-0-411",
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this as a same-family update. On Windows-based backup servers running 13.1 or later, use Veeam Updater after reviewing prerequisites."
+      ],
+      "howToSourceIds": [
+        "vbr-update"
+      ],
+      "sourceIds": [
+        "kb4738",
+        "vbr-update"
       ]
     }
   ],

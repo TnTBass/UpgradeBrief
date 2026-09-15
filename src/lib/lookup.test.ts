@@ -4,11 +4,12 @@ import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, fi
 import { classifyUrgency } from './urgency'
 
 describe('catalog lookup', () => {
-  it('matches an exact VBR build and gives the source-backed staged path', () => {
+  it('routes the vulnerable 12.3.2.3617 build directly to the latest release', () => {
     const release = findRelease(catalog, 'vbr', '12.3.2.3617')
+    const targetId = catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId
     expect(release?.id).toBe('vbr-12.3.2.3617')
-    expect(findUpgradePath(catalog, release!)?.hopReleaseIds).toEqual(['vbr-12.3.2.4165', catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId])
-    expect(findUpgradePath(catalog, release!)?.guidanceNote).toContain('security-first recommendation')
+    expect(findUpgradePath(catalog, release!)?.hopReleaseIds).toEqual([targetId])
+    expect(findUpgradePath(catalog, release!)?.sourceIds).toContain('kb2053')
   })
 
   it('uses KB2053 guidance for the broad 12.3.2 family', () => {
@@ -37,6 +38,16 @@ describe('catalog lookup', () => {
     expect(path.hopReleaseIds).toEqual([path.toReleaseId])
   })
 
+  it('routes VBR 13.1 directly to the current 13.1 update', () => {
+    const release = findRelease(catalog, 'vbr', '13.1')!
+    const path = findUpgradePath(catalog, release)!
+
+    expect(path.toReleaseId).toBe(catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId)
+    expect(path.hopReleaseIds).toEqual([path.toReleaseId])
+    expect(path.howToSourceIds).toEqual(['vbr-update'])
+    expect(path.sourceIds).toEqual(expect.arrayContaining(['kb4738', 'vbr-update']))
+  })
+
   it('shows source-backed resolved-issue context for a VBR 13.0 point-release update without presenting it as a new feature', () => {
     const release = findRelease(catalog, 'vbr', '13.0.1.180')!
     const target = findRelease(catalog, 'vbr', '13.0.2.29')!
@@ -55,8 +66,10 @@ describe('catalog lookup', () => {
     const release = findRelease(catalog, 'vbr', '13.0.0.4967')!
     const path = findUpgradePath(catalog, release)!
 
-    expect(path.id).toBe('vbr-13.0.0-vsa-to-13.0.2')
-    expect(path.howToSourceIds).toEqual(['kb4738'])
+    expect(path.toReleaseId).toBe(catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId)
+    expect(path.hopReleaseIds).toEqual([path.toReleaseId])
+    expect(path.howToSourceIds).toEqual(['vsa-update'])
+    expect(path.sourceIds).toEqual(expect.arrayContaining(['kb4738', 'vsa-update']))
   })
 
   it('links vendor release information and documented fixes for the fixed 12.3.2.4465 build', () => {

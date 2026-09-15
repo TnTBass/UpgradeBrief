@@ -163,7 +163,7 @@ export default function App() {
           items: targetReleaseImprovements.flatMap((improvement) => improvement.topics).map((title) => ({ title })),
         }
       : undefined
-  const showVsaConversionGuidance = productId === 'vbr' && Boolean(targetRelease?.name.match(/^13\./))
+  const showVsaConversionGuidance = productId === 'vbr' && !release?.name.includes('Veeam Software Appliance') && Boolean(targetRelease?.name.match(/^13\./))
   const lifecycleNeedsAttention = lifecycle?.state === 'end-of-support' || lifecycle?.state === 'end-of-fix'
   const legacyLifecycleRelease = release ? isLegacyLifecycleRelease(productId, release) : false
   const installedReleaseSourceIds = release ? [...new Set([...release.sourceIds, ...documentedFixSourceIds(catalog, release)])] : []
