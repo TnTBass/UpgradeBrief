@@ -188,7 +188,8 @@ export const REVIEWED_SECURITY_ADVISORIES = Object.freeze([
   article('kb4902', 'vbr', 'Veeam KB4902: Vulnerability Resolved in Veeam Backup & Replication 13.1', {
     affectedBuildRanges: [{ versionPrefix: '13.', throughBuild: '13.0.2.29' }],
     fixedReleaseId: 'vbr-build-13-1-0-411',
-    remediation: 'Upgrade to Veeam Backup & Replication 13.1.0.411 or 13.0.3.63, or a later release in the selected version branch.',
+    // Reviewed 2026-09-22: KB4902 adds impact mitigation; affected and fixed builds are unchanged.
+    remediation: 'Upgrade to Veeam Backup & Replication 13.1.0.411 or 13.0.3.63, or a later release in the selected version branch. After upgrading, change the passwords associated with credentials used for Application-Aware Processing. The fix prevents future password logging but does not remove existing log files.',
     records: [{
       cve: 'CVE-2026-58070',
       title: 'Guest OS credentials used for application-aware processing can be recorded in cleartext in logs on the guest machine.',

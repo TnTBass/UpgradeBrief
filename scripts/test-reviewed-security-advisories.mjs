@@ -112,6 +112,8 @@ assert.deepEqual(kb4902Finding.affectedBuildRanges, [{ versionPrefix: '13.', thr
 assert.equal(kb4902Finding.fixedReleaseId, 'vbr-build-13-1-0-411')
 assert.equal(kb4902Finding.cvssScore, 6.8)
 assert.match(kb4902Finding.remediation, /13\.0\.3\.63/)
+assert.match(kb4902Finding.remediation, /After upgrading, change the passwords associated with credentials used for Application-Aware Processing/)
+assert.match(kb4902Finding.remediation, /prevents future password logging but does not remove existing log files/)
 
 const kb4892CredentialFinding = merged.catalog.securityFindings.find((finding) => finding.id === 'veeam-one-cve-2026-64632')
 assert.deepEqual(kb4892CredentialFinding.affectedBuildRanges, [
