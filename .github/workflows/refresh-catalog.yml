@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: refresh-catalog
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -31,16 +35,26 @@ jobs:
       - run: npm run test:vspc-release-security
       - run: npm run test:security-feed-coverage
       - run: npm run test:reviewed-security-advisories
+      - run: npm run test:security-review-baselines
       - run: npm run test:release-information-adapter
       - run: npm run test:release-material-adapter
       - run: npm run test:lifecycle-adapter
       - run: npm run test:kev-adapter
       - run: npm run test:source-fetch
       - name: Refresh catalog and enforce security KB coverage
+        id: catalog-refresh
         run: npm run refresh:catalog -- --live
+      - name: Upload catalogue source review
+        if: always() && steps.catalog-refresh.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: catalogue-source-review
+          path: artifacts/catalog-review/
+          if-no-files-found: warn
+          retention-days: 30
       - name: Commit a validated catalog refresh when data changed
         run: |
-          git add src/data/catalog.snapshot.json
+          git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
           git diff --cached --quiet && exit 0
           git config user.name 'upgrade-brief[bot]'
           git config user.email 'upgrade-brief[bot]@users.noreply.github.com'

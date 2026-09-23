@@ -10,3 +10,4 @@ docs/superpowers/
 node_modules/
 dist/
 *.tsbuildinfo
+artifacts/catalog-review/

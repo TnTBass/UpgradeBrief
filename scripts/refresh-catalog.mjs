@@ -18,6 +18,7 @@ import { mergeLifecyclePolicies, parseLifecyclePolicies } from './lib/lifecycle.
 import { mergeVbrReleaseInformation, parseVbrReleaseInformation } from './lib/vbr-release-information.mjs'
 import { contentFingerprint, extractSourceSupportedHighlights, mergeReleaseMaterials, mergeSourceSupportedHighlights, parseReleaseMaterials, textFromDocument } from './lib/release-materials.mjs'
 import { createCatalogSourceFetcher } from './lib/source-fetch.mjs'
+import { reconcileSecurityReviewBaselines, writeSecurityReviewReport } from './lib/security-review-baselines.mjs'
 import { SecurityFeedCoverageError, assertSecurityFeedContinuity, assertSecurityFeedCoverage, assertSecurityFeedPageStateContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractCveIds, extractSecurityArticleScope, fetchSecurityFeedPages, fingerprintSecurityArticleContent, splitSecurityArticleVulnerabilityContent } from './lib/security-feed-coverage.mjs'
 import { REVIEWED_SECURITY_CLASSIFICATIONS, REVIEWED_SECURITY_PARSED_COVERAGE, REVIEWED_SECURITY_OBSERVATION_POLICY, mergeReviewedSecurityAdvisories, normalizeReviewedSecurityMainArticle, observeReviewedSecurityArticle } from './lib/reviewed-security-advisories.mjs'
 import { VSPC_REVIEWED_CVE_EXCLUSIONS, VspcKbCveCoverageError, assertVspcKbCveCoverage, fetchVspcKbInventory, fingerprintVspcParsedModel, inspectVspcKbCveCoverage } from './lib/vspc-kb-cve-coverage.mjs'
@@ -25,6 +26,7 @@ import { VspcCveRecordCoverageError, assertVspcCveRecordCoverage, fetchVspcCveRe
 import { createVspcReleaseSecurityReviewFromParsedCves, extractVspcReleaseSecuritySections, mergeVspcReleaseSecurityArticles, parseVspcReleaseSecurityPages } from './lib/vspc-release-security.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
+const baselineFile = new URL('./data/security-review-baselines.json', import.meta.url)
 const args = process.argv.slice(2)
 const candidatePath = args.find((arg) => !arg.startsWith('--'))
 const live = args.includes('--live')
@@ -36,13 +38,23 @@ function runValidation(path) {
   })
 }
 
-async function validateThenInstall(candidate) {
+async function validateThenInstall(candidate, baselineCandidate, beforeInstall) {
   const workspace = await mkdtemp(join(tmpdir(), 'upgrade-brief-'))
   const candidateFile = join(workspace, 'catalog.snapshot.json')
   try {
     await writeFile(candidateFile, `${JSON.stringify(candidate, null, 2)}\n`)
     await runValidation(candidateFile)
-    await writeFile(snapshot, await readFile(candidateFile))
+    if (beforeInstall) await beforeInstall()
+    const oldSnapshot = await readFile(snapshot)
+    const oldBaselines = baselineCandidate ? await readFile(baselineFile) : undefined
+    try {
+      await writeFile(snapshot, await readFile(candidateFile))
+      if (baselineCandidate) await writeFile(baselineFile, `${JSON.stringify(baselineCandidate, null, 2)}\n`)
+    } catch (error) {
+      await writeFile(snapshot, oldSnapshot)
+      if (oldBaselines) await writeFile(baselineFile, oldBaselines)
+      throw error
+    }
   } finally {
     await rm(workspace, { recursive: true, force: true })
   }
@@ -61,6 +73,18 @@ if (!live) {
 }
 
 const current = JSON.parse(await readFile(snapshot, 'utf8'))
+const baselines = JSON.parse(await readFile(baselineFile, 'utf8'))
+const reviewTexts = {}
+let baselineReview
+const reportDirectory = new URL('../artifacts/catalog-review/', import.meta.url)
+async function reportReview(error) {
+  return writeSecurityReviewReport({
+    directory: fileURLToPath(reportDirectory), baselines, texts: reviewTexts, catalog: current, error,
+    equivalentChanges: baselineReview?.equivalentChanges ?? [], summaryPath: process.env.GITHUB_STEP_SUMMARY,
+  })
+}
+
+try {
 const buildSource = current.sources.find((item) => item.id === 'kb2680')
 const oneBuildSource = current.sources.find((item) => item.id === 'kb4357')
 const vroBuildSource = current.sources.find((item) => item.id === 'kb4358')
@@ -176,11 +200,12 @@ const observedVspcCveIds = [...new Set(preliminaryVspcKbCoverage.pageStates.flat
   const excluded = new Set(VSPC_REVIEWED_CVE_EXCLUSIONS[state.articleId]?.cveIds ?? [])
   return state.observedCveIds.filter((cve) => !excluded.has(cve))
 }))].sort()
-const securityFeedPageStates = assertSecurityFeedPageStateContinuity(current.securityFeedPageStates, classifiedArticlesToFetch.flatMap((article) => {
+const fetchedSecurityFeedPageStates = classifiedArticlesToFetch.flatMap((article) => {
   const response = articleResponseById.get(article.articleId)
   if (response.status !== 'fulfilled') return []
   const scope = extractSecurityArticleScope(response.value.html)
   const normalizedContent = normalizeReviewedSecurityMainArticle(response.value.html)
+  reviewTexts[article.articleId] = normalizedContent
   const fingerprinted = ['dedicated', 'inventory', 'informational', 'out-of-scope'].includes(article.classification)
   return [{
     articleId: article.articleId,
@@ -189,7 +214,15 @@ const securityFeedPageStates = assertSecurityFeedPageStateContinuity(current.sec
     ...(fingerprinted ? { contentFingerprint: fingerprintSecurityArticleContent(normalizedContent) } : {}),
     ...(article.classification === 'inventory' ? { observedCveIds: extractCveIds(normalizedContent) } : {}),
   }]
-}))
+})
+baselineReview = reconcileSecurityReviewBaselines({
+  baselines, previousStates: current.securityFeedPageStates, states: fetchedSecurityFeedPageStates,
+  texts: reviewTexts, policies: REVIEWED_SECURITY_OBSERVATION_POLICY,
+})
+const securityFeedPageStates = assertSecurityFeedPageStateContinuity(baselineReview.continuityStates, fetchedSecurityFeedPageStates, { allowInventoryExpansion: false })
+for (const [articleId, contentFingerprint] of Object.entries(baselineReview.acceptedFingerprints)) {
+  securityClassifications[articleId] = { ...securityClassifications[articleId], contentFingerprint }
+}
 const securityArticlePages = Object.fromEntries(classifiedArticlesToFetch.map((article) => {
   const response = articleResponseById.get(article.articleId)
   if (response.status !== 'fulfilled') return [article.articleId, response]
@@ -204,7 +237,7 @@ const securityArticlePages = Object.fromEntries(classifiedArticlesToFetch.map((a
       observedOutOfScopeProduct: scope.hasOutOfScopeProduct,
     }]
   }
-  const observation = observeReviewedSecurityArticle(article.articleId, html)
+  const observation = observeReviewedSecurityArticle(article.articleId, html, { equivalentFingerprint: baselineReview.acceptedFingerprints[article.articleId] })
   return [article.articleId, article.classification === 'informational'
     ? { content: normalizeReviewedSecurityMainArticle(html), observedCves: observation.observedCves }
     : { html, ...observation }]
@@ -501,7 +534,16 @@ try {
   throw error
 }
 
-await validateThenInstall(merged.catalog)
+await validateThenInstall(merged.catalog, baselineReview.next, () => reportReview())
 const veeamOneReleaseFindings = discoveredReleaseAdvisories.filter((advisory) => advisory.productId === 'veeam-one').reduce((total, advisory) => total + advisory.records.length, 0)
 const vspcReleaseFindings = discoveredReleaseAdvisories.filter((advisory) => advisory.productId === 'vspc').reduce((total, advisory) => total + advisory.records.length, 0)
 console.log(`Catalog refresh complete: ${builds.length} VBR, ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, ${vspcBuilds.length} VSPC, and ${vb365Builds.length} VB365 builds; ${buildsMerged.additions + oneBuildsMerged.additions + vroBuildsMerged.additions + vspcBuildsMerged.additions + vb365BuildsMerged.additions + enterpriseManagerBuildsMerged.additions} releases added; ${shouldCheckVbrUpgradeGuidance ? `${vbrPathsMerged.paths} VBR KB2053 routes checked; ` : ''}${releaseInformationMerged.paths} VBR current-release update routes; ${vb365PathsMerged.paths} VB365 documented routes; ${enterpriseManagerBuildsMerged.additions} Enterprise Manager build entries; ${releaseInformation12Merged.attachments + releaseInformationMerged.attachments} VBR release-information links; ${releaseMaterialsMerged.additions} release materials added, ${releaseMaterialsMerged.changes} changed, and ${highlightsMerged.additions} source-supported highlights added; ${lifecycleMerged.notices} lifecycle notices; ${vbrMerged.findings} VBR bulletin advisories; ${releaseSecurityMerged.findings} release advisories from ${discoveredReleaseAdvisories.length} parseable security KBs; ${vspcReleaseSecurityMerged.findings} CVE-less VSPC release findings; ${reviewedSecurityMerged.findings} reviewed cross-product findings; ${securityCoverage.report.articleCount} security KBs classified with fingerprint ${securityCoverage.report.fingerprint}; ${vspcKbCveCoverage.report.articleCount} VSPC KBs and ${vspcKbCveCoverage.report.cvePageCount} CVE-bearing pages checked; ${vspcCveRecordCoverage.report.cveCount} official VSPC CVE records reconciled; ${oneMerged.findings + oneLegacyMerged.findings + veeamOneReleaseFindings} Veeam ONE CVE findings; ${vspcBulletinMerged.findings + vspcLegacyMerged.findings + vspcReleaseFindings} VSPC CVE findings; ${merged.matches} KEV matches.`)
+} catch (error) {
+  process.exitCode = 1
+  console.error(error)
+  try {
+    await reportReview(error)
+  } catch (reportError) {
+    console.error('Could not write catalogue review report:', reportError)
+  }
+}

@@ -562,7 +562,7 @@ export function extractReviewedSecurityCveIds(content) {
     .map((match) => `CVE-${match[1]}-${match[2]}`))
 }
 
-export function observeReviewedSecurityArticle(articleId, content) {
+export function observeReviewedSecurityArticle(articleId, content, { equivalentFingerprint } = {}) {
   const normalizedArticleId = String(articleId).toLowerCase()
   const policy = REVIEWED_SECURITY_OBSERVATION_POLICY[normalizedArticleId]
   if (!policy) throw new ReviewedSecurityObservationError(normalizedArticleId, [], [])
@@ -571,7 +571,7 @@ export function observeReviewedSecurityArticle(articleId, content) {
   const missingCveIds = policy.expectedCveIds.filter((cve) => !observedCves.includes(cve))
   const unexpectedCveIds = observedCves.filter((cve) => !policy.expectedCveIds.includes(cve))
   const fingerprintChanged = policy.contentFingerprint
-    ? fingerprintReviewedSecurityMainArticle(content) !== policy.contentFingerprint
+    ? fingerprintReviewedSecurityMainArticle(content) !== (equivalentFingerprint ?? policy.contentFingerprint)
     : false
   if (missingCveIds.length || unexpectedCveIds.length || fingerprintChanged) {
     throw new ReviewedSecurityObservationError(normalizedArticleId, missingCveIds, unexpectedCveIds)

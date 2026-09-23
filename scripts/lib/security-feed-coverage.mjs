@@ -27,7 +27,9 @@ export const OUT_OF_SCOPE_SECURITY_PRODUCT_ALIASES = Object.freeze([
   'Veeam Agent for Linux',
   'Veeam Agent for Microsoft Windows',
   'Veeam Backup for AWS',
+  'Veeam Plug-In for AWS',
   'Veeam Backup for Google Cloud',
+  'Veeam Plug-In for Google Cloud',
   'Veeam Backup for Microsoft Azure',
   'Veeam Backup for Nutanix AHV',
   'Veeam Plug-In for Nutanix AHV',
@@ -338,7 +340,7 @@ function normalizePageStateInventory(states) {
   return normalized
 }
 
-export function assertSecurityFeedPageStateContinuity(previousStates, states) {
+export function assertSecurityFeedPageStateContinuity(previousStates, states, { allowInventoryExpansion = true } = {}) {
   const current = normalizePageStateInventory(states)
   if (previousStates === undefined) return current
   const previous = normalizePageStateInventory(previousStates)
@@ -353,7 +355,7 @@ export function assertSecurityFeedPageStateContinuity(previousStates, states) {
     if (state.hasOutOfScopeProduct !== next.hasOutOfScopeProduct || JSON.stringify(state.productIds) !== JSON.stringify(next.productIds)) {
       findings.push({ code: 'ARTICLE_PRODUCT_SCOPE_CHANGED', articleId: state.articleId, productIds: next.productIds })
     }
-    const inventoryExpanded = Array.isArray(state.observedCveIds) && Array.isArray(next.observedCveIds)
+    const inventoryExpanded = allowInventoryExpansion && Array.isArray(state.observedCveIds) && Array.isArray(next.observedCveIds)
       && state.observedCveIds.every((cve) => next.observedCveIds.includes(cve))
       && next.observedCveIds.some((cve) => !state.observedCveIds.includes(cve))
     const inventoryStateBootstrap = state.contentFingerprint === undefined && state.observedCveIds === undefined
