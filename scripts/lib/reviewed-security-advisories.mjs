@@ -140,14 +140,10 @@ export const REVIEWED_SECURITY_ADVISORIES = Object.freeze([
     }],
   }),
   article('kb4879', 'vbr', 'Veeam KB4879: Veeam Software Appliance and Veeam Infrastructure Appliance Updater Component Vulnerability', {
-    affectedVersionPrefixes: ['13.'],
-    remediation: 'Update the Veeam Updater component to version 12.3.0.65 or later. Automatic update is expected for connected appliances; otherwise arrange a manual update with Veeam Support and verify the component version in the Host Management Console.',
-    records: [{
-      key: 'updater-component-privilege-escalation',
-      title: 'A local user can elevate privileges through the Veeam Updater component and gain root-level access to the appliance operating system.',
-      cvssScore: 8.4,
-      conditions: ['This issue affects the Veeam Software Appliance and Veeam Infrastructure Appliance. Windows-based backup servers are not affected, although remote appliance components may be. No CVE is assigned in KB4879.'],
-    }],
+    // The Updater fix is automatically deployed to connected appliances. Its
+    // independent component version is outside this product-build lookup's scope.
+    // Retain the source and remove any previously generated all-13.x finding.
+    records: [],
   }),
   article('kb4491', 'vbr', 'Veeam KB4491: Security Issue in Microsoft Azure Plug-In for Veeam Backup & Replication', {
     affectedVersionPrefixes: ['12.'],
@@ -336,7 +332,11 @@ const observationSpecs = Object.freeze({
   kb2662: { classification: 'dedicated', productCves: { vbr: ['CVE-2018-1002205'] } },
   kb2180: { classification: 'dedicated', productCves: { vbr: ['CVE-2015-5742'] } },
   kb3103: { classification: 'inventory', productCves: { vbr: ['CVE-2021-35971'] }, ignoredCveIds: kb3103IgnoredCves },
-  kb4879: { classification: 'dedicated', productCves: { vbr: [] }, allowNoCves: true },
+  kb4879: {
+    classification: 'informational', productCves: { vbr: [] }, allowNoCves: true,
+    informationalReason: 'UNTRACKED_MANAGED_COMPONENT',
+    contentFingerprint: 'sha256:f51d646f6c50e81736d0f6d38e27352ffbd41e718ac7c59036c44194a859050b',
+  },
   kb4491: { classification: 'dedicated', productCves: { vbr: [] }, allowNoCves: true },
   kb4682: { classification: 'dedicated', productCves: { 'enterprise-manager': ['CVE-2024-40715'] } },
   kb4508: {

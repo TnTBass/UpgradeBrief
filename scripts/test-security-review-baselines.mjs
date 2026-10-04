@@ -3,7 +3,7 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { createSecurityReviewBaseline, normalizeSecurityReviewText, reconcileSecurityReviewBaselines, writeSecurityReviewReport } from './lib/security-review-baselines.mjs'
-import { assertSecurityFeedCoverage, assertSecurityFeedPageStateContinuity, extractSecurityArticleScope, fingerprintSecurityArticleContent } from './lib/security-feed-coverage.mjs'
+import { assertSecurityFeedCoverage, assertSecurityFeedPageStateContinuity, assertSecurityFeedRouteContinuity, extractSecurityArticleScope, fingerprintSecurityArticleContent } from './lib/security-feed-coverage.mjs'
 import { REVIEWED_SECURITY_CLASSIFICATIONS, REVIEWED_SECURITY_OBSERVATION_POLICY, normalizeReviewedSecurityMainArticle, observeReviewedSecurityArticle } from './lib/reviewed-security-advisories.mjs'
 
 function scenario(id, before, after, scope = { productIds: ['vbr'], hasOutOfScopeProduct: true }) {
@@ -129,4 +129,20 @@ const ids = new Set(Object.keys(persisted.articles))
 reconcileSecurityReviewBaselines({ baselines: persisted, previousStates: catalog.securityFeedPageStates,
   states: catalog.securityFeedPageStates.filter(s => ids.has(s.articleId)),
   texts: Object.fromEntries(Object.entries(persisted.articles).map(([id, value]) => [id, value.normalizedText])), policies: REVIEWED_SECURITY_OBSERVATION_POLICY })
+
+// KB4879 stays source-reviewed, but does not generate a product-build warning.
+const updaterText = persisted.articles.kb4879.normalizedText
+assert.deepEqual(observeReviewedSecurityArticle('kb4879', updaterText).observedCves, [])
+assert.throws(() => observeReviewedSecurityArticle('kb4879', updaterText.replaceAll('12.3.0.65', '12.3.0.66')), /changed/)
+const updaterCoverage = assertSecurityFeedCoverage({
+  articles: [{ id: 'kb4879', type: 'security', url: '/kb4879', product: [{ title: 'Veeam Backup & Replication' }] }],
+  classifications: REVIEWED_SECURITY_CLASSIFICATIONS,
+  articlePages: { kb4879: updaterText },
+  catalog,
+})
+assert.equal(updaterCoverage.articles[0].classification, 'informational')
+assertSecurityFeedRouteContinuity(
+  catalog.securityFeedRoutes.filter(({ articleId }) => articleId === 'kb4879'),
+  updaterCoverage.articles.map(({ articleId, classification, productIds, multiProduct }) => ({ articleId, classification, productIds, multiProduct })),
+)
 console.log('Security review baseline, equivalence, fail-closed, and report tests passed.')

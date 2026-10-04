@@ -8725,25 +8725,6 @@
       ]
     },
     {
-      "id": "vbr-kb4879-updater-component-privilege-escalation",
-      "productId": "vbr",
-      "title": "A local user can elevate privileges through the Veeam Updater component and gain root-level access to the appliance operating system.",
-      "cves": [],
-      "affectedReleaseIds": [],
-      "affectedVersionPrefixes": [
-        "13."
-      ],
-      "remediation": "Update the Veeam Updater component to version 12.3.0.65 or later. Automatic update is expected for connected appliances; otherwise arrange a manual update with Veeam Support and verify the component version in the Host Management Console.",
-      "cvssScore": 8.4,
-      "isCisaKev": false,
-      "conditions": [
-        "This issue affects the Veeam Software Appliance and Veeam Infrastructure Appliance. Windows-based backup servers are not affected, although remote appliance components may be. No CVE is assigned in KB4879."
-      ],
-      "sourceIds": [
-        "kb4879"
-      ]
-    },
-    {
       "id": "vbr-kb4491-azure-plugin-credential-disclosure",
       "productId": "vbr",
       "title": "The Microsoft Azure plug-in can expose a Veeam Backup for Microsoft Azure appliance administrator password in an updater log.",
@@ -10560,7 +10541,7 @@
     },
     {
       "articleId": "kb4879",
-      "classification": "dedicated",
+      "classification": "informational",
       "productIds": [
         "vbr"
       ],

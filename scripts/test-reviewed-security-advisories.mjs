@@ -50,6 +50,8 @@ assert.deepEqual(REVIEWED_SECURITY_CLASSIFICATIONS.kb4926.productIds, [])
 assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4712.informationalReason, 'UNTRACKED_MANAGED_COMPONENT')
 assert.deepEqual(REVIEWED_SECURITY_CLASSIFICATIONS.kb4712.ignoredCveIds, ['CVE-2025-23114'])
 assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4709.informationalReason, 'UNTRACKED_MANAGED_COMPONENT')
+assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4879.classification, 'informational')
+assert.equal(REVIEWED_SECURITY_CLASSIFICATIONS.kb4879.informationalReason, 'UNTRACKED_MANAGED_COMPONENT')
 
 const kb4649 = REVIEWED_SECURITY_OBSERVATION_POLICY.kb4649
 const kb4649Observation = observeReviewedSecurityArticle('kb4649', kb4649.expectedCveIds.join(' '))
@@ -91,6 +93,7 @@ const base = {
   releases: [...releaseProducts].map(([id, productId]) => ({ id, productId, aliases: [] })),
   securityFindings: [
     { id: 'keep', productId: 'vbr', cves: ['CVE-2000-0001'], sourceIds: ['kb9999'] },
+    { id: 'vbr-kb4879-updater-component-privilege-escalation', productId: 'vbr', cves: [], affectedVersionPrefixes: ['13.'], sourceIds: ['kb4879'] },
     { id: 'vbr-cve-2024-45207', productId: 'vbr', cves: ['CVE-2024-45207'], sourceIds: ['security-kb', 'kb4693'] },
     { id: 'vbr-cve-2026-32996', productId: 'vbr', cves: ['CVE-2026-32996'], sourceIds: ['security-kb', 'kb4852'] },
     { id: 'em-cve-2024-29849', productId: 'enterprise-manager', cves: ['CVE-2024-29849'], sourceIds: ['kb4581'], isCisaKev: false },
@@ -128,11 +131,13 @@ assert.deepEqual(kb4905Finding.affectedBuildRanges, [{ versionPrefix: '13.', thr
 assert.equal(kb4905Finding.fixedReleaseId, 'veeam-one-build-13-1-0-7233')
 assert.equal(kb4905Finding.cvssScore, 9.3)
 
-for (const articleId of ['kb4879', 'kb4491']) {
+for (const articleId of ['kb4491']) {
   const [finding] = merged.catalog.securityFindings.filter((item) => item.sourceIds.includes(articleId))
   assert.deepEqual(finding.cves, [], `${articleId} must retain a source-backed no-CVE finding`)
   assert.equal(merged.catalog.sources.some((source) => source.id === articleId), true)
 }
+assert.equal(merged.catalog.securityFindings.some((finding) => finding.sourceIds.includes('kb4879')), false, 'refresh must remove the obsolete product-build finding')
+assert.equal(merged.catalog.sources.some((source) => source.id === 'kb4879'), true, 'retain the informational source for review')
 assert.equal(merged.catalog.sources.find((source) => source.id === 'kb4581').url, 'https://www.veeam.com/kb4581')
 assert.equal(merged.catalog.sources.some((source) => source.id === 'kb4857'), true)
 

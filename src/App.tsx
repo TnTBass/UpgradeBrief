@@ -110,8 +110,8 @@ function UrgencyIcon({ urgency }: { urgency: Urgency | 'clear' }) {
 
 function emptySecurityAdvisoryMessage(productName: string) {
   return {
-    heading: `No ${productName} advisory is currently listed in Veeam’s public security feed.`,
-    detail: 'This does not mean the product has no vulnerabilities. Upgrade Brief will show matching advisories if Veeam publishes applicable security information.',
+    heading: `No matching ${productName} build advisory is cataloged for this release.`,
+    detail: 'This does not mean the product has no vulnerabilities. Review vendor guidance for subsequent advisories and patches.',
   }
 }
 

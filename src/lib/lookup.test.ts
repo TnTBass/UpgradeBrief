@@ -2,8 +2,30 @@ import { describe, expect, it } from 'vitest'
 import { catalog } from '../data/catalog'
 import { documentedFixSourceIds, findingAppliesToRelease, findingsForRelease, findLifecycleNotice, findRelease, findUpgradePath, isLegacyLifecycleRelease, isRecommendedRelease, operationalNoticesForRelease, releaseImprovementsForRelease, releaseMaterialSourceIds, upgradeHighlightsForRelease, upgradeHowToSourceIds, upgradeTargetRelease } from './lookup'
 import { classifyUrgency } from './urgency'
+import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './upgrade-summary'
 
 describe('catalog lookup', () => {
+  it('retains KB4879 as an informational source without listing it against VBR builds', () => {
+    expect(catalog.sources.some((source) => source.id === 'kb4879')).toBe(true)
+    expect(catalog.securityFeedRoutes?.find((route) => route.articleId === 'kb4879')?.classification).toBe('informational')
+    for (const version of ['12.3.2.4854', '13.0.2.29', '13.1.0.411', '13.1.1.18']) {
+      const release = findRelease(catalog, 'vbr', version)!
+      expect(findingsForRelease(catalog, release).some((finding) => finding.sourceIds.includes('kb4879'))).toBe(false)
+    }
+  })
+
+  it('does not give the current VBR build high upgrade urgency for KB4879', () => {
+    const current = findRelease(catalog, 'vbr', '13.1.1.18')!
+    const findings = findingsForRelease(catalog, current)
+    expect(findings).toEqual([])
+    expect(summarizeAdvisoryUrgencies(findings)).toEqual([])
+    expect(buildUpgradeSummary({ findings, isCurrentCatalogRelease: true, hasDocumentedPath: false })).toMatchObject({
+      urgency: 'standard', heading: 'This is the current cataloged release.',
+    })
+    const older = findRelease(catalog, 'vbr', '13.0.2.29')!
+    expect(findingsForRelease(catalog, older).flatMap((finding) => finding.cves)).toContain('CVE-2026-58070')
+  })
+
   it('routes the vulnerable 12.3.2.3617 build directly to the latest release', () => {
     const release = findRelease(catalog, 'vbr', '12.3.2.3617')
     const targetId = catalog.products.find((product) => product.id === 'vbr')!.recommendedReleaseId
