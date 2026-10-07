@@ -8,16 +8,16 @@ function GuidanceSources({ ids }: { ids: JourneySourceId[] }) {
   return <ul className="source-list">{ids.map((id) => <li key={id}><a href={journeySources[id].url} target="_blank" rel="noreferrer">{journeySources[id].title}</a></li>)}</ul>
 }
 
-function RetentionWarning({ alreadyApplies }: { alreadyApplies: boolean }) {
-  return <article className="journey-risk" aria-label="Restore-point expiry risk">
-    <p className="journey-risk-label">Restore-point expiry risk · Behavior change</p>
-    <h4>Restore points can be deleted even when a job is disabled</h4>
-    <p>V12 applies the last known time-based retention policy to disabled-job and orphaned backups. Restore points you intended to keep can expire and be deleted by background retention.</p>
-    <p className="journey-muted">Introduced in V12 · {alreadyApplies ? 'Already applies to your installed version' : 'Takes effect after V12 is installed'}</p>
-    <p className="journey-risk-action"><strong>{alreadyApplies ? 'Investigate now, before continuing the journey' : 'Investigate before installing V12'}</strong>Identify backups kept as archives, review their last retention settings, and establish how required restore points will be preserved. A disabled job is not a retention safeguard.</p>
+function RetentionGuidance({ alreadyApplies }: { alreadyApplies: boolean }) {
+  return <article className={`journey-retention${alreadyApplies ? '' : ' upcoming'}`} aria-label="Backup retention review">
+    <p className="journey-retention-label">{alreadyApplies ? 'Retention reminder · Already applies in V12' : 'Retention review · Introduced in V12'}</p>
+    <h4>{alreadyApplies ? 'Review retention for backups you intend to keep' : 'Check backup retention before installing V12'}</h4>
+    <p>{alreadyApplies ? 'This behavior already applies to your installed V12 version. It is not introduced by the upgrade to V13.' : 'Installing V12 introduces background retention for disabled-job and orphaned backups.'}</p>
+    <p>Background retention uses the last known time-based retention policy. Restore points in disabled-job and orphaned backups can expire and be deleted, even when their jobs no longer run.</p>
+    <p className="journey-retention-action"><strong>{alreadyApplies ? 'If you keep backups as archives' : 'Before the V12 hop'}</strong>Review their retention settings and confirm how required restore points will be preserved. A disabled job is not a retention safeguard.</p>
     <details><summary>Scope, exceptions &amp; official guidance</summary><div className="journey-detail">
       <p>For orphaned chains with retention set in days, all outdated files can be removed. Backups still linked to jobs have minimum-file rules. Imported, exported, copied and VeeamZIP backups have documented exclusions; immutable files remain protected until their immutability ends.</p>
-      <p>Plan preservation before upgrading. Veeam describes Copy Backup, available in V12, for independent copies. Review the full retention rules for the selected release before choosing a method.</p>
+      <p>{alreadyApplies ? 'If you need to preserve backups independently of their existing retention, review the available copy options.' : 'Plan preservation before installing V12.'} Veeam describes Copy Backup, available in V12, for independent copies. Review the full retention rules for the selected release before choosing a method.</p>
       <GuidanceSources ids={['retentionChange', 'retention']} />
     </div></details>
   </article>
@@ -26,8 +26,15 @@ function RetentionWarning({ alreadyApplies }: { alreadyApplies: boolean }) {
 export default function UpgradeJourneyPage({ journey, release, path, backHref }: { journey: UpgradeJourney; release: Release; path: UpgradePath; backHref: string }) {
   const [stageId, setStageId] = useState('prepare')
   const stage = journey.stages.find((item) => item.id === stageId) ?? journey.stages[0]
-  const next = journey.stages[journey.stages.indexOf(stage) + 1]
+  const stageIndex = journey.stages.indexOf(stage)
+  const previous = journey.stages[stageIndex - 1]
+  const next = journey.stages[stageIndex + 1]
   const count = stage.groups.reduce((total, group) => total + group.itemIds.length, 0)
+
+  function goToStage(id: string) {
+    setStageId(id)
+    document.querySelector<HTMLButtonElement>(`[data-journey-stage="${id}"]`)?.focus()
+  }
 
   return <section className="result upgrade-journey" aria-labelledby="journey-heading">
     <a className="journey-back" href={backHref}>← Back to upgrade results</a>
@@ -49,7 +56,7 @@ export default function UpgradeJourneyPage({ journey, release, path, backHref }:
         <h4 className="journey-phase-title">{group.title}</h4>
         {group.note && <p className="journey-muted">{group.note}</p>}
         {group.itemIds.map((id) => {
-          if (id === 'retention') return <RetentionWarning key={id} alreadyApplies={journey.retentionAlreadyApplies} />
+          if (id === 'retention') return <RetentionGuidance key={id} alreadyApplies={journey.retentionAlreadyApplies} />
           const item = journeyItems[id]
           return <article className="journey-item" key={id}>
             <div><h4>{item.title}</h4><p>{item.text}</p></div>
@@ -59,7 +66,10 @@ export default function UpgradeJourneyPage({ journey, release, path, backHref }:
         })}
       </section>)}
     </section>
-    {next && <div className="journey-next"><button type="button" onClick={() => { setStageId(next.id); document.querySelector<HTMLButtonElement>(`[data-journey-stage="${next.id}"]`)?.focus() }}>Continue to {next.label} →</button></div>}
+    {(previous || next) && <nav className="journey-pagination" aria-label="Previous and next stages">
+      {previous && <button type="button" aria-label={`Previous: ${previous.label}`} aria-controls="journey-stage" onClick={() => goToStage(previous.id)}>Previous</button>}
+      {next && <button className="journey-forward" type="button" aria-label={`Next: ${next.label}`} aria-controls="journey-stage" onClick={() => goToStage(next.id)}>Next</button>}
+    </nav>}
     <p className="journey-announcement" role="status">Showing {stage.label}: {count} considerations.</p>
     <footer className="journey-sources"><p>Selected guidance · Reviewed {journeyReviewedAt}<br />Review the full vendor checklist before each hop.</p><GuidanceSources ids={['v12', 'v123', 'v13']} /></footer>
   </section>

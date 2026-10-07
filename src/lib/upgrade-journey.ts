@@ -47,7 +47,7 @@ export function buildUpgradeJourney(catalog: Catalog, release: Release, path?: U
       if (minor === 3) before.push('database')
       if (before.length) groups.push({ title: `Before installing ${label}`, note: enteringV12 ? 'Complete this while still on V11.' : undefined, itemIds: before })
       if (minor === 0) groups.push({ title: `After installing ${label}`, itemIds: ['components'] })
-      else groups.push({ title: 'While on V12, before installing V13', note: 'Begin earlier in V12 where the documented procedure supports it.', itemIds: ['conversion', 'agentBridge'] })
+      else groups.push({ title: 'While on V12, before installing V13', note: 'Begin earlier in V12 where the documented procedure supports it.', itemIds: ['conversion', 'agentBridge', 'appliance'] })
     } else {
       groups.push({ title: `Before installing ${label}`, itemIds: ['prereqs', 'removed', 'deprecated', 'processing'] }, { title: `After installing ${label}`, itemIds: ['finish'] })
     }
