@@ -1,0 +1,79 @@
+{
+  "REVIEWED_SECURITY_ADVISORIES": "a86da11801f269723be1889a0c3e9def2ad505b7ec38310ec5bd8e3e4438d049",
+  "REVIEWED_SECURITY_OBSERVATION_POLICY": "3fa168c77337c21b439ef0014263225cbe82b06db7811c5bc59303bda7b40b9a",
+  "REVIEWED_SECURITY_CLASSIFICATIONS": "e759aa789530ed5b9d97aa2308f1d49caa6cff5f62b0a9f2fe5a70fdeb27400d",
+  "REVIEWED_SECURITY_PARSED_COVERAGE": "b2201cb4d573955e4e7d36fc82febba7981a41b36f722095ba191abbd45c74c3",
+  "baseCommit": "2856e78",
+  "mergeInput": {
+    "sources": [],
+    "releases": [
+      {
+        "id": "vbr-12.3.2.4165",
+        "productId": "vbr"
+      },
+      {
+        "id": "vbr-12.3.2.3617",
+        "productId": "vbr"
+      },
+      {
+        "id": "vbr-build-12-3-1-1139",
+        "productId": "vbr"
+      },
+      {
+        "id": "vbr-build-8-0-0-2084",
+        "productId": "vbr"
+      },
+      {
+        "id": "vbr-build-12-3-0-310",
+        "productId": "vbr"
+      },
+      {
+        "id": "vbr-build-13-1-0-411",
+        "productId": "vbr"
+      },
+      {
+        "id": "veeam-one-build-13-1-0-7034",
+        "productId": "veeam-one"
+      },
+      {
+        "id": "veeam-one-build-13-1-0-7233",
+        "productId": "veeam-one"
+      },
+      {
+        "id": "vbr-13.0.2",
+        "productId": "vbr"
+      },
+      {
+        "id": "em-12.1.2.172",
+        "productId": "enterprise-manager"
+      },
+      {
+        "id": "vro-build-6-0-0-3516",
+        "productId": "vro"
+      },
+      {
+        "id": "vro-build-7-0-0-337",
+        "productId": "vro"
+      },
+      {
+        "id": "vro-build-7-1-0-205",
+        "productId": "vro"
+      },
+      {
+        "id": "vro-7.1.0.230",
+        "productId": "vro"
+      }
+    ],
+    "securityFindings": [
+      {
+        "id": "unrelated",
+        "productId": "vspc",
+        "sourceIds": [
+          "kb9999"
+        ],
+        "cves": []
+      }
+    ]
+  },
+  "mergedResult": "d5795363943c2457c3a5fa9c4fad7585266090281a39f3f1e4834c7a39562689"
+}

@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "note": "Failure-family replay of 13 previously inspected Actions failures. These compact records are reconstructed triage inputs, not complete historical HTML or semantic repair fixtures. October 7 full normalized evidence is stored separately.",
+  "cases": [
+    {
+      "runId": "30335635448",
+      "date": "2026-07-28",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/30335635448",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb2680"
+      ],
+      "expectedCategories": [
+        "http-access-refusal"
+      ],
+      "error": {
+        "message": "kb2680 request failed with HTTP 403"
+      }
+    },
+    {
+      "runId": "30429217070",
+      "date": "2026-07-29",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/30429217070",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb2680"
+      ],
+      "expectedCategories": [
+        "http-access-refusal"
+      ],
+      "error": {
+        "message": "kb2680 request failed with HTTP 403"
+      }
+    },
+    {
+      "runId": "31241059894",
+      "date": "2026-08-08",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/31241059894",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb4261",
+        "kb4709",
+        "kb4712"
+      ],
+      "expectedCategories": [
+        "reviewed-content"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4261"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4709"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4712"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "31296410124",
+      "date": "2026-08-09",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/31296410124",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb4261",
+        "kb4709",
+        "kb4712"
+      ],
+      "expectedCategories": [
+        "reviewed-content"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4261"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4709"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4712"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "32932119320",
+      "date": "2026-08-26",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/32932119320",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb3108",
+        "kb3109",
+        "kb4852"
+      ],
+      "expectedCategories": [
+        "reviewed-content"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb3108"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb3109"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4852"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "33086823140",
+      "date": "2026-08-27",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/33086823140",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb3108",
+        "kb3109",
+        "kb4852"
+      ],
+      "expectedCategories": [
+        "reviewed-content"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb3108"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb3109"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4852"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "33191020834",
+      "date": "2026-08-28",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/33191020834",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb3108",
+        "kb3109",
+        "kb4852"
+      ],
+      "expectedCategories": [
+        "reviewed-content"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb3108"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb3109"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4852"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "33736079210",
+      "date": "2026-09-03",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/33736079210",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [],
+      "expectedCategories": [
+        "empty-release-discovery"
+      ],
+      "error": {
+        "message": "Help Center release-material discovery returned no current document for one or more tracked products."
+      }
+    },
+    {
+      "runId": "34332054174",
+      "date": "2026-09-09",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/34332054174",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb4857"
+      ],
+      "expectedCategories": [
+        "reviewed-content"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4857"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "34457951062",
+      "date": "2026-09-10",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/34457951062",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb4236"
+      ],
+      "expectedCategories": [
+        "article-classification"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "FEED_ARTICLE_ROUTE_CHANGED",
+              "articleId": "kb4236"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "35709636280",
+      "date": "2026-09-22",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/35709636280",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb4902"
+      ],
+      "expectedCategories": [
+        "reviewed-content"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4902"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "35842217119",
+      "date": "2026-09-23",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/35842217119",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb4924",
+        "kb4261",
+        "kb4374",
+        "kb4712"
+      ],
+      "expectedCategories": [
+        "article-classification",
+        "reviewed-content"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4924"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4261"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4374"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4712"
+            },
+            {
+              "code": "ARTICLE_PRODUCT_SCOPE_CHANGED",
+              "articleId": "kb4924"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "runId": "37611691519",
+      "date": "2026-10-07",
+      "runUrl": "https://github.com/TnTBass/UpgradeBrief/actions/runs/37611691519",
+      "evidenceType": "failure-family-reconstruction-from-reviewed-log",
+      "articleIds": [
+        "kb4902",
+        "kb3103",
+        "kb3108"
+      ],
+      "expectedCategories": [
+        "reviewed-content"
+      ],
+      "error": {
+        "message": "Security feed coverage failed.",
+        "report": {
+          "findings": [
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb4902"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb3103"
+            },
+            {
+              "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+              "articleId": "kb3108"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

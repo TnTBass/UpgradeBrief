@@ -30,6 +30,8 @@ jobs:
       - run: npm run test:security-feed-coverage
       - run: npm run test:reviewed-security-advisories
       - run: npm run test:security-review-baselines
+      - run: npm run test:catalog-repair
+      - run: npm run test:release-material-discovery
       - run: npm run test:release-information-adapter
       - run: npm run test:lifecycle-adapter
       - run: npm run test:kev-adapter
