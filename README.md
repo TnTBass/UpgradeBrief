@@ -11,6 +11,7 @@ Upgrade Brief is an independent community tool, not affiliated with or endorsed 
 - Highlights documented capabilities available in the recommended target release, with links to the corresponding What's New and release-note material.
 - Presents build-aware security reasons to upgrade. CVSS 9+, CISA KEV, or Veeam-confirmed active exploitation is critical; CVSS 7–8.9 is high. Environment controls never downgrade a matching advisory.
 - Exports a concise executive-summary PDF for a selected release.
+- Offers a separate, source-linked upgrade journey for reviewed Windows VBR V11/V12 routes to V13.1.1, with preparation, hop-specific timing, feature changes and a prominent retention warning. Open it with “Plan this upgrade” in the results; the product and exact entered version are preserved in the URL.
 - Keeps coverage limits visible. A result never means that an undisplayed CVE, lifecycle restriction, or upgrade constraint does not exist.
 
 ## How the catalog stays current
@@ -30,6 +31,8 @@ Release materials are fingerprinted so changes to a version family’s What's Ne
 Upgrade Brief is actively maintained, but its coverage is intentionally conservative and partial. It does not infer undocumented upgrade paths, certify a build as safe, or make environment-specific claims. Always review the linked official sources before acting.
 
 Source code and issue tracking: [TnTBass/UpgradeBrief](https://github.com/TnTBass/UpgradeBrief).
+
+Journey guidance is manually reviewed in `src/data/upgrade-journey.ts`. Its route comes from the existing catalog lookup, while `src/lib/upgrade-journey.ts` limits the guidance to the reviewed target. Extending coverage to another destination requires reviewing the linked official sources and updating the applicability tests. Automatic catalog refreshes do not extend this editorial coverage.
 
 ## A note on attribution
 

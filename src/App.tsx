@@ -7,6 +7,8 @@ import { releaseOptions } from './lib/release-options'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './lib/upgrade-summary'
 import { classifyUrgency } from './lib/urgency'
 import { formatExecutiveRoute, formatLifecycleHeading } from './lib/executive-summary-format'
+import { buildUpgradeJourney } from './lib/upgrade-journey'
+import UpgradeJourneyPage from './UpgradeJourney'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
 const initialVersion = new URLSearchParams(window.location.search).get('version') || ''
@@ -118,6 +120,7 @@ function emptySecurityAdvisoryMessage(productName: string) {
 export default function App() {
   const [productId, setProductId] = useState<ProductId>(catalog.products.some((product) => product.id === initialProduct) ? initialProduct : 'vbr')
   const [version, setVersion] = useState(initialVersion)
+  const [journeyView] = useState(() => new URLSearchParams(window.location.search).get('view') === 'journey')
   const [theme, setTheme] = useState<Theme>(initialTheme)
   const [versionPickerOpen, setVersionPickerOpen] = useState(false)
   const [versionFilter, setVersionFilter] = useState('')
@@ -132,6 +135,10 @@ export default function App() {
   const hasVersion = Boolean(version.trim())
   const release = useMemo(() => (hasVersion ? findRelease(catalog, productId, version) : undefined), [hasVersion, productId, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
+  const journey = release ? buildUpgradeJourney(catalog, release, path) : undefined
+  const selectionParams = new URLSearchParams({ product: productId, version })
+  const resultsHref = `?${selectionParams.toString()}`
+  const journeyHref = `${resultsHref}&view=journey`
   const pathHowTo = path?.howToSourceIds ?? upgradeHowTo
   const pathHowToSource = sourceById(catalog, pathHowTo[0])
   const showPathGuidance = Boolean(path?.guidanceNote && release && path.fromReleaseId === release.id)
@@ -198,8 +205,9 @@ export default function App() {
     const params = new URLSearchParams()
     params.set('product', productId)
     if (hasVersion) params.set('version', version)
+    if (journeyView) params.set('view', 'journey')
     window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`)
-  }, [hasVersion, productId, version])
+  }, [hasVersion, productId, version, journeyView])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -234,7 +242,7 @@ export default function App() {
       upgradeRoute: targetRelease
         ? {
             heading: `Recommended target: ${targetRelease.name}`,
-            detail: executiveRoute ?? 'No exact route is currently curated. Use the linked vendor guidance to plan the next step.',
+            detail: executiveRoute ? [executiveRoute, path?.guidanceNote].filter(Boolean).join(' ') : 'No exact route is currently curated. Use the linked vendor guidance to plan the next step.',
           }
         : undefined,
       securitySummary: findings.length > 0
@@ -269,6 +277,13 @@ export default function App() {
         </button>
       </header>
 
+      {journeyView ? (
+        journey && release && path ? <UpgradeJourneyPage journey={journey} release={release} path={path} backHref={resultsHref} /> : <section className="result empty">
+          <a href={resultsHref}>← Back to upgrade results</a>
+          <h2>Journey guidance is not available for this selection.</h2>
+          <p>Reviewed guidance currently covers documented Windows VBR V11 and V12 routes to V13.1.1. Use the results page for the cataloged route and official sources.</p>
+        </section>
+      ) : <>
       <section className="lookup" aria-labelledby="lookup-heading">
         <h2 id="lookup-heading">Look up your installed version</h2>
         <div className="lookup-fields">
@@ -436,11 +451,6 @@ export default function App() {
               <p className="eyebrow">Upgrade path</p>
               {path ? (
                 <>
-                  {showPathGuidance && (
-                    <aside className="path-guidance">
-                      <strong>{path.fromVersionPrefixes ? 'Version guidance.' : 'Build-specific guidance.'}</strong> {path.guidanceNote}
-                    </aside>
-                  )}
                   <ol className="route">
                     <li className="route-step">{release.name}</li>
                     {path.hopReleaseIds.map((releaseId, index) => {
@@ -457,6 +467,7 @@ export default function App() {
                     })}
                   </ol>
                   <p className="route-recommendation"><strong>Recommended target:</strong> {targetRelease?.name ?? 'the documented target release'}.</p>
+                  {showPathGuidance && <aside className="path-guidance">{path.guidanceNote}</aside>}
                   {path.notes.map((note) => <p key={note}>{note}</p>)}
                   {path.alternatives?.filter((alternative) => alternative.releaseId !== release.id).map((alternative) => {
                     const alternativeRelease = catalog.releases.find((item) => item.id === alternative.releaseId)
@@ -481,14 +492,18 @@ export default function App() {
                 : lifecycle?.state === 'end-of-support' ? <><p>This release is outside support. No direct route is asserted here without a source-backed path; use the linked vendor guidance to plan a supported migration or new deployment.</p><SourceLinks sourceIds={upgradeHowTo} /></>
                 : <><p>No exact path is in the current curated catalog. Use the linked product documentation rather than assuming a direct upgrade is supported.</p><SourceLinks sourceIds={upgradeHowTo} /></>}
               {showVsaConversionGuidance && (
-                <details className="vsa-conversion-guidance">
-                  <summary>Planning a Windows-to-VSA conversion?</summary>
-                  <p><strong>Important:</strong> Upgrading a Windows-based Veeam Backup &amp; Replication server from 13.0.2 to 13.1 makes it ineligible for the Windows-to-Veeam Software Appliance conversion.</p>
-                  <p>Veeam’s Windows-to-Veeam Software Appliance configuration migration currently requires a support ticket, not an ordinary in-place upgrade or configuration restore. Preparation includes instance-based VUL licensing, the latest Windows patch level, registration through Veeam’s conversion portal, and proactive support.</p>
-                  <p>Review the documented limitations and post-migration considerations before deciding whether this route fits your environment.</p>
-                  <SourceLinks sourceIds={['vsa-conversion', 'kb4800']} />
-                </details>
+                <aside className="vsa-conversion-guidance" aria-labelledby="vsa-conversion-heading">
+                  <h3 id="vsa-conversion-heading">Considering a move to Veeam Software Appliance?</h3>
+                  <p>Complete the conversion from a supported Windows V13.0.x deployment <strong>before upgrading to V13.1.</strong> Moving to V13.1 on Windows closes the currently supported conversion path.</p>
+                  <details>
+                    <summary>Review conversion requirements</summary>
+                    <p>Veeam’s Windows-to-Veeam Software Appliance configuration migration requires a support-assisted migration. Preparation includes instance-based VUL licensing, the latest supported V13.0.x patch level, registration through Veeam’s conversion portal, and proactive support.</p>
+                    <p>Review the documented limitations and post-migration considerations before deciding whether this route fits your environment.</p>
+                    <SourceLinks sourceIds={['vsa-conversion', 'kb4800']} />
+                  </details>
+                </aside>
               )}
+              {journey && <div className="journey-entry"><a className="journey-button" href={journeyHref}>Plan this upgrade <span aria-hidden="true">→</span></a><p>Review prerequisites, removals and behavior changes at each hop.</p></div>}
             </article>
           </div>
 
@@ -549,9 +564,11 @@ export default function App() {
             <p className="eyebrow">Plan the change</p>
             <h2>Use the vendor checklist and release notes.</h2>
             <SourceLinks sourceIds={checklistSourceIds(productId)} />
+            {journey && <a className="journey-planning-link" href={journeyHref}>Plan this upgrade →</a>}
           </section>
         </section>
       )}
+      </>}
 
       <footer>
         <p>Upgrade Brief is an independent community tool, not affiliated with or endorsed by Veeam. It uses only publicly available information and does not access hidden, confidential, proprietary, or customer environment data. It does not assess your environment or certify upgrade safety. <a href="https://github.com/TnTBass/UpgradeBrief">View the project on GitHub</a>.</p>
