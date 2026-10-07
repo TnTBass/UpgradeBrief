@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Release, UpgradePath } from './lib/catalog-types'
 import { journeyItems, journeyReleaseLabel, journeySources, type UpgradeJourney } from './lib/upgrade-journey'
 import { journeyReviewedAt, type JourneySourceId } from './data/upgrade-journey'
 import './upgrade-journey.css'
+import { trackEvent } from './lib/analytics'
 
 function GuidanceSources({ ids }: { ids: JourneySourceId[] }) {
   return <ul className="source-list">{ids.map((id) => <li key={id}><a href={journeySources[id].url} target="_blank" rel="noreferrer">{journeySources[id].title}</a></li>)}</ul>
@@ -15,7 +16,7 @@ function RetentionGuidance({ alreadyApplies }: { alreadyApplies: boolean }) {
     <p>{alreadyApplies ? 'This behavior already applies to your installed V12 version. It is not introduced by the upgrade to V13.' : 'Installing V12 introduces background retention for disabled-job and orphaned backups.'}</p>
     <p>Background retention uses the last known time-based retention policy. Restore points in disabled-job and orphaned backups can expire and be deleted, even when their jobs no longer run.</p>
     <p className="journey-retention-action"><strong>{alreadyApplies ? 'If you keep backups as archives' : 'Before the V12 hop'}</strong>Review their retention settings and confirm how required restore points will be preserved. A disabled job is not a retention safeguard.</p>
-    <details><summary>Scope, exceptions &amp; official guidance</summary><div className="journey-detail">
+    <details data-analytics-topic="retention"><summary>Scope, exceptions &amp; official guidance</summary><div className="journey-detail">
       <p>For orphaned chains with retention set in days, all outdated files can be removed. Backups still linked to jobs have minimum-file rules. Imported, exported, copied and VeeamZIP backups have documented exclusions; immutable files remain protected until their immutability ends.</p>
       <p>{alreadyApplies ? 'If you need to preserve backups independently of their existing retention, review the available copy options.' : 'Plan preservation before installing V12.'} Veeam describes Copy Backup, available in V12, for independent copies. Review the full retention rules for the selected release before choosing a method.</p>
       <GuidanceSources ids={['retentionChange', 'retention']} />
@@ -30,6 +31,16 @@ export default function UpgradeJourneyPage({ journey, release, path, backHref }:
   const previous = journey.stages[stageIndex - 1]
   const next = journey.stages[stageIndex + 1]
   const count = stage.groups.reduce((total, group) => total + group.itemIds.length, 0)
+
+  const lastTrackedStage = useRef('')
+  useEffect(() => {
+    if (lastTrackedStage.current === stage.id) return
+    const timer = window.setTimeout(() => {
+      lastTrackedStage.current = stage.id
+      trackEvent('journey_stage_viewed', { release: release.name, stage: stage.id })
+    }, 700)
+    return () => window.clearTimeout(timer)
+  }, [stage.id, release.name])
 
   function goToStage(id: string) {
     setStageId(id)
@@ -49,7 +60,7 @@ export default function UpgradeJourneyPage({ journey, release, path, backHref }:
     </section>
     <header className="journey-heading"><p className="eyebrow">Plan the journey</p><h2 id="journey-heading">What to consider along the way</h2><p>Review the conditions that apply to your deployment. This selected guidance accompanies the full vendor checklists.</p></header>
     <nav className="journey-stage-nav" aria-label="Upgrade guidance stages">{journey.stages.map((item, index) => <button type="button" key={item.id} data-journey-stage={item.id} aria-pressed={stage.id === item.id} aria-controls="journey-stage" onClick={() => setStageId(item.id)}><span>{index + 1}</span>{item.label}</button>)}</nav>
-    <section id="journey-stage" key={stage.id} aria-labelledby="journey-stage-heading">
+    <section id="journey-stage" key={stage.id} data-analytics-stage={stage.id} aria-labelledby="journey-stage-heading">
       <div className="journey-stage-heading"><h3 id="journey-stage-heading">{stage.title}</h3><span>{count} considerations</span></div>
       <p className="journey-muted">{stage.intro}</p>
       {stage.groups.map((group) => <section key={group.title} aria-label={group.title}>
@@ -61,7 +72,7 @@ export default function UpgradeJourneyPage({ journey, release, path, backHref }:
           return <article className="journey-item" key={id}>
             <div><h4>{item.title}</h4><p>{item.text}</p></div>
             <div className="journey-item-meta"><span className={`journey-tag ${item.tone ?? ''}`}>{item.kind}</span><span>{item.due}</span></div>
-            <details><summary>Details &amp; official guidance</summary><div className="journey-detail"><p>{item.detail}</p><GuidanceSources ids={item.refs} /></div></details>
+            <details data-analytics-topic={id}><summary>Details &amp; official guidance</summary><div className="journey-detail"><p>{item.detail}</p><GuidanceSources ids={item.refs} /></div></details>
           </article>
         })}
       </section>)}

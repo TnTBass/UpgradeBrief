@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding, Urgency } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
@@ -9,6 +9,8 @@ import { classifyUrgency } from './lib/urgency'
 import { formatExecutiveRoute, formatLifecycleHeading } from './lib/executive-summary-format'
 import { buildUpgradeJourney } from './lib/upgrade-journey'
 import UpgradeJourneyPage from './UpgradeJourney'
+import { trackEvent } from './lib/analytics'
+import { selectionUrl } from './lib/selection-url'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
 const initialVersion = new URLSearchParams(window.location.search).get('version') || ''
@@ -65,7 +67,7 @@ function SourceLinks({ sourceIds }: { sourceIds: string[] }) {
 function VersionHelp({ productId }: { productId: ProductId }) {
   const help = versionHelp[productId]
   return (
-    <details className="version-help">
+    <details className="version-help" data-analytics-topic="version_help">
       <summary>Need help finding your version or build?</summary>
       <div>
         <p><strong>Use the full build when you can.</strong> A release such as <code>13.0.1</code> may include multiple builds; the full value is more likely to produce an exact result.</p>
@@ -125,6 +127,7 @@ export default function App() {
   const [versionPickerOpen, setVersionPickerOpen] = useState(false)
   const [versionFilter, setVersionFilter] = useState('')
   const versionPickerRef = useRef<HTMLDivElement>(null)
+  const mainRef = useRef<HTMLElement>(null)
   const product = catalog.products.find((item) => item.id === productId)!
   const upgradeHowTo = upgradeHowToSourceIds(productId)
   const versionOptions = useMemo(() => releaseOptions(catalog.releases.filter((item) => item.productId === productId)), [productId])
@@ -136,9 +139,8 @@ export default function App() {
   const release = useMemo(() => (hasVersion ? findRelease(catalog, productId, version) : undefined), [hasVersion, productId, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
   const journey = release ? buildUpgradeJourney(catalog, release, path) : undefined
-  const selectionParams = new URLSearchParams({ product: productId, version })
-  const resultsHref = `?${selectionParams.toString()}`
-  const journeyHref = `${resultsHref}&view=journey`
+  const resultsHref = selectionUrl(window.location.href, productId, version, 'results')
+  const journeyHref = selectionUrl(window.location.href, productId, version, 'journey')
   const pathHowTo = path?.howToSourceIds ?? upgradeHowTo
   const pathHowToSource = sourceById(catalog, pathHowTo[0])
   const showPathGuidance = Boolean(path?.guidanceNote && release && path.fromReleaseId === release.id)
@@ -202,12 +204,24 @@ export default function App() {
   }) : undefined
 
   useEffect(() => {
-    const params = new URLSearchParams()
-    params.set('product', productId)
-    if (hasVersion) params.set('version', version)
-    if (journeyView) params.set('view', 'journey')
-    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`)
-  }, [hasVersion, productId, version, journeyView])
+    window.history.replaceState(null, '', selectionUrl(window.location.href, productId, version, journeyView ? 'journey' : 'results'))
+  }, [productId, version, journeyView])
+
+  const lastTrackedResult = useRef('')
+  const resultOutcome = isCurrentCatalogRelease ? 'current' : path ? 'upgrade' : 'no_route'
+  const journeyAvailable = Boolean(journey && path)
+  useEffect(() => {
+    if (!release || (journeyView && !journeyAvailable)) return
+    const key = `${journeyView}:${productId}:${release.id}`
+    if (lastTrackedResult.current === key) return
+    // Wait for a settled, catalog-matched result; ignore keystrokes and StrictMode replays.
+    const timer = window.setTimeout(() => {
+      lastTrackedResult.current = key
+      if (journeyView) trackEvent('journey_viewed', { product: productId, release: release.name })
+      else trackEvent('brief_viewed', { product: productId, release: release.name, outcome: resultOutcome })
+    }, 600)
+    return () => window.clearTimeout(timer)
+  }, [productId, release, journeyView, journeyAvailable, resultOutcome])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -215,6 +229,7 @@ export default function App() {
   }, [theme])
 
   function changeProduct(nextProductId: ProductId) {
+    if (nextProductId !== productId) trackEvent('product_selected', { product: nextProductId })
     setProductId(nextProductId)
     setVersion('')
     setVersionPickerOpen(false)
@@ -251,10 +266,41 @@ export default function App() {
       targetUpdates: executiveTargetUpdates,
       sources: executiveSources,
     })
+    trackEvent('pdf_exported', { product: productId, release: release.name })
   }
 
+  function trackOutboundLink(event: MouseEvent<HTMLElement>) {
+    if (event.button !== 0 && event.button !== 1) return
+    const link = event.target instanceof Element ? event.target.closest('a[href]') : null
+    if (!(link instanceof HTMLAnchorElement)) return
+    const destination = new URL(link.href)
+    if (!['https:', 'http:'].includes(destination.protocol) || destination.origin === window.location.origin) return
+    trackEvent('outbound_clicked', { product: productId, ...(release ? { release: release.name } : {}), view: journeyView ? 'journey' : 'results', destination: `${destination.origin}${destination.pathname}` })
+  }
+
+  useEffect(() => {
+    const main = mainRef.current
+    function trackDetailsExpansion(event: Event) {
+      const details = event.target
+      if (!(details instanceof HTMLDetailsElement) || !details.open) return
+      const topic = details.dataset.analyticsTopic
+      if (!topic) return
+      const stage = details.closest<HTMLElement>('[data-analytics-stage]')?.dataset.analyticsStage
+      trackEvent('details_opened', {
+        product: productId,
+        ...(release ? { release: release.name } : {}),
+        view: journeyView ? 'journey' : 'results',
+        topic,
+        ...(stage ? { stage } : {}),
+      })
+    }
+    // Native details toggle events do not bubble; capture them across both views.
+    main?.addEventListener('toggle', trackDetailsExpansion, true)
+    return () => main?.removeEventListener('toggle', trackDetailsExpansion, true)
+  }, [productId, release, journeyView])
+
   return (
-    <main>
+    <main ref={mainRef} onClick={trackOutboundLink} onAuxClick={trackOutboundLink}>
       <header className="hero">
         <div>
           <p className="brand">Upgrade Brief</p>
@@ -388,7 +434,7 @@ export default function App() {
                           </li>
                         ))}
                       </ul>
-                      <details className="release-sources-details">
+                      <details className="release-sources-details" data-analytics-topic="release_highlights_sources">
                         <summary>View source materials</summary>
                         <SourceLinks sourceIds={[...new Set([...targetHighlightSourceIds, ...targetMaterialSourceIds])]} />
                       </details>
@@ -403,7 +449,7 @@ export default function App() {
                           {improvement.topics.map((topic) => <li key={topic}>{topic}</li>)}
                         </ul>
                       </section>
-                      <details className="release-sources-details">
+                      <details className="release-sources-details" data-analytics-topic={`release_fixes_sources:${improvement.id}`}>
                         <summary>View source materials</summary>
                         <SourceLinks sourceIds={[...new Set([...improvement.sourceIds, ...targetMaterialSourceIds])]} />
                       </details>
@@ -411,7 +457,7 @@ export default function App() {
                   )) : (
                     <>
                       <p>Review Veeam’s documented capabilities and release notes for this target release.</p>
-                      <details className="release-sources-details">
+                      <details className="release-sources-details" data-analytics-topic="release_materials">
                         <summary>View source materials</summary>
                         <SourceLinks sourceIds={targetMaterialSourceIds} />
                       </details>
@@ -495,7 +541,7 @@ export default function App() {
                 <aside className="vsa-conversion-guidance" aria-labelledby="vsa-conversion-heading">
                   <h3 id="vsa-conversion-heading">Considering a move to Veeam Software Appliance?</h3>
                   <p>Complete the conversion from a supported Windows V13.0.x deployment <strong>before upgrading to V13.1.</strong> Moving to V13.1 on Windows closes the currently supported conversion path.</p>
-                  <details>
+                  <details data-analytics-topic="conversion_requirements">
                     <summary>Review conversion requirements</summary>
                     <p>Veeam’s Windows-to-Veeam Software Appliance configuration migration requires a support-assisted migration. Preparation includes instance-based VUL licensing, the latest supported V13.0.x patch level, registration through Veeam’s conversion portal, and proactive support.</p>
                     <p>Review the documented limitations and post-migration considerations before deciding whether this route fits your environment.</p>
@@ -516,7 +562,7 @@ export default function App() {
               </div>
             </div>
             {findings.length > 0 ? (
-              <details className="security-advisories">
+              <details className="security-advisories" data-analytics-topic="security_advisories">
                 <summary>
                   <strong>
                     {findings.length} matching {findings.length === 1 ? 'advisory' : 'advisories'} - {advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}
