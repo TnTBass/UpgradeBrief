@@ -37,7 +37,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: main
+          # An explicit benchmark may test a reviewed development commit; it
+          # cannot publish a repair. Production/trial orchestration uses main.
+          ref: ${{ inputs.mode == 'benchmark' && github.sha || 'main' }}
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:

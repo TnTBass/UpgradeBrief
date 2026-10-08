@@ -12,7 +12,7 @@ An equivalent comparison reconciles only the content fingerprint for that run. I
 
 The live refresh explicitly disables the former inventory-CVE-expansion exception: adding CVEs to a fingerprinted inventory article no longer exempts changed text from review. Automatic parsers and their coverage checks still run after reviewed continuity passes.
 
-The refresh writes `artifacts/catalog-review/review.json` and `review.md`. Actions keeps these diagnostics for seven days. Reports include complete before/after text, source URLs, hashes, capture time, the actual checked-out commit, and structured failures. Failed refreshes hand off to the Catalog repair workflow; failure remains visible on the original run. Repair PRs and investigation issues link durable evidence in Git. The planned seven-day retention starts only once durable review manifests are published automatically.
+The refresh writes `artifacts/catalog-review/review.json` and `review.md`. Actions keeps these diagnostics for seven days. Reports include complete before/after text, source URLs, hashes, capture time, the actual checked-out commit, and structured failures. Failed refreshes hand off to the Catalog repair workflow; failure remains visible on the original run. Repair PRs and investigation issues link durable evidence in Git.
 
 Accepted baselines are installed with the catalogue only after all coverage checks and catalogue validation pass. Both files are committed by the workflow. Fetch or coverage failures leave the accepted files untouched. File-write failures attempt to restore both prior files and fail the run. Workflow concurrency prevents overlapping scheduled/manual refreshes.
 
