@@ -5,7 +5,7 @@ import { buildRepairCandidate } from './lib/catalog-repair-candidate.mjs'
 import { repairHash, canonicalJson } from './lib/catalog-repair-evidence.mjs'
 import { githubClient, githubStateStore } from './lib/catalog-repair-state.mjs'
 import { effectiveHolds, projectRepairState, readTrustedFeedback, recordFeedback } from './lib/catalog-repair-feedback.mjs'
-import { assertCandidateScope, createRepairPullRequest, ensureInvestigation, ensureLabels, manifestPath, mergeCandidateCAS, notifyOnce, persistRepairEvidence, REPAIR_DATA_PATHS, repairBaseBranch, repairBrief, waitForExactVerification } from './lib/catalog-repair-publication.mjs'
+import { assertCandidateScope, createRepairPullRequest, ensureInvestigation, ensureLabels, manifestPath, mergeCandidateCAS, notifyOnce, persistRepairEvidence, REPAIR_DATA_PATHS, repairBaseBranch, repairBrief, setRepairStateLabel, waitForExactVerification } from './lib/catalog-repair-publication.mjs'
 import { snapshotHash, verifyCatalogCheckout, verifyRepairDeployment } from './lib/catalog-repair-verification.mjs'
 import { createCatalogSourceFetcher } from './lib/source-fetch.mjs'
 import { normalizeReviewedSecurityMainArticle } from './lib/reviewed-security-advisories.mjs'
@@ -120,7 +120,7 @@ try {
       state.repairs[id].deployment = deployment
       state.repairs[id].state = 'applied-awaiting-review'
       await save()
-      await api(`/issues/${pull.number}/labels`, { method: 'POST', body: { labels: ['applied-awaiting-review'] } })
+      await setRepairStateLabel(api, pull.number, 'applied-awaiting-review')
       await announce(state.repairs[id], `${id}:applied`, `${bundle.environment === 'trial' ? 'Isolated trial repair applied and preview' : 'Catalog repair applied and public catalog'} verified at commit \`${merged.sha}\`. [Skim what changed, the approach, evidence and tests](${pull.html_url}). You can request a different approach in a normal comment.`)
     }
     console.log(JSON.stringify({ id, status: state.repairs[id].state, url: pull.html_url }))

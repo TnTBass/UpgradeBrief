@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { assertCandidateScope, createRepairPullRequest, findRepairIssue, manifestPath, mergeCandidateCAS, notifyOnce, repairBrief } from './lib/catalog-repair-publication.mjs'
+import { assertCandidateScope, createRepairPullRequest, findRepairIssue, manifestPath, mergeCandidateCAS, notifyOnce, repairBrief, setRepairStateLabel } from './lib/catalog-repair-publication.mjs'
 
 const id = `sha256:${'a'.repeat(64)}`, baseCommit = 'b'.repeat(40), sha = 'c'.repeat(40)
 assert.match(manifestPath(id), /^docs\/catalog-repairs\/a+\.json$/)
@@ -8,6 +8,13 @@ const brief = repairBrief({ id, baseCommit, articleIds: ['kb4934'], outcome: 'ap
 assert.ok(brief.includes('&lt;script&gt;&#64;intruder'))
 assert.ok(brief.includes(`/blob/${sha}/docs/catalog-repairs/`))
 assert.ok(brief.includes('passing tests alone'))
+const issue = { labels: [{ name: 'custom-review-label' }, { name: 'needs-investigation' }], body: `${brief}\nReviewer detail to preserve.` }
+await setRepairStateLabel(async (path, options = {}) => {
+  if (!options.method) return issue
+  if (path.endsWith('/labels')) { assert.deepEqual(options.body.labels, ['custom-review-label', 'catalog-review', 'applied-awaiting-review']); return {} }
+  assert.equal(options.body.body, issue.body.replace('Catalog repair: **applied-awaiting-review**.', 'Catalog repair: **applied awaiting review**.'))
+  return {}
+}, 12, 'applied-awaiting-review')
 let comments = [], fail = true, posted = 0
 const api = async (path, options = {}) => {
   if (path.startsWith('/issues?')) return [{ body: `<!-- catalog-repair:${id} -->`, number: 88, user: { id: 55, type: 'User' } }]
