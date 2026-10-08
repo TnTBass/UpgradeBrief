@@ -77,15 +77,16 @@ try {
       if (repairHash(normalizeReviewedSecurityMainArticle(html)) !== article.afterHash) throw new Error(`Source changed before publication: ${article.articleId}`)
     }
     checks.push('fresh-source-verification')
+    const changes = bundle.articles.map(article => `${article.articleId}: ${inspectSemanticChange(article, sourceInputs.reviewedData)?.summary ?? 'Accepted metadata or naming equivalence; security meaning is unchanged.'}`)
     const manifest = {
       schemaVersion: 1, environment: bundle.environment, repairId: id, baseCommit: currentCommit, articleIds, bundle, proposal, extractions,
       sections: Object.fromEntries(bundle.articles.map(article => [article.articleId, inspectSemanticChange(article, sourceInputs.reviewedData)?.records.map(record => ({ cve: record.cve, start: record.section.start, end: record.section.end })) ?? []])),
       before: projectRepairState(sourceInputs, articleIds), after: projectRepairState(finalInputs, articleIds), checks,
-      catalogHash: snapshotHash(finalInputs.catalog), verifiedAt: new Date().toISOString(),
+      changes, catalogHash: snapshotHash(finalInputs.catalog), verifiedAt: new Date().toISOString(),
     }
     const files = Object.fromEntries(await Promise.all(REPAIR_DATA_PATHS.map(async path => [path, await readFile(join(directory, path), 'utf8')])))
     const title = `${bundle.environment === 'trial' ? '[Isolated trial] ' : ''}Repair catalog source changes: ${articleIds.join(', ')}`
-    const result = await createRepairPullRequest(api, { id, baseCommit: currentCommit, baseBranch, files, manifest, title, brief: headCommit => repairBrief({ id, baseCommit: currentCommit, articleIds, outcome: 'validated candidate', approach: proposal.articles.map(article => `${article.articleId}: ${article.rationale}`).join('; '), checks, headCommit }) })
+    const result = await createRepairPullRequest(api, { id, baseCommit: currentCommit, baseBranch, files, manifest, title, brief: headCommit => repairBrief({ id, baseCommit: currentCommit, articleIds, changes, outcome: 'validated candidate', approach: 'Update the reviewed source baseline and catalog only after independent source, applicability and complete catalog checks pass. ' + proposal.articles.map(article => `${article.articleId}: ${article.rationale}`).join('; '), checks, headCommit }) })
     const pull = result.pull
     const repair = state.repairs[id] = { state: 'candidate-ready', environment: bundle.environment, number: pull.number, articleIds, baseCommit: currentCommit, headCommit: pull.head.sha, manifestPath: manifestPath(id), catalogHash: manifest.catalogHash }
     await save()

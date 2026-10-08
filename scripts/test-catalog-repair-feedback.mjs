@@ -18,6 +18,12 @@ const trial = emptyRepairState(); trial.repairs.trial1 = { state: 'applied-await
 const heldTrial = recordFeedback(trial, 'trial1', feedback).state
 assert.ok(!effectiveHolds(heldTrial, 'production').includes('kb1234'))
 assert.ok(effectiveHolds(heldTrial, 'trial').includes('kb1234'))
+const later = interpretFeedback({ ...comment, id: 20, updated_at: '2026-10-08T03:00:00Z' }, [1081294])
+const laterState = recordFeedback(state, 'r1', later).state
+const older = interpretFeedback({ ...comment, id: 21, body: 'Please revert this', updated_at: '2026-10-08T02:00:00Z' }, [1081294])
+assert.equal(recordFeedback(laterState, 'r1', older).state.repairs.r1.state, 'changes-requested', 'Older comments from another review surface must not replace the latest request')
+const edited = interpretFeedback({ ...comment, id: 21, body: 'Please revert this', updated_at: '2026-10-08T04:00:00Z' }, [1081294])
+assert.equal(recordFeedback(laterState, 'r1', edited).state.repairs.r1.state, 'revert-requested')
 const current = { reviewedData: { advisories: [{ articleId: 'kb1234', records: ['original'] }], observationSpecs: { kb1234: {} } }, baselines: { articles: { kb1234: { text: 'old' } } }, catalog: { generatedAt: 'today', securityFeedPageStates: [{ articleId: 'kb1234', hash: 'old' }], securityFeedRoutes: [{ articleId: 'kb1234' }], securityFindings: [{ id: 'f1', sourceIds: ['kb1234'], value: 'old' }], releases: ['new unrelated release'] } }
 const before = projectRepairState(current, ['kb1234'])
 current.baselines.articles.kb1234.text = 'new'
