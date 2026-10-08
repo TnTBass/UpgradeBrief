@@ -16,7 +16,7 @@ Upgrade Brief is an independent community tool, not affiliated with or endorsed 
 
 ## How the catalog stays current
 
-The committed catalog is the runtime source of truth for the static site. Cloudflare Pages builds and deploys the site; it does not fetch vendor data at runtime.
+The committed catalog is the runtime source of truth for the static site. Cloudflare Workers Builds publishes the site; it does not fetch vendor data at runtime.
 
 Scheduled GitHub Actions refreshes publicly available Veeam and CISA information, including:
 
@@ -24,7 +24,7 @@ Scheduled GitHub Actions refreshes publicly available Veeam and CISA information
 - Veeam security advisories, Veeam lifecycle information, and CISA KEV exploitation status.
 - VBR release-information records and current Help Center What's New and release-note materials for the tracked products.
 
-Release materials are fingerprinted so changes to a version family’s What's New or release notes can be detected. Feature highlights are generated only from statements the official source material directly supports. Veeam-hosted sources are fetched one request at a time per host with a three-second minimum interval; transient network, 408, 429, and 5xx failures are retried up to three times while 403 responses fail immediately with redacted diagnostic headers and a short response preview. The refresh validates the candidate catalog before automatically committing a changed snapshot to `main` for Cloudflare Pages deployment. If a source cannot be safely parsed or validated, the last known-good catalog remains in place.
+Release materials are fingerprinted so changes to a version family’s What's New or release notes can be detected. Feature highlights are generated only from statements the official source material directly supports. Veeam-hosted sources are fetched one request at a time per host with a three-second minimum interval; transient network, 408, 429, and 5xx failures are retried up to three times while 403 responses fail immediately with redacted diagnostic headers and a short response preview. The refresh validates the candidate catalog before automatically committing a changed snapshot to `main` for Cloudflare Workers deployment. If a source cannot be safely parsed or validated, the last known-good catalog remains in place.
 
 ## Project status and limits
 
@@ -57,17 +57,21 @@ npm run dev
 
 ## Deployment
 
-Connect the public GitHub repository to Cloudflare Pages with:
+Connect the public GitHub repository to Cloudflare Workers Builds with:
 
 - Build command: `npm run build`
-- Build output directory: `dist`
+- Deploy command: `npx wrangler deploy` (static assets come from `dist` via `wrangler.jsonc`)
 - Node version: from `.nvmrc`
 
-No Pages Function or Worker is required.
+The Worker in `worker/index.ts` handles only the analytics routes before static asset serving; all other routes retain the existing SPA fallback.
 
 ## Audience and usage analytics
 
-Umami Cloud uses the public website ID in `index.html`. Tracking is restricted to `upgradebrief.com` and `www.upgradebrief.com`; local development and deployment previews do not send analytics. No API key or server component is required.
+Umami Cloud uses the public website ID in `index.html`. Tracking is restricted to `upgradebrief.com` and `www.upgradebrief.com`; local development and deployment previews do not send analytics. No Umami API key or separate analytics database is required.
+
+The browser loads `/stats.js` and sends events to `/api/send` on Upgrade Brief. The Worker proxies the current Umami Cloud script and collector, avoiding direct browser requests to Umami domains. It accepts same-origin production events for this website only, limits request bodies to 16 KiB, forwards the Umami session token and the real User-Agent, and uses Cloudflare's original visitor IP in Umami's `payload.ip`. The explicit IP prevents Cloudflare cross-zone proxy addresses from merging visitors or distorting location; IPs and event bodies are not logged by the Worker. Event responses are never cached; the script can be cached for five minutes. Fetch failures time out after five seconds and are not retried.
+
+Deploy the Worker routes and tracker tag together. Validate routing locally with `npm run build` and `npx wrangler deploy --dry-run`; plain Vite does not run the Worker. The existing production-host gate excludes local and preview visits. The proxy reduces third-party blocking but does not guarantee complete coverage or recover past visits.
 
 The application sends one pageview per document load, grouped as `/` (results) or `/journey`. Product/version changes are events, not extra pageviews. The initial pageview preserves incoming `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, and `utm_id`; selection and journey links preserve campaign parameters. For example: `https://upgradebrief.com/?utm_source=linkedin&utm_medium=social&utm_campaign=upgrade-journey`.
 
@@ -89,4 +93,4 @@ Raw version text, unknown query parameters, URL fragments, and referrer query st
 
 To exclude your own browser, run `localStorage.setItem('umami.disabled', '1')` in the site's browser console and reload; undo with `localStorage.removeItem('umami.disabled')`. This setting is specific to that browser and origin. See [Umami's exclusion instructions](https://docs.umami.is/docs/exclude-my-own-visits).
 
-After deployment, verify a tagged visit, a completed brief, a PDF export, a journey stage, a details expansion, and an outbound link in Umami's realtime/events views. Confirm that expansion and outbound events include the matched release, that closing a section does not add an event, and that changing a version does not add pageviews. Browser blocking can reduce measured traffic; PDF exports mean the browser was asked to save, not that a file was confirmed on disk.
+After deployment, verify that /stats.js returns JavaScript and /api/send returns a normal Umami cache/session response (HTTP 200 with beep: boop is bot-filtered, not stored). Confirm the proxied visitor session matches a direct diagnostic using the same visitor IP/User-Agent. Then verify a tagged visit, a completed brief, a PDF export, a journey stage, a details expansion, and an outbound link in Umami's realtime/events views. Confirm that expansion and outbound events include the matched release, that closing a section does not add an event, and that changing a version does not add pageviews. Browser blocking can reduce measured traffic; PDF exports mean the browser was asked to save, not that a file was confirmed on disk.

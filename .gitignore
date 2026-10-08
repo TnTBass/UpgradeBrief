@@ -8,6 +8,7 @@ docs/superpowers/
 
 # Local build artifacts
 node_modules/
+.wrangler/
 dist/
 *.tsbuildinfo
 artifacts/catalog-review/
