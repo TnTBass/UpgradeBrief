@@ -73,6 +73,7 @@ async function requestImplementation(id, repair, reason) {
     'Resolve this through a scoped follow-up implementation, rerun the catalog checks, and reconcile the source hold. Closing this issue alone does not clear the hold or authorize an unsupported source interpretation.',
   ].join('\n')
   const issue = await ensureInvestigation(api, { id: correctionId, title: `Change requested for catalog repair #${repair.number}`, body })
+  state.repairs[correctionId] ??= { state: 'needs-investigation', environment: repair.environment, number: issue.number, articleIds: repair.articleIds, parentRepairId: id }
   state.repairs[id].correctionIssue = issue.number; await save()
   await announce(id, `${correctionId}:requested`, `Your feedback is recorded and this repair is on hold. [Follow-up #${issue.number}](${issue.html_url}) explains the requested work and current constraint.`)
 }
@@ -129,13 +130,15 @@ async function revertRepair(id) {
   await announce(correctionId, `${correctionId}:applied`, `The requested correction is published and verified. Review the before/after records here; the original source hold remains active.`)
 }
 
-for (const id of Object.keys(state.repairs)) {
+// Follow-up issues are created after their parent. Read them first so a request
+// there can update its original repair during this same intake pass.
+for (const id of Object.keys(state.repairs).reverse()) {
   try {
     await recoverPublication(id)
     let repair = state.repairs[id]
     if (repair.notification?.pending) await announce(id, repair.notification.key, repair.notification.message)
     for (const feedback of await readTrustedFeedback(api, repair.number)) {
-      const recorded = recordFeedback(state, id, feedback)
+      const recorded = recordFeedback(state, repair.parentRepairId ?? id, feedback)
       if (recorded.changed) { state = recorded.state; await save(); outcomes.push({ id, event: feedback.kind }) }
     }
     repair = state.repairs[id]

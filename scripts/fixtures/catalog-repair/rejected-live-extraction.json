@@ -1,0 +1,44 @@
+{
+  "provenance": {
+    "runId": "37720044443",
+    "date": "2026-10-08",
+    "source": "https://www.veeam.com/kb4934",
+    "promptVersion": "2"
+  },
+  "expectedAccepted": false,
+  "reason": "The extraction omitted a required quote label and asserted an unresolved scope statement. The maintained validator must continue to abstain.",
+  "schemaVersion": 1,
+  "fixture": "source-derived reconstructed addition; not a historical acceptance claim",
+  "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "cached": false,
+  "durationMs": 12488,
+  "usage": {
+    "prompt_tokens": 445,
+    "completion_tokens": 210,
+    "total_tokens": 655,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "neurons": 54.87623596191406
+  },
+  "accepted": false,
+  "extraction": {
+    "kind": "vulnerability",
+    "records": [
+      {
+        "affected": "Veeam Backup & Replication 12.3.2.4854 and all earlier version 12 builds . Note: Version 13 is not affected.",
+        "conditions": "",
+        "cve": "CVE-2026-93026",
+        "description": "A vulnerability allowing an authenticated user with the Backup Viewer role to modify or delete the Enterprise Manager master key and read or overwrite stored antivirus update credentials on the Veeam Backup Server.",
+        "fixed": "This vulnerability was fixed starting in the following build: Veeam Backup & Replication 12.3.2 P4 (build 12.3.2.4934)",
+        "mitigation": "",
+        "product": "Veeam Backup & Replication",
+        "severity": "Medium CVSS v4.0 Score: 6.1"
+      }
+    ],
+    "summary": "Veeam Backup & Replication vulnerability",
+    "unresolved": [
+      "Version 13 is not affected."
+    ]
+  }
+}

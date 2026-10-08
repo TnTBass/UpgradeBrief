@@ -25,7 +25,7 @@ export async function readTrustedFeedback(api, number, trustedUserIds = [1081294
     await collect(`/pulls/${number}/reviews`, 'review')
     await collect(`/pulls/${number}/comments`, 'inline')
   }
-  return result
+  return result.sort((left, right) => left.updatedAt - right.updatedAt)
 }
 
 export function interpretFeedback(comment, trustedUserIds) {
@@ -34,7 +34,7 @@ export function interpretFeedback(comment, trustedUserIds) {
   if (!text || text.length > 20_000) return null
   const approval = /^(?:looks good(?: to me)?|approved|lgtm|this (?:looks|is) good|thanks(?:,? looks good)?)[.!\s]*$/i.test(text)
   const revert = /^(?:(?:please|can you|could you)\s+)?(?:revert|undo|roll back)\s+(?:this(?: change| repair)?|the (?:change|repair))(?: please)?[.!?\s]*$/i.test(text)
-  return { kind: approval ? 'reviewed' : revert ? 'revert-requested' : 'changes-requested', authorId: comment.user.id, author: comment.user.login, commentId: comment.id, url: comment.html_url, text, fingerprint: digest([comment.id, text]) }
+  return { kind: approval ? 'reviewed' : revert ? 'revert-requested' : 'changes-requested', authorId: comment.user.id, author: comment.user.login, commentId: comment.id, url: comment.html_url, text, updatedAt: Date.parse(comment.updated_at ?? comment.submitted_at ?? comment.created_at) || 0, fingerprint: digest([comment.id, text, comment.state ?? null]) }
 }
 
 export function recordFeedback(state, repairId, feedback) {
@@ -43,6 +43,8 @@ export function recordFeedback(state, repairId, feedback) {
   if (!repair) throw new Error('Feedback does not identify a known repair')
   if (next.feedback[String(feedback.commentId)] === feedback.fingerprint) return { state: next, changed: false }
   next.feedback[String(feedback.commentId)] = feedback.fingerprint
+  if ((repair.latestFeedbackAt ?? 0) > feedback.updatedAt) return { state: next, changed: false }
+  repair.latestFeedbackAt = feedback.updatedAt
   if (feedback.kind === 'reviewed' && repair.state === 'applied-awaiting-review') repair.state = 'reviewed'
   else if (feedback.kind !== 'reviewed') {
     repair.state = feedback.kind
