@@ -14,11 +14,12 @@ const hash = value => createHash('sha256').update(value).digest('hex')
 const safe = value => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/@/g, '&#64;')
 const trustedAuthor = user => user?.id === 1081294 || (user?.type === 'Bot' && user.login === 'github-actions[bot]')
 
-export function repairBrief({ id, baseCommit, articleIds, outcome, approach, checks, blocked = [], repository = 'TnTBass/UpgradeBrief', headCommit }) {
+export function repairBrief({ id, baseCommit, articleIds, outcome, approach, checks, changes = [], blocked = [], repository = 'TnTBass/UpgradeBrief', headCommit }) {
   return [
     `<!-- catalog-repair:${id} -->`,
     `Catalog repair: **${safe(outcome)}**.`, '',
     `**What changed:** ${articleIds.map(safe).join(', ') || 'Refresh failure without complete source evidence'}.`,
+    ...changes.map(change => safe(change)), '',
     `**Approach:** ${safe(approach)}`, '',
     `**Verified:** ${checks.map(safe).join(', ') || 'No candidate checks completed'}.`,
     ...(blocked.length ? [`**Needs attention:** ${blocked.map(safe).join('; ')}.`] : []), '',
