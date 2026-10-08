@@ -1,5 +1,12 @@
 import assert from 'node:assert/strict'
-import { emptyRepairState, githubStateStore, STATE_REF, validateRepairState } from './lib/catalog-repair-state.mjs'
+import { emptyRepairState, githubClient, githubStateStore, STATE_REF, validateRepairState } from './lib/catalog-repair-state.mjs'
+
+const requested = []
+const client = githubClient({ repository: 'TnTBass/UpgradeBrief', token: 'test', fetchImpl: async url => { requested.push(url); return { ok: true, status: 200, json: async () => ({}) } } })
+await client(`/compare/${'a'.repeat(40)}...${'b'.repeat(40)}`)
+assert.equal(requested.length, 1, 'Real GitHub comparisons must reach the API')
+for (const path of ['/../issues', '/git/%2e%2e/refs', '/git/./refs', '/git/%2f../refs', '/git/\\../refs', '//evil.test', '/issues#fragment']) await assert.rejects(client(path), /Invalid GitHub API path/)
+assert.equal(requested.length, 1, 'Traversal must be rejected before any authenticated request')
 
 let ref = null, serial = 0, ambiguous = false, race = false
 const objects = new Map()

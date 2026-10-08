@@ -16,7 +16,11 @@ export function validateRepairState(state) {
 export function githubClient({ repository, token, fetchImpl = fetch }) {
   if (!/^[\w.-]+\/[\w.-]+$/.test(repository ?? '') || !token) throw new Error('GitHub configuration missing')
   return async function api(path, { method = 'GET', body, allow404 = false } = {}) {
-    if (!path.startsWith('/') || path.includes('..')) throw new Error('Invalid GitHub API path')
+    // GitHub compares commits using base...head. Reject traversal segments,
+    // not the legitimate comparison separator inside a path segment.
+    let segments
+    try { segments = path.split('?')[0].split('/').map(decodeURIComponent) } catch { throw new Error('Invalid GitHub API path') }
+    if (!path.startsWith('/') || path.startsWith('//') || path.includes('#') || segments.some(segment => ['.', '..'].includes(segment) || /[\\/]/.test(segment))) throw new Error('Invalid GitHub API path')
     let response
     try {
       response = await fetchImpl(`https://api.github.com/repos/${repository}${path}`, {
