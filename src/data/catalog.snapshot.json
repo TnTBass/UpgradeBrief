@@ -11205,14 +11205,6 @@
       ]
     },
     {
-      "articleId": "kb4857",
-      "productIds": [
-        "vro"
-      ],
-      "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
-    },
-    {
       "articleId": "kb4858",
       "productIds": [
         "veeam-one"
@@ -11353,6 +11345,14 @@
       ],
       "hasOutOfScopeProduct": false,
       "contentFingerprint": "sha256:c6334b8609df8fff6e184fb752ad891afc1261ef088fb6961f91b7b5884f148c"
+    },
+    {
+      "articleId": "kb4857",
+      "productIds": [
+        "vro"
+      ],
+      "hasOutOfScopeProduct": false,
+      "contentFingerprint": "sha256:cb39bd69cc4b84be8e1d6948f35c49a87cd2c90b27a951dc6e6f767bfc0fbd81"
     }
   ],
   "vspcKbArticleIds": [
