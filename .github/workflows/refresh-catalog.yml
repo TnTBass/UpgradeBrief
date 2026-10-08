@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: refresh-catalog
+  group: catalog-control
   cancel-in-progress: false
 
 jobs:
@@ -36,6 +36,8 @@ jobs:
       - run: npm run test:security-feed-coverage
       - run: npm run test:reviewed-security-advisories
       - run: npm run test:security-review-baselines
+      - run: npm run test:catalog-repair
+      - run: npm run test:release-material-discovery
       - run: npm run test:release-information-adapter
       - run: npm run test:release-material-adapter
       - run: npm run test:lifecycle-adapter
@@ -51,7 +53,7 @@ jobs:
           name: catalogue-source-review
           path: artifacts/catalog-review/
           if-no-files-found: warn
-          retention-days: 30
+          retention-days: 7
       - name: Commit a validated catalog refresh when data changed
         run: |
           git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json

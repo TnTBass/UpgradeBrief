@@ -1,0 +1,1282 @@
+{
+  "schemaVersion": 1,
+  "advisories": [
+    {
+      "articleId": "kb4771",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4771",
+        "title": "Veeam KB4771: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4165 Patch",
+        "url": "https://www.veeam.com/kb4771"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "12.",
+          "throughBuild": "12.3.2.3617"
+        }
+      ],
+      "fixedReleaseId": "vbr-12.3.2.4165",
+      "records": [
+        {
+          "cve": "CVE-2025-48983",
+          "title": "A vulnerability in the Mount service allows an authenticated domain user to execute code remotely on backup infrastructure hosts.",
+          "cvssScore": 9.9,
+          "conditions": [
+            "This issue affects domain-joined Veeam Backup & Replication v12 backup infrastructure servers. Veeam states that non-domain-joined hosts and the Veeam Software Appliance are not affected.",
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        },
+        {
+          "cve": "CVE-2025-48984",
+          "title": "A vulnerability allows an authenticated domain user to execute code remotely on the backup server.",
+          "cvssScore": 9.9,
+          "conditions": [
+            "This issue affects domain-joined Veeam Backup & Replication v12 backup servers. Veeam states that non-domain-joined servers and the Veeam Software Appliance are not affected.",
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4743",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4743",
+        "title": "Veeam KB4743: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2",
+        "url": "https://www.veeam.com/kb4743"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "12.",
+          "throughBuild": "12.3.1.1139"
+        }
+      ],
+      "fixedReleaseId": "vbr-12.3.2.3617",
+      "records": [
+        {
+          "cve": "CVE-2025-23121",
+          "title": "A vulnerability allows an authenticated domain user to execute code remotely on the backup server.",
+          "cvssScore": 9.9,
+          "conditions": [
+            "This issue affects domain-joined backup servers.",
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        },
+        {
+          "cve": "CVE-2025-24286",
+          "title": "An authenticated Backup Operator can modify backup jobs in a way that executes arbitrary code.",
+          "cvssScore": 7.2,
+          "conditions": [
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4724",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4724",
+        "title": "Veeam KB4724: CVE-2025-23120",
+        "url": "https://www.veeam.com/kb4724"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "12.",
+          "throughBuild": "12.3.0.310"
+        }
+      ],
+      "fixedReleaseId": "vbr-build-12-3-1-1139",
+      "records": [
+        {
+          "cve": "CVE-2025-23120",
+          "title": "A vulnerability allows an authenticated domain user to execute code remotely on the backup server.",
+          "cvssScore": 9.9,
+          "conditions": [
+            "This issue affects domain-joined backup servers. KB4724 also offers a build-specific hotfix for 12.3.0.310; verify its file hashes if using that remediation.",
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4424",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4424",
+        "title": "Veeam KB4424: CVE-2023-27532",
+        "url": "https://www.veeam.com/kb4424"
+      },
+      "affectedVersionPrefixes": [
+        "5.",
+        "6.",
+        "7.",
+        "8.",
+        "9.",
+        "10.",
+        "11.",
+        "12.0."
+      ],
+      "remediation": "Install Veeam Backup & Replication 12.0.0.1420 P20230223 or 11.0.1.1261 P20230227. Earlier versions must first be upgraded to a supported version.",
+      "records": [
+        {
+          "cve": "CVE-2023-27532",
+          "title": "An unauthenticated user inside the backup infrastructure network perimeter can obtain encrypted credentials from the configuration database.",
+          "cvssScore": 7.5,
+          "conditions": [
+            "The vulnerable Veeam Backup Service listens on TCP 9401 by default. Patch-level verification is required because the fixed 11a and 12 builds retain their base build numbers."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4290",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4290",
+        "title": "Veeam KB4290: CVE-2022-26504",
+        "url": "https://www.veeam.com/kb4290"
+      },
+      "affectedVersionPrefixes": [
+        "9.5.",
+        "10.",
+        "11."
+      ],
+      "remediation": "Install Veeam Backup & Replication 11.0.1.1261 P20220302 or 10.0.1.4854 P20220304. Veeam Backup & Replication 9.5 must be upgraded to a supported version.",
+      "records": [
+        {
+          "cve": "CVE-2022-26504",
+          "title": "A domain user can execute malicious code remotely through the Microsoft SCVMM integration component.",
+          "cvssScore": 8.8,
+          "conditions": [
+            "The default installation is not affected; an SCVMM server must be registered. Patch-level verification is required because the fixed 10a and 11a builds retain their base build numbers."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4288",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4288",
+        "title": "Veeam KB4288: CVE-2022-26500 and CVE-2022-26501",
+        "url": "https://www.veeam.com/kb4288"
+      },
+      "affectedVersionPrefixes": [
+        "9.5.",
+        "10.",
+        "11."
+      ],
+      "remediation": "Install Veeam Backup & Replication 11.0.1.1261 P20220302 or 10.0.1.4854 P20220304. Veeam Backup & Replication 9.5 must be upgraded to a supported version. Stopping and disabling the Veeam Distribution Service is only a temporary mitigation.",
+      "conditions": [
+        "The vulnerable Veeam Distribution Service listens on TCP 9380 by default. Patch-level verification is required because the fixed 10a and 11a builds retain their base build numbers."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2022-26500",
+          "title": "An unauthenticated attacker can execute malicious code remotely through internal Veeam Distribution Service API functions.",
+          "cvssScore": 9.8
+        },
+        {
+          "cve": "CVE-2022-26501",
+          "title": "An unauthenticated attacker can execute malicious code remotely through internal Veeam Distribution Service API functions.",
+          "cvssScore": 9.8
+        }
+      ]
+    },
+    {
+      "articleId": "kb2662",
+      "productId": "vbr",
+      "source": {
+        "id": "kb2662",
+        "title": "Veeam KB2662: Zip Slip Vulnerability",
+        "url": "https://www.veeam.com/kb2662"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "8.",
+          "throughBuild": "8.0.0.2084"
+        },
+        {
+          "versionPrefix": "9.",
+          "throughBuild": "9.5.0.1536"
+        }
+      ],
+      "remediation": "Apply the KB2662 hotfix for Veeam Backup & Replication 8 Update 3, 9.0 Update 2, 9.5 Update 2, or 9.5 Update 3. The fix is included in 9.5 Update 3a.",
+      "records": [
+        {
+          "cve": "CVE-2018-1002205",
+          "title": "The DotNetZip Zip Slip vulnerability permits arbitrary file overwrite through path-traversal filenames during guest file system indexing.",
+          "conditions": [
+            "Veeam documents guest file system indexing as the only known attack path. Veeam does not publish a CVSS score in KB2662."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb2180",
+      "productId": "vbr",
+      "source": {
+        "id": "kb2180",
+        "title": "Veeam KB2180: Veeam Backup & Replication Local Privilege Escalation Vulnerability",
+        "url": "https://www.veeam.com/kb2180"
+      },
+      "affectedVersionPrefixes": [
+        "6.",
+        "7."
+      ],
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "8.",
+          "throughBuild": "8.0.0.2029"
+        }
+      ],
+      "fixedReleaseId": "vbr-build-8-0-0-2084",
+      "records": [
+        {
+          "cve": "CVE-2015-5742",
+          "title": "A low-privileged local Windows user can read Veeam Backup logs and recover the password used to run privileged Veeam components.",
+          "conditions": [
+            "KB2180 publishes the malformed identifier CVE20155742; it is canonicalized to CVE-2015-5742. Veeam does not publish a CVSS score in the article. Updating to Veeam Backup & Replication 9.x is also a documented solution."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb3103",
+      "productId": "vbr",
+      "source": {
+        "id": "kb3103",
+        "title": "Veeam KB3103: List of Security Fixes and Improvements in Veeam Backup & Replication",
+        "url": "https://www.veeam.com/kb3103"
+      },
+      "affectedVersionPrefixes": [
+        "10.",
+        "11.0.0."
+      ],
+      "remediation": "Install Veeam Backup & Replication 11.0.0.837 P20210507 or 10.0.1.4854 P20210609, or a later release containing those fixes.",
+      "records": [
+        {
+          "cve": "CVE-2021-35971",
+          "title": "A vulnerability in Microsoft .NET remoting deserialization logic was fixed.",
+          "conditions": [
+            "KB3103 is the only Veeam advisory source for this catalog finding and does not publish a CVSS score or a separate affected-build statement. Verify the installed patch date because the fixed builds retain their base build numbers."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4879",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4879",
+        "title": "Veeam KB4879: Veeam Software Appliance and Veeam Infrastructure Appliance Updater Component Vulnerability",
+        "url": "https://www.veeam.com/kb4879"
+      },
+      "records": []
+    },
+    {
+      "articleId": "kb4491",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4491",
+        "title": "Veeam KB4491: Security Issue in Microsoft Azure Plug-In for Veeam Backup & Replication",
+        "url": "https://www.veeam.com/kb4491"
+      },
+      "affectedVersionPrefixes": [
+        "12."
+      ],
+      "remediation": "Upgrade Microsoft Azure Plug-In for Veeam Backup & Replication from 12.1.5.99 to 12.1.5.106, then rotate the appliance administrator password in Veeam Backup for Microsoft Azure and Veeam Backup & Replication.",
+      "records": [
+        {
+          "key": "azure-plugin-credential-disclosure",
+          "title": "The Microsoft Azure plug-in can expose a Veeam Backup for Microsoft Azure appliance administrator password in an updater log.",
+          "conditions": [
+            "This issue applies when an Azure appliance was upgraded to version 5a using Microsoft Azure Plug-In 12.1.5.99. KB4491 does not assign a CVE or publish a CVSS score."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4682",
+      "productId": "enterprise-manager",
+      "source": {
+        "id": "kb4682",
+        "title": "Veeam KB4682: Veeam Backup Enterprise Manager Vulnerability (CVE-2024-40715)",
+        "url": "https://www.veeam.com/kb4682"
+      },
+      "affectedVersionPrefixes": [
+        "10.",
+        "11.",
+        "12.0.",
+        "12.1.",
+        "12.2."
+      ],
+      "remediation": "Upgrade Veeam Backup Enterprise Manager 12.1.2.172 or earlier to 12.2.0.334 using the repackaged ISO, or apply the KB4682 hotfix to an existing 12.2.0.334 deployment.",
+      "records": [
+        {
+          "cve": "CVE-2024-40715",
+          "title": "An attacker performing a man-in-the-middle attack can bypass Veeam Backup Enterprise Manager authentication.",
+          "cvssScore": 7.7,
+          "conditions": [
+            "Veeam documents this issue for the optional Veeam Backup Enterprise Manager component. Verify that Enterprise Manager is deployed; this does not downgrade the upgrade reason.",
+            "The 12.2.0.334 hotfix does not establish a distinct product build in the catalog; verify hotfix deployment."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4508",
+      "productId": "vro",
+      "source": {
+        "id": "kb4508",
+        "title": "Veeam KB4508: CVE-2023-38547, CVE-2023-38548, CVE-2023-38549, and CVE-2023-41723",
+        "url": "https://www.veeam.com/kb4508"
+      },
+      "affectedVersionPrefixes": [
+        "4.",
+        "5.",
+        "6."
+      ],
+      "remediation": "Apply the KB4508 hotfix matching the embedded Veeam ONE build. Veeam Recovery Orchestrator 6 GA must first be updated to VRO 6 P20230419 so its embedded Veeam ONE build is 12.0.1.2591.",
+      "conditions": [
+        "Veeam Recovery Orchestrator embeds Veeam ONE. VRO 7 is not affected because it uses Veeam ONE 12.1. Verify the embedded Veeam ONE build and hotfix files."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2023-38547",
+          "title": "The embedded Veeam ONE component can disclose SQL connection information to an unauthenticated user, potentially leading to code execution on its configuration database server.",
+          "cvssScore": 9.9
+        },
+        {
+          "cve": "CVE-2023-38548",
+          "title": "An unprivileged embedded Veeam ONE Web Client user can acquire the NTLM hash of the Veeam ONE Reporting Service account.",
+          "cvssScore": 9.8
+        },
+        {
+          "cve": "CVE-2023-38549",
+          "title": "An embedded Veeam ONE Power User can use cross-site scripting to obtain an administrator access token.",
+          "cvssScore": 4.5
+        },
+        {
+          "cve": "CVE-2023-41723",
+          "title": "An embedded Veeam ONE Read-Only User can view the Dashboard Schedule.",
+          "cvssScore": 4.3
+        }
+      ]
+    },
+    {
+      "articleId": "kb4693",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4693",
+        "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
+        "url": "https://www.veeam.com/kb4693"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "12.",
+          "throughBuild": "12.2.0.334"
+        }
+      ],
+      "fixedReleaseId": "vbr-build-12-3-0-310",
+      "conditions": [
+        "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2024-40717",
+          "title": "An authenticated user with a role assigned on the backup server can execute a pre-job or post-job script as LocalSystem.",
+          "cvssScore": 8.8
+        },
+        {
+          "cve": "CVE-2024-42451",
+          "title": "An authenticated user with a role assigned on the backup server can access all saved credentials in a human-readable format.",
+          "cvssScore": 7.7
+        },
+        {
+          "cve": "CVE-2024-42452",
+          "title": "An authenticated user with a role assigned on the backup server can remotely upload files to connected ESXi hosts with elevated privileges.",
+          "cvssScore": 8.8
+        },
+        {
+          "cve": "CVE-2024-42453",
+          "title": "An authenticated user with a role assigned on the backup server can control and modify the configuration of connected virtual infrastructure hosts.",
+          "cvssScore": 8.8
+        },
+        {
+          "cve": "CVE-2024-42455",
+          "title": "An authenticated user with a role assigned on the backup server can exploit insecure deserialization to delete files with service-account privileges.",
+          "cvssScore": 7.1
+        },
+        {
+          "cve": "CVE-2024-42456",
+          "title": "An authenticated user with a role assigned on the backup server can access privileged methods and control critical services.",
+          "cvssScore": 8.8
+        },
+        {
+          "cve": "CVE-2024-42457",
+          "title": "An authenticated user with certain operator roles can expose saved credentials through the remote management interface.",
+          "cvssScore": 7.7
+        },
+        {
+          "cve": "CVE-2024-45204",
+          "title": "An authenticated user with an assigned role can exploit insufficient credential-handling permissions and potentially leak saved-credential NTLM hashes.",
+          "cvssScore": 7.7
+        }
+      ]
+    },
+    {
+      "articleId": "kb4902",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4902",
+        "title": "Veeam KB4902: Vulnerabilities Resolved in Veeam Backup & Replication 13.1",
+        "url": "https://www.veeam.com/kb4902"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.0.2.29"
+        }
+      ],
+      "fixedReleaseId": "vbr-build-13-1-0-411",
+      "remediation": "Upgrade to Veeam Backup & Replication 13.1.0.411 or 13.0.3.63, or a later release in the selected version branch. After upgrading, change the passwords associated with credentials used for Application-Aware Processing. The fix prevents future password logging but does not remove existing log files.",
+      "records": [
+        {
+          "cve": "CVE-2026-58070",
+          "title": "Guest OS credentials used for application-aware processing can be recorded in cleartext in logs on the guest machine.",
+          "cvssScore": 6.8,
+          "conditions": [
+            "Veeam states that Veeam Backup & Replication 13.0.2.29 and all earlier version 13 builds are affected; older 12.x versions are not affected.",
+            "Verify access controls and retention for guest-machine logs that may contain recorded credentials; this does not remove the need to upgrade an affected build."
+          ]
+        },
+        {
+          "cve": "CVE-2026-58069",
+          "title": "An authenticated Veeam Cloud Connect tenant can read arbitrary files on the service provider host.",
+          "cvssScore": 8.3,
+          "affectedBuildRanges": [
+            {
+              "versionPrefix": "12.",
+              "throughBuild": "12.3.2.4854"
+            },
+            {
+              "versionPrefix": "13.",
+              "throughBuild": "13.0.2.29"
+            }
+          ],
+          "remediation": "Upgrade the selected branch to Veeam Backup & Replication 13.1.0.411, 13.0.3.63, or 12.3.2.4934, or a later release containing the fix.",
+          "conditions": [
+            "Veeam documents this issue for Windows-based Veeam Backup & Replication acting as a Cloud Connect service provider host; exploitation requires an authenticated tenant.",
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4934",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4934",
+        "title": "Veeam KB4934: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2 P4",
+        "url": "https://www.veeam.com/kb4934"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "12.",
+          "throughBuild": "12.3.2.4854"
+        }
+      ],
+      "fixedReleaseId": "vbr-build-12-3-2-4934",
+      "conditions": [
+        "Veeam states that version 13 is not affected."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2025-64393",
+          "title": "A low-privileged Backup Viewer can execute code on the backup server through insecure deserialization in the Mount Service.",
+          "cvssScore": 9.4
+        },
+        {
+          "cve": "CVE-2026-93026",
+          "title": "An authenticated Backup Viewer can modify or delete the Enterprise Manager master key and read or overwrite antivirus update credentials stored on the backup server.",
+          "cvssScore": 6.1
+        }
+      ]
+    },
+    {
+      "articleId": "kb4934",
+      "productId": "enterprise-manager",
+      "source": {
+        "id": "kb4934",
+        "title": "Veeam KB4934: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2 P4",
+        "url": "https://www.veeam.com/kb4934"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "12.",
+          "throughBuild": "12.3.2.4854"
+        }
+      ],
+      "fixedReleaseId": "em-build-12-3-2-4934",
+      "conditions": [
+        "Veeam documents this issue for the optional Veeam Backup Enterprise Manager component. Verify that Enterprise Manager is deployed; this does not downgrade the upgrade reason.",
+        "Veeam states that version 13 is not affected."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2025-64392",
+          "title": "An attacker can execute script in an authenticated Enterprise Manager portal user's browser when that user opens a crafted link.",
+          "cvssScore": 4.8
+        }
+      ]
+    },
+    {
+      "articleId": "kb4892",
+      "productId": "veeam-one",
+      "source": {
+        "id": "kb4892",
+        "title": "Veeam KB4892: Vulnerabilities Resolved in Veeam ONE 13.1",
+        "url": "https://www.veeam.com/kb4892"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.0.2.6723"
+        }
+      ],
+      "fixedReleaseId": "veeam-one-build-13-1-0-7034",
+      "remediation": "Upgrade to Veeam ONE 13.1.0.7034 or 13.0.2.7159. For the findings that also affect version 12, upgrade that branch to 12.3.0.7165 or later.",
+      "records": [
+        {
+          "cve": "CVE-2026-64633",
+          "title": "A vulnerability allows remote unauthenticated code execution on the agent host.",
+          "cvssScore": 10,
+          "conditions": [
+            "Veeam states that older 12.x versions are not affected."
+          ]
+        },
+        {
+          "cve": "CVE-2026-58075",
+          "title": "An unauthenticated attacker can read arbitrary files from the host and potentially escalate privileges locally.",
+          "cvssScore": 8.7,
+          "conditions": [
+            "Veeam states that older 12.x versions are not affected."
+          ]
+        },
+        {
+          "cve": "CVE-2026-58074",
+          "title": "A high-privileged user can execute arbitrary code on the server.",
+          "cvssScore": 8.6,
+          "affectedBuildRanges": [
+            {
+              "versionPrefix": "12.",
+              "throughBuild": "12.3.0.4670"
+            },
+            {
+              "versionPrefix": "13.",
+              "throughBuild": "13.0.2.6723"
+            }
+          ],
+          "conditions": [
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        },
+        {
+          "cve": "CVE-2026-64631",
+          "title": "A low-privileged user can inject SQL and extract database contents.",
+          "cvssScore": 8.6,
+          "affectedBuildRanges": [
+            {
+              "versionPrefix": "12.",
+              "throughBuild": "12.3.0.4670"
+            },
+            {
+              "versionPrefix": "13.",
+              "throughBuild": "13.0.2.6723"
+            }
+          ],
+          "conditions": [
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        },
+        {
+          "cve": "CVE-2026-64632",
+          "title": "A low-privileged user can capture the NTLM credentials of the Reporter service account.",
+          "cvssScore": 8.5,
+          "affectedBuildRanges": [
+            {
+              "versionPrefix": "12.",
+              "throughBuild": "12.3.0.4670"
+            },
+            {
+              "versionPrefix": "13.",
+              "throughBuild": "13.0.2.6723"
+            }
+          ],
+          "conditions": [
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        },
+        {
+          "cve": "CVE-2026-64634",
+          "title": "A local user can escalate privileges to the Reporter service context.",
+          "cvssScore": 8.4,
+          "conditions": [
+            "Veeam states that older 12.x versions are not affected."
+          ]
+        },
+        {
+          "cve": "CVE-2026-64630",
+          "title": "A low-privileged user can retrieve report data outside the scope of a shared report link.",
+          "cvssScore": 5.3,
+          "conditions": [
+            "Veeam states that older 12.x versions are not affected."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4905",
+      "productId": "veeam-one",
+      "source": {
+        "id": "kb4905",
+        "title": "Veeam KB4905: Vulnerability Resolved in Veeam ONE 13.1 Patch 0",
+        "url": "https://www.veeam.com/kb4905"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.1.0.7034"
+        }
+      ],
+      "fixedReleaseId": "veeam-one-build-13-1-0-7233",
+      "remediation": "Upgrade to Veeam ONE 13.1.0.7233 or 13.0.2.7159, or a later release in the selected version branch.",
+      "records": [
+        {
+          "cve": "CVE-2026-65641",
+          "title": "An unauthenticated network attacker can coerce SMB authentication from the service account.",
+          "cvssScore": 9.3,
+          "conditions": [
+            "Veeam states that older 12.x versions are not affected."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4852",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4852",
+        "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
+        "url": "https://www.veeam.com/kb4852"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.",
+          "throughBuild": "13.0.1.2067"
+        }
+      ],
+      "fixedReleaseId": "vbr-13.0.2",
+      "records": [
+        {
+          "cve": "CVE-2026-32997",
+          "title": "An authenticated Backup Administrator can write arbitrary files on a Linux-based Veeam Backup & Replication server.",
+          "cvssScore": 8.6,
+          "conditions": [
+            "Veeam lists the affected deployment type as Veeam Software Appliance."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4581",
+      "productId": "enterprise-manager",
+      "source": {
+        "id": "kb4581",
+        "title": "Veeam KB4581: Veeam Backup Enterprise Manager Vulnerabilities",
+        "url": "https://www.veeam.com/kb4581"
+      },
+      "affectedVersionPrefixes": [
+        "5.",
+        "6.",
+        "7.",
+        "8.",
+        "9.",
+        "10",
+        "11",
+        "12.0.",
+        "12.1."
+      ],
+      "fixedReleaseId": "em-12.1.2.172",
+      "conditions": [
+        "Veeam documents this issue for the optional Veeam Backup Enterprise Manager component. Verify that Enterprise Manager is deployed; this does not downgrade the upgrade reason."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2024-29849",
+          "title": "An unauthenticated attacker can sign in to the Enterprise Manager web interface as any user.",
+          "cvssScore": 9.8
+        },
+        {
+          "cve": "CVE-2024-29850",
+          "title": "An attacker can take over an Enterprise Manager account through NTLM relay.",
+          "cvssScore": 8.8
+        },
+        {
+          "cve": "CVE-2024-29851",
+          "title": "A high-privileged user can steal the Enterprise Manager service account NTLM hash when the service does not run as Local System.",
+          "cvssScore": 7.2
+        },
+        {
+          "cve": "CVE-2024-29852",
+          "title": "A high-privileged user can read backup session logs.",
+          "cvssScore": 2.7
+        }
+      ]
+    },
+    {
+      "articleId": "kb4541",
+      "productId": "vro",
+      "source": {
+        "id": "kb4541",
+        "title": "Veeam KB4541: Veeam Recovery Orchestrator Vulnerabilities",
+        "url": "https://www.veeam.com/kb4541"
+      },
+      "affectedReleaseIds": [
+        "vro-build-6-0-0-3516"
+      ],
+      "affectedVersionPrefixes": [
+        "4.",
+        "5."
+      ],
+      "fixedReleaseId": "vro-build-7-0-0-337",
+      "conditions": [
+        "Veeam identifies VRO 6, Disaster Recovery Orchestrator 5, and Availability Orchestrator 4 as affected. VRO 7 is not affected."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2024-22021",
+          "title": "A low-privileged Plan Author can retrieve plans outside their assigned scope.",
+          "cvssScore": 4.5
+        },
+        {
+          "cve": "CVE-2024-22022",
+          "title": "A low-privileged Orchestrator user can access the service account NTLM hash.",
+          "cvssScore": 8.8
+        }
+      ]
+    },
+    {
+      "articleId": "kb4585",
+      "productId": "vro",
+      "source": {
+        "id": "kb4585",
+        "title": "Veeam KB4585: Veeam Recovery Orchestrator Vulnerability (CVE-2024-29855)",
+        "url": "https://www.veeam.com/kb4585"
+      },
+      "affectedReleaseIds": [
+        "vro-build-7-0-0-337",
+        "vro-build-7-1-0-205"
+      ],
+      "fixedReleaseId": "vro-7.1.0.230",
+      "records": [
+        {
+          "cve": "CVE-2024-29855",
+          "title": "An attacker can access the Veeam Recovery Orchestrator web interface with administrative privileges.",
+          "cvssScore": 9,
+          "conditions": [
+            "The attacker must know the exact username and role of an account with an active VRO UI access token. Verify this precondition; it does not downgrade the critical upgrade reason."
+          ]
+        }
+      ]
+    }
+  ],
+  "observationSpecs": {
+    "kb4771": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2025-48983",
+          "CVE-2025-48984"
+        ]
+      },
+      "ignoredCveIds": [
+        "CVE-2025-48982"
+      ]
+    },
+    "kb4743": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2025-23121",
+          "CVE-2025-24286"
+        ]
+      },
+      "ignoredCveIds": [
+        "CVE-2025-24287"
+      ]
+    },
+    "kb4724": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2025-23120"
+        ]
+      }
+    },
+    "kb4424": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2023-27532"
+        ]
+      },
+      "ignoredCveIds": [
+        "CVE-2023-27530"
+      ]
+    },
+    "kb4290": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2022-26504"
+        ]
+      }
+    },
+    "kb4288": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2022-26500",
+          "CVE-2022-26501"
+        ]
+      }
+    },
+    "kb2662": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2018-1002205"
+        ]
+      }
+    },
+    "kb2180": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2015-5742"
+        ]
+      }
+    },
+    "kb3103": {
+      "classification": "inventory",
+      "productCves": {
+        "vbr": [
+          "CVE-2021-35971"
+        ]
+      },
+      "ignoredCveIds": [
+        "CVE-2022-26500",
+        "CVE-2022-26501",
+        "CVE-2022-26503",
+        "CVE-2022-26504",
+        "CVE-2023-27532",
+        "CVE-2023-38545",
+        "CVE-2024-29849",
+        "CVE-2024-29850",
+        "CVE-2024-29851",
+        "CVE-2024-29852",
+        "CVE-2024-39718",
+        "CVE-2024-40710",
+        "CVE-2024-40711",
+        "CVE-2024-40712",
+        "CVE-2024-40713",
+        "CVE-2024-40714",
+        "CVE-2024-40717",
+        "CVE-2024-42451",
+        "CVE-2024-42452",
+        "CVE-2024-42453",
+        "CVE-2024-42455",
+        "CVE-2024-42456",
+        "CVE-2024-42457",
+        "CVE-2024-45204",
+        "CVE-2025-23120",
+        "CVE-2025-23121",
+        "CVE-2025-24286",
+        "CVE-2025-48983",
+        "CVE-2025-48984",
+        "CVE-2025-55125",
+        "CVE-2025-59468",
+        "CVE-2025-59469",
+        "CVE-2025-59470",
+        "CVE-2026-21666",
+        "CVE-2026-21667",
+        "CVE-2026-21668",
+        "CVE-2026-21669",
+        "CVE-2026-21670",
+        "CVE-2026-21671",
+        "CVE-2026-21672",
+        "CVE-2026-21708",
+        "CVE-2026-32997",
+        "CVE-2026-44963",
+        "CVE-2026-58070",
+        "CVE-2026-58069",
+        "CVE-2025-64392",
+        "CVE-2025-64393",
+        "CVE-2026-93026"
+      ]
+    },
+    "kb4879": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:f51d646f6c50e81736d0f6d38e27352ffbd41e718ac7c59036c44194a859050b"
+    },
+    "kb4491": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true
+    },
+    "kb4682": {
+      "classification": "dedicated",
+      "productCves": {
+        "enterprise-manager": [
+          "CVE-2024-40715"
+        ]
+      }
+    },
+    "kb4508": {
+      "classification": "dedicated",
+      "productCves": {
+        "veeam-one": [
+          "CVE-2023-38547",
+          "CVE-2023-38548",
+          "CVE-2023-38549",
+          "CVE-2023-41723"
+        ],
+        "vro": [
+          "CVE-2023-38547",
+          "CVE-2023-38548",
+          "CVE-2023-38549",
+          "CVE-2023-41723"
+        ]
+      },
+      "multiProduct": true
+    },
+    "kb4649": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2024-39718",
+          "CVE-2024-40710",
+          "CVE-2024-40711",
+          "CVE-2024-40712",
+          "CVE-2024-40713",
+          "CVE-2024-40714"
+        ],
+        "veeam-one": [
+          "CVE-2024-42019",
+          "CVE-2024-42020",
+          "CVE-2024-42021",
+          "CVE-2024-42022",
+          "CVE-2024-42023",
+          "CVE-2024-42024"
+        ],
+        "vspc": [
+          "CVE-2024-38650",
+          "CVE-2024-38651",
+          "CVE-2024-39714",
+          "CVE-2024-39715",
+          "CVE-2024-45206"
+        ]
+      },
+      "ignoredCveIds": [
+        "CVE-2024-40709",
+        "CVE-2024-40718"
+      ],
+      "multiProduct": true
+    },
+    "kb4693": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2024-40717",
+          "CVE-2024-42451",
+          "CVE-2024-42452",
+          "CVE-2024-42453",
+          "CVE-2024-42455",
+          "CVE-2024-42456",
+          "CVE-2024-42457",
+          "CVE-2024-45204"
+        ]
+      },
+      "ignoredCveIds": [
+        "CVE-2024-45207"
+      ]
+    },
+    "kb4902": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2026-58070",
+          "CVE-2026-58069"
+        ]
+      },
+      "ignoredCveIds": [
+        "CVE-2026-58068",
+        "CVE-2025-64391"
+      ]
+    },
+    "kb4934": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2025-64393",
+          "CVE-2026-93026"
+        ],
+        "enterprise-manager": [
+          "CVE-2025-64392"
+        ]
+      },
+      "multiProduct": true
+    },
+    "kb4892": {
+      "classification": "dedicated",
+      "productCves": {
+        "veeam-one": [
+          "CVE-2026-58074",
+          "CVE-2026-58075",
+          "CVE-2026-64630",
+          "CVE-2026-64631",
+          "CVE-2026-64632",
+          "CVE-2026-64633",
+          "CVE-2026-64634"
+        ]
+      }
+    },
+    "kb4905": {
+      "classification": "dedicated",
+      "productCves": {
+        "veeam-one": [
+          "CVE-2026-65641"
+        ]
+      }
+    },
+    "kb4852": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2026-32997"
+        ]
+      },
+      "ignoredCveIds": [
+        "CVE-2026-32996"
+      ]
+    },
+    "kb4581": {
+      "classification": "dedicated",
+      "productCves": {
+        "enterprise-manager": [
+          "CVE-2024-29849",
+          "CVE-2024-29850",
+          "CVE-2024-29851",
+          "CVE-2024-29852"
+        ]
+      }
+    },
+    "kb4541": {
+      "classification": "dedicated",
+      "productCves": {
+        "vro": [
+          "CVE-2024-22021",
+          "CVE-2024-22022"
+        ]
+      }
+    },
+    "kb4585": {
+      "classification": "dedicated",
+      "productCves": {
+        "vro": [
+          "CVE-2024-29855"
+        ]
+      }
+    },
+    "kb4163": {
+      "classification": "informational",
+      "productCves": {
+        "vspc": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "SUPERSEDED_BY_TRACKED_ADVISORY",
+      "contentFingerprint": "sha256:7f9ec10ab9104ee413a3ac5e2663008fbe8e7d04a5a2d0ca0761e06095d9f650"
+    },
+    "kb4231": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "ignoredCveIds": [
+        "CVE-2021-36934"
+      ],
+      "informationalReason": "NO_VENDOR_VULNERABILITY_FINDING",
+      "contentFingerprint": "sha256:683a089eebe8e9d0c87617f88a12d607b56074219a0105eef61437d21667670c"
+    },
+    "kb4254": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": [],
+        "enterprise-manager": [],
+        "veeam-one": [],
+        "vro": [],
+        "vspc": [],
+        "vb365": []
+      },
+      "ignoredCveIds": [
+        "CVE-2021-21985",
+        "CVE-2021-44228"
+      ],
+      "multiProduct": true,
+      "informationalReason": "NO_VENDOR_VULNERABILITY_FINDING",
+      "contentFingerprint": "sha256:07fd1d4c016859cd8dacc2f1046ca7ee8a6297bf3a7de27c47646e40640708d3"
+    },
+    "kb4233": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": [],
+        "enterprise-manager": [],
+        "veeam-one": [],
+        "vro": [],
+        "vspc": [],
+        "vb365": []
+      },
+      "allowNoCves": true,
+      "multiProduct": true,
+      "informationalReason": "NO_VENDOR_VULNERABILITY_FINDING",
+      "contentFingerprint": "sha256:c642a2dc79645c533c3aa4fab5ed7e123bb0c18042b223a91a2f84562fbd0323"
+    },
+    "kb4236": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:a2378cfad49493154f3e9530c9f01a9bdb531a75c135e68fee4ce9a3495b6a0c"
+    },
+    "kb4917": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:0e9c2bcce19f20fa7fbd5c64523076ec0c3cb8317c1117adfabfdbba304894f9"
+    },
+    "kb4919": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:f001b6c1c48d55ad657188c35456e08a96e42123b0b0b413dd299136ca35646f"
+    },
+    "kb4920": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:6b49918d61c761bb0fb33f03cce81f5cb2bcadbfbbe16a75eab517ec9bb0cd0b"
+    },
+    "kb4921": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:abc7e8d7870a23e1fa819420cbaeb733fcc7537e2289a9cdb458811666730455"
+    },
+    "kb4922": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:37c4a1151fe9b5339678989f1c1d49ff1744c84ee9c3b1c0f326040a303e9974"
+    },
+    "kb4923": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:06646d0504727a8860a69a0424a994a96b35a2da7bf1a952e3d87222dd8509ca"
+    },
+    "kb4924": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:a6aaa391c61acf84faaa70559353d6d5160d8bf10aded375b197990d7e108f55"
+    },
+    "kb4925": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:b99e32c0c53f1fe5dac7260c9256574c8b5a06795e01563b8ac0be80dded948a"
+    },
+    "kb4926": {
+      "classification": "out-of-scope",
+      "productCves": {},
+      "allowNoCves": true
+    },
+    "kb4857": {
+      "classification": "informational",
+      "productCves": {
+        "vro": []
+      },
+      "allowNoCves": true,
+      "informationalReason": "NO_VENDOR_VULNERABILITY_FINDING",
+      "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
+    },
+    "kb4712": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "ignoredCveIds": [
+        "CVE-2025-23114"
+      ],
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:79b149d9e0e1d6368e066c2e6b6399ba0a164dac5a006c85e89434c1eeb87430"
+    },
+    "kb4709": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": []
+      },
+      "ignoredCveIds": [
+        "CVE-2025-23082"
+      ],
+      "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
+      "contentFingerprint": "sha256:a096adba278170536471bb4b3c05582d7e75a97e08dd5a79f70e4049b6d593ad"
+    }
+  }
+}

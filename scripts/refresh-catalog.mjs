@@ -16,7 +16,8 @@ import { mergeVspcLegacySecurityArticles, parseVspcLegacySecurityArticle, select
 import { mergeCisaKev, parseCisaKev } from './lib/cisa-kev.mjs'
 import { mergeLifecyclePolicies, parseLifecyclePolicies } from './lib/lifecycle.mjs'
 import { mergeVbrReleaseInformation, parseVbrReleaseInformation } from './lib/vbr-release-information.mjs'
-import { contentFingerprint, extractSourceSupportedHighlights, mergeReleaseMaterials, mergeSourceSupportedHighlights, parseReleaseMaterials, textFromDocument } from './lib/release-materials.mjs'
+import { contentFingerprint, extractSourceSupportedHighlights, mergeReleaseMaterials, mergeSourceSupportedHighlights, textFromDocument } from './lib/release-materials.mjs'
+import { discoverReleaseMaterials } from './lib/release-material-discovery.mjs'
 import { createCatalogSourceFetcher } from './lib/source-fetch.mjs'
 import { reconcileSecurityReviewBaselines, writeSecurityReviewReport } from './lib/security-review-baselines.mjs'
 import { SecurityFeedCoverageError, assertSecurityFeedContinuity, assertSecurityFeedCoverage, assertSecurityFeedPageStateContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractCveIds, extractSecurityArticleScope, fetchSecurityFeedPages, fingerprintSecurityArticleContent, splitSecurityArticleVulnerabilityContent } from './lib/security-feed-coverage.mjs'
@@ -242,16 +243,13 @@ const securityArticlePages = Object.fromEntries(classifiedArticlesToFetch.map((a
     ? { content: normalizeReviewedSecurityMainArticle(html), observedCves: observation.observedCves }
     : { html, ...observation }]
 }))
-const releaseMaterialPayloads = await Promise.all(releaseMaterialProducts.map(async (product) => ({
-  ...product,
-  payload: JSON.parse(await fetchSource({
+const discoveredReleaseMaterials = (await Promise.all(releaseMaterialProducts.map(product => discoverReleaseMaterials({
+  product,
+  fetchPayload: async () => JSON.parse(await fetchSource({
     id: `release-materials-${product.productId}`,
     url: `${releaseMaterialEndpoint}?${new URLSearchParams({ productId: product.helpCenterProductId, localeCode: 'en', isInitial: 'true' })}`,
   })),
-})))
-const normalizedTitle = (value) => String(value ?? '').replace(/<[^>]+>/g, '').replace(/&nbsp;|\u00a0/gi, ' ').replace(/&amp;/gi, '&').replace(/\s+/g, ' ').trim()
-if (!releaseMaterialPayloads.every(({ productTitle, payload }) => normalizedTitle(payload?.payload?.products?.[0]?.productTitle) === productTitle)) throw new Error('Help Center release-material discovery returned a mismatched product response.')
-const discoveredReleaseMaterials = releaseMaterialPayloads.flatMap(({ productId, payload }) => parseReleaseMaterials(payload, productId))
+})))).flat()
 if (!releaseMaterialProducts.every((product) => discoveredReleaseMaterials.some((material) => material.productId === product.productId))) throw new Error('Help Center release-material discovery returned no current document for one or more tracked products.')
 const releaseMaterialDocuments = await Promise.allSettled(discoveredReleaseMaterials.map(async (material) => {
   const document = await fetchDocument(material.url, `release-material-${material.productId}-${material.releaseFamily}-${material.kind}`)

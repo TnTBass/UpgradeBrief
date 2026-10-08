@@ -1,0 +1,164 @@
+name: Catalog repair
+
+on:
+  workflow_run:
+    workflows: [Refresh catalog]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Replay is offline; repair fetches current sources; benchmark tests Workers AI
+        type: choice
+        options: [replay, repair, benchmark, trial]
+        default: replay
+      allow_live_ai:
+        description: Explicitly permit bounded Workers AI calls for this dispatch
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catalog-control
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.head_repository.full_name == github.repository && github.event.workflow_run.head_sha == github.sha)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write # Durable usage reservations only; no candidate branch writes here.
+      actions: read
+    outputs:
+      prepared: ${{ steps.generate.outcome }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Seed isolated end-to-end trial
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'trial'
+        run: node scripts/seed-catalog-repair-trial.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: actions/checkout@v5
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'trial'
+        with:
+          ref: codex/catalog-repair-trial
+          persist-credentials: false
+      - run: npm ci --ignore-scripts
+      - name: Replay offline safety and historical cases
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'replay'
+        run: node scripts/verify-catalog-repair.mjs
+      - name: Live Workers AI benchmark
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'benchmark'
+        run: node scripts/benchmark-catalog-repair-ai.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_WORKERS_AI_TOKEN: ${{ secrets.CLOUDFLARE_WORKERS_AI_TOKEN }}
+          CATALOG_REPAIR_ALLOW_LIVE: ${{ inputs.allow_live_ai }}
+      - uses: actions/download-artifact@v8
+        id: download
+        if: github.event_name == 'workflow_run'
+        continue-on-error: true
+        with:
+          name: catalogue-source-review
+          path: artifacts/catalog-review
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+      - name: Record failure when source diagnostics are missing
+        if: github.event_name == 'workflow_run' && steps.download.outcome != 'success'
+        run: node scripts/record-catalog-repair-failure.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPAIR_SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+      - name: Fetch current sources for explicit repair
+        id: live
+        if: github.event_name == 'workflow_dispatch' && (inputs.mode == 'repair' || inputs.mode == 'trial')
+        continue-on-error: true
+        run: npm run refresh:catalog -- --live
+      - name: Generate bounded repair proposal
+        id: generate
+        if: github.event_name == 'workflow_run' || steps.live.outcome == 'failure'
+        run: node scripts/prepare-live-catalog-repair.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPAIR_SOURCE_RUN_ID: ${{ github.event.workflow_run.id || github.run_id }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_WORKERS_AI_TOKEN: ${{ secrets.CLOUDFLARE_WORKERS_AI_TOKEN }}
+          CATALOG_REPAIR_AI_ENABLED: ${{ (github.event_name == 'workflow_run' && vars.CATALOG_REPAIR_AI_ENABLED == 'true') || (github.event_name == 'workflow_dispatch' && inputs.allow_live_ai) }}
+          CATALOG_REPAIR_TRIAL: ${{ inputs.mode == 'trial' }}
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: catalog-repair-prepared
+          path: artifacts/catalog-repair/
+          if-no-files-found: ignore
+          retention-days: 7
+  preparation-failure:
+    needs: prepare
+    if: always() && needs.prepare.result == 'failure'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+      - run: node scripts/report-catalog-repair-workflow-failure.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+  publish:
+    needs: prepare
+    if: needs.prepare.outputs.prepared == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      actions: write
+      checks: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.mode == 'trial' && 'codex/catalog-repair-trial' || 'main' }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - uses: actions/download-artifact@v8
+        with:
+          name: catalog-repair-prepared
+          path: artifacts/catalog-repair
+      - name: Independently validate, publish, and report the repair
+        run: node scripts/publish-catalog-repair.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CATALOG_REPAIR_AUTO_APPLY: ${{ inputs.mode == 'trial' || vars.CATALOG_REPAIR_AUTO_APPLY == 'true' }}
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: catalog-repair-publication
+          path: |
+            artifacts/catalog-repair/publication-result.json
+            artifacts/catalog-repair/candidate-*/artifacts/catalog-repair/verification/*.log
+          if-no-files-found: ignore
+          retention-days: 7

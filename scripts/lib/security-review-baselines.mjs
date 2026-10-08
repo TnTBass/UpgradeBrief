@@ -1,6 +1,8 @@
 import { mkdir, writeFile, appendFile } from 'node:fs/promises'
 import { join } from 'node:path'
+import { execFileSync } from 'node:child_process'
 import { fingerprintSecurityArticleContent } from './security-feed-coverage.mjs'
+import { classifyCatalogFailure } from './catalog-repair-evidence.mjs'
 
 // Reviewed 2026-09-23 against the exact previously accepted article hashes.
 // These are article-specific wording equivalences, not global product equivalences.
@@ -107,7 +109,9 @@ export async function writeSecurityReviewReport({ directory, baselines, texts, c
   })
   const report = {
     schemaVersion: 1, ok: !error,
-    ...(error ? { error: { message: error.message, code: error.code, report: error.report } } : {}),
+    capturedAt: new Date().toISOString(),
+    baseCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
+    ...(error ? { error: { message: error.message, code: error.code, report: error.report, diagnostic: error.diagnostic }, triage: classifyCatalogFailure(error) } : {}),
     equivalentChanges, changes,
   }
   const lines = ['# Catalogue source review', '', error ? 'Refresh blocked. The previous catalogue and accepted baselines are retained.' : 'All catalogue checks passed.', '']
