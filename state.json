@@ -1,1 +1,1 @@
-{"schemaVersion":1,"reservations":[],"cache":[],"holds":[],"repairs":{},"feedback":{}}
+{"schemaVersion":1,"reservations":[{"id":"b5a1aa30-f320-42fc-82ae-fc97227f63e6","day":"2026-10-08","neurons":498,"model":"@cf/meta/llama-3.3-70b-instruct-fp8-fast"}],"cache":[],"holds":[],"repairs":{},"feedback":{}}
