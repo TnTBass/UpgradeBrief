@@ -1254,7 +1254,7 @@
       },
       "allowNoCves": true,
       "informationalReason": "NO_VENDOR_VULNERABILITY_FINDING",
-      "contentFingerprint": "sha256:cb39bd69cc4b84be8e1d6948f35c49a87cd2c90b27a951dc6e6f767bfc0fbd81"
+      "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
     },
     "kb4712": {
       "classification": "informational",
