@@ -36,7 +36,14 @@
     "test:kev-adapter": "node scripts/test-cisa-kev-adapter.mjs",
     "test:source-fetch": "node scripts/test-source-fetch.mjs",
     "validate:catalog": "node scripts/validate-catalog.mjs",
-    "refresh:catalog": "node scripts/refresh-catalog.mjs"
+    "refresh:catalog": "node scripts/refresh-catalog.mjs",
+    "test:catalog-repair-ai": "node scripts/test-catalog-repair-ai.mjs",
+    "test:catalog-repair-state": "node scripts/test-catalog-repair-state.mjs",
+    "test:catalog-repair-semantics": "node scripts/test-catalog-repair-semantics.mjs",
+    "test:catalog-repair-feedback": "node scripts/test-catalog-repair-feedback.mjs",
+    "test:catalog-repair-publication": "node scripts/test-catalog-repair-publication.mjs",
+    "verify:catalog-repair": "node scripts/verify-catalog-repair.mjs",
+    "test:catalog-repair-integration": "node scripts/test-catalog-repair-integration.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "6.0.3",

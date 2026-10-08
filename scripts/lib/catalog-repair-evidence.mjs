@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { exactKeys, requireCondition } from './reviewed-security-data.mjs'
 
 export const REPAIR_SCHEMA_VERSION = 1
-export const REPAIR_VALIDATOR_VERSION = '1-equivalence-only'
+export const REPAIR_VALIDATOR_VERSION = '3-supported-semantics-and-isolated-trials'
 const HASH = /^sha256:[a-f0-9]{64}$/
 const SHA = /^[a-f0-9]{40}$/
 
@@ -38,6 +38,7 @@ export function classifyCatalogFailure(error) {
 function evidenceIdentity(bundle) {
   return {
     schemaVersion: bundle.schemaVersion,
+    environment: bundle.environment,
     policyFingerprint: bundle.policyFingerprint,
     validatorVersion: bundle.validatorVersion,
     articles: bundle.articles,
@@ -45,7 +46,7 @@ function evidenceIdentity(bundle) {
   }
 }
 
-export function createRepairEvidence({ report, baseCommit, policy, runId, capturedAt }) {
+export function createRepairEvidence({ report, baseCommit, policy, runId, capturedAt, environment = 'production' }) {
   requireCondition(report?.schemaVersion === 1 && Array.isArray(report.changes), 'missing source review report')
   requireCondition(report.ok === false && report.error, 'repair evidence must describe a failed refresh')
   const articles = report.changes.map(change => ({
@@ -63,6 +64,7 @@ export function createRepairEvidence({ report, baseCommit, policy, runId, captur
   })).sort((a, b) => a.articleId.localeCompare(b.articleId))
   const bundle = {
     schemaVersion: REPAIR_SCHEMA_VERSION,
+    environment,
     validatorVersion: REPAIR_VALIDATOR_VERSION,
     baseCommit,
     policyFingerprint: repairHash(policy),
@@ -76,7 +78,9 @@ export function createRepairEvidence({ report, baseCommit, policy, runId, captur
 }
 
 export function validateRepairEvidence(bundle) {
-  exactKeys(bundle, ['schemaVersion', 'validatorVersion', 'baseCommit', 'policyFingerprint', 'runId', 'capturedAt', 'failure', 'articles', 'evidenceId'], ['schemaVersion', 'validatorVersion', 'baseCommit', 'policyFingerprint', 'runId', 'capturedAt', 'failure', 'articles', 'evidenceId'], 'evidence')
+  const keys = ['schemaVersion', 'environment', 'validatorVersion', 'baseCommit', 'policyFingerprint', 'runId', 'capturedAt', 'failure', 'articles', 'evidenceId']
+  exactKeys(bundle, keys, keys, 'evidence')
+  requireCondition(['production', 'trial'].includes(bundle.environment), 'repair environment')
   requireCondition(bundle.schemaVersion === REPAIR_SCHEMA_VERSION && bundle.validatorVersion === REPAIR_VALIDATOR_VERSION, 'unsupported evidence version')
   requireCondition(typeof bundle.baseCommit === 'string' && SHA.test(bundle.baseCommit), 'base commit')
   requireCondition(typeof bundle.policyFingerprint === 'string' && HASH.test(bundle.policyFingerprint), 'policy fingerprint')

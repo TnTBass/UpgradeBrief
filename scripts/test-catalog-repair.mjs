@@ -150,4 +150,4 @@ assert.ok(held.blocked.some(item => item.articleId === 'kb4934' && item.code ===
 
 const html = '<h1>Veeam Backup &amp; Replication</h1><p>CVE-2026-12345.</p><h2>Related Articles</h2><p>Veeam ONE CVE-2099-99999</p>'
 assert.equal(reviewed.normalizeReviewedSecurityMainArticle(html), 'Veeam Backup & Replication CVE-2026-12345.')
-console.log(JSON.stringify({ historicalFailureRuns: history.cases.length, archivedArticles: historicalBundle.articles.length, unsafeCandidatesRejected: rejectedUnsafeCandidates, falseCandidateEligibility: 0, migrationParity: 'passed', semanticPublication: 'disabled', liveAiEvaluation: 'not-run' }))
+console.log(JSON.stringify({ historicalFailureRuns: history.cases.length, archivedArticles: historicalBundle.articles.length, unsafeCandidatesRejected: rejectedUnsafeCandidates, falseCandidateEligibility: 0, migrationParity: 'historical proof retained at 3fac0f6', semanticPublication: 'requires full verification', liveAiEvaluation: 'not-run' }))

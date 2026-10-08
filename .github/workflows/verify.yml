@@ -4,9 +4,32 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      candidate_commit:
+        description: Exact data-only catalog repair commit
+        required: true
+        type: string
+      candidate_base:
+        description: Trusted current main commit
+        required: true
+        type: string
+      repair_id:
+        description: SHA256 evidence identity
+        required: true
+        type: string
+      environment:
+        description: Target publication environment
+        type: choice
+        options: [production, trial]
+        default: production
+
+permissions:
+  contents: read
 
 jobs:
   verify:
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -15,26 +38,48 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm run lint
-      - run: npm test -- --run
-      - run: npm run test:adapters
-      - run: npm run test:vbr-upgrade-path-adapter
-      - run: npm run test:enterprise-manager-build-adapter
-      - run: npm run test:security-adapter
-      - run: npm run test:release-security-adapter
-      - run: npm run test:veeam-one-legacy-security-adapter
-      - run: npm run test:vspc-legacy-security-adapter
-      - run: npm run test:vspc-kb-cve-coverage
-      - run: npm run test:vspc-cve-record-coverage
-      - run: npm run test:vspc-release-security
-      - run: npm run test:security-feed-coverage
-      - run: npm run test:reviewed-security-advisories
-      - run: npm run test:security-review-baselines
-      - run: npm run test:catalog-repair
-      - run: npm run test:release-material-discovery
-      - run: npm run test:release-information-adapter
-      - run: npm run test:lifecycle-adapter
-      - run: npm run test:kev-adapter
-      - run: npm run test:source-fetch
-      - run: npm run validate:catalog
-      - run: npm run build
+      - run: node scripts/verify-catalog-repair.mjs
+  exact-candidate:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+    env:
+      REPAIR_COMMIT: ${{ inputs.candidate_commit }}
+      REPAIR_BASE: ${{ inputs.candidate_base }}
+      REPAIR_ID: ${{ inputs.repair_id }}
+      REPAIR_ENVIRONMENT: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Validate candidate scope with trusted main code
+        id: scope
+        run: node scripts/verify-exact-catalog-repair.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.candidate_commit }}
+          persist-credentials: false
+      - run: npm ci --ignore-scripts
+      - name: Verify exact candidate
+        id: verify
+        run: node scripts/verify-catalog-repair.mjs
+      - name: Record check on candidate SHA
+        if: always() && steps.scope.outcome == 'success'
+        run: node scripts/verify-exact-catalog-repair.mjs --record
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERIFICATION_OUTCOME: ${{ steps.verify.outcome }}
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: catalog-repair-verification
+          path: artifacts/catalog-repair/verification/*.log
+          retention-days: 7

@@ -1,6 +1,7 @@
 import { canonicalJson, classifyCatalogFailure, repairHash, validateRepairEvidence, validateRepairProposal } from './catalog-repair-evidence.mjs'
 import { requireCondition, validateReviewedSecurityData } from './reviewed-security-data.mjs'
 import { createSecurityReviewBaseline, normalizeSecurityReviewText } from './security-review-baselines.mjs'
+import { applySemanticChange } from './catalog-repair-semantics.mjs'
 
 export const REPAIR_OUTPUT_PATHS = Object.freeze([
   'scripts/data/reviewed-security-advisories.json',
@@ -11,7 +12,7 @@ export const REPAIR_OUTPUT_PATHS = Object.freeze([
 // Pure candidate construction: this module never writes files or accepts paths.
 // It cannot authorize publication; full catalog validation and fresh-source
 // verification must still run on an isolated checkout in the publication phase.
-export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines, catalog, currentCommit, holds = [] }) {
+export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines, catalog, currentCommit, holds = [], extractions = {} }) {
   validateRepairEvidence(bundle)
   validateRepairProposal(proposal, bundle)
   validateReviewedSecurityData(reviewedData)
@@ -29,15 +30,21 @@ export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines
   for (const finding of bundle.failure.report?.findings ?? []) {
     if (!articleIds.has(finding.articleId)) blocked.push({ code: 'MISSING_FINDING_EVIDENCE', articleId: finding.articleId ?? null })
   }
-  const nextData = structuredClone(reviewedData)
+  let nextData = structuredClone(reviewedData)
+  const semanticChecks = []
   const nextBaselines = structuredClone(baselines)
   const nextCatalog = structuredClone(catalog)
   for (const article of bundle.articles) {
     const proposed = proposal.articles.find(item => item.articleId === article.articleId)
     const before = baselines.articles[article.articleId]
     const page = catalog.securityFeedPageStates.find(item => item.articleId === article.articleId)
-    const route = catalog.securityFeedRoutes.find(item => item.articleId === article.articleId)
-    if (!before || !page || !route || article.before === null) {
+    const route = catalog.securityFeedRoutes.find(item => item.articleId === article.articleId) ?? null
+    // KB4857 is explicitly reviewed and fetched as a supplemental source, even
+    // when it is absent from the current feed. Preserve that absence; do not
+    // manufacture a feed route or broaden classification policy.
+    const supplemental = article.articleId === 'kb4857' && reviewedData.observationSpecs.kb4857?.classification === 'informational'
+      && Array.isArray(catalog.securityFeedArticleIds) && !catalog.securityFeedArticleIds.includes(article.articleId)
+    if (!before || !page || (!route && !supplemental) || article.before === null) {
       blocked.push({ code: 'NEW_ARTICLE_REQUIRES_CLASSIFICATION', articleId: article.articleId })
       continue
     }
@@ -49,11 +56,14 @@ export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines
     requireCondition(canonicalJson(page) === canonicalJson(article.acceptedPageState) && canonicalJson(route) === canonicalJson(article.acceptedRoute), `${article.articleId} accepted scope changed`)
     if (proposed.unresolved.length) blocked.push({ code: 'UNRESOLVED_CLAIMS', articleId: article.articleId })
     if (proposed.kind !== 'equivalent') {
-      blocked.push({ code: 'SEMANTIC_ADAPTER_REQUIRED', articleId: article.articleId, kind: proposed.kind })
-      continue
-    }
-    // Model rationale, confidence and verbatim quotes cannot broaden this rule.
-    if (normalizeSecurityReviewText(article.articleId, article.before) !== normalizeSecurityReviewText(article.articleId, article.after)) {
+      const semantic = applySemanticChange({ article, reviewedData: nextData, extraction: extractions[article.articleId] })
+      if (!semantic || semantic.kind !== proposed.kind) {
+        blocked.push({ code: 'SEMANTIC_ADAPTER_REQUIRED', articleId: article.articleId, kind: proposed.kind })
+        continue
+      }
+      nextData = semantic.reviewedData
+      semanticChecks.push(...semantic.checks)
+    } else if (normalizeSecurityReviewText(article.articleId, article.before) !== normalizeSecurityReviewText(article.articleId, article.after)) {
       blocked.push({ code: 'UNSUPPORTED_SEMANTIC_CHANGE', articleId: article.articleId })
       continue
     }
@@ -78,7 +88,7 @@ export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines
   // Never return a partial candidate when any article is unresolved.
   if (!blocked.length) {
     validateReviewedSecurityData(nextData)
-    result.checks.passed.push('maintained-wording-equivalence', 'candidate-data-schema')
+    result.checks.passed.push(...new Set(semanticChecks.length ? semanticChecks : ['maintained-wording-equivalence']), 'candidate-data-schema')
     for (const [path, next, previous] of [
       [REPAIR_OUTPUT_PATHS[0], nextData, reviewedData],
       [REPAIR_OUTPUT_PATHS[1], nextBaselines, baselines],
@@ -98,7 +108,7 @@ export function renderRepairBrief(bundle, result) {
     `Evidence: \`${bundle.evidenceId}\``,
     `Failed run: https://github.com/TnTBass/UpgradeBrief/actions/runs/${bundle.runId}`, '',
     '## What changed and the approach', '',
-    'The candidate builder accepts only the maintained article-specific wording/date equivalences. Semantic changes require a supported deterministic adapter; an AI explanation cannot authorize them.', '',
+    'The candidate builder accepts maintained article-specific wording equivalences, supported dependency-note updates, and strictly validated additions to existing advisory structures. An AI explanation cannot authorize acceptance.', '',
   ]
   for (const article of bundle.articles) lines.push(`- ${article.articleId}: ${article.url}; accepted ${article.beforeHash ?? 'none'}; fetched ${article.afterHash}.`)
   lines.push('', '## Validation', '', `Passed: ${result.checks.passed.join(', ')}.`, `Not run: ${result.checks.notRun.join(', ')}.`, '')

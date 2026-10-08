@@ -1,5 +1,6 @@
 import { mkdir, writeFile, appendFile } from 'node:fs/promises'
 import { join } from 'node:path'
+import { execFileSync } from 'node:child_process'
 import { fingerprintSecurityArticleContent } from './security-feed-coverage.mjs'
 import { classifyCatalogFailure } from './catalog-repair-evidence.mjs'
 
@@ -109,7 +110,7 @@ export async function writeSecurityReviewReport({ directory, baselines, texts, c
   const report = {
     schemaVersion: 1, ok: !error,
     capturedAt: new Date().toISOString(),
-    ...(process.env.GITHUB_SHA ? { baseCommit: process.env.GITHUB_SHA } : {}),
+    baseCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
     ...(error ? { error: { message: error.message, code: error.code, report: error.report, diagnostic: error.diagnostic }, triage: classifyCatalogFailure(error) } : {}),
     equivalentChanges, changes,
   }

@@ -1,0 +1,58 @@
+name: Catalog repair feedback
+
+on:
+  issue_comment:
+    types: [created, edited]
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catalog-control
+  cancel-in-progress: false
+
+jobs:
+  intake:
+    # Public comments cannot start a privileged job. The scheduled scan also
+    # verifies immutable user IDs before accepting any feedback.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event.sender.id == 1081294
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      actions: write
+      checks: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Reconcile trusted feedback and pending notifications
+        run: node scripts/process-catalog-repair-feedback.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Report an intake workflow failure
+        if: failure()
+        run: node scripts/report-catalog-repair-workflow-failure.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: catalog-repair-feedback
+          path: |
+            artifacts/catalog-repair/feedback/
+            artifacts/catalog-repair/revert-*/artifacts/catalog-repair/verification/*.log
+          if-no-files-found: ignore
+          retention-days: 7
