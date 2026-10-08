@@ -43,7 +43,7 @@ function dependencyChange(article, spec) {
     if (beforeVersions[i].component !== afterVersions[i].component || compareVersion(afterVersions[i].version, beforeVersions[i].version) < 0) return null
     if (afterVersions[i].version !== beforeVersions[i].version) changed++
   }
-  return changed ? { kind: 'informational', checks: ['known-zero-CVE-dependency-note', 'unchanged-article-scope', 'only-dependency-version-increases'], excerpt: '', records: [] } : null
+  return changed ? { kind: 'informational', summary: `Dependency notes: ${beforeVersions.filter((item, i) => item.version !== afterVersions[i].version).map(item => `${item.component} ${item.version} -> ${afterVersions.find(next => next.component === item.component).version}`).join('; ')}. No vulnerability findings or upgrade recommendations change.`, checks: ['known-zero-CVE-dependency-note', 'unchanged-article-scope', 'only-dependency-version-increases'], excerpt: '', records: [] } : null
 }
 
 export function inspectSemanticChange(article, reviewedData) {
@@ -76,7 +76,7 @@ export function inspectSemanticChange(article, reviewedData) {
     if (!existing || /CVE-/.test(JSON.stringify({ ...advisory, records: [], source: undefined })) || /CVE-/.test(JSON.stringify({ ...existing, cve: undefined, title: undefined }))) return null
     records.push({ ...parsed, template: existing, product: 'Veeam Backup & Replication', section })
   }
-  return { kind: 'vulnerability', checks: ['only-new-CVE-sections', 'unchanged-existing-findings', 'same-reviewed-product-applicability-and-fix'], excerpt: addedSections.map(section => section.text).join('\n\n'), records }
+  return { kind: 'vulnerability', summary: records.map(record => `${record.product}: add ${record.cve} (CVSS ${record.score}). ${record.description} Affected: ${record.affected} Fix: ${record.fixed}`).join('\n'), checks: ['only-new-CVE-sections', 'unchanged-existing-findings', 'same-reviewed-product-applicability-and-fix'], excerpt: addedSections.map(section => section.text).join('\n\n'), records }
 }
 
 export function applySemanticChange({ article, reviewedData, extraction }) {
