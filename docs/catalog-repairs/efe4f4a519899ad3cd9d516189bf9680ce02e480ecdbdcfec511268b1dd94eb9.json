@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "environment": "trial",
+  "repairId": "sha256:efe4f4a519899ad3cd9d516189bf9680ce02e480ecdbdcfec511268b1dd94eb9",
+  "baseCommit": "a89b989bd8ae8d2ad1cb4c635a059e6a8e9e4ed4",
+  "articleIds": [
+    "kb4857"
+  ],
+  "bundle": {
+    "schemaVersion": 1,
+    "environment": "trial",
+    "validatorVersion": "3-supported-semantics-and-isolated-trials",
+    "baseCommit": "a89b989bd8ae8d2ad1cb4c635a059e6a8e9e4ed4",
+    "policyFingerprint": "sha256:d00bed8bf2c0417704143f8fc4b89cf257d5ba20b5eda548ac4add4692bdb523",
+    "runId": "37720084795",
+    "capturedAt": "2026-10-08T03:00:44.177Z",
+    "failure": {
+      "message": "Security feed coverage failed with 1 finding(s); fingerprint sha256:020b9b102ea8bf1473446c131c0473fa76b875bc1d1d4d002c160ab4d21c6f73.",
+      "code": "SECURITY_FEED_COVERAGE_FAILED",
+      "report": {
+        "schemaVersion": 1,
+        "ok": false,
+        "code": "SECURITY_FEED_COVERAGE_FAILED",
+        "articleCount": 59,
+        "findingCount": 1,
+        "findings": [
+          {
+            "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+            "articleId": "kb4857"
+          }
+        ],
+        "fingerprint": "sha256:020b9b102ea8bf1473446c131c0473fa76b875bc1d1d4d002c160ab4d21c6f73"
+      }
+    },
+    "articles": [
+      {
+        "articleId": "kb4857",
+        "url": "https://www.veeam.com/kb4857",
+        "before": "List of Security Fixes and Improvements in Veeam Recovery Orchestrator KB ID: 4857 Product: Veeam Recovery Orchestrator Published: 2026-05-27 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Recovery Orchestrator . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Recovery Orchestrator version to a later one. Security Fixes and Improvements 13.1.0.483 axios upgraded to version 1.18.0 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.11.0 react-router-dom upgraded to version 6.30.4 vite upgraded to version 8.0.7” 13.0.3.26 dompurify upgraded to version 3.4.13 MailKit upgraded to version 4.16.0 Microsoft.AspNetCore.DataProtection.Extensions upgraded to version 8.0.29 Microsoft.PowerShell.SDK upgraded to version 7.4.18 MimeKit upgraded to version 4.16.0 13.0.2.27 System.Security.Cryptography.XML was upgraded to 9.0.16. AutoMapper was removed. System.Security.Cryptography.XML was upgraded to 8.0.3. uuid was upgraded to 14.0.0. react-router-dom was upgraded to 6.30.3. More Information",
+        "after": "List of Security Fixes and Improvements in Veeam Recovery Orchestrator KB ID: 4857 Product: Veeam Recovery Orchestrator Published: 2026-05-27 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Recovery Orchestrator . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Recovery Orchestrator version to a later one. Security Fixes and Improvements 13.1.0.483 axios upgraded to version 1.18.0 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.11.0 react-router-dom upgraded to version 6.30.4 vite upgraded to version 8.0.8” 13.0.3.26 dompurify upgraded to version 3.4.13 MailKit upgraded to version 4.16.0 Microsoft.AspNetCore.DataProtection.Extensions upgraded to version 8.0.29 Microsoft.PowerShell.SDK upgraded to version 7.4.18 MimeKit upgraded to version 4.16.0 13.0.2.27 System.Security.Cryptography.XML was upgraded to 9.0.16. AutoMapper was removed. System.Security.Cryptography.XML was upgraded to 8.0.3. uuid was upgraded to 14.0.0. react-router-dom was upgraded to 6.30.3. More Information",
+        "beforeHash": "sha256:cb39bd69cc4b84be8e1d6948f35c49a87cd2c90b27a951dc6e6f767bfc0fbd81",
+        "afterHash": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 1348
+          }
+        ],
+        "acceptedPageState": {
+          "articleId": "kb4857",
+          "productIds": [
+            "vro"
+          ],
+          "hasOutOfScopeProduct": false,
+          "contentFingerprint": "sha256:cb39bd69cc4b84be8e1d6948f35c49a87cd2c90b27a951dc6e6f767bfc0fbd81"
+        },
+        "acceptedRoute": null
+      }
+    ],
+    "evidenceId": "sha256:efe4f4a519899ad3cd9d516189bf9680ce02e480ecdbdcfec511268b1dd94eb9"
+  },
+  "proposal": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:efe4f4a519899ad3cd9d516189bf9680ce02e480ecdbdcfec511268b1dd94eb9",
+    "baseCommit": "a89b989bd8ae8d2ad1cb4c635a059e6a8e9e4ed4",
+    "articles": [
+      {
+        "articleId": "kb4857",
+        "kind": "informational",
+        "rationale": "known-zero-CVE-dependency-note; unchanged-article-scope; only-dependency-version-increases",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 1348,
+            "quote": "List of Security Fixes and Improvements in Veeam Recovery Orchestrator KB ID: 4857 Product: Veeam Recovery Orchestrator Published: 2026-05-27 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Recovery Orchestrator . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Recovery Orchestrator version to a later one. Security Fixes and Improvements 13.1.0.483 axios upgraded to version 1.18.0 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.11.0 react-router-dom upgraded to version 6.30.4 vite upgraded to version 8.0.8” 13.0.3.26 dompurify upgraded to version 3.4.13 MailKit upgraded to version 4.16.0 Microsoft.AspNetCore.DataProtection.Extensions upgraded to version 8.0.29 Microsoft.PowerShell.SDK upgraded to version 7.4.18 MimeKit upgraded to version 4.16.0 13.0.2.27 System.Security.Cryptography.XML was upgraded to 9.0.16. AutoMapper was removed. System.Security.Cryptography.XML was upgraded to 8.0.3. uuid was upgraded to 14.0.0. react-router-dom was upgraded to 6.30.3. More Information"
+          }
+        ],
+        "unresolved": []
+      }
+    ]
+  },
+  "extractions": {},
+  "sections": {
+    "kb4857": []
+  },
+  "before": {
+    "advisories": [],
+    "specs": {
+      "kb4857": {
+        "classification": "informational",
+        "productCves": {
+          "vro": []
+        },
+        "allowNoCves": true,
+        "informationalReason": "NO_VENDOR_VULNERABILITY_FINDING",
+        "contentFingerprint": "sha256:cb39bd69cc4b84be8e1d6948f35c49a87cd2c90b27a951dc6e6f767bfc0fbd81"
+      }
+    },
+    "baselines": {
+      "kb4857": {
+        "normalizedText": "List of Security Fixes and Improvements in Veeam Recovery Orchestrator KB ID: 4857 Product: Veeam Recovery Orchestrator Published: 2026-05-27 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Recovery Orchestrator . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Recovery Orchestrator version to a later one. Security Fixes and Improvements 13.1.0.483 axios upgraded to version 1.18.0 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.11.0 react-router-dom upgraded to version 6.30.4 vite upgraded to version 8.0.7” 13.0.3.26 dompurify upgraded to version 3.4.13 MailKit upgraded to version 4.16.0 Microsoft.AspNetCore.DataProtection.Extensions upgraded to version 8.0.29 Microsoft.PowerShell.SDK upgraded to version 7.4.18 MimeKit upgraded to version 4.16.0 13.0.2.27 System.Security.Cryptography.XML was upgraded to 9.0.16. AutoMapper was removed. System.Security.Cryptography.XML was upgraded to 8.0.3. uuid was upgraded to 14.0.0. react-router-dom was upgraded to 6.30.3. More Information",
+        "contentFingerprint": "sha256:cb39bd69cc4b84be8e1d6948f35c49a87cd2c90b27a951dc6e6f767bfc0fbd81",
+        "comparisonFingerprint": "sha256:996fd489529698d4865fd85256455b8222316725c8eccfee61a6e197bbb9596d",
+        "reviewedFingerprint": "sha256:cb39bd69cc4b84be8e1d6948f35c49a87cd2c90b27a951dc6e6f767bfc0fbd81"
+      }
+    },
+    "pageStates": [
+      {
+        "articleId": "kb4857",
+        "productIds": [
+          "vro"
+        ],
+        "hasOutOfScopeProduct": false,
+        "contentFingerprint": "sha256:cb39bd69cc4b84be8e1d6948f35c49a87cd2c90b27a951dc6e6f767bfc0fbd81"
+      }
+    ],
+    "routes": [],
+    "findings": []
+  },
+  "after": {
+    "advisories": [],
+    "specs": {
+      "kb4857": {
+        "classification": "informational",
+        "productCves": {
+          "vro": []
+        },
+        "allowNoCves": true,
+        "informationalReason": "NO_VENDOR_VULNERABILITY_FINDING",
+        "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
+      }
+    },
+    "baselines": {
+      "kb4857": {
+        "normalizedText": "List of Security Fixes and Improvements in Veeam Recovery Orchestrator KB ID: 4857 Product: Veeam Recovery Orchestrator Published: 2026-05-27 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Recovery Orchestrator . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Recovery Orchestrator version to a later one. Security Fixes and Improvements 13.1.0.483 axios upgraded to version 1.18.0 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.11.0 react-router-dom upgraded to version 6.30.4 vite upgraded to version 8.0.8” 13.0.3.26 dompurify upgraded to version 3.4.13 MailKit upgraded to version 4.16.0 Microsoft.AspNetCore.DataProtection.Extensions upgraded to version 8.0.29 Microsoft.PowerShell.SDK upgraded to version 7.4.18 MimeKit upgraded to version 4.16.0 13.0.2.27 System.Security.Cryptography.XML was upgraded to 9.0.16. AutoMapper was removed. System.Security.Cryptography.XML was upgraded to 8.0.3. uuid was upgraded to 14.0.0. react-router-dom was upgraded to 6.30.3. More Information",
+        "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f",
+        "comparisonFingerprint": "sha256:6455bec0808d0e26229bc745e76cd547a54812a1117406474ec9b1b15a696a01",
+        "reviewedFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
+      }
+    },
+    "pageStates": [
+      {
+        "articleId": "kb4857",
+        "productIds": [
+          "vro"
+        ],
+        "hasOutOfScopeProduct": false,
+        "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
+      }
+    ],
+    "routes": [],
+    "findings": []
+  },
+  "checks": [
+    "live-refresh",
+    "lint",
+    "app-tests",
+    "test:adapters",
+    "test:vbr-upgrade-path-adapter",
+    "test:product-build-adapter",
+    "test:vb365-build-adapter",
+    "test:enterprise-manager-build-adapter",
+    "test:security-adapter",
+    "test:veeam-one-legacy-security-adapter",
+    "test:vspc-legacy-security-adapter",
+    "test:vspc-kb-cve-coverage",
+    "test:vspc-cve-record-coverage",
+    "test:vspc-release-security",
+    "test:release-security-adapter",
+    "test:security-feed-coverage",
+    "test:reviewed-security-advisories",
+    "test:security-review-baselines",
+    "test:catalog-repair",
+    "test:release-material-discovery",
+    "test:release-information-adapter",
+    "test:release-material-adapter",
+    "test:lifecycle-adapter",
+    "test:kev-adapter",
+    "test:source-fetch",
+    "test:catalog-repair-ai",
+    "test:catalog-repair-state",
+    "test:catalog-repair-semantics",
+    "test:catalog-repair-feedback",
+    "test:catalog-repair-publication",
+    "test:catalog-repair-integration",
+    "catalog",
+    "typescript",
+    "build",
+    "fresh-source-verification"
+  ],
+  "catalogHash": "e2fa6419a3399334c2c4fe3156665c756c9a3f8e6c37641ff689aff3ef130299",
+  "verifiedAt": "2026-10-08T03:08:22.825Z"
+}
