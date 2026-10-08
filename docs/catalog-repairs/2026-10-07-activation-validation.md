@@ -33,6 +33,8 @@ The ordinary comment "Please take a different approach here." was processed by [
 
 A plain "Please revert this." request on that linked issue reached the original repair. [Feedback run 37723589107](https://github.com/TnTBass/UpgradeBrief/actions/runs/37723589107) created and merged [scoped revert PR #10](https://github.com/TnTBass/UpgradeBrief/pull/10), after [exact-commit validation](https://github.com/TnTBass/UpgradeBrief/actions/runs/37723644445). Its Cloudflare preview matched commit `17c471ea172ee9d288760ecbacfbc1b838af236a` and catalog hash `b6c4f2a8d6ec57c56c45b6af7613381f6c04bc7773bf50fa10e4ea76d7bde25b`. The original repair is recorded as reverted, with the trial source hold retained. Production's catalog hash remained unchanged throughout both trials.
 
+"Looks good" on PR #10 was recorded as reviewed by [feedback run 37723987888](https://github.com/TnTBass/UpgradeBrief/actions/runs/37723987888). The test follow-up issue is closed. The final brief-status helper was exercised against the completed trial records: GitHub read-back confirmed "corrected" on PR #8 and "reviewed" on PR #10, while the source hold remained intact.
+
 ## Scope and review
 
 Initial automatic acceptance supports maintained metadata equivalence, a known zero-CVE dependency-note class, and narrowly specified additions to an existing single-product VBR advisory with unchanged reviewed applicability and fixes. Unknown semantics, changes to existing findings, ambiguous relationships, product scope changes, and incomplete evidence stop for investigation.

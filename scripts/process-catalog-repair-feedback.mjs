@@ -139,7 +139,11 @@ for (const id of Object.keys(state.repairs).reverse()) {
     if (repair.notification?.pending) await announce(id, repair.notification.key, repair.notification.message)
     for (const feedback of await readTrustedFeedback(api, repair.number)) {
       const recorded = recordFeedback(state, repair.parentRepairId ?? id, feedback)
-      if (recorded.changed) { state = recorded.state; await save(); outcomes.push({ id, event: feedback.kind }) }
+      if (recorded.changed) {
+        state = recorded.state; await save(); outcomes.push({ id, event: feedback.kind })
+        const target = state.repairs[repair.parentRepairId ?? id]
+        if (target.state === 'reviewed') await setRepairStateLabel(api, target.number, 'reviewed')
+      }
     }
     repair = state.repairs[id]
     if (['changes-requested', 'revert-requested'].includes(repair.state)) {

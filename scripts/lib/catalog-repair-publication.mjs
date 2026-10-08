@@ -35,13 +35,13 @@ export function repairBrief({ id, baseCommit, articleIds, outcome, approach, che
 }
 
 export async function ensureLabels(api) {
-  for (const [name, color] of [['catalog-review', '5319e7'], ['applied-awaiting-review', '0e8a16'], ['needs-investigation', 'd93f0b'], ['changes-requested', 'b60205'], ['corrected', '1d76db'], ['stale', 'cccccc']]) {
+  for (const [name, color] of [['catalog-review', '5319e7'], ['applied-awaiting-review', '0e8a16'], ['reviewed', '0e8a16'], ['needs-investigation', 'd93f0b'], ['changes-requested', 'b60205'], ['corrected', '1d76db'], ['stale', 'cccccc']]) {
     if (!await api(`/labels/${name}`, { allow404: true })) await api('/labels', { method: 'POST', body: { name, color } })
   }
 }
 
 export async function setRepairStateLabel(api, number, name) {
-  const states = ['applied-awaiting-review', 'needs-investigation', 'changes-requested', 'corrected', 'stale']
+  const states = ['applied-awaiting-review', 'reviewed', 'needs-investigation', 'changes-requested', 'corrected', 'stale']
   if (!states.includes(name)) throw new Error('Unknown repair lifecycle label')
   const issue = await api(`/issues/${number}`)
   const labels = issue.labels.map(label => typeof label === 'string' ? label : label.name).filter(label => !states.includes(label))
