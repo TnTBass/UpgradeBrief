@@ -181,7 +181,7 @@ export const REVIEWED_SECURITY_ADVISORIES = Object.freeze([
     conditions: [unsupportedVersionsCondition],
     records: vbr4693Records,
   }),
-  article('kb4902', 'vbr', 'Veeam KB4902: Vulnerability Resolved in Veeam Backup & Replication 13.1', {
+  article('kb4902', 'vbr', 'Veeam KB4902: Vulnerabilities Resolved in Veeam Backup & Replication 13.1', {
     affectedBuildRanges: [{ versionPrefix: '13.', throughBuild: '13.0.2.29' }],
     fixedReleaseId: 'vbr-build-13-1-0-411',
     // Reviewed 2026-09-22: KB4902 adds impact mitigation; affected and fixed builds are unchanged.
@@ -194,7 +194,29 @@ export const REVIEWED_SECURITY_ADVISORIES = Object.freeze([
         'Veeam states that Veeam Backup & Replication 13.0.2.29 and all earlier version 13 builds are affected; older 12.x versions are not affected.',
         'Verify access controls and retention for guest-machine logs that may contain recorded credentials; this does not remove the need to upgrade an affected build.',
       ],
+    }, {
+      cve: 'CVE-2026-58069',
+      title: 'An authenticated Veeam Cloud Connect tenant can read arbitrary files on the service provider host.',
+      cvssScore: 8.3,
+      affectedBuildRanges: [{ versionPrefix: '12.', throughBuild: '12.3.2.4854' }, { versionPrefix: '13.', throughBuild: '13.0.2.29' }],
+      remediation: 'Upgrade the selected branch to Veeam Backup & Replication 13.1.0.411, 13.0.3.63, or 12.3.2.4934, or a later release containing the fix.',
+      conditions: ['Veeam documents this issue for Windows-based Veeam Backup & Replication acting as a Cloud Connect service provider host; exploitation requires an authenticated tenant.', unsupportedVersionsCondition],
     }],
+  }),
+  article('kb4934', 'vbr', 'Veeam KB4934: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2 P4', {
+    affectedBuildRanges: [{ versionPrefix: '12.', throughBuild: '12.3.2.4854' }],
+    fixedReleaseId: 'vbr-build-12-3-2-4934',
+    conditions: ['Veeam states that version 13 is not affected.'],
+    records: [
+      { cve: 'CVE-2025-64393', title: 'A low-privileged Backup Viewer can execute code on the backup server through insecure deserialization in the Mount Service.', cvssScore: 9.4 },
+      { cve: 'CVE-2026-93026', title: 'An authenticated Backup Viewer can modify or delete the Enterprise Manager master key and read or overwrite antivirus update credentials stored on the backup server.', cvssScore: 6.1 },
+    ],
+  }),
+  article('kb4934', 'enterprise-manager', 'Veeam KB4934: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2 P4', {
+    affectedBuildRanges: [{ versionPrefix: '12.', throughBuild: '12.3.2.4854' }],
+    fixedReleaseId: 'em-build-12-3-2-4934',
+    conditions: [optionalEnterpriseManagerCondition, 'Veeam states that version 13 is not affected.'],
+    records: [{ cve: 'CVE-2025-64392', title: 'An attacker can execute script in an authenticated Enterprise Manager portal user\'s browser when that user opens a crafted link.', cvssScore: 4.8 }],
   }),
   article('kb4892', 'veeam-one', 'Veeam KB4892: Vulnerabilities Resolved in Veeam ONE 13.1', {
     affectedBuildRanges: [{ versionPrefix: '13.', throughBuild: '13.0.2.6723' }],
@@ -319,7 +341,7 @@ const kb3103IgnoredCves = Object.freeze([
   'CVE-2025-23120', 'CVE-2025-23121', 'CVE-2025-24286', 'CVE-2025-48983', 'CVE-2025-48984', 'CVE-2025-55125',
   'CVE-2025-59468', 'CVE-2025-59469', 'CVE-2025-59470', 'CVE-2026-21666', 'CVE-2026-21667', 'CVE-2026-21668',
   'CVE-2026-21669', 'CVE-2026-21670', 'CVE-2026-21671', 'CVE-2026-21672', 'CVE-2026-21708', 'CVE-2026-32997',
-  'CVE-2026-44963', 'CVE-2026-58070',
+  'CVE-2026-44963', 'CVE-2026-58070', 'CVE-2026-58069', 'CVE-2025-64392', 'CVE-2025-64393', 'CVE-2026-93026',
 ])
 
 const observationSpecs = Object.freeze({
@@ -358,7 +380,9 @@ const observationSpecs = Object.freeze({
     multiProduct: true,
   },
   kb4693: { classification: 'dedicated', productCves: { vbr: vbr4693Records.map((record) => record.cve) }, ignoredCveIds: ['CVE-2024-45207'] },
-  kb4902: { classification: 'dedicated', productCves: { vbr: ['CVE-2026-58070'] } },
+  // Agent for Windows CVEs in KB4902 are outside this catalog's product scope.
+  kb4902: { classification: 'dedicated', productCves: { vbr: ['CVE-2026-58070', 'CVE-2026-58069'] }, ignoredCveIds: ['CVE-2026-58068', 'CVE-2025-64391'] },
+  kb4934: { classification: 'dedicated', productCves: { vbr: ['CVE-2025-64393', 'CVE-2026-93026'], 'enterprise-manager': ['CVE-2025-64392'] }, multiProduct: true },
   kb4892: { classification: 'dedicated', productCves: { 'veeam-one': ['CVE-2026-58074', 'CVE-2026-58075', 'CVE-2026-64630', 'CVE-2026-64631', 'CVE-2026-64632', 'CVE-2026-64633', 'CVE-2026-64634'] } },
   kb4905: { classification: 'dedicated', productCves: { 'veeam-one': ['CVE-2026-65641'] } },
   kb4852: { classification: 'dedicated', productCves: { vbr: ['CVE-2026-32997'] }, ignoredCveIds: ['CVE-2026-32996'] },

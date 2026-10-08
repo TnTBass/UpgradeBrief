@@ -39,9 +39,17 @@ export function mergeVbrReleaseInformation(catalog, builds, sourceId, { applianc
           && path.howToSourceIds?.includes(updateHowToSourceId)
         next.upgradePaths = next.upgradePaths.filter((path) => !generatedPath(path))
         for (const release of next.releases) {
-          if (release.productId !== 'vbr' || release.id === target.id || next.upgradePaths.some((path) => path.fromReleaseId === release.id)) continue
+          if (release.productId !== 'vbr' || release.id === target.id) continue
           const releaseBuild = builds.find((build) => release.aliases.includes(build))
           if (!releaseBuild || builds.indexOf(releaseBuild) <= targetIndex || versionFamily(releaseBuild) !== targetFamily) continue
+          // A newly documented KB2053 family route must not displace the more
+          // specific same-family updater instructions. Preserve other routes.
+          const genericRoute = (path) => path.fromReleaseId === release.id
+            && path.toReleaseId === target.id && path.hopReleaseIds.length === 1
+            && Array.isArray(path.fromVersionPrefixes)
+            && path.sourceIds.length === 2 && path.sourceIds.includes('kb2053') && path.sourceIds.includes('vbr-checklist')
+          if (next.upgradePaths.some((path) => path.fromReleaseId === release.id && !genericRoute(path))) continue
+          next.upgradePaths = next.upgradePaths.filter((path) => !genericRoute(path))
           generatedPaths.push({
             id: `${release.id}-to-${target.id}`,
             productId: 'vbr',

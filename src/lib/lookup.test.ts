@@ -5,6 +5,30 @@ import { classifyUrgency } from './urgency'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './upgrade-summary'
 
 describe('catalog lookup', () => {
+  it('keeps the October VBR and Enterprise Manager fixes within their documented product and build boundaries', () => {
+    for (const [productId, cves] of [
+      ['vbr', ['CVE-2025-64393', 'CVE-2026-93026']],
+      ['enterprise-manager', ['CVE-2025-64392']],
+    ] as const) {
+      const vulnerable = findRelease(catalog, productId, '12.3.2.4854')!
+      expect(vulnerable).toBeDefined()
+      for (const cve of cves) expect(findingsForRelease(catalog, vulnerable).some(finding => finding.cves.includes(cve))).toBe(true)
+      for (const version of ['12.3.2.4934', '13.0.2.29', '13.1.0.411']) {
+        const fixed = findRelease(catalog, productId, version)!
+        expect(fixed).toBeDefined()
+        for (const cve of cves) expect(findingsForRelease(catalog, fixed).some(finding => finding.cves.includes(cve))).toBe(false)
+      }
+    }
+    const vbr = findRelease(catalog, 'vbr', '12.3.2.4854')!
+    expect(findingsForRelease(catalog, vbr).some(finding => finding.cves.includes('CVE-2025-64392'))).toBe(false)
+    for (const version of ['12.3.2.4854', '13.0.2.29']) {
+      expect(findingsForRelease(catalog, findRelease(catalog, 'vbr', version)!).some(finding => finding.cves.includes('CVE-2026-58069'))).toBe(true)
+    }
+    for (const version of ['12.3.2.4934', '13.0.3.63', '13.1.0.411']) {
+      expect(findingsForRelease(catalog, findRelease(catalog, 'vbr', version)!).some(finding => finding.cves.includes('CVE-2026-58069'))).toBe(false)
+    }
+  })
+
   it('retains KB4879 as an informational source without listing it against VBR builds', () => {
     expect(catalog.sources.some((source) => source.id === 'kb4879')).toBe(true)
     expect(catalog.securityFeedRoutes?.find((route) => route.articleId === 'kb4879')?.classification).toBe('informational')
