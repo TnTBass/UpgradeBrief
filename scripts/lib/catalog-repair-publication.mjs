@@ -15,13 +15,16 @@ const safe = value => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
 const trustedAuthor = user => user?.id === 1081294 || (user?.type === 'Bot' && user.login === 'github-actions[bot]')
 
 export function repairBrief({ id, baseCommit, articleIds, outcome, approach, checks, changes = [], blocked = [], repository = 'TnTBass/UpgradeBrief', headCommit }) {
+  const verification = checks.length > 10
+    ? `${checks.length} checks passed, including ${checks.filter(check => ['live-refresh', 'app-tests', 'catalog', 'typescript', 'build', 'fresh-source-verification'].includes(check)).join(', ')}. The complete check list is in the linked evidence`
+    : checks.join(', ') || 'No candidate checks completed'
   return [
     `<!-- catalog-repair:${id} -->`,
     `Catalog repair: **${safe(outcome)}**.`, '',
     `**What changed:** ${articleIds.map(safe).join(', ') || 'Refresh failure without complete source evidence'}.`,
     ...changes.map(change => safe(change)), '',
     `**Approach:** ${safe(approach)}`, '',
-    `**Verified:** ${checks.map(safe).join(', ') || 'No candidate checks completed'}.`,
+    `**Verified:** ${safe(verification)}.`,
     ...(blocked.length ? [`**Needs attention:** ${blocked.map(safe).join('; ')}.`] : []), '',
     `Base: \`${baseCommit}\`.${headCommit ? ` Candidate: \`${headCommit}\`.` : ''}`,
     `Repair: \`${id}\`.`,
@@ -32,17 +35,23 @@ export function repairBrief({ id, baseCommit, articleIds, outcome, approach, che
 }
 
 export async function ensureLabels(api) {
-  for (const [name, color] of [['catalog-review', '5319e7'], ['applied-awaiting-review', '0e8a16'], ['needs-investigation', 'd93f0b'], ['changes-requested', 'b60205'], ['corrected', '1d76db'], ['stale', 'cccccc']]) {
+  for (const [name, color] of [['catalog-review', '5319e7'], ['applied-awaiting-review', '0e8a16'], ['reviewed', '0e8a16'], ['needs-investigation', 'd93f0b'], ['changes-requested', 'b60205'], ['corrected', '1d76db'], ['stale', 'cccccc']]) {
     if (!await api(`/labels/${name}`, { allow404: true })) await api('/labels', { method: 'POST', body: { name, color } })
   }
 }
 
 export async function setRepairStateLabel(api, number, name) {
-  const states = ['applied-awaiting-review', 'needs-investigation', 'changes-requested', 'corrected', 'stale']
+  const states = ['applied-awaiting-review', 'reviewed', 'needs-investigation', 'changes-requested', 'corrected', 'stale']
   if (!states.includes(name)) throw new Error('Unknown repair lifecycle label')
   const issue = await api(`/issues/${number}`)
   const labels = issue.labels.map(label => typeof label === 'string' ? label : label.name).filter(label => !states.includes(label))
   await api(`/issues/${number}/labels`, { method: 'PUT', body: { labels: [...new Set([...labels, 'catalog-review', name])] } })
+  // Keep the first line of the skim brief current after publication/correction.
+  // Preserve the rest, including any reviewer edits to the explanation.
+  if (/^<!-- catalog-repair:sha256:[a-f0-9]{64} -->\nCatalog repair: \*\*[^\n]+\*\*\./.test(issue.body ?? '')) {
+    const body = issue.body.replace(/\nCatalog repair: \*\*[^\n]+\*\*\./, `\nCatalog repair: **${name.replaceAll('-', ' ')}**.`)
+    if (body !== issue.body) await api(`/issues/${number}`, { method: 'PATCH', body: { body } })
+  }
 }
 
 export async function persistRepairEvidence(api, id, manifest) {

@@ -64,6 +64,8 @@ Chat feedback is handled by the receiving assistant and linked to the repair; Gi
 
 ## Operator trials and recovery
 
+GitHub's default `pull_request` run for a PR created with `GITHUB_TOKEN` can require human approval. The repair pipeline uses an explicitly dispatched trusted-main workflow: it first verifies the candidate contains only the allowed data and evidence paths, then runs the full gate on that exact commit and records **Catalog repair verified**. The default bot-triggered run can remain blocked even when this independent check passes. The live trial verified this behavior; no human approval of that redundant run is needed for the configured repair path. Existing branch protection still applies. A GitHub App token would remove this platform-specific placeholder if desired later. [GitHub's bot PR workflow behavior](https://docs.github.com/en/actions/concepts/security/github_token)
+
 The Catalog repair dispatch defaults to offline `replay`. `benchmark` requires explicit `allow_live_ai=true` and uses the same durable budget. `repair` fetches current official sources and prepares a repair only if they fail review. Manual AI calls require the explicit input even when scheduled inference is enabled.
 
 `trial` seeds a clearly labelled reconstructed dependency-note change on `codex/catalog-repair-trial`, exercises the normal candidate/verification/merge path there, and verifies the Cloudflare preview URL returned by its build check. Trial evidence identities and source holds are isolated from production. Production main is not seeded or changed. An existing different trial branch is preserved rather than reset.
