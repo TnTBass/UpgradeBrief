@@ -24,7 +24,7 @@ export function findRelease(catalog: Catalog, productId: ProductId, input: strin
 
 export function findUpgradePath(catalog: Catalog, release: Release): UpgradePath | undefined {
   const exact = catalog.upgradePaths.find((path) => path.fromReleaseId === release.id)
-  if (exact) return exact
+  if (exact) return applyVbr11aRouteNotes(catalog, release, exact)
 
   const normalizedAliases = release.aliases.map(normalizeInput)
   let mostSpecificPath: UpgradePath | undefined
@@ -43,7 +43,20 @@ export function findUpgradePath(catalog: Catalog, release: Release): UpgradePath
     }
   }
 
-  return mostSpecificPath
+  return mostSpecificPath && applyVbr11aRouteNotes(catalog, release, mostSpecificPath)
+}
+
+// KB2053's V11a notes qualify its generic route diagram. Apply the patch-specific
+// restriction to the route and keep the AHV action visible in every consumer.
+function applyVbr11aRouteNotes(catalog: Catalog, release: Release, path: UpgradePath): UpgradePath | undefined {
+  if (release.productId !== 'vbr' || !path.sourceIds.includes('kb2053') || !release.aliases.some((alias) => /^11\.0\.1\./i.test(alias))) return path
+  const patched = release.aliases.some((alias) => /\bp20240304\b/i.test(alias))
+  if (!patched) return { ...path, fromReleaseId: release.id, guidanceNote: 'If this V11a deployment does not interact with Nutanix AHV, Veeam allows skipping V12.0 and upgrading directly to the latest V12.3 release. If AHV is used, review the component upgrade sequence in KB2053.' }
+  const hopReleaseIds = path.hopReleaseIds.filter((id) => !catalog.releases.find((item) => item.id === id)?.aliases.includes('12.0'))
+  // Do not substitute a guessed intermediate release if the catalog route changes.
+  const firstHop = catalog.releases.find((item) => item.id === hopReleaseIds[0])
+  if (!firstHop?.aliases.includes('12.3.2')) return undefined
+  return { ...path, fromReleaseId: release.id, hopReleaseIds, guidanceNote: 'If you use Nutanix AHV, confirm the component upgrade sequence with Veeam before starting this route.' }
 }
 
 export function isRecommendedRelease(catalog: Catalog, release: Release): boolean {

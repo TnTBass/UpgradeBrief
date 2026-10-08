@@ -91,7 +91,7 @@ export function validateReviewedSecurityData(data) {
     requireCondition(Array.isArray(advisory.records) && advisory.records.length <= 500, 'records')
     const recordKeys = new Set()
     for (const record of advisory.records) {
-      exactKeys(record, ['cve', 'key', 'title', 'cvssScore', 'conditions', 'affectedBuildRanges'], ['title'], 'vulnerability record')
+      exactKeys(record, ['cve', 'key', 'title', 'cvssScore', 'conditions', 'affectedBuildRanges', 'remediation'], ['title'], 'vulnerability record')
       requireCondition((record.cve === undefined) !== (record.key === undefined), 'record requires exactly one CVE or key')
       string(record.cve ?? record.key, 'record identity', record.cve ? CVE : ID)
       string(record.title, 'record title')

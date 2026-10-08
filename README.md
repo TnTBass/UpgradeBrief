@@ -11,6 +11,7 @@ Upgrade Brief is an independent community tool, not affiliated with or endorsed 
 - Highlights documented capabilities available in the recommended target release, with links to the corresponding What's New and release-note material.
 - Presents build-aware security reasons to upgrade. CVSS 9+, CISA KEV, or Veeam-confirmed active exploitation is critical; CVSS 7–8.9 is high. Environment controls never downgrade a matching advisory.
 - Exports a concise executive-summary PDF for a selected release.
+- Offers a separate, source-linked upgrade journey for reviewed Windows VBR V11/V12 routes to V13.1.1, with preparation, hop-specific timing, feature changes and a prominent retention warning. Open it with “Plan this upgrade” in the results; the product and exact entered version are preserved in the URL.
 - Keeps coverage limits visible. A result never means that an undisplayed CVE, lifecycle restriction, or upgrade constraint does not exist.
 
 ## How the catalog stays current
@@ -30,6 +31,8 @@ Release materials are fingerprinted so changes to a version family’s What's Ne
 Upgrade Brief is actively maintained, but its coverage is intentionally conservative and partial. It does not infer undocumented upgrade paths, certify a build as safe, or make environment-specific claims. Always review the linked official sources before acting.
 
 Source code and issue tracking: [TnTBass/UpgradeBrief](https://github.com/TnTBass/UpgradeBrief).
+
+Journey guidance is manually reviewed in `src/data/upgrade-journey.ts`. Its route comes from the existing catalog lookup, while `src/lib/upgrade-journey.ts` limits the guidance to the reviewed target. Extending coverage to another destination requires reviewing the linked official sources and updating the applicability tests. Automatic catalog refreshes do not extend this editorial coverage.
 
 ## A note on attribution
 
@@ -61,3 +64,29 @@ Connect the public GitHub repository to Cloudflare Pages with:
 - Node version: from `.nvmrc`
 
 No Pages Function or Worker is required.
+
+## Audience and usage analytics
+
+Umami Cloud uses the public website ID in `index.html`. Tracking is restricted to `upgradebrief.com` and `www.upgradebrief.com`; local development and deployment previews do not send analytics. No API key or server component is required.
+
+The application sends one pageview per document load, grouped as `/` (results) or `/journey`. Product/version changes are events, not extra pageviews. The initial pageview preserves incoming `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, and `utm_id`; selection and journey links preserve campaign parameters. For example: `https://upgradebrief.com/?utm_source=linkedin&utm_medium=social&utm_campaign=upgrade-journey`.
+
+| Event | Meaning | Properties |
+| --- | --- | --- |
+| `product_selected` | Visitor changes the selected product | `product` |
+| `brief_viewed` | A matched release result remains displayed for 600 ms | `product`, catalog `release`, `outcome` (`current`, `upgrade`, `no_route`) |
+| `pdf_exported` | PDF generation hands the export to the browser | `product`, catalog `release` |
+| `journey_viewed` | A supported journey remains displayed for 600 ms | `product`, catalog `release` |
+| `journey_stage_viewed` | A journey stage remains displayed for 700 ms | catalog `release`, `stage` |
+| `outbound_clicked` | Visitor follows an external link, including official sources | `product`, matched catalog `release` (when available), `view`, `destination` (origin and path only) |
+| `details_opened` | Visitor expands guidance, source materials, or security details | `product`, matched catalog `release` (when available), `view`, `topic`, journey `stage` (when applicable) |
+
+`details_opened` records openings only; closing a section and ordinary rerenders do not add events. Reopening a section records another action. Topics identify version help, release highlights/fixes/materials, appliance conversion requirements, security advisories, and individual journey items (including retention). Journey topic IDs match `src/data/upgrade-journey.ts`; release-fix source topics include the catalog improvement ID. Filter these events and `outbound_clicked` by `product` and `release` to see which guidance people investigate for their installed version. When no release matches, the `release` property is omitted rather than recording free-text input.
+
+Use Umami's traffic/referrer and UTM reports for acquisition, event properties for product/release demand, and visitor-based goals or funnels for `brief_viewed` → `pdf_exported` and `brief_viewed` → `journey_viewed`. Event totals represent actions, not unique people. Repeated identical result renders are suppressed, while revisiting a different selection or stage can record another action. The journey's initial preparation stage is included in stage views.
+
+Raw version text, unknown query parameters, URL fragments, and referrer query strings are not collected (same-site referrers retain campaign parameters). No custom visitor identity, session replay, or keystroke tracking is added. Only matched catalog release names are event properties; do not put personal information in campaign tags. A blocked or failed tracker does not affect the tool.
+
+To exclude your own browser, run `localStorage.setItem('umami.disabled', '1')` in the site's browser console and reload; undo with `localStorage.removeItem('umami.disabled')`. This setting is specific to that browser and origin. See [Umami's exclusion instructions](https://docs.umami.is/docs/exclude-my-own-visits).
+
+After deployment, verify a tagged visit, a completed brief, a PDF export, a journey stage, a details expansion, and an outbound link in Umami's realtime/events views. Confirm that expansion and outbound events include the matched release, that closing a section does not add an event, and that changing a version does not add pageviews. Browser blocking can reduce measured traffic; PDF exports mean the browser was asked to save, not that a file was confirmed on disk.

@@ -36,3 +36,12 @@ if (appliancePath.toReleaseId !== 'vbr-13.1.1' || appliancePath.hopReleaseIds.jo
 }
 
 console.log('VBR release-information adapter fixture test passed.')
+
+const withGenericRoute = structuredClone(updateCatalog)
+withGenericRoute.upgradePaths.push({ id: 'generic-13-1', productId: 'vbr', fromReleaseId: 'vbr-13.1', fromVersionPrefixes: ['13.1.'], toReleaseId: 'vbr-13.1.1', hopReleaseIds: ['vbr-13.1.1'], sourceIds: ['kb2053', 'vbr-checklist'], howToSourceIds: ['vbr-checklist'] })
+const specific = mergeVbrReleaseInformation(withGenericRoute, ['13.1.1.18', '13.1.0.411'], 'kb4738', { updateHowToSourceId: 'vbr-update' }).catalog
+const sameFamily = specific.upgradePaths.filter(path => path.fromReleaseId === 'vbr-13.1')
+if (sameFamily.length !== 1 || sameFamily[0].howToSourceIds.join() !== 'vbr-update') throw new Error('A new KB2053 family route displaced the specific updater instructions.')
+withGenericRoute.upgradePaths.at(-1).sourceIds = ['reviewed-manual-route']
+const protectedRoute = mergeVbrReleaseInformation(withGenericRoute, ['13.1.1.18', '13.1.0.411'], 'kb4738', { updateHowToSourceId: 'vbr-update' }).catalog
+if (!protectedRoute.upgradePaths.some(path => path.id === 'generic-13-1')) throw new Error('Specific reviewed routes must remain intact.')

@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
 import { catalog } from './data/catalog'
 import type { ProductId, SecurityFinding, Urgency } from './lib/catalog-types'
 import { catalogFreshness } from './lib/freshness'
@@ -7,6 +7,10 @@ import { releaseOptions } from './lib/release-options'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './lib/upgrade-summary'
 import { classifyUrgency } from './lib/urgency'
 import { formatExecutiveRoute, formatLifecycleHeading } from './lib/executive-summary-format'
+import { buildUpgradeJourney } from './lib/upgrade-journey'
+import UpgradeJourneyPage from './UpgradeJourney'
+import { trackEvent } from './lib/analytics'
+import { selectionUrl } from './lib/selection-url'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
 const initialVersion = new URLSearchParams(window.location.search).get('version') || ''
@@ -63,7 +67,7 @@ function SourceLinks({ sourceIds }: { sourceIds: string[] }) {
 function VersionHelp({ productId }: { productId: ProductId }) {
   const help = versionHelp[productId]
   return (
-    <details className="version-help">
+    <details className="version-help" data-analytics-topic="version_help">
       <summary>Need help finding your version or build?</summary>
       <div>
         <p><strong>Use the full build when you can.</strong> A release such as <code>13.0.1</code> may include multiple builds; the full value is more likely to produce an exact result.</p>
@@ -118,10 +122,12 @@ function emptySecurityAdvisoryMessage(productName: string) {
 export default function App() {
   const [productId, setProductId] = useState<ProductId>(catalog.products.some((product) => product.id === initialProduct) ? initialProduct : 'vbr')
   const [version, setVersion] = useState(initialVersion)
+  const [journeyView] = useState(() => new URLSearchParams(window.location.search).get('view') === 'journey')
   const [theme, setTheme] = useState<Theme>(initialTheme)
   const [versionPickerOpen, setVersionPickerOpen] = useState(false)
   const [versionFilter, setVersionFilter] = useState('')
   const versionPickerRef = useRef<HTMLDivElement>(null)
+  const mainRef = useRef<HTMLElement>(null)
   const product = catalog.products.find((item) => item.id === productId)!
   const upgradeHowTo = upgradeHowToSourceIds(productId)
   const versionOptions = useMemo(() => releaseOptions(catalog.releases.filter((item) => item.productId === productId)), [productId])
@@ -132,6 +138,9 @@ export default function App() {
   const hasVersion = Boolean(version.trim())
   const release = useMemo(() => (hasVersion ? findRelease(catalog, productId, version) : undefined), [hasVersion, productId, version])
   const path = release ? findUpgradePath(catalog, release) : undefined
+  const journey = release ? buildUpgradeJourney(catalog, release, path) : undefined
+  const resultsHref = selectionUrl(window.location.href, productId, version, 'results')
+  const journeyHref = selectionUrl(window.location.href, productId, version, 'journey')
   const pathHowTo = path?.howToSourceIds ?? upgradeHowTo
   const pathHowToSource = sourceById(catalog, pathHowTo[0])
   const showPathGuidance = Boolean(path?.guidanceNote && release && path.fromReleaseId === release.id)
@@ -195,11 +204,24 @@ export default function App() {
   }) : undefined
 
   useEffect(() => {
-    const params = new URLSearchParams()
-    params.set('product', productId)
-    if (hasVersion) params.set('version', version)
-    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`)
-  }, [hasVersion, productId, version])
+    window.history.replaceState(null, '', selectionUrl(window.location.href, productId, version, journeyView ? 'journey' : 'results'))
+  }, [productId, version, journeyView])
+
+  const lastTrackedResult = useRef('')
+  const resultOutcome = isCurrentCatalogRelease ? 'current' : path ? 'upgrade' : 'no_route'
+  const journeyAvailable = Boolean(journey && path)
+  useEffect(() => {
+    if (!release || (journeyView && !journeyAvailable)) return
+    const key = `${journeyView}:${productId}:${release.id}`
+    if (lastTrackedResult.current === key) return
+    // Wait for a settled, catalog-matched result; ignore keystrokes and StrictMode replays.
+    const timer = window.setTimeout(() => {
+      lastTrackedResult.current = key
+      if (journeyView) trackEvent('journey_viewed', { product: productId, release: release.name })
+      else trackEvent('brief_viewed', { product: productId, release: release.name, outcome: resultOutcome })
+    }, 600)
+    return () => window.clearTimeout(timer)
+  }, [productId, release, journeyView, journeyAvailable, resultOutcome])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -207,6 +229,7 @@ export default function App() {
   }, [theme])
 
   function changeProduct(nextProductId: ProductId) {
+    if (nextProductId !== productId) trackEvent('product_selected', { product: nextProductId })
     setProductId(nextProductId)
     setVersion('')
     setVersionPickerOpen(false)
@@ -234,7 +257,7 @@ export default function App() {
       upgradeRoute: targetRelease
         ? {
             heading: `Recommended target: ${targetRelease.name}`,
-            detail: executiveRoute ?? 'No exact route is currently curated. Use the linked vendor guidance to plan the next step.',
+            detail: executiveRoute ? [executiveRoute, path?.guidanceNote].filter(Boolean).join(' ') : 'No exact route is currently curated. Use the linked vendor guidance to plan the next step.',
           }
         : undefined,
       securitySummary: findings.length > 0
@@ -243,10 +266,41 @@ export default function App() {
       targetUpdates: executiveTargetUpdates,
       sources: executiveSources,
     })
+    trackEvent('pdf_exported', { product: productId, release: release.name })
   }
 
+  function trackOutboundLink(event: MouseEvent<HTMLElement>) {
+    if (event.button !== 0 && event.button !== 1) return
+    const link = event.target instanceof Element ? event.target.closest('a[href]') : null
+    if (!(link instanceof HTMLAnchorElement)) return
+    const destination = new URL(link.href)
+    if (!['https:', 'http:'].includes(destination.protocol) || destination.origin === window.location.origin) return
+    trackEvent('outbound_clicked', { product: productId, ...(release ? { release: release.name } : {}), view: journeyView ? 'journey' : 'results', destination: `${destination.origin}${destination.pathname}` })
+  }
+
+  useEffect(() => {
+    const main = mainRef.current
+    function trackDetailsExpansion(event: Event) {
+      const details = event.target
+      if (!(details instanceof HTMLDetailsElement) || !details.open) return
+      const topic = details.dataset.analyticsTopic
+      if (!topic) return
+      const stage = details.closest<HTMLElement>('[data-analytics-stage]')?.dataset.analyticsStage
+      trackEvent('details_opened', {
+        product: productId,
+        ...(release ? { release: release.name } : {}),
+        view: journeyView ? 'journey' : 'results',
+        topic,
+        ...(stage ? { stage } : {}),
+      })
+    }
+    // Native details toggle events do not bubble; capture them across both views.
+    main?.addEventListener('toggle', trackDetailsExpansion, true)
+    return () => main?.removeEventListener('toggle', trackDetailsExpansion, true)
+  }, [productId, release, journeyView])
+
   return (
-    <main>
+    <main ref={mainRef} onClick={trackOutboundLink} onAuxClick={trackOutboundLink}>
       <header className="hero">
         <div>
           <p className="brand">Upgrade Brief</p>
@@ -269,6 +323,13 @@ export default function App() {
         </button>
       </header>
 
+      {journeyView ? (
+        journey && release && path ? <UpgradeJourneyPage journey={journey} release={release} path={path} backHref={resultsHref} /> : <section className="result empty">
+          <a href={resultsHref}>← Back to upgrade results</a>
+          <h2>Journey guidance is not available for this selection.</h2>
+          <p>Reviewed guidance currently covers documented Windows VBR V11 and V12 routes to V13.1.1. Use the results page for the cataloged route and official sources.</p>
+        </section>
+      ) : <>
       <section className="lookup" aria-labelledby="lookup-heading">
         <h2 id="lookup-heading">Look up your installed version</h2>
         <div className="lookup-fields">
@@ -373,7 +434,7 @@ export default function App() {
                           </li>
                         ))}
                       </ul>
-                      <details className="release-sources-details">
+                      <details className="release-sources-details" data-analytics-topic="release_highlights_sources">
                         <summary>View source materials</summary>
                         <SourceLinks sourceIds={[...new Set([...targetHighlightSourceIds, ...targetMaterialSourceIds])]} />
                       </details>
@@ -388,7 +449,7 @@ export default function App() {
                           {improvement.topics.map((topic) => <li key={topic}>{topic}</li>)}
                         </ul>
                       </section>
-                      <details className="release-sources-details">
+                      <details className="release-sources-details" data-analytics-topic={`release_fixes_sources:${improvement.id}`}>
                         <summary>View source materials</summary>
                         <SourceLinks sourceIds={[...new Set([...improvement.sourceIds, ...targetMaterialSourceIds])]} />
                       </details>
@@ -396,7 +457,7 @@ export default function App() {
                   )) : (
                     <>
                       <p>Review Veeam’s documented capabilities and release notes for this target release.</p>
-                      <details className="release-sources-details">
+                      <details className="release-sources-details" data-analytics-topic="release_materials">
                         <summary>View source materials</summary>
                         <SourceLinks sourceIds={targetMaterialSourceIds} />
                       </details>
@@ -436,11 +497,6 @@ export default function App() {
               <p className="eyebrow">Upgrade path</p>
               {path ? (
                 <>
-                  {showPathGuidance && (
-                    <aside className="path-guidance">
-                      <strong>{path.fromVersionPrefixes ? 'Version guidance.' : 'Build-specific guidance.'}</strong> {path.guidanceNote}
-                    </aside>
-                  )}
                   <ol className="route">
                     <li className="route-step">{release.name}</li>
                     {path.hopReleaseIds.map((releaseId, index) => {
@@ -457,6 +513,7 @@ export default function App() {
                     })}
                   </ol>
                   <p className="route-recommendation"><strong>Recommended target:</strong> {targetRelease?.name ?? 'the documented target release'}.</p>
+                  {showPathGuidance && <aside className="path-guidance">{path.guidanceNote}</aside>}
                   {path.notes.map((note) => <p key={note}>{note}</p>)}
                   {path.alternatives?.filter((alternative) => alternative.releaseId !== release.id).map((alternative) => {
                     const alternativeRelease = catalog.releases.find((item) => item.id === alternative.releaseId)
@@ -481,14 +538,18 @@ export default function App() {
                 : lifecycle?.state === 'end-of-support' ? <><p>This release is outside support. No direct route is asserted here without a source-backed path; use the linked vendor guidance to plan a supported migration or new deployment.</p><SourceLinks sourceIds={upgradeHowTo} /></>
                 : <><p>No exact path is in the current curated catalog. Use the linked product documentation rather than assuming a direct upgrade is supported.</p><SourceLinks sourceIds={upgradeHowTo} /></>}
               {showVsaConversionGuidance && (
-                <details className="vsa-conversion-guidance">
-                  <summary>Planning a Windows-to-VSA conversion?</summary>
-                  <p><strong>Important:</strong> Upgrading a Windows-based Veeam Backup &amp; Replication server from 13.0.2 to 13.1 makes it ineligible for the Windows-to-Veeam Software Appliance conversion.</p>
-                  <p>Veeam’s Windows-to-Veeam Software Appliance configuration migration currently requires a support ticket, not an ordinary in-place upgrade or configuration restore. Preparation includes instance-based VUL licensing, the latest Windows patch level, registration through Veeam’s conversion portal, and proactive support.</p>
-                  <p>Review the documented limitations and post-migration considerations before deciding whether this route fits your environment.</p>
-                  <SourceLinks sourceIds={['vsa-conversion', 'kb4800']} />
-                </details>
+                <aside className="vsa-conversion-guidance" aria-labelledby="vsa-conversion-heading">
+                  <h3 id="vsa-conversion-heading">Considering a move to Veeam Software Appliance?</h3>
+                  <p>Complete the conversion from a supported Windows V13.0.x deployment <strong>before upgrading to V13.1.</strong> Moving to V13.1 on Windows closes the currently supported conversion path.</p>
+                  <details data-analytics-topic="conversion_requirements">
+                    <summary>Review conversion requirements</summary>
+                    <p>Veeam’s Windows-to-Veeam Software Appliance configuration migration requires a support-assisted migration. Preparation includes instance-based VUL licensing, the latest supported V13.0.x patch level, registration through Veeam’s conversion portal, and proactive support.</p>
+                    <p>Review the documented limitations and post-migration considerations before deciding whether this route fits your environment.</p>
+                    <SourceLinks sourceIds={['vsa-conversion', 'kb4800']} />
+                  </details>
+                </aside>
               )}
+              {journey && <div className="journey-entry"><a className="journey-button" href={journeyHref}>Plan this upgrade <span aria-hidden="true">→</span></a><p>Review prerequisites, removals and behavior changes at each hop.</p></div>}
             </article>
           </div>
 
@@ -501,7 +562,7 @@ export default function App() {
               </div>
             </div>
             {findings.length > 0 ? (
-              <details className="security-advisories">
+              <details className="security-advisories" data-analytics-topic="security_advisories">
                 <summary>
                   <strong>
                     {findings.length} matching {findings.length === 1 ? 'advisory' : 'advisories'} - {advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}
@@ -549,9 +610,11 @@ export default function App() {
             <p className="eyebrow">Plan the change</p>
             <h2>Use the vendor checklist and release notes.</h2>
             <SourceLinks sourceIds={checklistSourceIds(productId)} />
+            {journey && <a className="journey-planning-link" href={journeyHref}>Plan this upgrade →</a>}
           </section>
         </section>
       )}
+      </>}
 
       <footer>
         <p>Upgrade Brief is an independent community tool, not affiliated with or endorsed by Veeam. It uses only publicly available information and does not access hidden, confidential, proprietary, or customer environment data. It does not assess your environment or certify upgrade safety. <a href="https://github.com/TnTBass/UpgradeBrief">View the project on GitHub</a>.</p>

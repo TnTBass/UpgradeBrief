@@ -431,7 +431,7 @@
       "productId": "vbr",
       "source": {
         "id": "kb4902",
-        "title": "Veeam KB4902: Vulnerability Resolved in Veeam Backup & Replication 13.1",
+        "title": "Veeam KB4902: Vulnerabilities Resolved in Veeam Backup & Replication 13.1",
         "url": "https://www.veeam.com/kb4902"
       },
       "affectedBuildRanges": [
@@ -451,6 +451,84 @@
             "Veeam states that Veeam Backup & Replication 13.0.2.29 and all earlier version 13 builds are affected; older 12.x versions are not affected.",
             "Verify access controls and retention for guest-machine logs that may contain recorded credentials; this does not remove the need to upgrade an affected build."
           ]
+        },
+        {
+          "cve": "CVE-2026-58069",
+          "title": "An authenticated Veeam Cloud Connect tenant can read arbitrary files on the service provider host.",
+          "cvssScore": 8.3,
+          "affectedBuildRanges": [
+            {
+              "versionPrefix": "12.",
+              "throughBuild": "12.3.2.4854"
+            },
+            {
+              "versionPrefix": "13.",
+              "throughBuild": "13.0.2.29"
+            }
+          ],
+          "remediation": "Upgrade the selected branch to Veeam Backup & Replication 13.1.0.411, 13.0.3.63, or 12.3.2.4934, or a later release containing the fix.",
+          "conditions": [
+            "Veeam documents this issue for Windows-based Veeam Backup & Replication acting as a Cloud Connect service provider host; exploitation requires an authenticated tenant.",
+            "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
+          ]
+        }
+      ]
+    },
+    {
+      "articleId": "kb4934",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4934",
+        "title": "Veeam KB4934: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2 P4",
+        "url": "https://www.veeam.com/kb4934"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "12.",
+          "throughBuild": "12.3.2.4854"
+        }
+      ],
+      "fixedReleaseId": "vbr-build-12-3-2-4934",
+      "conditions": [
+        "Veeam states that version 13 is not affected."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2025-64393",
+          "title": "A low-privileged Backup Viewer can execute code on the backup server through insecure deserialization in the Mount Service.",
+          "cvssScore": 9.4
+        },
+        {
+          "cve": "CVE-2026-93026",
+          "title": "An authenticated Backup Viewer can modify or delete the Enterprise Manager master key and read or overwrite antivirus update credentials stored on the backup server.",
+          "cvssScore": 6.1
+        }
+      ]
+    },
+    {
+      "articleId": "kb4934",
+      "productId": "enterprise-manager",
+      "source": {
+        "id": "kb4934",
+        "title": "Veeam KB4934: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2 P4",
+        "url": "https://www.veeam.com/kb4934"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "12.",
+          "throughBuild": "12.3.2.4854"
+        }
+      ],
+      "fixedReleaseId": "em-build-12-3-2-4934",
+      "conditions": [
+        "Veeam documents this issue for the optional Veeam Backup Enterprise Manager component. Verify that Enterprise Manager is deployed; this does not downgrade the upgrade reason.",
+        "Veeam states that version 13 is not affected."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2025-64392",
+          "title": "An attacker can execute script in an authenticated Enterprise Manager portal user's browser when that user opens a crafted link.",
+          "cvssScore": 4.8
         }
       ]
     },
@@ -843,7 +921,11 @@
         "CVE-2026-21708",
         "CVE-2026-32997",
         "CVE-2026-44963",
-        "CVE-2026-58070"
+        "CVE-2026-58070",
+        "CVE-2026-58069",
+        "CVE-2025-64392",
+        "CVE-2025-64393",
+        "CVE-2026-93026"
       ]
     },
     "kb4879": {
@@ -943,9 +1025,27 @@
       "classification": "dedicated",
       "productCves": {
         "vbr": [
-          "CVE-2026-58070"
+          "CVE-2026-58070",
+          "CVE-2026-58069"
         ]
-      }
+      },
+      "ignoredCveIds": [
+        "CVE-2026-58068",
+        "CVE-2025-64391"
+      ]
+    },
+    "kb4934": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2025-64393",
+          "CVE-2026-93026"
+        ],
+        "enterprise-manager": [
+          "CVE-2025-64392"
+        ]
+      },
+      "multiProduct": true
     },
     "kb4892": {
       "classification": "dedicated",
