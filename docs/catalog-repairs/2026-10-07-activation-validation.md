@@ -45,4 +45,6 @@ Each repair PR is the durable review conversation, with a concrete change summar
 
 ## Activation status
 
-The live publication, notification, ordinary-comment, linked-issue, and scoped-revert trials passed. Final normal refresh verification is in progress. Both production activation variables remain false; automatic approval review rejected their activation pending more explicit authorization of the persistent production settings.
+The live publication, notification, ordinary-comment, linked-issue, and scoped-revert trials passed. The final [normal production refresh 37723986863](https://github.com/TnTBass/UpgradeBrief/actions/runs/37723986863) also passed, producing 267 releases and 102 security findings. Public deployment read-back matched commit `9715dc5685d839fd77677c422c0ab32bf96cf32a`, catalog hash `774f9de3b894d1ba257de23e1c3fe474eb9f8b2c61fdc2c5c9d171c3ed5f50b5`, and generation time `2026-10-08T03:50:19.471Z`.
+
+Both production activation variables remain false; automatic approval review rejected their activation pending more explicit authorization of the persistent production settings. The remaining activation is to set `CATALOG_REPAIR_AI_ENABLED=true` and `CATALOG_REPAIR_AUTO_APPLY=true`. This permits the bounded provider and publication of eligible, independently verified data repairs before human review. Ordinary refresh, diagnostic triage, review records, holds and explicit trusted corrections remain available.
