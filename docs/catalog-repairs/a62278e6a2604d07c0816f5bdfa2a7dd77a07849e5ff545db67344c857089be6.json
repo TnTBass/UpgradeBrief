@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "bundle": {
+    "schemaVersion": 1,
+    "environment": "production",
+    "validatorVersion": "3-supported-semantics-and-isolated-trials",
+    "baseCommit": "a7887c9febe33bbda9b0cb08aff98a8dec50c10d",
+    "policyFingerprint": "sha256:fd651119cc90902642ba53b9371fc50fd6c4eb4e32ecd4f5080332124a1b5a3b",
+    "runId": "39931224500",
+    "capturedAt": "2026-10-23T09:28:38.554Z",
+    "failure": {
+      "message": "Security feed coverage failed with 1 finding(s); fingerprint sha256:3f5af22ae9bd5af7db8058d56006457b3fb1b9c7b88e44e7a79846ff376f557f.",
+      "code": "SECURITY_FEED_COVERAGE_FAILED",
+      "report": {
+        "schemaVersion": 1,
+        "ok": false,
+        "code": "SECURITY_FEED_COVERAGE_FAILED",
+        "articleCount": 60,
+        "findingCount": 1,
+        "findings": [
+          {
+            "code": "UNCLASSIFIED_SECURITY_ARTICLE",
+            "articleId": "kb4953",
+            "classification": "unclassified"
+          }
+        ],
+        "fingerprint": "sha256:3f5af22ae9bd5af7db8058d56006457b3fb1b9c7b88e44e7a79846ff376f557f"
+      }
+    },
+    "articles": [],
+    "evidenceId": "sha256:a62278e6a2604d07c0816f5bdfa2a7dd77a07849e5ff545db67344c857089be6"
+  },
+  "proposal": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:a62278e6a2604d07c0816f5bdfa2a7dd77a07849e5ff545db67344c857089be6",
+    "baseCommit": "a7887c9febe33bbda9b0cb08aff98a8dec50c10d",
+    "articles": []
+  },
+  "extractions": {},
+  "result": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:a62278e6a2604d07c0816f5bdfa2a7dd77a07849e5ff545db67344c857089be6",
+    "baseCommit": "a7887c9febe33bbda9b0cb08aff98a8dec50c10d",
+    "status": "blocked",
+    "eligibleForPublication": false,
+    "blocked": [
+      {
+        "code": "UNSUPPORTED_FAILURE",
+        "categories": [
+          "parser-or-coverage"
+        ]
+      },
+      {
+        "code": "MISSING_SOURCE_EVIDENCE"
+      },
+      {
+        "code": "MISSING_FINDING_EVIDENCE",
+        "articleId": "kb4953"
+      }
+    ],
+    "checks": {
+      "passed": [
+        "evidence-integrity",
+        "proposal-schema",
+        "base-and-policy-continuity"
+      ],
+      "notRun": [
+        "full-catalog-validation",
+        "live-refresh",
+        "fresh-source-verification",
+        "github-checks",
+        "publication",
+        "notification-delivery"
+      ]
+    },
+    "files": {}
+  }
+}
