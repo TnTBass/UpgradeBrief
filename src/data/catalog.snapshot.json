@@ -799,6 +799,12 @@
       "title": "Veeam KB4934: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2 P4",
       "url": "https://www.veeam.com/kb4934",
       "checkedAt": "2026-10-22T09:32:17.481Z"
+    },
+    {
+      "id": "kb4953",
+      "title": "Veeam KB4953: PHP2Shell",
+      "url": "https://www.veeam.com/kb4953",
+      "checkedAt": "2026-10-23"
     }
   ],
   "products": [
@@ -11978,6 +11984,20 @@
         "vspc-build-8-0-0-19552",
         "vspc-build-8-1-0-21377",
         "vspc-build-8-1-0-21999"
+      ]
+    }
+  ],
+  "securityNotices": [
+    {
+      "id": "kb4953",
+      "scope": "vendor-wide",
+      "impact": "not-affected",
+      "title": "PHP2Shell",
+      "summary": "Veeam confirms its products and SaaS services are unaffected.",
+      "publishedAt": "2026-10-22",
+      "displayUntil": "2026-11-21",
+      "sourceIds": [
+        "kb4953"
       ]
     }
   ]

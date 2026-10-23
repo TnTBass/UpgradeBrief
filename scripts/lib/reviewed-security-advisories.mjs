@@ -14,6 +14,10 @@ validateReviewedSecurityData(reviewedData)
 export const REVIEWED_SECURITY_ADVISORIES = Object.freeze(reviewedData.advisories)
 const observationSpecs = Object.freeze(reviewedData.observationSpecs)
 
+export const REVIEWED_SECURITY_NOTICES = Object.freeze(Object.entries(observationSpecs)
+  .filter(([, spec]) => spec.notice)
+  .map(([articleId, spec]) => Object.freeze({ id: articleId, ...spec.notice, sourceIds: [articleId] })))
+
 const sortedUnique = (values) => [...new Set(values)].sort()
 
 function decodeSemanticHtml(value) {
@@ -57,7 +61,7 @@ export function normalizeReviewedSecurityMainArticle(content) {
   if (end !== undefined) text = text.slice(0, end)
 
   return text
-    .replace(/\nGet weekly article updates[\s\S]*?\n(?:Veeam Software Security Commitment|General Vulnerability Details|Challenge|Issue Details|Purpose)\n/i, (match) => `\n${match.trim().split('\n').at(-1)}\n`)
+    .replace(/\nGet weekly article updates[\s\S]*?\n(?:Veeam Software Security Commitment|Impact on Veeam Software|General Vulnerability Details|Challenge|Issue Details|Purpose)\n/i, (match) => `\n${match.trim().split('\n').at(-1)}\n`)
     .replace(/\s+/g, ' ')
     .trim()
 }
@@ -217,6 +221,21 @@ export function mergeReviewedSecurityAdvisories(catalog, { checkedAt } = {}) {
       url: 'https://www.veeam.com/kb4857',
       ...(checkedAt ? { checkedAt } : {}),
     })
+    sourceChanges += 1
+  }
+
+  next.securityNotices = structuredClone(REVIEWED_SECURITY_NOTICES)
+  for (const notice of next.securityNotices) {
+    const index = next.sources.findIndex(source => source.id === notice.id)
+    const source = {
+      ...(index >= 0 ? next.sources[index] : {}),
+      id: notice.id,
+      title: 'Veeam ' + notice.id.toUpperCase() + ': ' + notice.title,
+      url: 'https://www.veeam.com/' + notice.id,
+      ...(checkedAt ? { checkedAt } : {}),
+    }
+    if (index >= 0) next.sources[index] = source
+    else next.sources.push(source)
     sourceChanges += 1
   }
 

@@ -312,6 +312,12 @@
       "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f",
       "comparisonFingerprint": "sha256:6455bec0808d0e26229bc745e76cd547a54812a1117406474ec9b1b15a696a01",
       "reviewedFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
+    },
+    "kb4953": {
+      "normalizedText": "PHP2Shell Vulnerability CVE-2026-109618 | CVE-2026-109619 KB ID: 4953 Published: 2026-10-22 Last Modified: 2026-10-22 Impact on Veeam Software Veeam products and Veeam SaaS solutions are not affected by this vulnerability. PHP is not in use by any Veeam products or Veeam SaaS solutions. General Vulnerability Details CVE-2026-109618 CVE-2026-109619 More Information Wikipedia: PHP2Shell Veeam EULA | Open Source Software Components Veeam Software Appliance Repository / Mandatory External Packages",
+      "contentFingerprint": "sha256:1953c989d4ff486bd5a9d63aa0c1c6db904595dd60c3f2814f4bdb3240d2db49",
+      "comparisonFingerprint": "sha256:1953c989d4ff486bd5a9d63aa0c1c6db904595dd60c3f2814f4bdb3240d2db49",
+      "reviewedFingerprint": "sha256:1953c989d4ff486bd5a9d63aa0c1c6db904595dd60c3f2814f4bdb3240d2db49"
     }
   }
 }

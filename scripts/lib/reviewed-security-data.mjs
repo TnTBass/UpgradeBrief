@@ -46,6 +46,22 @@ function applicability(value) {
   if (value.remediation !== undefined) string(value.remediation, 'remediation')
 }
 
+export function validateSecurityNotice(notice) {
+  const keys = ['scope', 'impact', 'title', 'summary', 'publishedAt', 'displayUntil']
+  exactKeys(notice, keys, keys, 'security notice')
+  requireCondition(notice.scope === 'vendor-wide' && notice.impact === 'not-affected', 'security notice scope and impact')
+  for (const key of ['title', 'summary']) {
+    string(notice[key], 'security notice ' + key)
+    requireCondition(notice[key].length <= (key === 'title' ? 100 : 300), 'security notice length')
+  }
+  for (const key of ['publishedAt', 'displayUntil']) {
+    const value = notice[key]
+    requireCondition(typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value, 'security notice date')
+  }
+  const duration = Date.parse(notice.displayUntil) - Date.parse(notice.publishedAt)
+  requireCondition(duration > 0 && duration <= 30 * 86_400_000, 'security notice display window must be at most 30 days')
+}
+
 export function validateReviewedSecurityData(data) {
   exactKeys(data, ['schemaVersion', 'advisories', 'observationSpecs'], ['schemaVersion', 'advisories', 'observationSpecs'], 'reviewed data')
   requireCondition(data.schemaVersion === 1, 'unsupported reviewed data schema')
@@ -54,7 +70,7 @@ export function validateReviewedSecurityData(data) {
   exactKeys(specs, Object.keys(specs ?? {}), [], 'observation specs')
   for (const [articleId, spec] of Object.entries(specs)) {
     string(articleId, 'article ID', KB)
-    exactKeys(spec, ['classification', 'productCves', 'ignoredCveIds', 'allowNoCves', 'informationalReason', 'contentFingerprint', 'multiProduct'], ['classification', 'productCves'], articleId)
+    exactKeys(spec, ['classification', 'productCves', 'ignoredCveIds', 'allowNoCves', 'informationalReason', 'contentFingerprint', 'multiProduct', 'notice'], ['classification', 'productCves'], articleId)
     requireCondition(['dedicated', 'inventory', 'informational', 'out-of-scope'].includes(spec.classification), 'classification')
     exactKeys(spec.productCves, [...PRODUCTS], [], 'product CVEs')
     const productIds = Object.keys(spec.productCves)
@@ -64,6 +80,11 @@ export function validateReviewedSecurityData(data) {
       strings(spec.ignoredCveIds, 'ignored CVE IDs', CVE)
       const mapped = Object.values(spec.productCves).flat()
       requireCondition(!spec.ignoredCveIds.some(cve => mapped.includes(cve)), 'CVE is both mapped and ignored')
+    }
+    if (spec.notice !== undefined) {
+      validateSecurityNotice(spec.notice)
+      requireCondition(spec.classification === 'informational' && spec.informationalReason === 'NO_VENDOR_VULNERABILITY_FINDING', 'notice requires a reviewed no-impact classification')
+      requireCondition(productIds.length === PRODUCTS.size && Object.values(spec.productCves).every(cves => cves.length === 0), 'vendor-wide notice must cover every product without vulnerability findings')
     }
     for (const key of ['allowNoCves', 'multiProduct']) if (spec[key] !== undefined) requireCondition(typeof spec[key] === 'boolean', key)
     if (productIds.length > 1) requireCondition(spec.multiProduct === true, 'multi-product scope must be explicit')

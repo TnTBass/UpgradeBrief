@@ -1277,6 +1277,32 @@
       ],
       "informationalReason": "UNTRACKED_MANAGED_COMPONENT",
       "contentFingerprint": "sha256:a096adba278170536471bb4b3c05582d7e75a97e08dd5a79f70e4049b6d593ad"
+    },
+    "kb4953": {
+      "classification": "informational",
+      "productCves": {
+        "vbr": [],
+        "enterprise-manager": [],
+        "veeam-one": [],
+        "vro": [],
+        "vspc": [],
+        "vb365": []
+      },
+      "ignoredCveIds": [
+        "CVE-2026-109618",
+        "CVE-2026-109619"
+      ],
+      "informationalReason": "NO_VENDOR_VULNERABILITY_FINDING",
+      "contentFingerprint": "sha256:1953c989d4ff486bd5a9d63aa0c1c6db904595dd60c3f2814f4bdb3240d2db49",
+      "multiProduct": true,
+      "notice": {
+        "scope": "vendor-wide",
+        "impact": "not-affected",
+        "title": "PHP2Shell",
+        "summary": "Veeam confirms its products and SaaS services are unaffected.",
+        "publishedAt": "2026-10-22",
+        "displayUntil": "2026-11-21"
+      }
     }
   }
 }

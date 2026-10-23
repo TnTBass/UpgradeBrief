@@ -1,0 +1,25 @@
+name: Verify PHP2Shell refresh
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  live-refresh:
+    if: github.head_ref == 'codex/php2shell-notice'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: node scripts/refresh-catalog.mjs --live
+      - name: Retain verified public catalog output
+        run: |
+          node --input-type=module -e "import fs from 'node:fs'; for (const path of ['src/data/catalog.snapshot.json','scripts/data/security-review-baselines.json']) console.log('VERIFIED_CATALOG_FILE '+JSON.stringify({path,content:fs.readFileSync(path,'utf8')}))"
+      - name: Show review diagnostics
+        if: failure()
+        run: cat artifacts/catalog-review/review.json

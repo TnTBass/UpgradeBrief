@@ -121,6 +121,17 @@ export interface SecurityFinding {
   sourceIds: string[]
 }
 
+export interface SecurityNotice {
+  id: string
+  scope: 'vendor-wide'
+  impact: 'not-affected'
+  title: string
+  summary: string
+  publishedAt: string
+  displayUntil: string
+  sourceIds: string[]
+}
+
 export interface OperationalNotice {
   id: string
   productId: ProductId
@@ -172,6 +183,7 @@ export interface Catalog {
   lifecycleNotices: LifecycleNotice[]
   upgradePaths: UpgradePath[]
   securityFindings: SecurityFinding[]
+  securityNotices?: SecurityNotice[]
   operationalNotices: OperationalNotice[]
   releaseImprovements: ReleaseImprovement[]
   capabilities: ProductCapability[]

@@ -176,7 +176,8 @@ const securityFeedRoutes = assertSecurityFeedRouteContinuity(current.securityFee
   .filter((article) => securityFeedArticleIdSet.has(article.articleId))
   .map(({ articleId, classification, productIds, multiProduct }) => ({ articleId, classification, productIds, multiProduct })))
 const sourceArticleById = new Map(securityArticles.map((article) => [article.id.toLowerCase(), article]))
-const classifiedArticlesToFetch = classifiedSecurityArticles.filter((article) => article.classification !== 'unclassified')
+// Fetch new articles for review evidence; the coverage gate still rejects unclassified articles.
+const classifiedArticlesToFetch = classifiedSecurityArticles
 const classifiedArticleResponses = await Promise.allSettled(classifiedArticlesToFetch.map(async (article) => ({
     article,
     html: await fetchSource({ id: article.articleId, url: new URL(sourceArticleById.get(article.articleId).url, 'https://www.veeam.com').toString() }),
