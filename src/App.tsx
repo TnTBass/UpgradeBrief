@@ -9,6 +9,7 @@ import { classifyUrgency } from './lib/urgency'
 import { formatExecutiveRoute, formatLifecycleHeading } from './lib/executive-summary-format'
 import { buildUpgradeJourney } from './lib/upgrade-journey'
 import UpgradeJourneyPage from './UpgradeJourney'
+import SecurityNotices from './SecurityNotices'
 import { trackEvent } from './lib/analytics'
 import { selectionUrl } from './lib/selection-url'
 
@@ -585,6 +586,8 @@ export default function App() {
             )}
             <SourceLinks sourceIds={['security-kb']} />
           </section>
+
+          <SecurityNotices catalog={catalog} />
 
           {operationalNotices.length > 0 && (
             <section className="resources operational-notices">

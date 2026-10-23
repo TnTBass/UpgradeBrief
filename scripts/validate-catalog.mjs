@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises'
+import { REVIEWED_SECURITY_NOTICES } from './lib/reviewed-security-advisories.mjs'
 
 const catalogPath = process.argv[2] ?? new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const catalog = JSON.parse(await readFile(catalogPath, 'utf8'))
@@ -97,6 +98,14 @@ for (const release of catalog.releases) {
   assert(productIds.has(release.productId), `${release.id} references an unknown product`)
   for (const highlight of release.highlights ?? []) {
     for (const sourceId of highlight.sourceIds) assert(sourceIds.has(sourceId), `${release.id} highlight references unknown source ${sourceId}`)
+  }
+}
+
+assert(JSON.stringify(catalog.securityNotices) === JSON.stringify(REVIEWED_SECURITY_NOTICES), 'security notices must match reviewed vendor statements')
+for (const notice of catalog.securityNotices) {
+  for (const sourceId of notice.sourceIds) {
+    const source = catalog.sources.find(source => source.id === sourceId)
+    assert(source?.url === 'https://www.veeam.com/' + notice.id, notice.id + ' must reference its reviewed vendor source')
   }
 }
 
