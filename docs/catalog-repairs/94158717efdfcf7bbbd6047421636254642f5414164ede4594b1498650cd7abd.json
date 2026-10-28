@@ -1,0 +1,524 @@
+{
+  "schemaVersion": 1,
+  "bundle": {
+    "schemaVersion": 1,
+    "environment": "production",
+    "validatorVersion": "3-supported-semantics-and-isolated-trials",
+    "baseCommit": "0e4b3fe3420541fbffa5e9e88eba30198317e2ab",
+    "policyFingerprint": "sha256:d3e81282cbd4cfb126e24233483533c54400844b37e3977a389f0e987e2f055d",
+    "runId": "40673274156",
+    "capturedAt": "2026-10-28T10:42:14.622Z",
+    "failure": {
+      "message": "Security feed coverage failed with 5 finding(s); fingerprint sha256:0d76d6b7ba4c2029faf61589ea1541031046d3536f17f1ab6a7d31a5d542afd0.",
+      "code": "SECURITY_FEED_COVERAGE_FAILED",
+      "report": {
+        "schemaVersion": 1,
+        "ok": false,
+        "code": "SECURITY_FEED_COVERAGE_FAILED",
+        "articleCount": 63,
+        "findingCount": 5,
+        "findings": [
+          {
+            "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+            "articleId": "kb3103"
+          },
+          {
+            "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+            "articleId": "kb3108"
+          },
+          {
+            "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+            "articleId": "kb3109"
+          },
+          {
+            "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+            "articleId": "kb4857"
+          },
+          {
+            "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+            "articleId": "kb4858"
+          }
+        ],
+        "fingerprint": "sha256:0d76d6b7ba4c2029faf61589ea1541031046d3536f17f1ab6a7d31a5d542afd0"
+      }
+    },
+    "articles": [
+      {
+        "articleId": "kb3103",
+        "url": "https://www.veeam.com/kb3103",
+        "before": "List of Security Fixes and Improvements in Veeam Backup & Replication KB ID: 3103 Product: Veeam Backup & Replication | 10 | 11 | 12 | 12.1 | 12.2 | 12.3 | 12.3.1 | 12.3.2 | 13 | 13.1 Published: 2020-03-02 Last Modified: 2026-10-05 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Backup & Replication . The goal of this article is to provide our customers' security and compliance teams with detailed information on security improvements between releases, in order to help them make an informed decision on whether it is critical to upgrade from their current Veeam Backup & Replication version to a latter one. Security Fixes and Improvements 13.1.0.411 CVE-2026-58070 vulnerability was fixed. CVE-2026-58069 vulnerability was fixed. System.Security.Cryptography.Xml upgraded to version 10.0.7 Microsoft.AspNetCore.DataProtection upgraded to version 10.0.7 CoreWCF.Primitives upgraded to version 1.8.1 CoreWCF.NetFramingBase upgraded to version 1.8.1 MailKit upgraded to version 4.17.0 MimeKit upgraded to version 4.17.0 Microsoft.OpenApi upgraded to version 2.7.5 OpenTelemetry upgraded to version 1.15.3 ws upgraded to version 7.5.11 SQLite upgraded to version 3.53.2 @angular/core upgraded to version 21.2.17 OpenSSL upgraded to version 3.5.7 OpenSSL FIPS module upgraded to version 3.1.2 and is now FIPS140-3 validated curl upgraded to version 8.21.0 zlib upgraded to version 1.3.2 libarchive upgraded to version 3.8.5 13.0.3.63 CVE-2026-58070 vulnerability was fixed. CVE-2026-58069 vulnerability was fixed. System.Security.Cryptography.Xml upgraded to version 8.0.4 CoreWCF.Primitives upgraded to version 1.8.1 CoreWCF.NetFramingBase upgraded to version 1.8.1 SQLite upgraded to version 3.53.2 @angular/core upgraded to version 21.2.17 curl upgraded to version 8.21.0 ws upgraded to version 7.5.11 dompurify upgraded to version 3.4.12 OpenSSL upgraded to version 3.5.7 13.0.2.29 CVE-2026-32997 vulnerability was fixed. uuid upgraded to version 14.0.0 System.Security.Cryptography.Xml upgraded to version 8.0.3 Snappier upgraded to version 1.3.1 picomatch upgraded to version 2.3.2 Microsoft.Kiota.Abstractions upgraded to version 1.22.0 lodash upgraded to version 4.18.1 AutoMapper replaced with MagicMapper 14.0.1 13.0.1.2067 CVE-2026-21669 vulnerability was fixed. CVE-2026-21670 vulnerability was fixed. CVE-2026-21671 vulnerability was fixed. CVE-2026-21672 vulnerability was fixed. CVE-2026-21708 vulnerability was fixed. 13.0.1.1071 CVE-2025-55125 vulnerability was fixed. CVE-2025-59468 vulnerability was fixed. CVE-2025-59469 vulnerability was fixed. CVE-2025-59470 vulnerability was fixed. 13.0.1.180 OpenSSL upgraded to version 3.0.17 Microsoft.IdentityModel.JsonWebTokens upgraded to version 8.12.0 System.Security.Cryptography.Xml upgraded to version 8.0.2 Microsoft.AspNetCore.Server.Kestrel.Core upgraded to version 2.3.6 Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets upgraded to version 2.3.0 13.0.0.4967 Communication protocol was switched to gRPC OpenSSL upgraded to version 3.0.8 Libxml2 upgraded to version 2.13.8 Microsoft.AspNetCore.Server.Kestrel.Core upgraded to version 2.3.0 Newtonsoft.Json upgraded to version 13.0.1 RestSharp upgraded to version 112.1.0 Microsoft.Extensions.Caching.Memory upgraded to version 8.0.1 System.Text.Json upgraded to version 8.0.5 Microsoft.AspNetCore.Identity upgraded to version 2.3.1 12.3.2.4934 CVE-2026-58069 vulnerability was fixed. CVE-2025-64392 vulnerability was fixed. CVE-2025-64393 vulnerability was fixed. CVE-2026-93026 vulnerability was fixed. 12.3.2.4854 CVE-2026-44963 vulnerability was fixed. 12.3.2.4465 CVE-2026-21666 vulnerability was fixed. CVE-2026-21667 vulnerability was fixed. CVE-2026-21668 vulnerability was fixed. CVE-2026-21672 vulnerability was fixed. CVE-2026-21708 vulnerability was fixed. Decode-uri-component upgraded to version 0.2.2 Newtonsoft.Json upgraded to version 13.0.3 Path-to-RegExp upgraded to version 1.9.0 12.3.2.4165 CVE-2025-48983 vulnerability was fixed. CVE-2025-48984 vulnerability was fixed. 12.3.2.3617 CVE-2025-23121 vulnerability was fixed. CVE-2025-24286 vulnerability was fixed. Azure.Identity upgraded to version 1.11.4 Microsoft.Identity.Client upgraded to version 4.61.3 Sustainsys.Saml2 upgraded to version 2.11.0 12.3.1.1139 CVE-2025-23120 vulnerability was fixed. 12.3.0.310 curl upgraded to version 8.10.1 Fixed a security flaw that allowed an attacker to intercept credentials during the initial connection to a Proxmox server. Reported by Peter Panholzer. CVE-2024-40717 vulnerability was fixed. CVE-2024-42451 vulnerability was fixed. CVE-2024-42452 vulnerability was fixed. CVE-2024-42453 vulnerability was fixed. CVE-2024-42455 vulnerability was fixed. CVE-2024-42456 vulnerability was fixed. CVE-2024-42457 vulnerability was fixed. CVE-2024-45204 vulnerability was fixed. 12.2.0.334 npgsql upgraded to 6.0.11 libxml upgraded to version 2.13.3 curl upgraded to version 8.8.0 CVE-2024-39718 vulnerability was fixed. CVE-2024-40710 vulnerability was fixed. CVE-2024-40711 vulnerability was fixed. CVE-2024-40712 vulnerability was fixed. CVE-2024-40713 vulnerability was fixed. CVE-2024-40714 vulnerability was fixed. 12.1.2.172 PuTTY updated to version 0.81 VMware Virtual Disk Development Kit (VDDK) was updated to 7.0.3.4 to address CVE-2023-38545. Microsoft .NET 6.0.25 was updated to 6.0.29. Microsoft WebView2 was updated to 123.0.2420.81. PostgreSQL installer was updated to 15.6.1. Curl was updated to 8.5. Vulnerability CVE-2024-29849 in Veeam Backup Enterprise Manager was fixed. Vulnerability CVE-2024-29850 in Veeam Backup Enterprise Manager was fixed. Vulnerability CVE-2024-29851 in Veeam Backup Enterprise Manager was fixed. Vulnerability CVE-2024-29852 in Veeam Backup Enterprise Manager was fixed. 12.1.1.56 PuTTY updated to version 0.80 12.1.0.2131 OpenSSL library updated to 1.0.2zi LZ4 library updated to 1.9.4 curl updated to 8.0.1 Azure Identity package updated to 1.10.2 Stronger backup encryption (see What's New in 12.1 p.7) Enhanced protection for stored credentials (see What's New in 12.1 p.7) 12.0.0.1420 P20230412 OpenSSL Library updated to the newest version (1.0.2zg). 12.0.0.1420 P20230223 Vulnerability ( CVE-2023-27532 ) in Veeam Backup Service was fixed. This vulnerability was reported by Shanigen . 12.0.0.1420 Added support for networks with NTLM authentication disabled ( Kerberos-only authentication ). Added Best Practices Analyzer to check product configuration. Audit capabilities were improved. Added possibility to limit the number of logon sessions per user and to log off users after an inactivity period SMTP certificates validation was added for email notifications Network communication between CDP components is encrypted with TLS Disabled insecure TLS protocols in communication with VMware infrastructure zlib has been updated to version 1.2.13 OpenSSL version has been updated to 1.0.2ze Putty has been updated to version 0.76 11.0.1.1261 P20240304 VMware Virtual Disk Development Kit (VDDK) was updated to 7.0.3.4. OpenSSL was updated to v1.0.2zi. liblz4 was updated to v1.9.4. zlib was updated to v1.2.13. PuTTY was updated to 0.80. 11.0.1.1261 P20230227 Vulnerability ( CVE-2023-27532 ) in Veeam Backup Service was fixed. This vulnerability was reported by Shanigen . 11.0.1.1261 P20220302 Vulnerabilities ( CVE-2022-26500 , CVE-2022-26501 ) in Veeam Distribution Service were fixed. These vulnerabilities were reported by Nikita Petrov ( Positive Technologies ). Vulnerability ( CVE-2022-26504 ) in Veeam.Backup.PSManager was fixed. Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 11.0.1.1261 Linux data mover: Added support for ECDHE TLS cipher suites; improved transport security. Veeam Backup Enterprise Manager: hardened HTTP header configuration; disabled HTTP Trace method; restricted an ability to log into the Self-Service Restore Portal under NETWORK SERVICE accounts (the portal was dysfunctional for such logins). Helper appliances: updated OpenVPN to version 2.4.11; updated OpenSSH to version 8.6. Debug logs: Addressed issues which could result in sensitive information logged under certain circumstances. 11.0.0.837 P20210507 Vulnerability (CVE-2021-35971) in the deserialization logic of Microsoft .NET remoting has been fixed. 11.0.0.837 .NET remoting communication security has been improved. Data Mover communication protocol security has been improved. Agent Management architecture security has been improved. Veeam Explorers integration security has been improved Veeam Backup Enterprise Manager Web App configuration and headers security has been improved. Addressed issues which could cause sensitive information logged in certain circumstances. Third-party libraries in FLR and SureBackup helper appliance have been updated to current versions. Sustansys.Saml2 has been updated to version 2.7 to address known vulnerabilities. LZ4 compression library version has been updated to version 1.9.2 10.0.1.4854 P20220304 Vulnerabilities ( CVE-2022-26500 , CVE-2022-26501 ) in Veeam Distribution Service were fixed. These vulnerabilities were reported by Nikita Petrov ( Positive Technologies ). Vulnerability ( CVE-2022-26504 ) in Veeam.Backup.PSManager was fixed. Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 10.0.1.4854 P20210609 Vulnerability (CVE-2021-35971) in the deserialization logic of Microsoft .NET remoting has been fixed. 10.0.1.4854 NAS Backup functionality can be used to gain unprivileged access to files on managed servers. Weak credentials encryption issue in guest processing command line parameter and in PowerShell cmdlet logs. Server and IIS version information is included in the response header of the Veeam Backup Enterprise Manager web app. Security of Agent Management architecture has been improved. Security of Cloud Connect architecture has been improved. libcurl version has been updated to 7.70 10.0.0.4461 A custom security descriptor was provided for the driver's control device (vulnerability reported by Mile Karry). Deserialization issues were fixed (vulnerability reported by Harrison Neal). A user authorization issue was fixed (vulnerability reported by Harrison Neal). Security of the Enterprise Manager Web App configuration was improved. Support for weak SSH ciphers was disabled in the recovery media ISOs. OpenSSL library was updated to version 1.0.2t Putty was updated to version 0.73 Weak TLS ciphers were disabled in the Surebackup Linux appliance. More Information",
+        "after": "List of Security Fixes and Improvements in Veeam Backup & Replication KB ID: 3103 Product: Veeam Backup & Replication | 10 | 11 | 12 | 12.1 | 12.2 | 12.3 | 12.3.1 | 12.3.2 | 13 | 13.1 Published: 2020-03-02 Last Modified: 2026-10-20 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Backup & Replication . The goal of this article is to provide our customers' security and compliance teams with detailed information on security improvements between releases, in order to help them make an informed decision on whether it is critical to upgrade from their current Veeam Backup & Replication version to a latter one. Security Fixes and Improvements 13.1.2.57 CVE-2026-108140 vulnerability was fixed. CVE-2026-108141 vulnerability was fixed. CVE-2026-108142 vulnerability was fixed. @angular/core / common / compiler upgraded to version 21.2.20 System.Security.Cryptography.Xml upgraded to version 10.0.10 Microsoft.AspNetCore.Authentication.Negotiate upgraded to version 10.0.11 decode-uri-component upgraded to version 0.5.0 dompurify upgraded to version 3.4.15 postcss upgraded to version 8.5.28 OpenSSL upgraded to version 3.5.8 13.1.0.411 CVE-2026-58070 vulnerability was fixed. CVE-2026-58069 vulnerability was fixed. System.Security.Cryptography.Xml upgraded to version 10.0.7 Microsoft.AspNetCore.DataProtection upgraded to version 10.0.7 CoreWCF.Primitives upgraded to version 1.8.1 CoreWCF.NetFramingBase upgraded to version 1.8.1 MailKit upgraded to version 4.17.0 MimeKit upgraded to version 4.17.0 Microsoft.OpenApi upgraded to version 2.7.5 OpenTelemetry upgraded to version 1.15.3 ws upgraded to version 7.5.11 SQLite upgraded to version 3.53.2 @angular/core upgraded to version 21.2.17 OpenSSL upgraded to version 3.5.7 OpenSSL FIPS module upgraded to version 3.1.2 and is now FIPS140-3 validated curl upgraded to version 8.21.0 zlib upgraded to version 1.3.2 libarchive upgraded to version 3.8.5 13.0.3.63 CVE-2026-58070 vulnerability was fixed. CVE-2026-58069 vulnerability was fixed. CVE-2026-108140 vulnerability was fixed. CVE-2026-108141 vulnerability was fixed. CVE-2026-108142 vulnerability was fixed. System.Security.Cryptography.Xml upgraded to version 8.0.4 CoreWCF.Primitives upgraded to version 1.8.1 CoreWCF.NetFramingBase upgraded to version 1.8.1 SQLite upgraded to version 3.53.2 @angular/core upgraded to version 21.2.17 curl upgraded to version 8.21.0 ws upgraded to version 7.5.11 dompurify upgraded to version 3.4.12 OpenSSL upgraded to version 3.5.7 13.0.2.29 CVE-2026-32997 vulnerability was fixed. uuid upgraded to version 14.0.0 System.Security.Cryptography.Xml upgraded to version 8.0.3 Snappier upgraded to version 1.3.1 picomatch upgraded to version 2.3.2 Microsoft.Kiota.Abstractions upgraded to version 1.22.0 lodash upgraded to version 4.18.1 AutoMapper replaced with MagicMapper 14.0.1 13.0.1.2067 CVE-2026-21669 vulnerability was fixed. CVE-2026-21670 vulnerability was fixed. CVE-2026-21671 vulnerability was fixed. CVE-2026-21672 vulnerability was fixed. CVE-2026-21708 vulnerability was fixed. 13.0.1.1071 CVE-2025-55125 vulnerability was fixed. CVE-2025-59468 vulnerability was fixed. CVE-2025-59469 vulnerability was fixed. CVE-2025-59470 vulnerability was fixed. 13.0.1.180 OpenSSL upgraded to version 3.0.17 Microsoft.IdentityModel.JsonWebTokens upgraded to version 8.12.0 System.Security.Cryptography.Xml upgraded to version 8.0.2 Microsoft.AspNetCore.Server.Kestrel.Core upgraded to version 2.3.6 Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets upgraded to version 2.3.0 13.0.0.4967 Communication protocol was switched to gRPC OpenSSL upgraded to version 3.0.8 Libxml2 upgraded to version 2.13.8 Microsoft.AspNetCore.Server.Kestrel.Core upgraded to version 2.3.0 Newtonsoft.Json upgraded to version 13.0.1 RestSharp upgraded to version 112.1.0 Microsoft.Extensions.Caching.Memory upgraded to version 8.0.1 System.Text.Json upgraded to version 8.0.5 Microsoft.AspNetCore.Identity upgraded to version 2.3.1 12.3.2.4934 CVE-2026-58069 vulnerability was fixed. CVE-2025-64392 vulnerability was fixed. CVE-2025-64393 vulnerability was fixed. CVE-2026-93026 vulnerability was fixed. 12.3.2.4854 CVE-2026-44963 vulnerability was fixed. 12.3.2.4465 CVE-2026-21666 vulnerability was fixed. CVE-2026-21667 vulnerability was fixed. CVE-2026-21668 vulnerability was fixed. CVE-2026-21672 vulnerability was fixed. CVE-2026-21708 vulnerability was fixed. Decode-uri-component upgraded to version 0.2.2 Newtonsoft.Json upgraded to version 13.0.3 Path-to-RegExp upgraded to version 1.9.0 12.3.2.4165 CVE-2025-48983 vulnerability was fixed. CVE-2025-48984 vulnerability was fixed. 12.3.2.3617 CVE-2025-23121 vulnerability was fixed. CVE-2025-24286 vulnerability was fixed. Azure.Identity upgraded to version 1.11.4 Microsoft.Identity.Client upgraded to version 4.61.3 Sustainsys.Saml2 upgraded to version 2.11.0 12.3.1.1139 CVE-2025-23120 vulnerability was fixed. 12.3.0.310 curl upgraded to version 8.10.1 Fixed a security flaw that allowed an attacker to intercept credentials during the initial connection to a Proxmox server. Reported by Peter Panholzer. CVE-2024-40717 vulnerability was fixed. CVE-2024-42451 vulnerability was fixed. CVE-2024-42452 vulnerability was fixed. CVE-2024-42453 vulnerability was fixed. CVE-2024-42455 vulnerability was fixed. CVE-2024-42456 vulnerability was fixed. CVE-2024-42457 vulnerability was fixed. CVE-2024-45204 vulnerability was fixed. 12.2.0.334 npgsql upgraded to 6.0.11 libxml upgraded to version 2.13.3 curl upgraded to version 8.8.0 CVE-2024-39718 vulnerability was fixed. CVE-2024-40710 vulnerability was fixed. CVE-2024-40711 vulnerability was fixed. CVE-2024-40712 vulnerability was fixed. CVE-2024-40713 vulnerability was fixed. CVE-2024-40714 vulnerability was fixed. 12.1.2.172 PuTTY updated to version 0.81 VMware Virtual Disk Development Kit (VDDK) was updated to 7.0.3.4 to address CVE-2023-38545. Microsoft .NET 6.0.25 was updated to 6.0.29. Microsoft WebView2 was updated to 123.0.2420.81. PostgreSQL installer was updated to 15.6.1. Curl was updated to 8.5. Vulnerability CVE-2024-29849 in Veeam Backup Enterprise Manager was fixed. Vulnerability CVE-2024-29850 in Veeam Backup Enterprise Manager was fixed. Vulnerability CVE-2024-29851 in Veeam Backup Enterprise Manager was fixed. Vulnerability CVE-2024-29852 in Veeam Backup Enterprise Manager was fixed. 12.1.1.56 PuTTY updated to version 0.80 12.1.0.2131 OpenSSL library updated to 1.0.2zi LZ4 library updated to 1.9.4 curl updated to 8.0.1 Azure Identity package updated to 1.10.2 Stronger backup encryption (see What's New in 12.1 p.7) Enhanced protection for stored credentials (see What's New in 12.1 p.7) 12.0.0.1420 P20230412 OpenSSL Library updated to the newest version (1.0.2zg). 12.0.0.1420 P20230223 Vulnerability ( CVE-2023-27532 ) in Veeam Backup Service was fixed. This vulnerability was reported by Shanigen . 12.0.0.1420 Added support for networks with NTLM authentication disabled ( Kerberos-only authentication ). Added Best Practices Analyzer to check product configuration. Audit capabilities were improved. Added possibility to limit the number of logon sessions per user and to log off users after an inactivity period SMTP certificates validation was added for email notifications Network communication between CDP components is encrypted with TLS Disabled insecure TLS protocols in communication with VMware infrastructure zlib has been updated to version 1.2.13 OpenSSL version has been updated to 1.0.2ze Putty has been updated to version 0.76 11.0.1.1261 P20240304 VMware Virtual Disk Development Kit (VDDK) was updated to 7.0.3.4. OpenSSL was updated to v1.0.2zi. liblz4 was updated to v1.9.4. zlib was updated to v1.2.13. PuTTY was updated to 0.80. 11.0.1.1261 P20230227 Vulnerability ( CVE-2023-27532 ) in Veeam Backup Service was fixed. This vulnerability was reported by Shanigen . 11.0.1.1261 P20220302 Vulnerabilities ( CVE-2022-26500 , CVE-2022-26501 ) in Veeam Distribution Service were fixed. These vulnerabilities were reported by Nikita Petrov ( Positive Technologies ). Vulnerability ( CVE-2022-26504 ) in Veeam.Backup.PSManager was fixed. Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 11.0.1.1261 Linux data mover: Added support for ECDHE TLS cipher suites; improved transport security. Veeam Backup Enterprise Manager: hardened HTTP header configuration; disabled HTTP Trace method; restricted an ability to log into the Self-Service Restore Portal under NETWORK SERVICE accounts (the portal was dysfunctional for such logins). Helper appliances: updated OpenVPN to version 2.4.11; updated OpenSSH to version 8.6. Debug logs: Addressed issues which could result in sensitive information logged under certain circumstances. 11.0.0.837 P20210507 Vulnerability (CVE-2021-35971) in the deserialization logic of Microsoft .NET remoting has been fixed. 11.0.0.837 .NET remoting communication security has been improved. Data Mover communication protocol security has been improved. Agent Management architecture security has been improved. Veeam Explorers integration security has been improved Veeam Backup Enterprise Manager Web App configuration and headers security has been improved. Addressed issues which could cause sensitive information logged in certain circumstances. Third-party libraries in FLR and SureBackup helper appliance have been updated to current versions. Sustansys.Saml2 has been updated to version 2.7 to address known vulnerabilities. LZ4 compression library version has been updated to version 1.9.2 10.0.1.4854 P20220304 Vulnerabilities ( CVE-2022-26500 , CVE-2022-26501 ) in Veeam Distribution Service were fixed. These vulnerabilities were reported by Nikita Petrov ( Positive Technologies ). Vulnerability ( CVE-2022-26504 ) in Veeam.Backup.PSManager was fixed. Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 10.0.1.4854 P20210609 Vulnerability (CVE-2021-35971) in the deserialization logic of Microsoft .NET remoting has been fixed. 10.0.1.4854 NAS Backup functionality can be used to gain unprivileged access to files on managed servers. Weak credentials encryption issue in guest processing command line parameter and in PowerShell cmdlet logs. Server and IIS version information is included in the response header of the Veeam Backup Enterprise Manager web app. Security of Agent Management architecture has been improved. Security of Cloud Connect architecture has been improved. libcurl version has been updated to 7.70 10.0.0.4461 A custom security descriptor was provided for the driver's control device (vulnerability reported by Mile Karry). Deserialization issues were fixed (vulnerability reported by Harrison Neal). A user authorization issue was fixed (vulnerability reported by Harrison Neal). Security of the Enterprise Manager Web App configuration was improved. Support for weak SSH ciphers was disabled in the recovery media ISOs. OpenSSL library was updated to version 1.0.2t Putty was updated to version 0.73 Weak TLS ciphers were disabled in the Surebackup Linux appliance. More Information",
+        "beforeHash": "sha256:c960c5670764029fdff624ce6fa0e57fe4e5cd9b67d09f811db2049dd9fd81ff",
+        "afterHash": "sha256:4e75b025a224ca292fa1e6194e6c50216fb2ddef41453689dc1f8927eded1d0c",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 11329
+          }
+        ],
+        "acceptedPageState": {
+          "articleId": "kb3103",
+          "productIds": [
+            "enterprise-manager",
+            "vbr"
+          ],
+          "hasOutOfScopeProduct": true,
+          "contentFingerprint": "sha256:c960c5670764029fdff624ce6fa0e57fe4e5cd9b67d09f811db2049dd9fd81ff",
+          "observedCveIds": [
+            "CVE-2021-35971",
+            "CVE-2022-26500",
+            "CVE-2022-26501",
+            "CVE-2022-26503",
+            "CVE-2022-26504",
+            "CVE-2023-27532",
+            "CVE-2023-38545",
+            "CVE-2024-29849",
+            "CVE-2024-29850",
+            "CVE-2024-29851",
+            "CVE-2024-29852",
+            "CVE-2024-39718",
+            "CVE-2024-40710",
+            "CVE-2024-40711",
+            "CVE-2024-40712",
+            "CVE-2024-40713",
+            "CVE-2024-40714",
+            "CVE-2024-40717",
+            "CVE-2024-42451",
+            "CVE-2024-42452",
+            "CVE-2024-42453",
+            "CVE-2024-42455",
+            "CVE-2024-42456",
+            "CVE-2024-42457",
+            "CVE-2024-45204",
+            "CVE-2025-23120",
+            "CVE-2025-23121",
+            "CVE-2025-24286",
+            "CVE-2025-48983",
+            "CVE-2025-48984",
+            "CVE-2025-55125",
+            "CVE-2025-59468",
+            "CVE-2025-59469",
+            "CVE-2025-59470",
+            "CVE-2025-64392",
+            "CVE-2025-64393",
+            "CVE-2026-21666",
+            "CVE-2026-21667",
+            "CVE-2026-21668",
+            "CVE-2026-21669",
+            "CVE-2026-21670",
+            "CVE-2026-21671",
+            "CVE-2026-21672",
+            "CVE-2026-21708",
+            "CVE-2026-32997",
+            "CVE-2026-44963",
+            "CVE-2026-58069",
+            "CVE-2026-58070",
+            "CVE-2026-93026"
+          ]
+        },
+        "acceptedRoute": {
+          "articleId": "kb3103",
+          "classification": "inventory",
+          "productIds": [
+            "vbr"
+          ],
+          "multiProduct": false
+        }
+      },
+      {
+        "articleId": "kb3108",
+        "url": "https://www.veeam.com/kb3108",
+        "before": "List of Security Fixes and Improvements in Veeam Agent for Microsoft Windows KB ID: 3108 Product: Veeam Agent for Microsoft Windows | 4.0 | 5.0 | 6.0 | 6.1 | 6.2 | 6.3 | 6.3.1 | 6.3.2 | 6.3.3 | 13 | 13.1 Published: 2020-03-02 Last Modified: 2026-10-05 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Agent for Microsoft Windows . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Agent for Microsoft Windows version to a later one. Security Fixes and Improvements 13.1.0.544 CVE-2026-58068 vulnerability was fixed. CVE-2025-64391 vulnerability was fixed. MessagePack upgraded to version 2.5.302 OpenSSL upgraded to version 3.5.7 13.0.4.1341 MessagePack upgraded to version 2.5.302 SQLite upgraded to version 3.53.2 OpenSSL upgraded to version 3.5.7 13.0.3.1220 CVE-2026-32996 vulnerability was fixed. Microsoft.Kiota.Abstractions upgraded to version 1.22.0 13.0.1.120 OpenSSL upgraded to version 3.0.17 13.0.0.835 Communication protocol was switched to gRPC OpenSSL upgraded to version 3.0.8 System.IdentityModel.Tokens.Jwt upgraded to version 8.0.2 6.3.2.1302 CVE-2025-48982 vulnerability was fixed. 6.3.2.1205 CVE-2025-24287 vulnerability was fixed. 6.3.0.177 Vulnerability ( CVE-2024-45207 ) in Veeam Agent for Microsoft Windows was fixed. 6.1.2.134 Vulnerability ( CVE-2024-29853 ) in Veeam Agent for Microsoft Windows was fixed. 6.1.0.349 OpenSSL library updated to 1.0.2zi. LZ4 library updated to 1.9.4. Stronger backup encryption. - (See pg. 7 of Veeam Backup & Replication 12.1 What's New PDF ) 6.0.2.1090 OpenSSL Library updated to the newest version (1.0.2zg). 6.0.0.960 Added support for networks with NTLM authentication disabled ( Kerberos-only authentication ). Audit capabilities were improved. zlib has been updated to version 1.2.13. OpenSSL version has been updated to 1.0.2ze. 5.0.3.5029 OpenSSL was updated to v1.0.2zi. liblz4 was updated to v1.9.4. zlib was updated to v1.2.13. PuTTY was updated to 0.80. 5.0.3.4708 Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 5.0.0.4301 LZ4 compression library version has been updated to version 1.9.2 4.0.2.2208 Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 4.0.0.1811 A custom security descriptor was provided for the driver's control device (vulnerability reported by Mile Karry). Deserialization issues were fixed (vulnerability reported by Harrison Neal). A user authorization issue was fixed (vulnerability reported by Harrison Neal). OpenSSL was updated to version 1.0.2t More Information",
+        "after": "List of Security Fixes and Improvements in Veeam Agent for Microsoft Windows KB ID: 3108 Product: Veeam Agent for Microsoft Windows | 4.0 | 5.0 | 6.0 | 6.1 | 6.2 | 6.3 | 6.3.1 | 6.3.2 | 6.3.3 | 13 | 13.1 Published: 2020-03-02 Last Modified: 2026-10-26 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Agent for Microsoft Windows . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Agent for Microsoft Windows version to a later one. Security Fixes and Improvements 13.1.2.812 OpenSSL upgraded to version 3.5.8 13.1.0.544 CVE-2026-58068 vulnerability was fixed. CVE-2025-64391 vulnerability was fixed. MessagePack upgraded to version 2.5.302 OpenSSL upgraded to version 3.5.7 13.0.4.1341 MessagePack upgraded to version 2.5.302 SQLite upgraded to version 3.53.2 OpenSSL upgraded to version 3.5.7 13.0.3.1220 CVE-2026-32996 vulnerability was fixed. Microsoft.Kiota.Abstractions upgraded to version 1.22.0 13.0.1.120 OpenSSL upgraded to version 3.0.17 13.0.0.835 Communication protocol was switched to gRPC OpenSSL upgraded to version 3.0.8 System.IdentityModel.Tokens.Jwt upgraded to version 8.0.2 6.3.2.1302 CVE-2025-48982 vulnerability was fixed. 6.3.2.1205 CVE-2025-24287 vulnerability was fixed. 6.3.0.177 Vulnerability ( CVE-2024-45207 ) in Veeam Agent for Microsoft Windows was fixed. 6.1.2.134 Vulnerability ( CVE-2024-29853 ) in Veeam Agent for Microsoft Windows was fixed. 6.1.0.349 OpenSSL library updated to 1.0.2zi. LZ4 library updated to 1.9.4. Stronger backup encryption. - (See pg. 7 of Veeam Backup & Replication 12.1 What's New PDF ) 6.0.2.1090 OpenSSL Library updated to the newest version (1.0.2zg). 6.0.0.960 Added support for networks with NTLM authentication disabled ( Kerberos-only authentication ). Audit capabilities were improved. zlib has been updated to version 1.2.13. OpenSSL version has been updated to 1.0.2ze. 5.0.3.5029 OpenSSL was updated to v1.0.2zi. liblz4 was updated to v1.9.4. zlib was updated to v1.2.13. PuTTY was updated to 0.80. 5.0.3.4708 Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 5.0.0.4301 LZ4 compression library version has been updated to version 1.9.2 4.0.2.2208 Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 4.0.0.1811 A custom security descriptor was provided for the driver's control device (vulnerability reported by Mile Karry). Deserialization issues were fixed (vulnerability reported by Harrison Neal). A user authorization issue was fixed (vulnerability reported by Harrison Neal). OpenSSL was updated to version 1.0.2t More Information",
+        "beforeHash": "sha256:57eec900268df80a7f17f4ea63efff333ed6620d3e63ca90d6da56df2d54620f",
+        "afterHash": "sha256:2fbde7720f7bc4806005e7601286da4244c9d5e95a7e0e5cf4a10c993c1eb4f5",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 2986
+          }
+        ],
+        "acceptedPageState": {
+          "articleId": "kb3108",
+          "productIds": [
+            "vbr"
+          ],
+          "hasOutOfScopeProduct": true,
+          "contentFingerprint": "sha256:57eec900268df80a7f17f4ea63efff333ed6620d3e63ca90d6da56df2d54620f"
+        },
+        "acceptedRoute": {
+          "articleId": "kb3108",
+          "classification": "out-of-scope",
+          "productIds": [],
+          "multiProduct": false
+        }
+      },
+      {
+        "articleId": "kb3109",
+        "url": "https://www.veeam.com/kb3109",
+        "before": "List of Security Fixes and Improvements in Veeam Agent for Linux KB ID: 3109 Product: Veeam Agent for Linux | 4.0 | 5.0 | 6.0 | 6.1 | 6.2 | 6.3 | 6.3.1 | 6.3.2 | 13 | 13.1 Published: 2020-03-02 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Agent for Linux . The goal of this article is to provide our customers' security and compliance teams with the detailed information on security improvements between releases, in order to help them make an informed decision on whether it is critical to upgrade from their current Veeam Agent for Linux version to a later one. Security Fixes and Improvements 13.1.0.252 OpenSSL upgraded to version 3.5.7 13.0.1.404 The port range opened on the host firewall was changed to 2500-3300. 13.0.3.213 OpenSSL upgraded to version 3.5.7 13.0.1.94 OpenSSL upgraded to version 3.0.17 13.0.0.0.772 OpenSSL upgraded to version 3.0.8 6.3.2.1307 The port range opened on the host firewall was changed to 2500-3300. 6.2.0.101 CVE-2024-40709 vulnerability was fixed. 6.1.0.1498 OpenSSL library updated to 1.0.2zi. LZ4 library updated to 1.9.4. Updated zlib library to 1.2.13. Stronger backup encryption. - (See pg. 7 of Veeam Backup & Replication 12.1 What's New PDF ) 6.0.2.1168 OpenSSL Library updated to the newest version (1.0.2zg). 5.0.2.4707 OpenSSL was updated to v1.0.2zi. liblz4 was updated to v1.9.4. zlib was updated to v1.2.13. PuTTY was updated to 0.80. 5.0.0.4318 Addressed an issue with insecure default permissions of files created in /tmp LZ4 compression library version has been updated to version 1.9.2. 4.0.1.2365 Sensitive information used by managed Linux agent may get logged in the Linux operating system logs. Creating an SMB repository using CLI command causes plain text password to be logged in the Veeam debug log. 4.0.0.1961 An issue of insecure file permissions was addressed (vulnerability reported by RACK911 Labs). OpenSSL was updated to version 1.0.2t. More Information",
+        "after": "List of Security Fixes and Improvements in Veeam Agent for Linux KB ID: 3109 Product: Veeam Agent for Linux | 4.0 | 5.0 | 6.0 | 6.1 | 6.2 | 6.3 | 6.3.1 | 6.3.2 | 13 | 13.1 Published: 2020-03-02 Last Modified: 2026-10-26 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Agent for Linux . The goal of this article is to provide our customers' security and compliance teams with the detailed information on security improvements between releases, in order to help them make an informed decision on whether it is critical to upgrade from their current Veeam Agent for Linux version to a later one. Security Fixes and Improvements 13.1.2.11 CVE-2026-105477 vulnerability was fixed. OpenSSL upgraded to version 3.5.8 13.1.0.252 OpenSSL upgraded to version 3.5.7 13.0.1.404 The port range opened on the host firewall was changed to 2500-3300. 13.0.3.213 OpenSSL upgraded to version 3.5.7 13.0.1.94 OpenSSL upgraded to version 3.0.17 13.0.0.0.772 OpenSSL upgraded to version 3.0.8 6.3.2.1307 The port range opened on the host firewall was changed to 2500-3300. 6.2.0.101 CVE-2024-40709 vulnerability was fixed. 6.1.0.1498 OpenSSL library updated to 1.0.2zi. LZ4 library updated to 1.9.4. Updated zlib library to 1.2.13. Stronger backup encryption. - (See pg. 7 of Veeam Backup & Replication 12.1 What's New PDF ) 6.0.2.1168 OpenSSL Library updated to the newest version (1.0.2zg). 5.0.2.4707 OpenSSL was updated to v1.0.2zi. liblz4 was updated to v1.9.4. zlib was updated to v1.2.13. PuTTY was updated to 0.80. 5.0.0.4318 Addressed an issue with insecure default permissions of files created in /tmp LZ4 compression library version has been updated to version 1.9.2. 4.0.1.2365 Sensitive information used by managed Linux agent may get logged in the Linux operating system logs. Creating an SMB repository using CLI command causes plain text password to be logged in the Veeam debug log. 4.0.0.1961 An issue of insecure file permissions was addressed (vulnerability reported by RACK911 Labs). OpenSSL was updated to version 1.0.2t. More Information",
+        "beforeHash": "sha256:999e4246f470e3321eb46f6e653cfbab8d06cc11f5dab0d429ef55d136dcb270",
+        "afterHash": "sha256:83de254dcded34ee2a6b3f41303005523c342b1c334a6136af91972a9fd6e742",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 2112
+          }
+        ],
+        "acceptedPageState": {
+          "articleId": "kb3109",
+          "productIds": [
+            "vbr"
+          ],
+          "hasOutOfScopeProduct": true,
+          "contentFingerprint": "sha256:999e4246f470e3321eb46f6e653cfbab8d06cc11f5dab0d429ef55d136dcb270"
+        },
+        "acceptedRoute": {
+          "articleId": "kb3109",
+          "classification": "out-of-scope",
+          "productIds": [],
+          "multiProduct": false
+        }
+      },
+      {
+        "articleId": "kb4857",
+        "url": "https://www.veeam.com/kb4857",
+        "before": "List of Security Fixes and Improvements in Veeam Recovery Orchestrator KB ID: 4857 Product: Veeam Recovery Orchestrator Published: 2026-05-27 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Recovery Orchestrator . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Recovery Orchestrator version to a later one. Security Fixes and Improvements 13.1.0.483 axios upgraded to version 1.18.0 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.11.0 react-router-dom upgraded to version 6.30.4 vite upgraded to version 8.0.8” 13.0.3.26 dompurify upgraded to version 3.4.13 MailKit upgraded to version 4.16.0 Microsoft.AspNetCore.DataProtection.Extensions upgraded to version 8.0.29 Microsoft.PowerShell.SDK upgraded to version 7.4.18 MimeKit upgraded to version 4.16.0 13.0.2.27 System.Security.Cryptography.XML was upgraded to 9.0.16. AutoMapper was removed. System.Security.Cryptography.XML was upgraded to 8.0.3. uuid was upgraded to 14.0.0. react-router-dom was upgraded to 6.30.3. More Information",
+        "after": "List of Security Fixes and Improvements in Veeam Recovery Orchestrator KB ID: 4857 Product: Veeam Recovery Orchestrator Published: 2026-05-27 Last Modified: 2026-10-27 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Recovery Orchestrator . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Recovery Orchestrator version to a later one. Security Fixes and Improvements 13.1.2.25 axios upgraded to version 1.20.0 BouncyCastle.Cryptography upgraded to version 2.7.0 dompurify upgraded to version 3.4.13 Microsoft.PowerShell.SDK upgraded to version 7.4.20 (net8.0) and 7.6.6 (net10.0) 13.1.0.483 axios upgraded to version 1.18.0 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.11.0 react-router-dom upgraded to version 6.30.4 vite upgraded to version 8.0.8 13.0.3.26 dompurify upgraded to version 3.4.13 MailKit upgraded to version 4.16.0 Microsoft.AspNetCore.DataProtection.Extensions upgraded to version 8.0.29 Microsoft.PowerShell.SDK upgraded to version 7.4.18 MimeKit upgraded to version 4.16.0 13.0.2.27 System.Security.Cryptography.XML was upgraded to 9.0.16. AutoMapper was removed. System.Security.Cryptography.XML was upgraded to 8.0.3. uuid was upgraded to 14.0.0. react-router-dom was upgraded to 6.30.3. More Information",
+        "beforeHash": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f",
+        "afterHash": "sha256:bfae1aea48667e6dbcf3c9f5591268251e97a062c8967c1516c661d0a6f58564",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 1560
+          }
+        ],
+        "acceptedPageState": {
+          "articleId": "kb4857",
+          "productIds": [
+            "vro"
+          ],
+          "hasOutOfScopeProduct": false,
+          "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
+        },
+        "acceptedRoute": null
+      },
+      {
+        "articleId": "kb4858",
+        "url": "https://www.veeam.com/kb4858",
+        "before": "List of Security Fixes and Improvements in Veeam ONE KB ID: 4858 Product: Veeam ONE Published: 2026-05-27 Last Modified: 2026-10-06 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam ONE . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam ONE version to a later one. Security Fixes and Improvements 13.1.0.7233 CVE-2026-65641 vulnerability was fixed. Vulnerability Scanner False Positive after Update Install After Veeam ONE 13.1.0.7233 is installed, some vulnerability scanners may continue to report the finding because the Veeam ONE Reporter executable remains at version 13.1.0.7034. This patch does not modify that component, so its version number is unchanged. If a scanner finding is based only on the Reporter component version, confirm that build 13.1.0.7233 is installed, and then configure an exception for that specific detection in the scanner. 13.1.0.7034 CVE-2026-64633 vulnerability was fixed. CVE-2026-58075 vulnerability was fixed. CVE-2026-58074 vulnerability was fixed. CVE-2026-64631 vulnerability was fixed. CVE-2026-64632 vulnerability was fixed. CVE-2026-64634 vulnerability was fixed. CVE-2026-64630 vulnerability was fixed. AutoMapper was replaced with MagicMapper 14.0.1. Azure.Identity upgraded to version 1.17.2 @babel/runtime upgraded to version 7.29.2 dompurify upgraded to version 3.4.11 ip-address upgraded to version 10.1.1 Microsoft.IdentityModel.JsonWebTokens upgraded to version 8.17.0 System.IdentityModel.Tokens.Jwt upgraded to version 8.17.0 System.Private.Uri upgraded to version 4.3.2 System.Security.Cryptography.Xml upgraded to version 10.0.7 vite upgraded to version 8.0.16 13.0.2.7159 CVE-2026-64633 vulnerability was fixed. CVE-2026-58075 vulnerability was fixed. CVE-2026-58074 vulnerability was fixed. CVE-2026-64631 vulnerability was fixed. CVE-2026-64632 vulnerability was fixed. CVE-2026-64634 vulnerability was fixed. CVE-2026-64630 vulnerability was fixed. CVE-2026-65641 vulnerability was fixed. d3-color upgraded to version 3.1.0 dompurify upgraded to version 3.4.11 OpenSSL upgraded to version 3.0.21 SQLite (SQLitePCLRaw e_sqlite3) upgraded to version 3.0.3 13.0.2.6723 AutoMapper was replaced with MagicMapper 14.0.1. dompurify upgraded to version 3.4.2 postcss upgraded to version 8.5.13 System.Security.Cryptography.Xml upgraded to version 8.0.3 uuid upgraded to version 14.0.0 vite upgraded to version 4.5.14 12.3.0.7165 CVE-2026-64631 vulnerability was fixed. CVE-2026-64632 vulnerability was fixed. CVE-2026-58074 vulnerability was fixed. More Information",
+        "after": "List of Security Fixes and Improvements in Veeam ONE KB ID: 4858 Product: Veeam ONE Published: 2026-05-27 Last Modified: 2026-10-27 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam ONE . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam ONE version to a later one. Security Fixes and Improvements 13.1.0.7940 CVE-2026-107671 vulnerability was fixed. BouncyCastle.Cryptography upgraded to version 2.7.0 brace-expansion upgraded to version 5.0.1 dompurify upgraded to version 3.4.15 flatted upgraded to version 3.4.4 minimatch upgraded to version 10.2.3 OpenSSL upgraded to version 3.5.9 picomatch upgraded to versions 2.3.2 and 4.0.4 uri-js was replaced with fast-uri 3.1.8 ws upgraded to version 7.5.13 13.1.0.7233 CVE-2026-65641 vulnerability was fixed. Vulnerability Scanner False Positive after Update Install After Veeam ONE 13.1.0.7233 is installed, some vulnerability scanners may continue to report the finding because the Veeam ONE Reporter executable remains at version 13.1.0.7034. This patch does not modify that component, so its version number is unchanged. If a scanner finding is based only on the Reporter component version, confirm that build 13.1.0.7233 is installed, and then configure an exception for that specific detection in the scanner. 13.1.0.7034 CVE-2026-64633 vulnerability was fixed. CVE-2026-58075 vulnerability was fixed. CVE-2026-58074 vulnerability was fixed. CVE-2026-64631 vulnerability was fixed. CVE-2026-64632 vulnerability was fixed. CVE-2026-64634 vulnerability was fixed. CVE-2026-64630 vulnerability was fixed. AutoMapper was replaced with MagicMapper 14.0.1. Azure.Identity upgraded to version 1.17.2 @babel/runtime upgraded to version 7.29.2 dompurify upgraded to version 3.4.11 ip-address upgraded to version 10.1.1 Microsoft.IdentityModel.JsonWebTokens upgraded to version 8.17.0 System.IdentityModel.Tokens.Jwt upgraded to version 8.17.0 System.Private.Uri upgraded to version 4.3.2 System.Security.Cryptography.Xml upgraded to version 10.0.7 vite upgraded to version 8.0.16 13.0.2.7159 CVE-2026-64633 vulnerability was fixed. CVE-2026-58075 vulnerability was fixed. CVE-2026-58074 vulnerability was fixed. CVE-2026-64631 vulnerability was fixed. CVE-2026-64632 vulnerability was fixed. CVE-2026-64634 vulnerability was fixed. CVE-2026-64630 vulnerability was fixed. CVE-2026-65641 vulnerability was fixed. d3-color upgraded to version 3.1.0 dompurify upgraded to version 3.4.11 OpenSSL upgraded to version 3.0.21 SQLite (SQLitePCLRaw e_sqlite3) upgraded to version 3.0.3 13.0.2.6723 AutoMapper was replaced with MagicMapper 14.0.1. dompurify upgraded to version 3.4.2 postcss upgraded to version 8.5.13 System.Security.Cryptography.Xml upgraded to version 8.0.3 uuid upgraded to version 14.0.0 vite upgraded to version 4.5.14 12.3.0.7165 CVE-2026-64631 vulnerability was fixed. CVE-2026-64632 vulnerability was fixed. CVE-2026-58074 vulnerability was fixed. More Information",
+        "beforeHash": "sha256:223e2019bea8957d8b4c8f157bf6b32e17cba4a32150e5bf9eee0024808133e6",
+        "afterHash": "sha256:6a331f76c90831dcad901a8649604193ad62f3a1f03523878a27b06dc8e27d8d",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 3188
+          }
+        ],
+        "acceptedPageState": {
+          "articleId": "kb4858",
+          "productIds": [
+            "veeam-one"
+          ],
+          "hasOutOfScopeProduct": false,
+          "contentFingerprint": "sha256:223e2019bea8957d8b4c8f157bf6b32e17cba4a32150e5bf9eee0024808133e6",
+          "observedCveIds": [
+            "CVE-2026-58074",
+            "CVE-2026-58075",
+            "CVE-2026-64630",
+            "CVE-2026-64631",
+            "CVE-2026-64632",
+            "CVE-2026-64633",
+            "CVE-2026-64634",
+            "CVE-2026-65641"
+          ]
+        },
+        "acceptedRoute": {
+          "articleId": "kb4858",
+          "classification": "inventory",
+          "productIds": [
+            "veeam-one"
+          ],
+          "multiProduct": false
+        }
+      },
+      {
+        "articleId": "kb4948",
+        "url": "https://www.veeam.com/kb4948",
+        "before": null,
+        "after": "Vulnerabilities Resolved in Veeam Backup & Replication 13.1.2 KB ID: 4948 Product: Veeam Backup & Replication | 13 | 13.1 Published: 2026-10-27 Last Modified: 2026-10-27 Veeam Software Security Commitment Veeam® is committed to ensuring its products protect customers from potential risks. As part of that commitment, we operate a Vulnerability Disclosure Program (VDP) for all Veeam products and perform extensive internal code audits. When a vulnerability is identified, our team promptly develops a patch to address and mitigate the risk. In line with our dedication to transparency, we publicly disclose the vulnerability and provide detailed mitigation information. This approach ensures that all potentially affected customers can quickly implement the necessary measures to safeguard their systems. It’s important to note that once a vulnerability and its associated patch are disclosed, attackers will likely attempt to reverse-engineer the patch to exploit unpatched deployments of Veeam software. This reality underscores the critical importance of ensuring that all customers use the latest versions of our software and install all updates and patches without delay. Issue Details CVE-2026-108142 A vulnerability allowing an unauthenticated attacker to bypass authorization on the CDP Coordinator Service. Severity: Critical CVSS v4.0 Score: 9.1 CVSS: AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:H/VA:H/SC:N/SI:H/SA:H Affected Deployment Type: Windows-based Veeam Backup & Replication | Veeam Software Appliance Source: Reported through HackerOne. Affected Product Veeam Backup & Replication 13.1.1.18 and all earlier version 13.1 builds . Veeam Backup & Replication 13.0.2.29 and all earlier version 13.0 builds . Note: Older versions (e.g., 12.x) are not affected. Solution This vulnerability was fixed starting in the following builds: Veeam Backup & Replication 13.1.2 (build 13.1.2.57) Veeam Backup & Replication 13.0.3 (build 13.0.3.63) CVE-2026-108140 A vulnerability allowing an authenticated user with the Restore Operator role, who also controls the contents of a backed-up NAS share, to write attacker-controlled files to an arbitrary path on the backup server through relative path traversal. Severity: Medium CVSS v4.0 Score: 5.9 CVSS: AV:N/AC:H/AT:P/PR:H/UI:N/VC:N/VI:H/VA:L/SC:N/SI:N/SA:N Affected Deployment Type: Windows-based Veeam Backup & Replication | Veeam Software Appliance Source: Reported through HackerOne. Affected Product Veeam Backup & Replication 13.1.1.18 and all earlier version 13.1 builds . Veeam Backup & Replication 13.0.2.29 and all earlier version 13.0 builds . Note: Older versions (e.g., 12.x) are not affected. Solution This vulnerability was fixed starting in the following builds: Veeam Backup & Replication 13.1.2 (build 13.1.2.57) Veeam Backup & Replication 13.0.3 (build 13.0.3.63) CVE-2026-108141 A vulnerability allowing an authenticated user with the Restore Operator role, who also controls the contents of a backed-up NAS share, to write attacker-controlled files to an arbitrary path on the backup server through relative path traversal. Severity: Medium CVSS v4.0 Score: 5.9 CVSS: AV:N/AC:H/AT:P/PR:H/UI:N/VC:N/VI:H/VA:L/SC:N/SI:N/SA:N Affected Deployment Type: Windows-based Veeam Backup & Replication | Veeam Software Appliance Source: Reported through HackerOne. Affected Product Veeam Backup & Replication 13.1.1.18 and all earlier version 13.1 builds . Veeam Backup & Replication 13.0.2.29 and all earlier version 13.0 builds . Note: Older versions (e.g., 12.x) are not affected. Solution This vulnerability was fixed starting in the following builds: Veeam Backup & Replication 13.1.2 (build 13.1.2.57) Veeam Backup & Replication 13.0.3 (build 13.0.3.63) CVE-2026-105477 A vulnerability in Veeam Agent for Linux allows for local privilege escalation. Only installations that are managed by a Veeam Backup & Replication instance are affected. Severity: High CVSS v4.0 Score: 7.3 CVSS: AV:L/AC:L/AT:P/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N Source: Reported through HackerOne. Affected Product Veeam Agent for Linux 13.1.1.4 and all earlier version 13.1 builds . Note: Older versions (e.g., 13.0.x and 6.x) are not affected. Solution This vulnerability was fixed starting in the following build: Veeam Agent for Linux 13.1.2 (build 13.1.2.11)",
+        "beforeHash": null,
+        "afterHash": "sha256:a7a9bc3176d2a435eee463e45c363d28a9e431922ee711e44bcb8d8f9a64c75e",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 4300
+          }
+        ],
+        "acceptedPageState": null,
+        "acceptedRoute": null
+      },
+      {
+        "articleId": "kb4951",
+        "url": "https://www.veeam.com/kb4951",
+        "before": null,
+        "after": "Vulnerabilities Resolved in Veeam ONE 13.1 P1 KB ID: 4951 Product: Veeam ONE | 13.1 Published: 2026-10-27 Last Modified: 2026-10-27 Veeam Software Security Commitment Veeam® is committed to ensuring its products protect customers from potential risks. As part of that commitment, we operate a Vulnerability Disclosure Program (VDP) for all Veeam products and perform extensive internal code audits. When a vulnerability is identified, our team promptly develops a patch to address and mitigate the risk. In line with our dedication to transparency, we publicly disclose the vulnerability and provide detailed mitigation information. This approach ensures that all potentially affected customers can quickly implement the necessary measures to safeguard their systems. It’s important to note that once a vulnerability and its associated patch are disclosed, attackers will likely attempt to reverse-engineer the patch to exploit unpatched deployments of Veeam software. This reality underscores the critical importance of ensuring that all customers use the latest versions of our software and install all updates and patches without delay. Issue Details CVE-2026-107671 A vulnerability allowing an attacker with valid Administrator credentials to bypass multi-factor authentication by disabling it globally before completing MFA verification. Severity: High CVSS v4.0 Score: 8.5 CVSS: AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N Source: Reported through HackerOne. Affected Product Veeam ONE 13.1.0.7233 and all earlier version 13.1 builds . Note: Older versions (e.g., 13.0.x and 12.x) are not affected. Solution This vulnerability was fixed starting in the following build: Veeam ONE 13.1 P1 (build 13.1.0.7940)",
+        "beforeHash": null,
+        "afterHash": "sha256:755656bf0c8f6efd611024682459aa4bc69f25d3cf68cd5233a2c8c9dbe2c0da",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 1724
+          }
+        ],
+        "acceptedPageState": null,
+        "acceptedRoute": null
+      },
+      {
+        "articleId": "kb4957",
+        "url": "https://www.veeam.com/kb4957",
+        "before": null,
+        "after": "Vulnerabilities Resolved in Veeam Backup for Microsoft 365 8.6 KB ID: 4957 Product: Veeam Backup for Microsoft 365 | 8.6 Published: 2026-10-27 Last Modified: 2026-10-26 Veeam Software Security Commitment Veeam® is committed to ensuring its products protect customers from potential risks. As part of that commitment, we operate a Vulnerability Disclosure Program (VDP) for all Veeam products and perform extensive internal code audits. When a vulnerability is identified, our team promptly develops a patch to address and mitigate the risk. In line with our dedication to transparency, we publicly disclose the vulnerability and provide detailed mitigation information. This approach ensures that all potentially affected customers can quickly implement the necessary measures to safeguard their systems. It’s important to note that once a vulnerability and its associated patch are disclosed, attackers will likely attempt to reverse-engineer the patch to exploit unpatched deployments of Veeam software. This reality underscores the critical importance of ensuring that all customers use the latest versions of our software and install all updates and patches without delay. Issue Details CVE-2026-106076 A vulnerability allowing an authenticated organization-transfer peer to inject SQL into the configuration database of the source Veeam Backup for Microsoft 365 server, leading to cross-tenant read and write of configuration data and remote code execution as the PostgreSQL service account. Severity: Critical CVSS v4.0 Score: 9.0 CVSS: AV:N/AC:L/AT:P/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H Source: Reported through HackerOne. Affected Product Veeam Backup for Microsoft 365 8.5.0.1014 and all earlier version 8 builds . Note: Unsupported product versions were not tested, but are likely affected and should be considered vulnerable. Solution This vulnerability was fixed starting in the following build: Veeam Backup for Microsoft 365 8.6 (build 8.6.0.1102) CVE-2026-106077 A vulnerability allowing a user with the Veeam Backup for Microsoft 365 Administrator role to read arbitrary files on the backup server with LocalSystem privileges. Severity: High CVSS v4.0 Score: 8.3 CVSS: AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:N/VA:N/SC:H/SI:H/SA:N Source: Reported through HackerOne. Affected Product Veeam Backup for Microsoft 365 8.5.0.1014 and all earlier version 8 builds . Note: Unsupported product versions were not tested, but are likely affected and should be considered vulnerable. Solution This vulnerability was fixed starting in the following build: Veeam Backup for Microsoft 365 8.6 (build 8.6.0.1102) CVE-2026-106078 A vulnerability allowing an unauthenticated attacker to bypass REST API authentication with a forged federation token and receive responses from REST API endpoints that do not call the Veeam Backup for Microsoft 365 backup service. Severity: Medium CVSS v4.0 Score: 6.9 CVSS: AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N Source: Reported through HackerOne. Affected Product Veeam Backup for Microsoft 365 8.6.0.1102 and all earlier version 8 builds . Note: Unsupported product versions were not tested, but are likely affected and should be considered vulnerable. Solution This vulnerability was fixed starting in the following build: Veeam Backup for Microsoft 365 8.6 Patch 1 (build 8.6.0.5011) CVE-2025-64394 A vulnerability allowing a low-privileged local user to write arbitrary files with SYSTEM privileges during the installation of Veeam Backup for Microsoft 365 , which can lead to privilege escalation or denial of service. Severity: Medium CVSS v4.0 Score: 4.3 CVSS: AV:L/AC:L/AT:P/PR:L/UI:A/VC:N/VI:L/VA:H/SC:N/SI:N/SA:N Source: Reported through HackerOne. Affected Product Veeam Backup for Microsoft 365 8.6.0.1102 and all earlier version 8 builds . Note: Unsupported product versions were not tested, but are likely affected and should be considered vulnerable. Solution This vulnerability was fixed starting in the following build: Veeam Backup for Microsoft 365 8.6 Patch 1 (build 8.6.0.5011)",
+        "beforeHash": null,
+        "afterHash": "sha256:6bc577976c38ec61ef63ec684cfb69904e3279c59d0b1a247836e991c9aed35c",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 4046
+          }
+        ],
+        "acceptedPageState": null,
+        "acceptedRoute": null
+      }
+    ],
+    "evidenceId": "sha256:94158717efdfcf7bbbd6047421636254642f5414164ede4594b1498650cd7abd"
+  },
+  "proposal": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:94158717efdfcf7bbbd6047421636254642f5414164ede4594b1498650cd7abd",
+    "baseCommit": "0e4b3fe3420541fbffa5e9e88eba30198317e2ab",
+    "articles": [
+      {
+        "articleId": "kb3103",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 11329,
+            "quote": "List of Security Fixes and Improvements in Veeam Backup & Replication KB ID: 3103 Product: Veeam Backup & Replication | 10 | 11 | 12 | 12.1 | 12.2 | 12.3 | 12.3.1 | 12.3.2 | 13 | 13.1 Published: 2020-03-02 Last Modified: 2026-10-20 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Backup & Replication . The goal of this article is to provide our customers' security and compliance teams with detailed information on security improvements between releases, in order to help them make an informed decision on whether it is critical to upgrade from their current Veeam Backup & Replication version to a latter one. Security Fixes and Improvements 13.1.2.57 CVE-2026-108140 vulnerability was fixed. CVE-2026-108141 vulnerability was fixed. CVE-2026-108142 vulnerability was fixed. @angular/core / common / compiler upgraded to version 21.2.20 System.Security.Cryptography.Xml upgraded to version 10.0.10 Microsoft.AspNetCore.Authentication.Negotiate upgraded to version 10.0.11 decode-uri-component upgraded to version 0.5.0 dompurify upgraded to version 3.4.15 postcss upgraded to version 8.5.28 OpenSSL upgraded to version 3.5.8 13.1.0.411 CVE-2026-58070 vulnerability was fixed. CVE-2026-58069 vulnerability was fixed. System.Security.Cryptography.Xml upgraded to version 10.0.7 Microsoft.AspNetCore.DataProtection upgraded to version 10.0.7 CoreWCF.Primitives upgraded to version 1.8.1 CoreWCF.NetFramingBase upgraded to version 1.8.1 MailKit upgraded to version 4.17.0 MimeKit upgraded to version 4.17.0 Microsoft.OpenApi upgraded to version 2.7.5 OpenTelemetry upgraded to version 1.15.3 ws upgraded to version 7.5.11 SQLite upgraded to version 3.53.2 @angular/core upgraded to version 21.2.17 OpenSSL upgraded to version 3.5.7 OpenSSL FIPS module upgraded to version 3.1.2 and is now FIPS140-3 validated curl upgraded to version 8.21.0 zlib upgraded to version 1.3.2 libarchive upgraded to version 3.8.5 13.0.3.63 CVE-2026-58070 vulnerability was fixed. CVE-2026-58069 vulnerability was fixed. CVE-2026-108140 vulnerability was fixed. CVE-2026-108141 vulnerability was fixed. CVE-2026-108142 vulnerability was fixed. System.Security.Cryptography.Xml upgraded to version 8.0.4 CoreWCF.Primitives upgraded to version 1.8.1 CoreWCF.NetFramingBase upgraded to version 1.8.1 SQLite upgraded to version 3.53.2 @angular/core upgraded to version 21.2.17 curl upgraded to version 8.21.0 ws upgraded to version 7.5.11 dompurify upgraded to version 3.4.12 OpenSSL upgraded to version 3.5.7 13.0.2.29 CVE-2026-32997 vulnerability was fixed. uuid upgraded to version 14.0.0 System.Security.Cryptography.Xml upgraded to version 8.0.3 Snappier upgraded to version 1.3.1 picomatch upgraded to version 2.3.2 Microsoft.Kiota.Abstractions upgraded to version 1.22.0 lodash upgraded to version 4.18.1 AutoMapper replaced with MagicMapper 14.0.1 13.0.1.2067 CVE-2026-21669 vulnerability was fixed. CVE-2026-21670 vulnerability was fixed. CVE-2026-21671 vulnerability was fixed. CVE-2026-21672 vulnerability was fixed. CVE-2026-21708 vulnerability was fixed. 13.0.1.1071 CVE-2025-55125 vulnerability was fixed. CVE-2025-59468 vulnerability was fixed. CVE-2025-59469 vulnerability was fixed. CVE-2025-59470 vulnerability was fixed. 13.0.1.180 OpenSSL upgraded to version 3.0.17 Microsoft.IdentityModel.JsonWebTokens upgraded to version 8.12.0 System.Security.Cryptography.Xml upgraded to version 8.0.2 Microsoft.AspNetCore.Server.Kestrel.Core upgraded to version 2.3.6 Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets upgraded to version 2.3.0 13.0.0.4967 Communication protocol was switched to gRPC OpenSSL upgraded to version 3.0.8 Libxml2 upgraded to version 2.13.8 Microsoft.AspNetCore.Server.Kestrel.Core upgraded to version 2.3.0 Newtonsoft.Json upgraded to version 13.0.1 RestSharp upgraded to version 112.1.0 Microsoft.Extensions.Caching.Memory upgraded to version 8.0.1 System.Text.Json upgraded to version 8.0.5 Microsoft.AspNetCore.Identity upgraded to version 2.3.1 12.3.2.4934 CVE-2026-58069 vulnerability was fixed. CVE-2025-64392 vulnerability was fixed. CVE-2025-64393 vulnerability was fixed. CVE-2026-93026 vulnerability was fixed. 12.3.2.4854 CVE-2026-44963 vulnerability was fixed. 12.3.2.4465 CVE-2026-21666 vulnerability was fixed. CVE-2026-21667 vulnerability was fixed. CVE-2026-21668 vulnerability was fixed. CVE-2026-21672 vulnerability was fixed. CVE-2026-21708 vulnerability was fixed. Decode-uri-component upgraded to version 0.2.2 Newtonsoft.Json upgraded to version 13.0.3 Path-to-RegExp upgraded to version 1.9.0 12.3.2.4165 CVE-2025-48983 vulnerability was fixed. CVE-2025-48984 vulnerability was fixed. 12.3.2.3617 CVE-2025-23121 vulnerability was fixed. CVE-2025-24286 vulnerability was fixed. Azure.Identity upgraded to version 1.11.4 Microsoft.Identity.Client upgraded to version 4.61.3 Sustainsys.Saml2 upgraded to version 2.11.0 12.3.1.1139 CVE-2025-23120 vulnerability was fixed. 12.3.0.310 curl upgraded to version 8.10.1 Fixed a security flaw that allowed an attacker to intercept credentials during the initial connection to a Proxmox server. Reported by Peter Panholzer. CVE-2024-40717 vulnerability was fixed. CVE-2024-42451 vulnerability was fixed. CVE-2024-42452 vulnerability was fixed. CVE-2024-42453 vulnerability was fixed. CVE-2024-42455 vulnerability was fixed. CVE-2024-42456 vulnerability was fixed. CVE-2024-42457 vulnerability was fixed. CVE-2024-45204 vulnerability was fixed. 12.2.0.334 npgsql upgraded to 6.0.11 libxml upgraded to version 2.13.3 curl upgraded to version 8.8.0 CVE-2024-39718 vulnerability was fixed. CVE-2024-40710 vulnerability was fixed. CVE-2024-40711 vulnerability was fixed. CVE-2024-40712 vulnerability was fixed. CVE-2024-40713 vulnerability was fixed. CVE-2024-40714 vulnerability was fixed. 12.1.2.172 PuTTY updated to version 0.81 VMware Virtual Disk Development Kit (VDDK) was updated to 7.0.3.4 to address CVE-2023-38545. Microsoft .NET 6.0.25 was updated to 6.0.29. Microsoft WebView2 was updated to 123.0.2420.81. PostgreSQL installer was updated to 15.6.1. Curl was updated to 8.5. Vulnerability CVE-2024-29849 in Veeam Backup Enterprise Manager was fixed. Vulnerability CVE-2024-29850 in Veeam Backup Enterprise Manager was fixed. Vulnerability CVE-2024-29851 in Veeam Backup Enterprise Manager was fixed. Vulnerability CVE-2024-29852 in Veeam Backup Enterprise Manager was fixed. 12.1.1.56 PuTTY updated to version 0.80 12.1.0.2131 OpenSSL library updated to 1.0.2zi LZ4 library updated to 1.9.4 curl updated to 8.0.1 Azure Identity package updated to 1.10.2 Stronger backup encryption (see What's New in 12.1 p.7) Enhanced protection for stored credentials (see What's New in 12.1 p.7) 12.0.0.1420 P20230412 OpenSSL Library updated to the newest version (1.0.2zg). 12.0.0.1420 P20230223 Vulnerability ( CVE-2023-27532 ) in Veeam Backup Service was fixed. This vulnerability was reported by Shanigen . 12.0.0.1420 Added support for networks with NTLM authentication disabled ( Kerberos-only authentication ). Added Best Practices Analyzer to check product configuration. Audit capabilities were improved. Added possibility to limit the number of logon sessions per user and to log off users after an inactivity period SMTP certificates validation was added for email notifications Network communication between CDP components is encrypted with TLS Disabled insecure TLS protocols in communication with VMware infrastructure zlib has been updated to version 1.2.13 OpenSSL version has been updated to 1.0.2ze Putty has been updated to version 0.76 11.0.1.1261 P20240304 VMware Virtual Disk Development Kit (VDDK) was updated to 7.0.3.4. OpenSSL was updated to v1.0.2zi. liblz4 was updated to v1.9.4. zlib was updated to v1.2.13. PuTTY was updated to 0.80. 11.0.1.1261 P20230227 Vulnerability ( CVE-2023-27532 ) in Veeam Backup Service was fixed. This vulnerability was reported by Shanigen . 11.0.1.1261 P20220302 Vulnerabilities ( CVE-2022-26500 , CVE-2022-26501 ) in Veeam Distribution Service were fixed. These vulnerabilities were reported by Nikita Petrov ( Positive Technologies ). Vulnerability ( CVE-2022-26504 ) in Veeam.Backup.PSManager was fixed. Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 11.0.1.1261 Linux data mover: Added support for ECDHE TLS cipher suites; improved transport security. Veeam Backup Enterprise Manager: hardened HTTP header configuration; disabled HTTP Trace method; restricted an ability to log into the Self-Service Restore Portal under NETWORK SERVICE accounts (the portal was dysfunctional for such logins). Helper appliances: updated OpenVPN to version 2.4.11; updated OpenSSH to version 8.6. Debug logs: Addressed issues which could result in sensitive information logged under certain circumstances. 11.0.0.837 P20210507 Vulnerability (CVE-2021-35971) in the deserialization logic of Microsoft .NET remoting has been fixed. 11.0.0.837 .NET remoting communication security has been improved. Data Mover communication protocol security has been improved. Agent Management architecture security has been improved. Veeam Explorers integration security has been improved Veeam Backup Enterprise Manager Web App configuration and headers security has been improved. Addressed issues which could cause sensitive information logged in certain circumstances. Third-party libraries in FLR and SureBackup helper appliance have been updated to current versions. Sustansys.Saml2 has been updated to version 2.7 to address known vulnerabilities. LZ4 compression library version has been updated to version 1.9.2 10.0.1.4854 P20220304 Vulnerabilities ( CVE-2022-26500 , CVE-2022-26501 ) in Veeam Distribution Service were fixed. These vulnerabilities were reported by Nikita Petrov ( Positive Technologies ). Vulnerability ( CVE-2022-26504 ) in Veeam.Backup.PSManager was fixed. Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 10.0.1.4854 P20210609 Vulnerability (CVE-2021-35971) in the deserialization logic of Microsoft .NET remoting has been fixed. 10.0.1.4854 NAS Backup functionality can be used to gain unprivileged access to files on managed servers. Weak credentials encryption issue in guest processing command line parameter and in PowerShell cmdlet logs. Server and IIS version information is included in the response header of the Veeam Backup Enterprise Manager web app. Security of Agent Management architecture has been improved. Security of Cloud Connect architecture has been improved. libcurl version has been updated to 7.70 10.0.0.4461 A custom security descriptor was provided for the driver's control device (vulnerability reported by Mile Karry). Deserialization issues were fixed (vulnerability reported by Harrison Neal). A user authorization issue was fixed (vulnerability reported by Harrison Neal). Security of the Enterprise Manager Web App configuration was improved. Support for weak SSH ciphers was disabled in the recovery media ISOs. OpenSSL library was updated to version 1.0.2t Putty was updated to version 0.73 Weak TLS ciphers were disabled in the Surebackup Linux appliance. More Information"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change."
+        ]
+      },
+      {
+        "articleId": "kb3108",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 2986,
+            "quote": "List of Security Fixes and Improvements in Veeam Agent for Microsoft Windows KB ID: 3108 Product: Veeam Agent for Microsoft Windows | 4.0 | 5.0 | 6.0 | 6.1 | 6.2 | 6.3 | 6.3.1 | 6.3.2 | 6.3.3 | 13 | 13.1 Published: 2020-03-02 Last Modified: 2026-10-26 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Agent for Microsoft Windows . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Agent for Microsoft Windows version to a later one. Security Fixes and Improvements 13.1.2.812 OpenSSL upgraded to version 3.5.8 13.1.0.544 CVE-2026-58068 vulnerability was fixed. CVE-2025-64391 vulnerability was fixed. MessagePack upgraded to version 2.5.302 OpenSSL upgraded to version 3.5.7 13.0.4.1341 MessagePack upgraded to version 2.5.302 SQLite upgraded to version 3.53.2 OpenSSL upgraded to version 3.5.7 13.0.3.1220 CVE-2026-32996 vulnerability was fixed. Microsoft.Kiota.Abstractions upgraded to version 1.22.0 13.0.1.120 OpenSSL upgraded to version 3.0.17 13.0.0.835 Communication protocol was switched to gRPC OpenSSL upgraded to version 3.0.8 System.IdentityModel.Tokens.Jwt upgraded to version 8.0.2 6.3.2.1302 CVE-2025-48982 vulnerability was fixed. 6.3.2.1205 CVE-2025-24287 vulnerability was fixed. 6.3.0.177 Vulnerability ( CVE-2024-45207 ) in Veeam Agent for Microsoft Windows was fixed. 6.1.2.134 Vulnerability ( CVE-2024-29853 ) in Veeam Agent for Microsoft Windows was fixed. 6.1.0.349 OpenSSL library updated to 1.0.2zi. LZ4 library updated to 1.9.4. Stronger backup encryption. - (See pg. 7 of Veeam Backup & Replication 12.1 What's New PDF ) 6.0.2.1090 OpenSSL Library updated to the newest version (1.0.2zg). 6.0.0.960 Added support for networks with NTLM authentication disabled ( Kerberos-only authentication ). Audit capabilities were improved. zlib has been updated to version 1.2.13. OpenSSL version has been updated to 1.0.2ze. 5.0.3.5029 OpenSSL was updated to v1.0.2zi. liblz4 was updated to v1.9.4. zlib was updated to v1.2.13. PuTTY was updated to 0.80. 5.0.3.4708 Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 5.0.0.4301 LZ4 compression library version has been updated to version 1.9.2 4.0.2.2208 Vulnerability ( CVE-2022-26503 ) in Veeam Agent for Microsoft Windows was fixed. This vulnerability was reported by Nikita Petrov ( Positive Technologies ). 4.0.0.1811 A custom security descriptor was provided for the driver's control device (vulnerability reported by Mile Karry). Deserialization issues were fixed (vulnerability reported by Harrison Neal). A user authorization issue was fixed (vulnerability reported by Harrison Neal). OpenSSL was updated to version 1.0.2t More Information"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change."
+        ]
+      },
+      {
+        "articleId": "kb3109",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 2112,
+            "quote": "List of Security Fixes and Improvements in Veeam Agent for Linux KB ID: 3109 Product: Veeam Agent for Linux | 4.0 | 5.0 | 6.0 | 6.1 | 6.2 | 6.3 | 6.3.1 | 6.3.2 | 13 | 13.1 Published: 2020-03-02 Last Modified: 2026-10-26 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Agent for Linux . The goal of this article is to provide our customers' security and compliance teams with the detailed information on security improvements between releases, in order to help them make an informed decision on whether it is critical to upgrade from their current Veeam Agent for Linux version to a later one. Security Fixes and Improvements 13.1.2.11 CVE-2026-105477 vulnerability was fixed. OpenSSL upgraded to version 3.5.8 13.1.0.252 OpenSSL upgraded to version 3.5.7 13.0.1.404 The port range opened on the host firewall was changed to 2500-3300. 13.0.3.213 OpenSSL upgraded to version 3.5.7 13.0.1.94 OpenSSL upgraded to version 3.0.17 13.0.0.0.772 OpenSSL upgraded to version 3.0.8 6.3.2.1307 The port range opened on the host firewall was changed to 2500-3300. 6.2.0.101 CVE-2024-40709 vulnerability was fixed. 6.1.0.1498 OpenSSL library updated to 1.0.2zi. LZ4 library updated to 1.9.4. Updated zlib library to 1.2.13. Stronger backup encryption. - (See pg. 7 of Veeam Backup & Replication 12.1 What's New PDF ) 6.0.2.1168 OpenSSL Library updated to the newest version (1.0.2zg). 5.0.2.4707 OpenSSL was updated to v1.0.2zi. liblz4 was updated to v1.9.4. zlib was updated to v1.2.13. PuTTY was updated to 0.80. 5.0.0.4318 Addressed an issue with insecure default permissions of files created in /tmp LZ4 compression library version has been updated to version 1.9.2. 4.0.1.2365 Sensitive information used by managed Linux agent may get logged in the Linux operating system logs. Creating an SMB repository using CLI command causes plain text password to be logged in the Veeam debug log. 4.0.0.1961 An issue of insecure file permissions was addressed (vulnerability reported by RACK911 Labs). OpenSSL was updated to version 1.0.2t. More Information"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change."
+        ]
+      },
+      {
+        "articleId": "kb4857",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 1560,
+            "quote": "List of Security Fixes and Improvements in Veeam Recovery Orchestrator KB ID: 4857 Product: Veeam Recovery Orchestrator Published: 2026-05-27 Last Modified: 2026-10-27 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Recovery Orchestrator . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Recovery Orchestrator version to a later one. Security Fixes and Improvements 13.1.2.25 axios upgraded to version 1.20.0 BouncyCastle.Cryptography upgraded to version 2.7.0 dompurify upgraded to version 3.4.13 Microsoft.PowerShell.SDK upgraded to version 7.4.20 (net8.0) and 7.6.6 (net10.0) 13.1.0.483 axios upgraded to version 1.18.0 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.11.0 react-router-dom upgraded to version 6.30.4 vite upgraded to version 8.0.8 13.0.3.26 dompurify upgraded to version 3.4.13 MailKit upgraded to version 4.16.0 Microsoft.AspNetCore.DataProtection.Extensions upgraded to version 8.0.29 Microsoft.PowerShell.SDK upgraded to version 7.4.18 MimeKit upgraded to version 4.16.0 13.0.2.27 System.Security.Cryptography.XML was upgraded to 9.0.16. AutoMapper was removed. System.Security.Cryptography.XML was upgraded to 8.0.3. uuid was upgraded to 14.0.0. react-router-dom was upgraded to 6.30.3. More Information"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change."
+        ]
+      },
+      {
+        "articleId": "kb4858",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 3188,
+            "quote": "List of Security Fixes and Improvements in Veeam ONE KB ID: 4858 Product: Veeam ONE Published: 2026-05-27 Last Modified: 2026-10-27 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam ONE . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam ONE version to a later one. Security Fixes and Improvements 13.1.0.7940 CVE-2026-107671 vulnerability was fixed. BouncyCastle.Cryptography upgraded to version 2.7.0 brace-expansion upgraded to version 5.0.1 dompurify upgraded to version 3.4.15 flatted upgraded to version 3.4.4 minimatch upgraded to version 10.2.3 OpenSSL upgraded to version 3.5.9 picomatch upgraded to versions 2.3.2 and 4.0.4 uri-js was replaced with fast-uri 3.1.8 ws upgraded to version 7.5.13 13.1.0.7233 CVE-2026-65641 vulnerability was fixed. Vulnerability Scanner False Positive after Update Install After Veeam ONE 13.1.0.7233 is installed, some vulnerability scanners may continue to report the finding because the Veeam ONE Reporter executable remains at version 13.1.0.7034. This patch does not modify that component, so its version number is unchanged. If a scanner finding is based only on the Reporter component version, confirm that build 13.1.0.7233 is installed, and then configure an exception for that specific detection in the scanner. 13.1.0.7034 CVE-2026-64633 vulnerability was fixed. CVE-2026-58075 vulnerability was fixed. CVE-2026-58074 vulnerability was fixed. CVE-2026-64631 vulnerability was fixed. CVE-2026-64632 vulnerability was fixed. CVE-2026-64634 vulnerability was fixed. CVE-2026-64630 vulnerability was fixed. AutoMapper was replaced with MagicMapper 14.0.1. Azure.Identity upgraded to version 1.17.2 @babel/runtime upgraded to version 7.29.2 dompurify upgraded to version 3.4.11 ip-address upgraded to version 10.1.1 Microsoft.IdentityModel.JsonWebTokens upgraded to version 8.17.0 System.IdentityModel.Tokens.Jwt upgraded to version 8.17.0 System.Private.Uri upgraded to version 4.3.2 System.Security.Cryptography.Xml upgraded to version 10.0.7 vite upgraded to version 8.0.16 13.0.2.7159 CVE-2026-64633 vulnerability was fixed. CVE-2026-58075 vulnerability was fixed. CVE-2026-58074 vulnerability was fixed. CVE-2026-64631 vulnerability was fixed. CVE-2026-64632 vulnerability was fixed. CVE-2026-64634 vulnerability was fixed. CVE-2026-64630 vulnerability was fixed. CVE-2026-65641 vulnerability was fixed. d3-color upgraded to version 3.1.0 dompurify upgraded to version 3.4.11 OpenSSL upgraded to version 3.0.21 SQLite (SQLitePCLRaw e_sqlite3) upgraded to version 3.0.3 13.0.2.6723 AutoMapper was replaced with MagicMapper 14.0.1. dompurify upgraded to version 3.4.2 postcss upgraded to version 8.5.13 System.Security.Cryptography.Xml upgraded to version 8.0.3 uuid upgraded to version 14.0.0 vite upgraded to version 4.5.14 12.3.0.7165 CVE-2026-64631 vulnerability was fixed. CVE-2026-64632 vulnerability was fixed. CVE-2026-58074 vulnerability was fixed. More Information"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change."
+        ]
+      },
+      {
+        "articleId": "kb4948",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 4300,
+            "quote": "Vulnerabilities Resolved in Veeam Backup & Replication 13.1.2 KB ID: 4948 Product: Veeam Backup & Replication | 13 | 13.1 Published: 2026-10-27 Last Modified: 2026-10-27 Veeam Software Security Commitment Veeam® is committed to ensuring its products protect customers from potential risks. As part of that commitment, we operate a Vulnerability Disclosure Program (VDP) for all Veeam products and perform extensive internal code audits. When a vulnerability is identified, our team promptly develops a patch to address and mitigate the risk. In line with our dedication to transparency, we publicly disclose the vulnerability and provide detailed mitigation information. This approach ensures that all potentially affected customers can quickly implement the necessary measures to safeguard their systems. It’s important to note that once a vulnerability and its associated patch are disclosed, attackers will likely attempt to reverse-engineer the patch to exploit unpatched deployments of Veeam software. This reality underscores the critical importance of ensuring that all customers use the latest versions of our software and install all updates and patches without delay. Issue Details CVE-2026-108142 A vulnerability allowing an unauthenticated attacker to bypass authorization on the CDP Coordinator Service. Severity: Critical CVSS v4.0 Score: 9.1 CVSS: AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:H/VA:H/SC:N/SI:H/SA:H Affected Deployment Type: Windows-based Veeam Backup & Replication | Veeam Software Appliance Source: Reported through HackerOne. Affected Product Veeam Backup & Replication 13.1.1.18 and all earlier version 13.1 builds . Veeam Backup & Replication 13.0.2.29 and all earlier version 13.0 builds . Note: Older versions (e.g., 12.x) are not affected. Solution This vulnerability was fixed starting in the following builds: Veeam Backup & Replication 13.1.2 (build 13.1.2.57) Veeam Backup & Replication 13.0.3 (build 13.0.3.63) CVE-2026-108140 A vulnerability allowing an authenticated user with the Restore Operator role, who also controls the contents of a backed-up NAS share, to write attacker-controlled files to an arbitrary path on the backup server through relative path traversal. Severity: Medium CVSS v4.0 Score: 5.9 CVSS: AV:N/AC:H/AT:P/PR:H/UI:N/VC:N/VI:H/VA:L/SC:N/SI:N/SA:N Affected Deployment Type: Windows-based Veeam Backup & Replication | Veeam Software Appliance Source: Reported through HackerOne. Affected Product Veeam Backup & Replication 13.1.1.18 and all earlier version 13.1 builds . Veeam Backup & Replication 13.0.2.29 and all earlier version 13.0 builds . Note: Older versions (e.g., 12.x) are not affected. Solution This vulnerability was fixed starting in the following builds: Veeam Backup & Replication 13.1.2 (build 13.1.2.57) Veeam Backup & Replication 13.0.3 (build 13.0.3.63) CVE-2026-108141 A vulnerability allowing an authenticated user with the Restore Operator role, who also controls the contents of a backed-up NAS share, to write attacker-controlled files to an arbitrary path on the backup server through relative path traversal. Severity: Medium CVSS v4.0 Score: 5.9 CVSS: AV:N/AC:H/AT:P/PR:H/UI:N/VC:N/VI:H/VA:L/SC:N/SI:N/SA:N Affected Deployment Type: Windows-based Veeam Backup & Replication | Veeam Software Appliance Source: Reported through HackerOne. Affected Product Veeam Backup & Replication 13.1.1.18 and all earlier version 13.1 builds . Veeam Backup & Replication 13.0.2.29 and all earlier version 13.0 builds . Note: Older versions (e.g., 12.x) are not affected. Solution This vulnerability was fixed starting in the following builds: Veeam Backup & Replication 13.1.2 (build 13.1.2.57) Veeam Backup & Replication 13.0.3 (build 13.0.3.63) CVE-2026-105477 A vulnerability in Veeam Agent for Linux allows for local privilege escalation. Only installations that are managed by a Veeam Backup & Replication instance are affected. Severity: High CVSS v4.0 Score: 7.3 CVSS: AV:L/AC:L/AT:P/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N Source: Reported through HackerOne. Affected Product Veeam Agent for Linux 13.1.1.4 and all earlier version 13.1 builds . Note: Older versions (e.g., 13.0.x and 6.x) are not affected. Solution This vulnerability was fixed starting in the following build: Veeam Agent for Linux 13.1.2 (build 13.1.2.11)"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change."
+        ]
+      },
+      {
+        "articleId": "kb4951",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 1724,
+            "quote": "Vulnerabilities Resolved in Veeam ONE 13.1 P1 KB ID: 4951 Product: Veeam ONE | 13.1 Published: 2026-10-27 Last Modified: 2026-10-27 Veeam Software Security Commitment Veeam® is committed to ensuring its products protect customers from potential risks. As part of that commitment, we operate a Vulnerability Disclosure Program (VDP) for all Veeam products and perform extensive internal code audits. When a vulnerability is identified, our team promptly develops a patch to address and mitigate the risk. In line with our dedication to transparency, we publicly disclose the vulnerability and provide detailed mitigation information. This approach ensures that all potentially affected customers can quickly implement the necessary measures to safeguard their systems. It’s important to note that once a vulnerability and its associated patch are disclosed, attackers will likely attempt to reverse-engineer the patch to exploit unpatched deployments of Veeam software. This reality underscores the critical importance of ensuring that all customers use the latest versions of our software and install all updates and patches without delay. Issue Details CVE-2026-107671 A vulnerability allowing an attacker with valid Administrator credentials to bypass multi-factor authentication by disabling it globally before completing MFA verification. Severity: High CVSS v4.0 Score: 8.5 CVSS: AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N Source: Reported through HackerOne. Affected Product Veeam ONE 13.1.0.7233 and all earlier version 13.1 builds . Note: Older versions (e.g., 13.0.x and 12.x) are not affected. Solution This vulnerability was fixed starting in the following build: Veeam ONE 13.1 P1 (build 13.1.0.7940)"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change."
+        ]
+      },
+      {
+        "articleId": "kb4957",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 4046,
+            "quote": "Vulnerabilities Resolved in Veeam Backup for Microsoft 365 8.6 KB ID: 4957 Product: Veeam Backup for Microsoft 365 | 8.6 Published: 2026-10-27 Last Modified: 2026-10-26 Veeam Software Security Commitment Veeam® is committed to ensuring its products protect customers from potential risks. As part of that commitment, we operate a Vulnerability Disclosure Program (VDP) for all Veeam products and perform extensive internal code audits. When a vulnerability is identified, our team promptly develops a patch to address and mitigate the risk. In line with our dedication to transparency, we publicly disclose the vulnerability and provide detailed mitigation information. This approach ensures that all potentially affected customers can quickly implement the necessary measures to safeguard their systems. It’s important to note that once a vulnerability and its associated patch are disclosed, attackers will likely attempt to reverse-engineer the patch to exploit unpatched deployments of Veeam software. This reality underscores the critical importance of ensuring that all customers use the latest versions of our software and install all updates and patches without delay. Issue Details CVE-2026-106076 A vulnerability allowing an authenticated organization-transfer peer to inject SQL into the configuration database of the source Veeam Backup for Microsoft 365 server, leading to cross-tenant read and write of configuration data and remote code execution as the PostgreSQL service account. Severity: Critical CVSS v4.0 Score: 9.0 CVSS: AV:N/AC:L/AT:P/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H Source: Reported through HackerOne. Affected Product Veeam Backup for Microsoft 365 8.5.0.1014 and all earlier version 8 builds . Note: Unsupported product versions were not tested, but are likely affected and should be considered vulnerable. Solution This vulnerability was fixed starting in the following build: Veeam Backup for Microsoft 365 8.6 (build 8.6.0.1102) CVE-2026-106077 A vulnerability allowing a user with the Veeam Backup for Microsoft 365 Administrator role to read arbitrary files on the backup server with LocalSystem privileges. Severity: High CVSS v4.0 Score: 8.3 CVSS: AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:N/VA:N/SC:H/SI:H/SA:N Source: Reported through HackerOne. Affected Product Veeam Backup for Microsoft 365 8.5.0.1014 and all earlier version 8 builds . Note: Unsupported product versions were not tested, but are likely affected and should be considered vulnerable. Solution This vulnerability was fixed starting in the following build: Veeam Backup for Microsoft 365 8.6 (build 8.6.0.1102) CVE-2026-106078 A vulnerability allowing an unauthenticated attacker to bypass REST API authentication with a forged federation token and receive responses from REST API endpoints that do not call the Veeam Backup for Microsoft 365 backup service. Severity: Medium CVSS v4.0 Score: 6.9 CVSS: AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N Source: Reported through HackerOne. Affected Product Veeam Backup for Microsoft 365 8.6.0.1102 and all earlier version 8 builds . Note: Unsupported product versions were not tested, but are likely affected and should be considered vulnerable. Solution This vulnerability was fixed starting in the following build: Veeam Backup for Microsoft 365 8.6 Patch 1 (build 8.6.0.5011) CVE-2025-64394 A vulnerability allowing a low-privileged local user to write arbitrary files with SYSTEM privileges during the installation of Veeam Backup for Microsoft 365 , which can lead to privilege escalation or denial of service. Severity: Medium CVSS v4.0 Score: 4.3 CVSS: AV:L/AC:L/AT:P/PR:L/UI:A/VC:N/VI:L/VA:H/SC:N/SI:N/SA:N Source: Reported through HackerOne. Affected Product Veeam Backup for Microsoft 365 8.6.0.1102 and all earlier version 8 builds . Note: Unsupported product versions were not tested, but are likely affected and should be considered vulnerable. Solution This vulnerability was fixed starting in the following build: Veeam Backup for Microsoft 365 8.6 Patch 1 (build 8.6.0.5011)"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change."
+        ]
+      }
+    ]
+  },
+  "extractions": {},
+  "result": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:94158717efdfcf7bbbd6047421636254642f5414164ede4594b1498650cd7abd",
+    "baseCommit": "0e4b3fe3420541fbffa5e9e88eba30198317e2ab",
+    "status": "blocked",
+    "eligibleForPublication": false,
+    "blocked": [
+      {
+        "code": "UNRESOLVED_CLAIMS",
+        "articleId": "kb3103"
+      },
+      {
+        "code": "SEMANTIC_ADAPTER_REQUIRED",
+        "articleId": "kb3103",
+        "kind": "classification"
+      },
+      {
+        "code": "UNRESOLVED_CLAIMS",
+        "articleId": "kb3108"
+      },
+      {
+        "code": "SEMANTIC_ADAPTER_REQUIRED",
+        "articleId": "kb3108",
+        "kind": "classification"
+      },
+      {
+        "code": "UNRESOLVED_CLAIMS",
+        "articleId": "kb3109"
+      },
+      {
+        "code": "SEMANTIC_ADAPTER_REQUIRED",
+        "articleId": "kb3109",
+        "kind": "classification"
+      },
+      {
+        "code": "UNRESOLVED_CLAIMS",
+        "articleId": "kb4857"
+      },
+      {
+        "code": "SEMANTIC_ADAPTER_REQUIRED",
+        "articleId": "kb4857",
+        "kind": "classification"
+      },
+      {
+        "code": "UNRESOLVED_CLAIMS",
+        "articleId": "kb4858"
+      },
+      {
+        "code": "SEMANTIC_ADAPTER_REQUIRED",
+        "articleId": "kb4858",
+        "kind": "classification"
+      },
+      {
+        "code": "NEW_ARTICLE_REQUIRES_CLASSIFICATION",
+        "articleId": "kb4948"
+      },
+      {
+        "code": "NEW_ARTICLE_REQUIRES_CLASSIFICATION",
+        "articleId": "kb4951"
+      },
+      {
+        "code": "NEW_ARTICLE_REQUIRES_CLASSIFICATION",
+        "articleId": "kb4957"
+      }
+    ],
+    "checks": {
+      "passed": [
+        "evidence-integrity",
+        "proposal-schema",
+        "base-and-policy-continuity"
+      ],
+      "notRun": [
+        "full-catalog-validation",
+        "live-refresh",
+        "fresh-source-verification",
+        "github-checks",
+        "publication",
+        "notification-delivery"
+      ]
+    },
+    "files": {}
+  }
+}
