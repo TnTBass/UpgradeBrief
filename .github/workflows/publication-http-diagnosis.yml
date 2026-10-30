@@ -1,0 +1,31 @@
+name: Publication HTTP diagnosis
+on:
+  push:
+    branches: [codex/publication-check-20261030]
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Inspect public catalog responses
+        run: |
+          node --input-type=module <<'NODE'
+          const commit = '58bc885cb8e2e7bf6e2b8c5692203a3248256b1c';
+          for (const origin of ['https://upgradebrief.com', 'https://www.upgradebrief.com']) {
+            const url = origin + '/catalog-health.json?commit=' + commit;
+            try {
+              const response = await fetch(url, { redirect: 'manual', headers: { 'Cache-Control': 'no-cache' }, signal: AbortSignal.timeout(15000) });
+              const body = await response.text();
+              let health;
+              try { health = JSON.parse(body); } catch {}
+              console.log(JSON.stringify({ url, status: response.status, location: response.headers.get('location'), contentType: response.headers.get('content-type'), cache: response.headers.get('cf-cache-status'), health, nonJsonPrefix: health ? undefined : body.slice(0,200) }));
+            } catch (error) {
+              console.log(JSON.stringify({ url, error: error.message, cause: error.cause?.message, code: error.cause?.code }));
+            }
+          }
+          NODE
