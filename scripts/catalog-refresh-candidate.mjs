@@ -306,7 +306,9 @@ const lifecyclePolicies = parseLifecyclePolicies(lifecycleHtml)
 const releaseInformationBuilds = owns('vbr') ? parseVbrReleaseInformation(releaseInformationHtml) : []
 const releaseInformation13Builds = owns('vbr') ? parseVbrReleaseInformation(releaseInformation13Html) : []
 if (owns('vbr') && builds.length < 10) throw new Error(`VBR build-number parser returned only ${builds.length} records; refusing to replace the catalog.`)
-if ((owns('veeam-one') && oneBuilds.length < 10) || (owns('vro') && vroBuilds.length < 5) || (owns('vspc') && vspcBuilds.length < 10) || (owns('vb365') && vb365Builds.length < 30)) throw new Error(`Product build parser returned incomplete data: ${oneBuilds.length} Veeam ONE, ${vroBuilds.length} VRO, ${vspcBuilds.length} VSPC, ${vb365Builds.length} VB365.`)
+for (const [productId, records, minimum] of [['veeam-one', oneBuilds, 10], ['vro', vroBuilds, 5], ['vspc', vspcBuilds, 10], ['vb365', vb365Builds, 30]]) {
+  if (owns(productId) && records.length < minimum) throw Object.assign(new Error(productId + ' build parser returned only ' + records.length + ' records; expected at least ' + minimum), { code: 'BUILD_PARSER_INCOMPLETE' })
+}
 if (owns('vb365') && vb365Routes.length < 7) throw new Error(`VB365 upgrade-path parser returned only ${vb365Routes.length} routes; refusing to replace the catalog.`)
 if (shouldCheckVbrUpgradeGuidance && vbrRoutes.length < 1) throw new Error('VBR KB2053 parser returned no documented routes; refusing to replace the catalog.')
 if (lifecyclePolicies.length < 10) throw new Error(`Lifecycle parser returned only ${lifecyclePolicies.length} rows; refusing to replace lifecycle guidance.`)
@@ -332,7 +334,7 @@ const oneLegacyMerged = mergeVeeamOneLegacySecurityArticles(releaseSecurityMerge
 const vspcLegacyMerged = mergeVspcLegacySecurityArticles(oneLegacyMerged.catalog, discoveredVspcLegacyAdvisories)
 const vspcReleaseSecurityMerged = mergeVspcReleaseSecurityArticles(vspcLegacyMerged.catalog, vspcReleaseSecurity.advisories, { checkedAt: refreshedAt })
 const reviewedSecurityMerged = mergeReviewedSecurityAdvisories(vspcReleaseSecurityMerged.catalog, { checkedAt: refreshedAt })
-const lifecycleMerged = mergeLifecyclePolicies(reviewedSecurityMerged.catalog, lifecyclePolicies)
+const lifecycleMerged = mergeLifecyclePolicies(reviewedSecurityMerged.catalog, lifecyclePolicies, new Date(refreshedAt))
 const merged = mergeCisaKev(lifecycleMerged.catalog, kevCves)
 const releaseMaterialsMerged = mergeReleaseMaterials(merged.catalog, fetchedReleaseMaterials, refreshedAt)
 const materialSourceByUrl = new Map(releaseMaterialsMerged.catalog.sources.map((source) => [source.url, source.id]))

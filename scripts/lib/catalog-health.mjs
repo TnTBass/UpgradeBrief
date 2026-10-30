@@ -25,9 +25,10 @@ export function catalogFreshness(generatedAt, now = Date.now()) {
   return { level: ageHours >= 72 ? 'critical' : ageHours >= 36 ? 'warning' : 'healthy', ageHours, reason: 'catalog-age' }
 }
 
-export function combinedCatalogFreshness(generatedAt, published, now = Date.now()) {
+export function combinedCatalogFreshness(generatedAt, published, now = Date.now(), expected = {}) {
   const repository = productCatalogFreshness(generatedAt, now)
   const validPublication = [1, 2].includes(published?.schemaVersion) && /^[a-f0-9]{40}$/.test(published.commit ?? '') && /^[a-f0-9]{64}$/.test(published.catalogHash ?? '')
+    && (!expected.commit || published.commit === expected.commit) && (!expected.catalogHash || published.catalogHash === expected.catalogHash)
   const deployment = validPublication ? productCatalogFreshness(published, now) : { level: 'critical', ageHours: null, reason: 'published-health-unavailable' }
   const rank = { healthy: 0, warning: 1, critical: 2 }
   return { level: rank[repository.level] > rank[deployment.level] ? repository.level : deployment.level, repository, deployment }

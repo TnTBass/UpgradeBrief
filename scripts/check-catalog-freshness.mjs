@@ -1,4 +1,6 @@
 import { readFile } from 'node:fs/promises'
+import { execFileSync } from 'node:child_process'
+import { hash } from './lib/catalog-provenance.mjs'
 import { combinedCatalogFreshness } from './lib/catalog-health.mjs'
 import { repairHash } from './lib/catalog-repair-evidence.mjs'
 import { githubClient } from './lib/catalog-repair-state.mjs'
@@ -12,13 +14,13 @@ for (let attempt = 0; attempt < 2 && !published; attempt++) {
     if (response.ok) published = await response.json()
   } catch { /* Report the missing publication health after bounded retries. */ }
 }
-const health = combinedCatalogFreshness(catalog, published)
+const health = combinedCatalogFreshness(catalog, published, Date.now(), { commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), catalogHash: hash(catalog) })
 console.log(JSON.stringify({ generatedAt: catalog.generatedAt, publishedAt: published?.generatedAt, ...health }))
 const api = githubClient({ repository: process.env.GITHUB_REPOSITORY, token: process.env.GH_TOKEN })
 const id = repairHash({ kind: 'catalog-freshness-monitor', version: 1 })
 const previous = await findRepairIssue(api, id)
 const productDetails = [ ['Main', health.repository], ['Published', health.deployment] ].flatMap(([label, state]) => (state.products ?? []).map(item => label + ': ' + item.productId + ' — ' + item.level + ', ' + item.state + ', validated ' + item.validatedAt + (item.failureCodes.length ? '; ' + item.failureCodes.join(', ') : ''))).join('\n\n')
-const productFailureIdentity = repairHash([health.repository.products, health.deployment.products].map(items => items?.map(({ productId, validatedAt, state, failureCodes }) => ({ productId, validatedAt, state, failureCodes }))))
+const productFailureIdentity = repairHash([health.repository.products, health.deployment.products].map(items => items?.map(({ productId, validatedAt, state, failureCodes }) => ({ productId, validatedAt, state, failureCodes })) ?? null))
 if (health.level === 'healthy') {
   if (previous?.state === 'open') await api(`/issues/${previous.number}`, { method: 'PATCH', body: { state: 'closed', state_reason: 'completed' } })
 } else {

@@ -49,14 +49,6 @@ jobs:
       - name: Refresh catalog and enforce security KB coverage
         id: catalog-refresh
         run: npm run refresh:catalog -- --live
-      - name: Upload catalogue source review
-        if: always() && steps.catalog-refresh.outcome != 'skipped'
-        uses: actions/upload-artifact@v7
-        with:
-          name: catalogue-source-review
-          path: artifacts/catalog-review/
-          if-no-files-found: warn
-          retention-days: 7
       - name: Verify the refreshed catalog and application before publishing
         run: node scripts/verify-catalog-repair.mjs
       - name: Upload failed catalog verification logs
@@ -79,5 +71,12 @@ jobs:
       - name: Verify the published snapshot after the refresh commit
         run: node scripts/verify-published-catalog.mjs
       - name: Keep retained product failures open after publication
-        run: |
-          node --input-type=module -e "import {readFileSync} from 'node:fs'; const result=JSON.parse(readFileSync('artifacts/catalog-review/refresh-result.json','utf8')); if(result.status!=='complete') throw new Error('Partial refresh published; retained product groups still require repair: '+JSON.stringify(result.transactions.filter(item=>item.state==='retained')));"
+        run: node scripts/report-partial-refresh.mjs
+      - name: Upload catalogue source review
+        if: always() && steps.catalog-refresh.outcome != 'skipped'
+        uses: actions/upload-artifact@v7
+        with:
+          name: catalogue-source-review
+          path: artifacts/catalog-review/
+          if-no-files-found: warn
+          retention-days: 7

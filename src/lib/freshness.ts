@@ -10,7 +10,8 @@ export function catalogFreshness(generatedAt: string, now = new Date()): Freshne
 
 export function productFreshness(catalog: Catalog, productId: ProductId, now = new Date()) {
   const validation = catalog.productValidation?.find(item => item.productId === productId)
-  const validatedAt = catalog.schemaVersion === 2 ? validation?.validatedAt : catalog.generatedAt
+  const validMetadata = validation && ['validated', 'retained'].includes(validation.state) && Number.isFinite(Date.parse(validation.attemptedAt)) && Date.parse(validation.attemptedAt) <= now.getTime() + 300_000 && Date.parse(validation.validatedAt) <= Date.parse(validation.attemptedAt)
+  const validatedAt = catalog.schemaVersion === 2 ? validMetadata ? validation.validatedAt : undefined : catalog.generatedAt
   const ageState = catalogFreshness(validatedAt ?? '', now)
   const retained = validation?.state === 'retained'
   const state = retained && ageState === 'current' ? 'stale' : ageState

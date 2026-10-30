@@ -112,7 +112,7 @@ export async function writeSecurityReviewReport({ directory, baselines, texts, c
     }]
   })
   const report = {
-    schemaVersion: 1, ok: !error,
+    schemaVersion: 1, ok: !error, status: partial ? 'partial' : error ? 'blocked' : 'complete',
     capturedAt: new Date().toISOString(),
     baseCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
     ...(error ? { error: { message: error.message, code: error.code, report: error.report, diagnostic: error.diagnostic }, triage: classifyCatalogFailure(error) } : {}),

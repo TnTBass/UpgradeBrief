@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 import { assembleCatalog, BASE_TRANSACTIONS, PRODUCT_IDS, createObservationCollector, hash, productPartition, transactionClosure, validateCatalogProvenance, validateProductHealth } from './lib/catalog-provenance.mjs'
 import { runTransactions } from './lib/catalog-refresh-isolation.mjs'
 import { combinedCatalogFreshness } from './lib/catalog-health.mjs'
+import { projectRepairState, scopedRevert } from './lib/catalog-repair-feedback.mjs'
 import { verifyPublication } from './lib/catalog-repair-verification.mjs'
 
 const original = JSON.parse(await readFile(new URL('../src/data/catalog.snapshot.json', import.meta.url), 'utf8'))
@@ -51,6 +52,7 @@ const publicHealth = { schemaVersion: 2, commit: 'a'.repeat(40), catalogHash: ha
 assert.equal(combinedCatalogFreshness(partial.catalog, publicHealth, Date.parse(nextTime)).level, 'critical')
 assert.equal(combinedCatalogFreshness(partial.catalog, { ...publicHealth, productValidation: [] }, Date.parse(nextTime)).deployment.reason, 'invalid-product-health')
 assert.equal(combinedCatalogFreshness(partial.catalog, null, Date.parse(nextTime)).level, 'critical')
+assert.equal(combinedCatalogFreshness(partial.catalog, publicHealth, Date.parse(nextTime), { commit: 'b'.repeat(40) }).deployment.reason, 'published-health-unavailable')
 const recovered = await runTransactions({ current: partial.catalog, baselines, collector: collector(), policyHash, groups: BASE_TRANSACTIONS, shadow: false, now: () => nextTime, build: async ({ current, productIds }) => candidate(current, productIds, 'recovery') })
 assert.equal(recovered.report.status, 'complete')
 assert.equal(recovered.catalog.generatedAt, nextTime)
@@ -64,6 +66,7 @@ const allFailed = { current: initial, baselines, collector: collector(), policyH
 await assert.rejects(runTransactions(allFailed), /ALL_TRANSACTIONS_BLOCKED/)
 await assert.rejects(runTransactions({ ...allFailed, atomic: true }), /ATOMIC_REFRESH_BLOCKED/)
 await assert.rejects(runTransactions({ ...allFailed, build: async () => { throw Object.assign(new Error('unknown scope'), { code: 'UNKNOWN_SOURCE_OWNERSHIP' }) } }), /unknown scope/)
+await assert.rejects(runTransactions({ ...allFailed, reviewTexts: { kb3103: baselines.articles.kb3103.normalizedText + ' CVE-2099-99999' } }), /UNCLASSIFIED_NEW_CVE/)
 assert.throws(() => assembleCatalog({ current: legacy, baselines, outcomes: [{ productIds: ['vb365'], failureCodes: ['FAIL'] }, ...BASE_TRANSACTIONS.slice(0,3).map(productIds => ({ productIds, result: candidate(legacy, productIds) }))], ...collector(), policyHash, assembledAt: nextTime }), /SCHEMA_MIGRATION/)
 
 assert.ok(transactionClosure([['vbr', 'enterprise-manager']]).some(group => group.includes('vbr') && group.includes('enterprise-manager')))
@@ -80,12 +83,26 @@ for (const mutate of [
   c => c.products[0].recommendedReleaseId = 'unvalidated-release',
   c => c.generatedAt = nextTime,
   c => c.sourceRevisions[0].digest = 'b'.repeat(64),
+  c => c.sources.find(source => source.id === 'kb2680').url = 'https://example.test/incorrect-source',
 ]) {
   const broken = structuredClone(initial); mutate(broken)
   assert.throws(() => validateCatalogProvenance(broken))
 }
 assert.throws(() => validateProductHealth({ ...publicHealth, productValidation: publicHealth.productValidation.slice(1) }))
 
+const reviewedData = JSON.parse(await readFile(new URL('./data/reviewed-security-advisories.json', import.meta.url),'utf8'))
+const beforeRepair = { catalog: initial, baselines, reviewedData }
+const afterRepair = { catalog: recovered.catalog, baselines, reviewedData }
+const oldState = projectRepairState(beforeRepair, ['kb4106'])
+const repairedState = projectRepairState(afterRepair, ['kb4106'])
+const rollback = scopedRevert({ current: afterRepair, before: oldState, after: repairedState, articleIds: ['kb4106'] })
+assert.deepEqual(productPartition(rollback.catalog, 'vb365'), productPartition(initial, 'vb365'))
+assert.deepEqual(productPartition(rollback.catalog, 'vbr'), productPartition(recovered.catalog, 'vbr'))
+assert.equal(rollback.catalog.productValidation.find(item => item.productId === 'vb365').validatedAt, start)
+assert.equal(rollback.catalog.productValidation.find(item => item.productId === 'vb365').state, 'retained')
+const overlapping = structuredClone(afterRepair)
+overlapping.catalog.products.find(item => item.id === 'vb365').aliases.push('later product change')
+assert.throws(() => scopedRevert({ current: overlapping, before: oldState, after: repairedState, articleIds: ['kb4106'] }), /overlap/)
 let calls = 0
 const cached = createObservationCollector({ request: async () => { calls++; return new Response('immutable evidence', { headers: { 'content-type': 'text/plain' } }) } })
 const first = await cached.forProducts(['vbr']).request('https://example.test/source', { sourceId: 'source' })

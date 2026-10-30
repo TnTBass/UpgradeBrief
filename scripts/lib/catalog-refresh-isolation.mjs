@@ -2,7 +2,7 @@ import { readFile, readdir } from 'node:fs/promises'
 import { buildCatalogCandidate } from '../catalog-refresh-candidate.mjs'
 import { createCatalogSourceFetcher } from './source-fetch.mjs'
 import { pinnedSecurityArticles, securityClassificationOverrides } from './catalog-refresh-registry.mjs'
-import { assertSecurityFeedContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractSecurityArticleScope, fetchSecurityFeedPages, fingerprintSecurityArticleContent } from './security-feed-coverage.mjs'
+import { assertSecurityFeedContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractSecurityArticleScope, extractCveIds, fetchSecurityFeedPages, fingerprintSecurityArticleContent } from './security-feed-coverage.mjs'
 import { normalizeReviewedSecurityMainArticle } from './reviewed-security-advisories.mjs'
 import { fetchVspcKbInventory } from './vspc-kb-cve-coverage.mjs'
 import { parseCisaKev } from './cisa-kev.mjs'
@@ -36,8 +36,12 @@ export async function discoverTransactions({ current, baselines, collector, poli
   ])
   assertSecurityFeedContinuity(current.securityFeedArticleIds, feed.articles)
   if ((current.vspcKbArticleIds ?? []).some(id => !inventory.articles.some(article => article.id === id))) fail('VSPC_INVENTORY_TRUNCATED')
-  parseCisaKev(JSON.parse(kev))
-  if (parseLifecyclePolicies(lifecycle).length < 10) fail('LIFECYCLE_INCOMPLETE')
+  const kevDocument = JSON.parse(kev)
+  const kevCves = parseCisaKev(kevDocument)
+  if (!kevCves.size || kevDocument.count !== kevDocument.vulnerabilities.length || kevCves.size !== kevDocument.count) fail('KEV_INVENTORY_INCOMPLETE')
+  if (current.securityFindings.some(finding => finding.isCisaKev && !finding.cves.some(cve => kevCves.has(cve)))) fail('KEV_COVERAGE_REMOVED')
+  const lifecyclePolicies = parseLifecyclePolicies(lifecycle)
+  if (lifecyclePolicies.length < 10 || PRODUCT_IDS.filter(id => id !== 'enterprise-manager').some(id => !lifecyclePolicies.some(policy => policy.productId === id))) fail('LIFECYCLE_INCOMPLETE')
   const articles = [...feed.articles, ...pinnedSecurityArticles.filter(item => !feed.articles.some(article => article.id.toLowerCase() === item.id))]
   const classified = classifySecurityFeedArticles({ articles, classifications: buildSecurityArticleClassifications(articles, securityClassificationOverrides) })
   const unknown = classified.filter(article => article.classification === 'unclassified')
@@ -103,6 +107,12 @@ export async function runTransactions({ current, baselines, collector, policyHas
       outcomes.push({ productIds, result })
     } catch (error) {
       const codes = failureCodes(error)
+      const relevantSources = new Set(productIds.flatMap(id => sourceIdsForProduct(current, id)))
+      for (const [articleId, text] of Object.entries(reviewTexts)) {
+        if (!relevantSources.has(articleId)) continue
+        const previousCves = new Set(extractCveIds(baselines.articles[articleId]?.normalizedText ?? ''))
+        if (extractCveIds(text).some(cve => !previousCves.has(cve))) fail('UNCLASSIFIED_NEW_CVE_IN_FAILED_TRANSACTION', articleId)
+      }
       // Unknown ownership/CVE scope is a global failure, never a partition skip.
       if (codes.some(code => /UNCLASSIFIED|UNKNOWN|SCOPE|PARSED_CVE_MISSING|UNSCOPED|TRAILING_CVE/.test(code))) throw error
       outcomes.push({ productIds, failureCodes: codes, error: String(error.message).slice(0,1200), reviewError: error })
@@ -124,11 +134,12 @@ export async function runTransactions({ current, baselines, collector, policyHas
   return { ...assembled, reviewError,
     equivalentChanges: outcomes.flatMap(outcome => outcome.result?.equivalentChanges ?? []),
     inventoryChanges: outcomes.flatMap(outcome => outcome.result?.inventoryChanges ?? []),
-    report: { status: outcomes.every(outcome => outcome.result) ? 'complete' : 'partial', assembledAt, shadowCompared, baseCatalogHash: hash(current), policyHash, transactions: outcomes.map(({ productIds, failureCodes = [], error }) => ({ productIds, state: failureCodes.length ? 'retained' : 'validated', failureCodes, ...(error ? { error } : {}) })) },
+    report: { status: outcomes.every(outcome => outcome.result) ? 'complete' : 'partial', assembledAt, shadowCompared, catalogHash: hash(assembled.catalog), baseCatalogHash: hash(current), policyHash, transactions: outcomes.map(({ productIds, failureCodes = [], error }) => ({ productIds, state: failureCodes.length ? 'retained' : 'validated', failureCodes, ...(error ? { error } : {}) })) },
   }
 }
 
 export async function refreshCatalog({ current, baselines, reviewTexts = {}, atomic = false }) {
+  if (![1, 2].includes(current.schemaVersion)) fail('UNSUPPORTED_CATALOG_SCHEMA')
   if (current.schemaVersion === 2) validateCatalogProvenance(current)
   const policyHash = await refreshPolicyHash()
   const collector = createObservationCollector(createCatalogSourceFetcher())

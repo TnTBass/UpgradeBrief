@@ -8,6 +8,14 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 const sorted = values => [...new Set(values)].sort()
 const invariant = (ok, message) => { if (!ok) throw new Error(message) }
 
+function sourceDefinition(catalog, sourceId) {
+  const source = catalog.sources.find(item => item.id === sourceId)
+  if (source) { const { checkedAt, ...definition } = source; return definition }
+  const page = catalog.securityFeedPageStates.find(item => item.articleId === sourceId)
+  invariant(page, 'Unknown source definition ' + sourceId)
+  return { id: sourceId, url: 'https://www.veeam.com/' + sourceId, contentFingerprint: page.contentFingerprint }
+}
+
 export function sourceIdsForProduct(catalog, productId) {
   const ids = new Set(['security-kb', 'cisa-kev', 'lifecycle'])
   function visit(value) {
@@ -29,7 +37,7 @@ export function productPartition(catalog, productId) {
     product: catalog.products.find(product => product.id === productId),
     ...Object.fromEntries(PRODUCT_COLLECTIONS.map(key => [key, (catalog[key] ?? []).filter(record => record.productId === productId)])),
     securityNotices: catalog.securityNotices ?? [],
-    securityFeedRoutes: (catalog.securityFeedRoutes ?? []).filter(route => route.productIds.includes(productId)),
+    securityFeedRoutes: (catalog.securityFeedRoutes ?? []).filter(route => route.productIds.includes(productId)).sort((a,b) => a.articleId.localeCompare(b.articleId)),
     securityFeedPageStates: (catalog.securityFeedPageStates ?? []).filter(state => sourceIdsForProduct(catalog, productId).includes(state.articleId)),
     ...(productId === 'vspc' ? Object.fromEntries(['vspcKbArticleIds', 'vspcKbCvePageStates', 'vspcCveRecordStates'].map(key => [key, catalog[key]])) : {}),
   }
@@ -74,7 +82,7 @@ export function validateCatalogProvenance(catalog, now = Date.now()) {
   for (const revision of revisions.values()) {
     invariant(['fetched', 'curated'].includes(revision.kind) && typeof revision.sourceId === 'string' && revision.sourceId.length > 0, 'Invalid source revision')
     invariant(/^[a-f0-9]{64}$/.test(revision.digest ?? '') && /^[a-f0-9]{64}$/.test(revision.policyHash ?? ''), 'Invalid source revision digest')
-    invariant(revision.id === hash([revision.sourceId, revision.digest, revision.policyHash, revision.kind]), 'Source revision identity mismatch')
+    invariant(revision.id === hash([revision.sourceId, revision.digest, revision.policyHash, revision.kind, revision.definitionHash ?? null]), 'Source revision identity mismatch')
     invariant(Array.isArray(revision.validatedConsumers) && revision.validatedConsumers.length > 0 && revision.validatedConsumers.every(id => PRODUCT_IDS.includes(id)), 'Invalid source revision consumers')
   }
   for (const observation of catalog.sourceObservations) {
@@ -84,7 +92,7 @@ export function validateCatalogProvenance(catalog, now = Date.now()) {
   for (const item of catalog.productValidation) {
     invariant(new Set(item.evidenceIds).size === item.evidenceIds.length, 'Duplicate product evidence')
     for (const id of item.evidenceIds) invariant(revisions.get(id)?.validatedConsumers.includes(item.productId), 'Unresolved product evidence')
-    for (const sourceId of sourceIdsForProduct(catalog, item.productId)) invariant(item.evidenceIds.some(id => revisions.get(id).sourceId === sourceId), 'Missing accepted source: ' + sourceId)
+    for (const sourceId of sourceIdsForProduct(catalog, item.productId)) invariant(item.evidenceIds.some(id => revisions.get(id).sourceId === sourceId && revisions.get(id).definitionHash === hash(sourceDefinition(catalog, sourceId))), 'Missing accepted source: ' + sourceId)
     invariant(item.partitionHash === hash({ partition: productPartition(catalog, item.productId), evidenceIds: item.evidenceIds }), 'Product partition hash mismatch: ' + item.productId)
   }
   for (const revision of revisions.values()) for (const productId of revision.validatedConsumers) {
@@ -173,13 +181,12 @@ export function assembleCatalog({ current, baselines, outcomes, observations, us
     const evidenceIds = []
     const required = sourceIdsForProduct(catalog, productId)
     const evidence = required.map(sourceId => {
-      const source = catalog.sources.find(item => item.id === sourceId) ?? (catalog.securityFeedPageStates.some(item => item.articleId === sourceId) ? { id: sourceId, url: 'https://www.veeam.com/' + sourceId, acceptedFingerprint: nextBaselines.articles[sourceId]?.contentFingerprint } : undefined)
-      invariant(source, 'Unknown catalog source ' + sourceId)
-      const observed = observations.get(source.url)
-      const { checkedAt, ...definition } = source
-      return observed?.status === 'fetched' && usage.get(source.url)?.has(productId)
-        ? { sourceId, digest: observed.digest, kind: 'fetched' }
-        : { sourceId, digest: hash(definition), kind: 'curated' }
+      const definition = sourceDefinition(catalog, sourceId)
+      const observed = observations.get(definition.url)
+      const definitionHash = hash(definition)
+      return observed?.status === 'fetched' && usage.get(definition.url)?.has(productId)
+        ? { sourceId, digest: observed.digest, definitionHash, kind: 'fetched' }
+        : { sourceId, digest: hash(definition), definitionHash, kind: 'curated' }
     })
     // Include pagination, discovery and official CVE-record responses even when
     // they are not presented as citation links in the product UI.
@@ -187,7 +194,7 @@ export function assembleCatalog({ current, baselines, outcomes, observations, us
       evidence.push({ sourceId: observation.sourceId, digest: observation.digest, kind: 'fetched' })
     }
     for (const entry of evidence) {
-      const revision = { ...entry, policyHash, id: hash([entry.sourceId, entry.digest, policyHash, entry.kind]) }
+      const revision = { ...entry, policyHash, id: hash([entry.sourceId, entry.digest, policyHash, entry.kind, entry.definitionHash ?? null]) }
       evidenceIds.push(addRevision(revision, productId))
     }
     return { productId, transactionId: hash({ productIds: [...outcome.productIds].sort(), assembledAt, policyHash }), validatedAt: assembledAt, attemptedAt: assembledAt, state: 'validated', evidenceIds: sorted(evidenceIds), failureCodes: [], partitionHash: '' }

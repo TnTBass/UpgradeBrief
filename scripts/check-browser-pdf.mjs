@@ -38,6 +38,7 @@ try {
       if (current.id === journeyTargetReleaseId) {
         await journeyLink.first().click()
         await page.getByRole('heading', { name: 'What to consider along the way' }).waitFor()
+        if (process.env.STALE_CATALOG_TEST) assert.match(await page.getByLabel('Product data freshness').innerText(), /Critical: product data is outdated/)
         await page.locator('[data-journey-stage="' + journeyTargetReleaseId + '"]').click()
         await page.getByRole('heading', { name: 'Confirm the final-target prerequisites' }).waitFor()
         assert.ok((await page.locator('#journey-stage').innerText()).includes(current.aliases[0]), 'Final journey stage must name the reviewed build')

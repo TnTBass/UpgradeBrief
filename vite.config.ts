@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { execFileSync } from 'node:child_process'
-import type { Catalog } from './src/lib/catalog-types'
+import type { Catalog } from './src/lib/catalog-types.ts'
 
 export default defineConfig({
   plugins: [react(), {
