@@ -93,7 +93,7 @@
           "title": "A vulnerability allows an authenticated domain user to execute code remotely on the backup server.",
           "cvssScore": 9.9,
           "conditions": [
-            "This issue affects domain-joined backup servers. KB4724 also offers a build-specific hotfix for 12.3.0.310; verify its file hashes if using that remediation.",
+            "This issue affects domain-joined backup servers. Upgrade to 12.3.1.1139 or a later release containing the fix; KB4724 no longer offers the retired build-specific hotfix.",
             "Veeam states that unsupported product versions are not tested but are likely affected and should be considered vulnerable."
           ]
         }
@@ -322,8 +322,7 @@
             "Veeam documents this issue for the optional Veeam Backup Enterprise Manager component. Verify that Enterprise Manager is deployed; this does not downgrade the upgrade reason."
           ]
         }
-      ],
-      "fixedReleaseId": "em-build-12-3-0-310"
+      ]
     },
     {
       "articleId": "kb4508",
@@ -338,7 +337,7 @@
         "5.",
         "6."
       ],
-      "remediation": "Upgrade to Veeam Recovery Orchestrator 7 or a later supported release containing Veeam ONE 12.1 or later. Review the embedded Veeam ONE build.",
+      "remediation": "Upgrade to a supported Veeam Recovery Orchestrator release containing the corrected Veeam ONE component. Confirm that the embedded Veeam ONE version is 12.1 (12.1.0.3208) or a later release containing these fixes.",
       "conditions": [
         "The previously reviewed KB4508 identified embedded Veeam ONE in VRO 4, 5 and 6 as affected. Veeam has retired the hotfix download instructions; use an upgrade containing the fixes."
       ],

@@ -3,8 +3,8 @@ const supported = new Set(['kb3103', 'kb4856', 'kb4858', 'kb4962', 'kb4857'])
 export function supportedInventoryExpansion(articleId, before, after) {
   if (!supported.has(articleId)) return false
   const marker = ' Security Fixes and Improvements '
-  const index = before.indexOf(marker)
-  if (index < 0 || after.indexOf(marker) !== index) return false
+  const index = before.lastIndexOf(marker)
+  if (index < 0 || after.lastIndexOf(marker) !== index) return false
   const prefix = before.slice(0, index + marker.length)
   const previous = before.slice(prefix.length)
   if (!after.startsWith(prefix) || !after.endsWith(previous)) return false
@@ -21,7 +21,7 @@ export function supportedInventoryExpansion(articleId, before, after) {
     let text = block.slice(build.length).trim()
     let count = 0
     while (text) {
-      const item = text.match(/^(?:CVE-\d{4}-\d+ vulnerability was fixed\.|[A-Za-z@][\w@./-]*(?: \/ [A-Za-z][\w.-]*)* upgraded to version \d+\.\d+\.\d+(?:\.\d+)?)(?:\s+|$)/)
+      const item = text.match(/^(?:CVE-\d{4}-\d+ vulnerability was fixed\.|[A-Za-z@][\w@./-]*(?: \/ [A-Za-z][\w.-]*)* (?:upgraded to version \d+\.\d+\.\d+(?:\.\d+)?(?: \(net\d+\.\d+\) and \d+\.\d+\.\d+ \(net\d+\.\d+\))?|upgraded to versions \d+\.\d+\.\d+ and \d+\.\d+\.\d+|was replaced with [A-Za-z@][\w@./-]* \d+\.\d+\.\d+))(?:\s+|$)/)
       if (!item) return false
       if (articleId === 'kb4857' && item[0].startsWith('CVE-')) return false
       text = text.slice(item[0].length).trim(); count++

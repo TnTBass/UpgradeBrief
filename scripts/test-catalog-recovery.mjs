@@ -2,11 +2,13 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { createRepairEvidence } from './lib/catalog-repair-evidence.mjs'
 import { buildRepairCandidate } from './lib/catalog-repair-candidate.mjs'
-import { createSecurityReviewBaseline, reconcileSecurityReviewBaselines } from './lib/security-review-baselines.mjs'
+import { createSecurityReviewBaseline, reconcileSecurityReviewBaselines, normalizeSecurityReviewText } from './lib/security-review-baselines.mjs'
 import { parseSectionedSecurityArticle } from './lib/sectioned-security.mjs'
 import { supportedInventoryExpansion } from './lib/inventory-expansion.mjs'
-import { catalogFreshness, workflowFailureIdentity, updateFailureOccurrence } from './lib/catalog-health.mjs'
+import { catalogFreshness, combinedCatalogFreshness, workflowFailureIdentity, updateFailureOccurrence } from './lib/catalog-health.mjs'
 import { assertSecurityFeedPageStateContinuity } from './lib/security-feed-coverage.mjs'
+import { mergeReviewedSecurityAdvisories } from './lib/reviewed-security-advisories.mjs'
+import { mergeEnterpriseManagerBuilds } from './lib/enterprise-manager-builds.mjs'
 
 const read = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'))
 const report = await read('./fixtures/catalog-repair/2026-10-30-source-review.json')
@@ -55,6 +57,17 @@ assert.equal(one.records[0].fixedBuild, '13.1.0.7940')
 const product = { productId: 'vb365', productName: 'Veeam Backup for Microsoft 365' }
 const vb = parseSectionedSecurityArticle(modern('kb4957'), { id: 'kb4957' }, product)
 assert.ok(new Set(vb.records.map(record => record.fixedBuild)).size > 1, 'Per-CVE fixes must remain distinct')
+assert.deepEqual(vb.records.map(record => [record.cve, record.cvssScore, record.affectedBuildRanges[0].throughBuild, record.fixedBuild]), [
+  ['CVE-2026-106076', 9, '8.5.0.1014', '8.6.0.1102'],
+  ['CVE-2026-106077', 8.3, '8.5.0.1014', '8.6.0.1102'],
+  ['CVE-2026-106078', 6.9, '8.6.0.1102', '8.6.0.5011'],
+  ['CVE-2025-64394', 4.3, '8.6.0.1102', '8.6.0.5011'],
+])
+assert.ok(vb.records.every(record => record.affectedBuildRanges[0].versionPrefix === '8.'))
+assert.match(policy.advisories.find(advisory => advisory.articleId === 'kb4682').remediation, /12\.3\.0\.310/)
+const snapshot = await read('../src/data/catalog.snapshot.json')
+assert.doesNotThrow(() => mergeReviewedSecurityAdvisories(mergeEnterpriseManagerBuilds(snapshot).catalog), 'Real release catalog must resolve every reviewed fixed-release reference')
+assert.ok(!policy.advisories.find(advisory => advisory.articleId === 'kb4724').records[0].conditions.some(condition => condition.includes('offers a build-specific hotfix')))
 for (const mutate of [
   text => text + ' CVE-2099-99999',
   text => text + ' Disable authentication before upgrading.',
@@ -69,6 +82,10 @@ const after = prefix + '13.1.0.7940 CVE-2026-107671 vulnerability was fixed. lib
 assert.equal(supportedInventoryExpansion('kb4858', before, after), true)
 for (const altered of [after + ' ignored', after.replace('was fixed.', 'is not affected.'), after.replace('13.1.0.7940', '12.1.0.7940'), after.replace('libxml2 upgraded', 'Unknown instructions: libxml2 upgraded')]) assert.equal(supportedInventoryExpansion('kb4858', before, altered), false)
 assert.equal(supportedInventoryExpansion('kb9999', before, after), false)
+for (const [id, supported] of [['kb4858', true], ['kb3103', false], ['kb4857', false]]) {
+  const change = report.changes.find(change => change.articleId === id)
+  assert.equal(supportedInventoryExpansion(id, normalizeSecurityReviewText(id, change.before), normalizeSecurityReviewText(id, change.after)), supported, 'Archived inventory: ' + id)
+}
 const baseline = createSecurityReviewBaseline('kb4858', before)
 const state = { articleId: 'kb4858', productIds: ['veeam-one'], hasOutOfScopeProduct: false, contentFingerprint: baseline.contentFingerprint }
 const next = { ...state, contentFingerprint: createSecurityReviewBaseline('kb4858', after).contentFingerprint }
@@ -84,6 +101,10 @@ const now = Date.parse('2026-10-30T12:00:00Z')
 for (const [hours, level] of [[35.99, 'healthy'], [36, 'warning'], [71.99, 'warning'], [72, 'critical']]) assert.equal(catalogFreshness(new Date(now - hours * 3_600_000).toISOString(), now).level, level)
 assert.equal(catalogFreshness('invalid', now).level, 'critical')
 assert.equal(catalogFreshness(new Date(now + 3_600_000).toISOString(), now).level, 'critical')
+const publication = { schemaVersion: 1, commit: 'a'.repeat(40), catalogHash: 'b'.repeat(64), generatedAt: new Date(now - 73 * 3_600_000).toISOString() }
+assert.equal(combinedCatalogFreshness(new Date(now).toISOString(), publication, now).level, 'critical', 'Fresh main cannot conceal stale deployment')
+assert.equal(combinedCatalogFreshness(new Date(now).toISOString(), undefined, now).deployment.reason, 'published-health-unavailable')
+assert.equal(combinedCatalogFreshness(new Date(now).toISOString(), { ...publication, generatedAt: new Date(now).toISOString() }, now).level, 'healthy')
 const detail = { schemaVersion: 1, code: 'REPAIR_PREPARATION_FAILED', articleId: 'kb4853', message: 'kb4853 accepted text changed' }
 assert.notEqual(workflowFailureIdentity(['prepare'], detail).id, workflowFailureIdentity(['prepare'], { ...detail, articleId: 'kb3144', message: 'kb3144 accepted scope changed' }).id)
 assert.equal(workflowFailureIdentity(['prepare'], detail).id, workflowFailureIdentity(['prepare'], { ...detail, capturedAt: 'tomorrow' }).id)

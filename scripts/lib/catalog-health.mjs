@@ -7,6 +7,14 @@ export function catalogFreshness(generatedAt, now = Date.now()) {
   return { level: ageHours >= 72 ? 'critical' : ageHours >= 36 ? 'warning' : 'healthy', ageHours, reason: 'catalog-age' }
 }
 
+export function combinedCatalogFreshness(generatedAt, published, now = Date.now()) {
+  const repository = catalogFreshness(generatedAt, now)
+  const validPublication = published?.schemaVersion === 1 && /^[a-f0-9]{40}$/.test(published.commit ?? '') && /^[a-f0-9]{64}$/.test(published.catalogHash ?? '')
+  const deployment = validPublication ? catalogFreshness(published.generatedAt, now) : { level: 'critical', ageHours: null, reason: 'published-health-unavailable' }
+  const rank = { healthy: 0, warning: 1, critical: 2 }
+  return { level: rank[repository.level] > rank[deployment.level] ? repository.level : deployment.level, repository, deployment }
+}
+
 export function workflowFailureIdentity(failed, diagnostic) {
   // Bind the diagnostic to the signature: different article failures at the
   // same workflow step must not collapse into one stale investigation.
