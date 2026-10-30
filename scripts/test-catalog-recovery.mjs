@@ -9,6 +9,7 @@ import { catalogFreshness, combinedCatalogFreshness, workflowFailureIdentity, up
 import { assertSecurityFeedPageStateContinuity } from './lib/security-feed-coverage.mjs'
 import { mergeReviewedSecurityAdvisories } from './lib/reviewed-security-advisories.mjs'
 import { mergeEnterpriseManagerBuilds } from './lib/enterprise-manager-builds.mjs'
+import { inspectVspcKbCveCoverage } from './lib/vspc-kb-cve-coverage.mjs'
 
 const read = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'))
 const report = await read('./fixtures/catalog-repair/2026-10-30-source-review.json')
@@ -68,6 +69,20 @@ assert.match(policy.advisories.find(advisory => advisory.articleId === 'kb4682')
 const snapshot = await read('../src/data/catalog.snapshot.json')
 assert.doesNotThrow(() => mergeReviewedSecurityAdvisories(mergeEnterpriseManagerBuilds(snapshot).catalog), 'Real release catalog must resolve every reviewed fixed-release reference')
 assert.ok(!policy.advisories.find(advisory => advisory.articleId === 'kb4724').records[0].conditions.some(condition => condition.includes('offers a build-specific hotfix')))
+const oldVspcState = {
+  articleId: 'kb4853', observedCveIds: ['CVE-2026-32998', 'CVE-2026-64635'], securityFingerprintVersion: 2,
+  securityFingerprint: 'sha256:95843221766c06f531f2bac0ad763a4ba2ec8e5b31ad213c6d217bf98a9290fb',
+  catalogFingerprint: 'sha256:e273aeac36f0eaadb76aa27ed211ff3e24b221b7f30c936e30399d9d2a32dbc6',
+  parsedModelFingerprint: 'sha256:3a00db45f4d7bc3ae1b4c3d4dfe82c06ed2e8130a93f798719d9230f62e1c32d',
+}
+const vspcArticle = { id: 'kb4853', url: '/kb4853', type: 'security', seoTitle: 'Vulnerability Resolved in Veeam Service Provider Console 9.2.1', product: [{ title: 'Veeam Service Provider Console' }] }
+const vspcHtml = '<meta name="description" content="Vulnerability Resolved in Veeam Service Provider Console 9.2.1"><h1>' + modern('kb4853') + '</h1>'
+const vspcInput = { articles: [vspcArticle], pages: { kb4853: { html: vspcHtml } }, catalog: snapshot, previousCatalog: snapshot, previousArticleIds: ['kb4853'], previousPageStates: [oldVspcState], parsedModelFingerprints: { kb4853: oldVspcState.parsedModelFingerprint } }
+assert.equal(inspectVspcKbCveCoverage(vspcInput).report.ok, true, 'Exact reviewed text transition keeps the unchanged mitigation model')
+for (const html of [vspcHtml.replace('description" content="Vulnerability', 'description" content="Changed vulnerability'), vspcHtml.replace('CVE-2026-32998', 'CVE-2026-99999'), vspcHtml.replace('alarm', 'arbitrary')]) {
+  assert.equal(inspectVspcKbCveCoverage({ ...vspcInput, pages: { kb4853: { html } } }).report.ok, false)
+}
+assert.equal(inspectVspcKbCveCoverage({ ...vspcInput, previousPageStates: [{ ...oldVspcState, securityFingerprint: 'sha256:' + 'a'.repeat(64) }] }).report.ok, false)
 for (const mutate of [
   text => text + ' CVE-2099-99999',
   text => text + ' Disable authentication before upgrading.',

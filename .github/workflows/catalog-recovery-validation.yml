@@ -23,8 +23,10 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci --ignore-scripts
-      - name: Run all checks including live sources
-        run: node scripts/verify-catalog-repair.mjs --live
+      - name: Refresh against live sources
+        run: node scripts/refresh-catalog.mjs --live
+      - name: Verify the refreshed catalog and application
+        run: node scripts/verify-catalog-repair.mjs
       - name: Persist validated recovery snapshot on the recovery branch
         run: |
           git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json

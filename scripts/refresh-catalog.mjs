@@ -102,6 +102,7 @@ const releaseInformationSource = current.sources.find((item) => item.id === 'kb4
 const releaseInformation13Source = current.sources.find((item) => item.id === 'kb4738')
 if (!buildSource || !oneBuildSource || !vroBuildSource || !vspcBuildSource || !vb365BuildSource || !vb365UpgradeSource || !vbrUpgradeSource || !securitySource || !securityFeedSource || !kevSource || !lifecycleSource || !releaseInformationSource || !releaseInformation13Source) throw new Error('A required catalog source is missing from the catalog.')
 const sourceFetcher = createCatalogSourceFetcher()
+console.log('[catalog-refresh] Fetching build lists, security inventories, and lifecycle sources.')
 
 const securityProducts = {
   vbr: 'Veeam Backup & Replication',
@@ -181,6 +182,7 @@ const securityFeedRoutes = assertSecurityFeedRouteContinuity(current.securityFee
 const sourceArticleById = new Map(securityArticles.map((article) => [article.id.toLowerCase(), article]))
 // Fetch new articles for review evidence; the coverage gate still rejects unclassified articles.
 const classifiedArticlesToFetch = classifiedSecurityArticles
+console.log(`[catalog-refresh] Fetching ${classifiedArticlesToFetch.length} security articles and ${vspcKbInventory.articles.length} VSPC inventory pages with source throttling.`)
 const classifiedArticleResponses = await Promise.allSettled(classifiedArticlesToFetch.map(async (article) => ({
     article,
     html: await fetchSource({ id: article.articleId, url: new URL(sourceArticleById.get(article.articleId).url, 'https://www.veeam.com').toString() }),
@@ -256,6 +258,7 @@ const discoveredReleaseMaterials = (await Promise.all(releaseMaterialProducts.ma
     url: `${releaseMaterialEndpoint}?${new URLSearchParams({ productId: product.helpCenterProductId, localeCode: 'en', isInitial: 'true' })}`,
   })),
 })))).flat()
+console.log(`[catalog-refresh] Source continuity passed; fetching ${discoveredReleaseMaterials.length} release documents.`)
 if (!releaseMaterialProducts.every((product) => discoveredReleaseMaterials.some((material) => material.productId === product.productId))) throw new Error('Help Center release-material discovery returned no current document for one or more tracked products.')
 const releaseMaterialDocuments = await Promise.allSettled(discoveredReleaseMaterials.map(async (material) => {
   const document = await fetchDocument(material.url, `release-material-${material.productId}-${material.releaseFamily}-${material.kind}`)
@@ -469,6 +472,7 @@ for (const state of preliminaryVspcKbCoverage.pageStates) {
 
 let vspcCveRecordCoverage
 try {
+  console.log(`[catalog-refresh] Reconciling ${observedVspcCveIds.length} official VSPC CVE records.`)
   const vspcCveRecords = await fetchVspcCveRecords({
     cveIds: observedVspcCveIds,
     fetchRecord: ({ cveId, url }) => fetchSource({ id: `cve-record-${cveId.toLowerCase()}`, url }),
