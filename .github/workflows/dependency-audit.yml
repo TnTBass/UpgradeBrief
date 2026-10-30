@@ -6,6 +6,9 @@ on:
       - package-lock.json
       - vite.config.ts
       - src/App.tsx
+      - src/UpgradeJourney.tsx
+      - src/data/upgrade-journey.ts
+      - src/lib/upgrade-journey.ts
       - src/lib/executive-summary-pdf.ts
       - scripts/check-browser-pdf.mjs
       - .github/workflows/dependency-audit.yml
@@ -16,6 +19,9 @@ on:
       - package-lock.json
       - vite.config.ts
       - src/App.tsx
+      - src/UpgradeJourney.tsx
+      - src/data/upgrade-journey.ts
+      - src/lib/upgrade-journey.ts
       - src/lib/executive-summary-pdf.ts
       - scripts/check-browser-pdf.mjs
       - .github/workflows/dependency-audit.yml
