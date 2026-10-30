@@ -16,6 +16,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -55,6 +56,16 @@ jobs:
           name: catalogue-source-review
           path: artifacts/catalog-review/
           if-no-files-found: warn
+          retention-days: 7
+      - name: Verify the refreshed catalog and application before publishing
+        run: node scripts/verify-catalog-repair.mjs
+      - name: Upload failed catalog verification logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: catalog-refresh-verification
+          path: artifacts/catalog-repair/verification/*.log
+          if-no-files-found: ignore
           retention-days: 7
       - name: Commit a validated catalog refresh when data changed
         run: |
