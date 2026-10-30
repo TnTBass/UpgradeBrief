@@ -1,0 +1,85 @@
+name: Dependency audit
+on:
+  pull_request:
+    paths:
+      - package.json
+      - package-lock.json
+      - vite.config.ts
+      - src/App.tsx
+      - src/lib/executive-summary-pdf.ts
+      - scripts/check-browser-pdf.mjs
+      - .github/workflows/dependency-audit.yml
+  push:
+    branches: [main]
+    paths:
+      - package.json
+      - package-lock.json
+      - vite.config.ts
+      - src/App.tsx
+      - src/lib/executive-summary-pdf.ts
+      - scripts/check-browser-pdf.mjs
+      - .github/workflows/dependency-audit.yml
+  schedule:
+    - cron: '23 15 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dependency-audit-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+      - name: Audit the committed dependency graph
+        run: npm audit --json --audit-level=moderate > dependency-audit.json
+      - name: Summarize audit findings
+        if: always()
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync} from 'node:fs';
+          const report = JSON.parse(readFileSync('dependency-audit.json','utf8'));
+          if(report.error || !report.metadata) throw new Error('Dependency audit unavailable');
+          console.log(JSON.stringify({summary:report.metadata.vulnerabilities,packages:Object.values(report.vulnerabilities).map(item=>({name:item.name,severity:item.severity,range:item.range,fixAvailable:item.fixAvailable,advisories:item.via.filter(v=>typeof v==='object').map(v=>v.url)}))},null,2));
+          NODE
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: dependency-audit
+          path: dependency-audit.json
+          retention-days: 14
+  browser-pdf:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - name: Install isolated browser verification tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/dependency-browser-smoke" --ignore-scripts --no-save playwright@1.64.1
+          node "$RUNNER_TEMP/dependency-browser-smoke/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Verify browser PDF downloads
+        run: node scripts/check-browser-pdf.mjs
+        env:
+          BROWSER_TEST_ROOT: ${{ runner.temp }}/dependency-browser-smoke
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: browser-pdf-downloads
+          path: artifacts/browser-pdf/
+          retention-days: 7
