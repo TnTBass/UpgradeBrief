@@ -11,6 +11,7 @@ export function captureProductRollback({ catalog, baselines }, articleIds) {
   const evidenceIds = new Set(validations.flatMap(item => item.evidenceIds))
   return {
     productIds,
+    sourceOwnership: Object.fromEntries(Object.entries(catalog.sourceOwnership).filter(([, owners]) => owners.some(id => productIds.includes(id))).map(([sourceId, owners]) => [sourceId, owners.filter(id => productIds.includes(id))])),
     products: catalog.products.filter(item => productIds.includes(item.id)),
     collections: Object.fromEntries(PRODUCT_COLLECTIONS.map(key => [key, catalog[key].filter(item => productIds.includes(item.productId))])),
     pageStates: catalog.securityFeedPageStates.filter(item => sources.has(item.articleId)),
@@ -26,6 +27,9 @@ export function captureProductRollback({ catalog, baselines }, articleIds) {
 export function restoreProductRollback(next, before, after, now = new Date().toISOString()) {
   if (!before || !after || hash(before.productIds) !== hash(after.productIds)) throw new Error('Cannot revert schema-2 data without complete matching product provenance')
   const ids = new Set(before.productIds)
+  const ownership = Object.fromEntries(Object.entries(next.catalog.sourceOwnership).map(([sourceId, owners]) => [sourceId, owners.filter(id => !ids.has(id))]))
+  for (const [sourceId, owners] of Object.entries(before.sourceOwnership)) ownership[sourceId] = [...new Set([...(ownership[sourceId] ?? []), ...owners])].sort()
+  next.catalog.sourceOwnership = Object.fromEntries(Object.entries(ownership).filter(([, owners]) => owners.length))
   for (const key of PRODUCT_COLLECTIONS) {
     const remaining = next.catalog[key].filter(item => !ids.has(item.productId))
     next.catalog[key] = PRODUCT_IDS.flatMap(id => [...remaining, ...before.collections[key]].filter(item => item.productId === id))

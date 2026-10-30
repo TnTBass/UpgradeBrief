@@ -10,7 +10,7 @@ const original = JSON.parse(await readFile(new URL('../src/data/catalog.snapshot
 // Migration is exercised independently of the on-disk schema.
 const legacy = structuredClone(original)
 legacy.schemaVersion = 1
-for (const key of ['productValidation', 'sourceObservations', 'sourceRevisions', 'refreshPolicyHash', 'assembledAt']) delete legacy[key]
+for (const key of ['sourceOwnership', 'productValidation', 'sourceObservations', 'sourceRevisions', 'refreshPolicyHash', 'assembledAt']) delete legacy[key]
 const baselines = JSON.parse(await readFile(new URL('./data/security-review-baselines.json', import.meta.url), 'utf8'))
 const start = '2026-10-27T01:00:00.000Z'
 const nextTime = '2026-10-30T18:00:00.000Z'
@@ -28,6 +28,10 @@ const initial = assembleCatalog({
 }).catalog
 assert.equal(validateCatalogProvenance(initial), true)
 assert.equal(initial.generatedAt, start)
+const supplementalRollback = projectRepairState({ catalog: initial, baselines, reviewedData: { advisories: [], observationSpecs: {} } }, ['kb4857'])
+assert.deepEqual(supplementalRollback.productRollback.productIds, ['veeam-one', 'vro'])
+assert.ok(supplementalRollback.productRollback.pageStates.some(state => state.articleId === 'kb4857'))
+assert.ok(supplementalRollback.productRollback.baselines.kb4857)
 
 const partial = await runTransactions({
   current: initial, baselines, collector: collector(), policyHash, groups: BASE_TRANSACTIONS, shadow: false, now: () => nextTime,
@@ -83,6 +87,8 @@ for (const mutate of [
   c => c.products[0].recommendedReleaseId = 'unvalidated-release',
   c => c.generatedAt = nextTime,
   c => c.sourceRevisions[0].digest = 'b'.repeat(64),
+  c => delete c.sourceOwnership.kb2680,
+  c => c.sourceOwnership.kb2680 = ['unknown'],
   c => c.sources.find(source => source.id === 'kb2680').url = 'https://example.test/incorrect-source',
 ]) {
   const broken = structuredClone(initial); mutate(broken)

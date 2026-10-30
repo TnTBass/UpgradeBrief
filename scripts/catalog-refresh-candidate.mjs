@@ -464,5 +464,8 @@ try {
 }
 
 
+// Ownership is accepted only by the assembler after this transaction passes.
+// Do not carry a previous registry into the atomic comparison of new evidence.
+delete merged.catalog.sourceOwnership
 return { catalog: merged.catalog, baselines: { schemaVersion: 1, articles: { ...baselines.articles, ...baselineReview.next.articles } }, texts: reviewTexts, equivalentChanges: baselineReview.equivalentChanges, inventoryChanges: baselineReview.inventoryChanges }
 }

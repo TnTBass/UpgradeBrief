@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto'
+import { securityClassificationOverrides } from './catalog-refresh-registry.mjs'
 
 export const PRODUCT_IDS = ['vbr', 'enterprise-manager', 'veeam-one', 'vro', 'vspc', 'vb365']
 export const BASE_TRANSACTIONS = [['vbr', 'enterprise-manager'], ['veeam-one', 'vro'], ['vspc'], ['vb365']]
@@ -16,7 +17,8 @@ function sourceDefinition(catalog, sourceId) {
   return { id: sourceId, url: 'https://www.veeam.com/' + sourceId, contentFingerprint: page.contentFingerprint }
 }
 
-export function sourceIdsForProduct(catalog, productId) {
+export function sourceIdsForProduct(catalog, productId, includeReviewed = true) {
+  if (catalog.sourceOwnership) return Object.entries(catalog.sourceOwnership).filter(([, owners]) => owners.includes(productId)).map(([id]) => id).sort()
   const ids = new Set(['security-kb', 'cisa-kev', 'lifecycle'])
   function visit(value) {
     if (!value || typeof value !== 'object') return
@@ -29,6 +31,12 @@ export function sourceIdsForProduct(catalog, productId) {
   visit(catalog.securityNotices ?? [])
   for (const source of catalog.sources) if (source.productId === productId) ids.add(source.id)
   for (const route of catalog.securityFeedRoutes ?? []) if (route.productIds.includes(productId)) ids.add(route.articleId)
+  // Reviewed supplemental sources (notably KB4857) can be absent from the
+  // discoverable feed and still form part of a product's accepted evidence.
+  // Use reviewed ownership, never navigation/product mentions from page text.
+  for (const [id, route] of Object.entries(securityClassificationOverrides)) {
+    if (includeReviewed && route.productIds?.includes(productId) && catalog.securityFeedPageStates?.some(state => state.articleId === id)) ids.add(id)
+  }
   return [...ids].sort()
 }
 
@@ -76,6 +84,9 @@ export function validateProductHealth(catalog, now = Date.now()) {
 export function validateCatalogProvenance(catalog, now = Date.now()) {
   validateProductHealth(catalog, now)
   invariant(/^[a-f0-9]{64}$/.test(catalog.refreshPolicyHash ?? ''), 'Missing refresh policy identity')
+  invariant(catalog.sourceOwnership && typeof catalog.sourceOwnership === 'object' && !Array.isArray(catalog.sourceOwnership), 'Missing accepted source ownership')
+  for (const owners of Object.values(catalog.sourceOwnership)) invariant(Array.isArray(owners) && owners.length > 0 && owners.every(id => PRODUCT_IDS.includes(id)) && new Set(owners).size === owners.length, 'Invalid source ownership')
+  for (const productId of PRODUCT_IDS) for (const sourceId of sourceIdsForProduct({ ...catalog, sourceOwnership: undefined }, productId, false)) invariant(catalog.sourceOwnership[sourceId]?.includes(productId), 'Unregistered product citation ' + sourceId)
   invariant(Array.isArray(catalog.sourceRevisions) && Array.isArray(catalog.sourceObservations), 'Missing source provenance')
   const revisions = new Map(catalog.sourceRevisions.map(item => [item.id, item]))
   invariant(revisions.size === catalog.sourceRevisions.length, 'Duplicate source revision')
@@ -145,11 +156,17 @@ export function assembleCatalog({ current, baselines, outcomes, observations, us
   catalog.securityFeedArticleIds = successes[0].result.catalog.securityFeedArticleIds
   catalog.securityFeedRoutes = successes[0].result.catalog.securityFeedRoutes
   catalog.securityNotices = successes[0].result.catalog.securityNotices
+  catalog.sourceOwnership = {}
+  for (const productId of PRODUCT_IDS) {
+    const outcome = ownerByProduct.get(productId)
+    const basis = outcome.result ? { ...outcome.result.catalog, sourceOwnership: undefined } : current
+    for (const sourceId of sourceIdsForProduct(basis, productId)) catalog.sourceOwnership[sourceId] = sorted([...(catalog.sourceOwnership[sourceId] ?? []), productId])
+  }
   const pageStates = new Map(current.securityFeedPageStates.map(state => [state.articleId, state]))
   const acceptedSources = new Map(current.sources.map(source => [source.id, source]))
   for (const outcome of successes) {
     const candidate = outcome.result.catalog
-    const relevant = new Set(outcome.productIds.flatMap(id => sourceIdsForProduct(candidate, id)))
+    const relevant = new Set(outcome.productIds.flatMap(id => sourceIdsForProduct({ ...candidate, sourceOwnership: undefined }, id)))
     for (const route of candidate.securityFeedRoutes) if (!route.productIds.length) relevant.add(route.articleId)
     for (const state of candidate.securityFeedPageStates) if (relevant.has(state.articleId)) {
       pageStates.set(state.articleId, state)

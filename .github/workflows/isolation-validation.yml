@@ -35,4 +35,4 @@ jobs:
           git commit -m 'chore: migrate fully validated catalog to product provenance'
           git push origin HEAD:codex/product-refresh-isolation
 
-# Validation revision 3: immutable validator inputs, complete failure matrix and verified source upload.
+# Validation revision 4: persist reviewed ownership including supplemental VRO evidence.
