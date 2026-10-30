@@ -64,3 +64,5 @@ jobs:
           git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
           git commit -m 'chore: refresh Veeam source catalog'
           git push origin HEAD:main
+      - name: Verify the published snapshot after the refresh commit
+        run: node scripts/verify-published-catalog.mjs

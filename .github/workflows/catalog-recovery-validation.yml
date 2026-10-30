@@ -4,6 +4,9 @@ on:
   push:
     branches: [codex/catalog-recovery-20261030]
     paths-ignore:
+      - 'docs/**'
+      - '.github/workflows/**'
+      - scripts/verify-published-catalog.mjs
       - src/data/catalog.snapshot.json
       - scripts/data/security-review-baselines.json
 

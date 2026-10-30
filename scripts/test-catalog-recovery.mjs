@@ -6,7 +6,8 @@ import { createSecurityReviewBaseline, reconcileSecurityReviewBaselines, normali
 import { parseSectionedSecurityArticle } from './lib/sectioned-security.mjs'
 import { supportedInventoryExpansion } from './lib/inventory-expansion.mjs'
 import { catalogFreshness, combinedCatalogFreshness, workflowFailureIdentity, updateFailureOccurrence } from './lib/catalog-health.mjs'
-import { assertSecurityFeedPageStateContinuity } from './lib/security-feed-coverage.mjs'
+import { assertSecurityFeedPageStateContinuity, inspectSecurityFeedCoverage } from './lib/security-feed-coverage.mjs'
+import { unreviewedTrailingCveIds } from './lib/reviewed-mitigation-references.mjs'
 import { mergeReviewedSecurityAdvisories } from './lib/reviewed-security-advisories.mjs'
 import { mergeEnterpriseManagerBuilds } from './lib/enterprise-manager-builds.mjs'
 import { inspectVspcKbCveCoverage } from './lib/vspc-kb-cve-coverage.mjs'
@@ -83,6 +84,21 @@ for (const html of [vspcHtml.replace('description" content="Vulnerability', 'des
   assert.equal(inspectVspcKbCveCoverage({ ...vspcInput, pages: { kb4853: { html } } }).report.ok, false)
 }
 assert.equal(inspectVspcKbCveCoverage({ ...vspcInput, previousPageStates: [{ ...oldVspcState, securityFingerprint: 'sha256:' + 'a'.repeat(64) }] }).report.ok, false)
+const mitigationCves = ['CVE-2026-32998']
+assert.deepEqual(unreviewedTrailingCveIds('kb4853', modern('kb4853'), mitigationCves), [])
+assert.deepEqual(unreviewedTrailingCveIds('kb4853', modern('kb4853').replace(/Last Modified: \d{4}-\d{2}-\d{2}/, 'Last Modified: 2026-10-31'), mitigationCves), [])
+assert.deepEqual(unreviewedTrailingCveIds('kb4853', modern('kb4853'), [...mitigationCves, 'CVE-2099-99999']), ['CVE-2099-99999'])
+assert.deepEqual(unreviewedTrailingCveIds('kb9999', modern('kb4853'), mitigationCves), mitigationCves)
+const feedCase = content => ({
+  articles: [vspcArticle],
+  classifications: { kb4853: { classification: 'parsed', productIds: ['vspc'] } },
+  articlePages: { kb4853: { html: '<h1>Veeam Service Provider Console</h1><p>CVE-2026-32998 CVE-2026-64635</p>', trailingCveIds: unreviewedTrailingCveIds('kb4853', content, mitigationCves) } },
+  parsedCoverage: [{ articleId: 'kb4853', productId: 'vspc', cveIds: oldVspcState.observedCveIds }],
+  catalog: snapshot,
+})
+assert.equal(inspectSecurityFeedCoverage(feedCase(modern('kb4853'))).report.ok, true)
+assert.equal(inspectSecurityFeedCoverage(feedCase(modern('kb4853') + ' Disable authentication.')).report.ok, false, 'Unreviewed mitigation guidance remains blocked')
+
 for (const mutate of [
   text => text + ' CVE-2099-99999',
   text => text + ' Disable authentication before upgrading.',

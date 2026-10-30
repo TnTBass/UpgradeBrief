@@ -26,6 +26,7 @@ import { VSPC_REVIEWED_CVE_EXCLUSIONS, VspcKbCveCoverageError, assertVspcKbCveCo
 import { VspcCveRecordCoverageError, assertVspcCveRecordCoverage, fetchVspcCveRecords } from './lib/vspc-cve-record-coverage.mjs'
 import { createVspcReleaseSecurityReviewFromParsedCves, extractVspcReleaseSecuritySections, mergeVspcReleaseSecurityArticles, parseVspcReleaseSecurityPages } from './lib/vspc-release-security.mjs'
 import { hasSectionedSecurityLayout } from './lib/sectioned-security.mjs'
+import { unreviewedTrailingCveIds } from './lib/reviewed-mitigation-references.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const baselineFile = new URL('./data/security-review-baselines.json', import.meta.url)
@@ -241,7 +242,7 @@ const securityArticlePages = Object.fromEntries(classifiedArticlesToFetch.map((a
     const scope = extractSecurityArticleScope(section.vulnerabilityContent)
     return [article.articleId, {
       html: section.vulnerabilityContent,
-      trailingCveIds: extractCveIds(section.trailingContent),
+      trailingCveIds: unreviewedTrailingCveIds(article.articleId, html, extractCveIds(section.trailingContent)),
       observedProductIds: scope.productIds,
       observedOutOfScopeProduct: scope.hasOutOfScopeProduct,
     }]
