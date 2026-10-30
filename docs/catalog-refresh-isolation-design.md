@@ -1,12 +1,12 @@
 # Safe product-scoped catalog refresh
 
-Status: design complete; not enabled in the production refresher. Reviewed against commit `388aad25e06d2115d38acb8f4da41e61d139b33b` on 2026-10-30. Implements the design deliverable in [#18](https://github.com/TnTBass/UpgradeBrief/issues/18).
+Status: implemented by [#24](https://github.com/TnTBass/UpgradeBrief/pull/24). [Live acceptance](https://github.com/TnTBass/UpgradeBrief/actions/runs/41125274358) passed; see [implementation and operations](catalog-repairs/2026-10-30-product-isolation.md). Reviewed against commit `388aad25e06d2115d38acb8f4da41e61d139b33b` on 2026-10-30. Implements the design deliverable in [#18](https://github.com/TnTBass/UpgradeBrief/issues/18).
 
 ## Decision
 
 Publish one immutable catalog, assembled from independently validated product groups. Retain a failed group's entire last accepted data and its validation time. A new deployment or successful HTTP fetch must never make retained security evidence appear fresh.
 
-Keep the current atomic refresh as the production behavior until all schema, validation, UI, monitoring and publication changes below ship together. Catching exceptions around existing merge functions is not a safe partial-refresh implementation.
+The schema, validation, UI, monitoring and publication changes below ship together; --atomic remains the fallback mode. Catching exceptions around existing merge functions is not a safe partial-refresh implementation.
 
 ## Source ownership and transaction boundaries
 

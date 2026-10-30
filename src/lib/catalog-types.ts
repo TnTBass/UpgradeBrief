@@ -143,8 +143,20 @@ export interface OperationalNotice {
 }
 
 export interface Catalog {
-  schemaVersion: 1
+  schemaVersion: 1 | 2
   generatedAt: string
+  assembledAt?: string
+  refreshPolicyHash?: string
+  productValidation?: Array<{
+    productId: ProductId
+    transactionId: string
+    validatedAt: string
+    attemptedAt: string
+    state: 'validated' | 'retained'
+    partitionHash: string
+    evidenceIds: string[]
+    failureCodes: string[]
+  }>
   securityFeedArticleIds?: string[]
   securityFeedRoutes?: Array<{
     articleId: string

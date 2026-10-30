@@ -38,6 +38,7 @@ try {
       if (current.id === journeyTargetReleaseId) {
         await journeyLink.first().click()
         await page.getByRole('heading', { name: 'What to consider along the way' }).waitFor()
+        if (process.env.STALE_CATALOG_TEST) assert.match(await page.getByLabel('Product data freshness').innerText(), /Critical: product data is outdated/)
         await page.locator('[data-journey-stage="' + journeyTargetReleaseId + '"]').click()
         await page.getByRole('heading', { name: 'Confirm the final-target prerequisites' }).waitFor()
         assert.ok((await page.locator('#journey-stage').innerText()).includes(current.aliases[0]), 'Final journey stage must name the reviewed build')
@@ -47,6 +48,9 @@ try {
         assert.equal(await journeyLink.count(), 0, 'An unreviewed current destination must not expose editorial guidance')
       }
     }
+    const freshness = await page.getByLabel('Product data freshness').innerText()
+    assert.match(freshness, /Last successful validation:/)
+    if (process.env.STALE_CATALOG_TEST) assert.match(freshness, /Critical: product data is outdated/)
     const downloadPromise = page.waitForEvent('download')
     await page.getByRole('button', { name: 'Download executive summary (PDF)' }).click()
     const download = await downloadPromise
@@ -66,6 +70,9 @@ try {
       for (let pageNumber = 1; pageNumber <= document.numPages; pageNumber++) {
         text += (await (await document.getPage(pageNumber)).getTextContent()).items.map(item => item.str ?? '').join(' ')
       }
+      assert.match(text, /DATA FRESHNESS/)
+      assert.match(text, /Last successful validation:/)
+      if (process.env.STALE_CATALOG_TEST) assert.match(text, /Critical: product data is outdated/)
       assert.match(text, /DECISION SUMMARY/)
       assert.match(text, /Veeam Backup & Replication/)
       const expectedRelease = version === current.aliases[0] ? current.name : version

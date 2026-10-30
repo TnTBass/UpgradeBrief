@@ -4,6 +4,7 @@ export interface ExecutiveSummaryPdfInput {
   productName: string
   installedRelease: string
   preparedOn: string
+  freshness?: { heading: string; detail: string }
   recommendation: { heading: string; detail: string }
   lifecycle: { heading: string; detail: string }
   upgradeRoute?: { heading: string; detail: string }
@@ -80,6 +81,8 @@ export function buildExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): jsPDF
   document.setFontSize(9)
   document.text(`Prepared ${input.preparedOn}`, margin, y + 12)
   y += 34
+
+  if (input.freshness) y = addSection(document, 'Data freshness', input.freshness.heading, input.freshness.detail, y)
 
   const routeDecision = input.upgradeRoute
     ? ` ${input.upgradeRoute.heading}. Next step: Review the documented upgrade route and vendor checklist before scheduling the change.`

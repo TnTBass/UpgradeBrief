@@ -78,8 +78,8 @@ export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines
     }
     const spec = nextData.observationSpecs[article.articleId]
     if (spec?.contentFingerprint) spec.contentFingerprint = article.afterHash
-    nextBaselines.articles[article.articleId] = createSecurityReviewBaseline(article.articleId, article.after, spec?.contentFingerprint)
-    if (!parsed) nextCatalog.securityFeedPageStates.find(item => item.articleId === article.articleId).contentFingerprint = article.afterHash
+    if (catalog.schemaVersion !== 2) nextBaselines.articles[article.articleId] = createSecurityReviewBaseline(article.articleId, article.after, spec?.contentFingerprint)
+    if (!parsed && catalog.schemaVersion !== 2) nextCatalog.securityFeedPageStates.find(item => item.articleId === article.articleId).contentFingerprint = article.afterHash
   }
   const result = {
     schemaVersion: 1,
