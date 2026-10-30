@@ -4,6 +4,7 @@ import { spawn } from 'node:child_process'
 import { mkdir, readFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs'
+import { journeyTargetReleaseId } from '../src/data/upgrade-journey.ts'
 
 if (!process.env.BROWSER_TEST_ROOT) throw new Error('Set BROWSER_TEST_ROOT to the isolated Playwright installation directory')
 const require = createRequire(join(resolve(process.env.BROWSER_TEST_ROOT), 'package.json'))
@@ -32,6 +33,20 @@ try {
   assert.ok(current, 'Current VBR release must exist')
   for (const version of ['13.0.1.180', '11a', current.aliases[0]]) {
     await page.goto('http://127.0.0.1:4173/?product=vbr&version=' + encodeURIComponent(version))
+    if (version === '11a') {
+      const journeyLink = page.getByRole('link', { name: /Plan this upgrade/ })
+      if (current.id === journeyTargetReleaseId) {
+        await journeyLink.first().click()
+        await page.getByRole('heading', { name: 'What to consider along the way' }).waitFor()
+        await page.locator('[data-journey-stage="' + journeyTargetReleaseId + '"]').click()
+        await page.getByRole('heading', { name: 'Confirm the final-target prerequisites' }).waitFor()
+        assert.ok((await page.locator('#journey-stage').innerText()).includes(current.aliases[0]), 'Final journey stage must name the reviewed build')
+        await page.getByRole('link', { name: /Back to upgrade results/ }).click()
+        console.log(JSON.stringify({ version, target: current.id, status: 'browser-journey-verified' }))
+      } else {
+        assert.equal(await journeyLink.count(), 0, 'An unreviewed current destination must not expose editorial guidance')
+      }
+    }
     const downloadPromise = page.waitForEvent('download')
     await page.getByRole('button', { name: 'Download executive summary (PDF)' }).click()
     const download = await downloadPromise
