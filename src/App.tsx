@@ -574,7 +574,63 @@ export default function App() {
             </div>
             {findings.length > 0 ? (
               <details className="security-advisories" data-analytics-topic="security_advisories">
-                <summary…762 tokens truncated…ffiliated with or endorsed by Veeam. It uses only publicly available information and does not access hidden, confidential, proprietary, or customer environment data. It does not assess your environment or certify upgrade safety. <a href="https://github.com/TnTBass/UpgradeBrief">View the project on GitHub</a>.</p>
+                <summary>
+                  <strong>
+                    {findings.length} matching {findings.length === 1 ? 'advisory' : 'advisories'} - {advisoryUrgencies.map(({ urgency, count }) => `${count} ${urgency === 'high' ? 'High Priority' : `${urgency[0].toUpperCase()}${urgency.slice(1)}`}`).join(', ')}
+                  </strong>
+                  <span aria-hidden="true" className="security-advisories-toggle">Show details</span>
+                </summary>
+                <div className="security-advisory-list">
+                  {findings.map((finding) => <SecurityFindingCard key={finding.id} finding={finding} />)}
+                </div>
+              </details>
+            ) : (
+              hasLegacySecurityRisk ? (
+                <article className="security-card critical">
+                  <p className="eyebrow">Critical upgrade reason</p>
+                  <h3>Unsupported release may contain unpatched vulnerabilities</h3>
+                  <p>No matching product advisory is currently curated. That is not evidence that this release is safe: it no longer receives security fixes, so assume it may contain unpatched vulnerabilities beyond this catalogue and treat upgrading or replacing with a new version as absolutely critical.</p>
+                  <SourceLinks sourceIds={['lifecycle']} />
+                </article>
+              ) : <p className="security-empty">{emptySecurityAdvisory.detail}</p>
+            )}
+            <SourceLinks sourceIds={['security-kb']} />
+          </section>
+
+          <SecurityNotices catalog={catalog} />
+
+          {operationalNotices.length > 0 && (
+            <section className="resources operational-notices">
+              <p className="eyebrow">Data protection notice</p>
+              {operationalNotices.map((notice) => (
+                <article key={notice.id}>
+                  <h2>{notice.title}</h2>
+                  <p>{notice.summary}</p>
+                  <SourceLinks sourceIds={notice.sourceIds} />
+                </article>
+              ))}
+            </section>
+          )}
+
+          <section className="resources release-materials">
+            <p className="eyebrow">About this installed release</p>
+            <h2>Vendor release notes and documented fixes.</h2>
+            <p>These materials describe changes included in {release.name}; they do not mean every fix affected your environment.</p>
+            <SourceLinks sourceIds={installedReleaseSourceIds} />
+          </section>
+
+          <section className="resources planning-materials">
+            <p className="eyebrow">Plan the change</p>
+            <h2>Use the vendor checklist and release notes.</h2>
+            <SourceLinks sourceIds={checklistSourceIds(productId)} />
+            {journey && <a className="journey-planning-link" href={journeyHref}>Plan this upgrade →</a>}
+          </section>
+        </section>
+      )}
+      </>}
+
+      <footer>
+        <p>Upgrade Brief is an independent community tool, not affiliated with or endorsed by Veeam. It uses only publicly available information and does not access hidden, confidential, proprietary, or customer environment data. It does not assess your environment or certify upgrade safety. <a href="https://github.com/TnTBass/UpgradeBrief">View the project on GitHub</a>.</p>
         <p className="site-footer-property">upgradebrief.com is a Two Geese property.</p>
       </footer>
     </main>
