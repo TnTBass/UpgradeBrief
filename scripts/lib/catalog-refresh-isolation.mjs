@@ -20,6 +20,15 @@ export async function refreshPolicyHash() {
   ]))
 }
 
+export function validateGlobalDatasets(current, kev, lifecycle) {
+  const kevDocument = JSON.parse(kev)
+  const kevCves = parseCisaKev(kevDocument)
+  if (!kevCves.size || kevDocument.count !== kevDocument.vulnerabilities.length || kevCves.size !== kevDocument.count) fail('KEV_INVENTORY_INCOMPLETE')
+  if (current.securityFindings.some(finding => finding.isCisaKev && !finding.cves.some(cve => kevCves.has(cve)))) fail('KEV_COVERAGE_REMOVED')
+  const lifecyclePolicies = parseLifecyclePolicies(lifecycle)
+  if (lifecyclePolicies.length < 10 || PRODUCT_IDS.filter(id => id !== 'enterprise-manager').some(id => !lifecyclePolicies.some(policy => policy.productId === id))) fail('LIFECYCLE_INCOMPLETE')
+}
+
 export async function discoverTransactions({ current, baselines, collector, policyHash, reviewTexts }) {
   const globalFetcher = collector.forProducts(PRODUCT_IDS)
   const text = async (url, sourceId) => (await globalFetcher.request(url, { sourceId })).text()
@@ -36,12 +45,7 @@ export async function discoverTransactions({ current, baselines, collector, poli
   ])
   assertSecurityFeedContinuity(current.securityFeedArticleIds, feed.articles)
   if ((current.vspcKbArticleIds ?? []).some(id => !inventory.articles.some(article => article.id === id))) fail('VSPC_INVENTORY_TRUNCATED')
-  const kevDocument = JSON.parse(kev)
-  const kevCves = parseCisaKev(kevDocument)
-  if (!kevCves.size || kevDocument.count !== kevDocument.vulnerabilities.length || kevCves.size !== kevDocument.count) fail('KEV_INVENTORY_INCOMPLETE')
-  if (current.securityFindings.some(finding => finding.isCisaKev && !finding.cves.some(cve => kevCves.has(cve)))) fail('KEV_COVERAGE_REMOVED')
-  const lifecyclePolicies = parseLifecyclePolicies(lifecycle)
-  if (lifecyclePolicies.length < 10 || PRODUCT_IDS.filter(id => id !== 'enterprise-manager').some(id => !lifecyclePolicies.some(policy => policy.productId === id))) fail('LIFECYCLE_INCOMPLETE')
+  validateGlobalDatasets(current, kev, lifecycle)
   const articles = [...feed.articles, ...pinnedSecurityArticles.filter(item => !feed.articles.some(article => article.id.toLowerCase() === item.id))]
   const classified = classifySecurityFeedArticles({ articles, classifications: buildSecurityArticleClassifications(articles, securityClassificationOverrides) })
   const unknown = classified.filter(article => article.classification === 'unclassified')
@@ -103,7 +107,7 @@ export async function runTransactions({ current, baselines, collector, policyHas
   const assembledAt = now()
   for (const productIds of groups) {
     try {
-      const result = await build({ current, baselines, sourceFetcher: collector.forProducts(productIds), productIds, refreshedAt: assembledAt, reviewTexts })
+      const result = await build({ current: structuredClone(current), baselines: structuredClone(baselines), sourceFetcher: collector.forProducts(productIds), productIds, refreshedAt: assembledAt, reviewTexts })
       outcomes.push({ productIds, result })
     } catch (error) {
       const codes = failureCodes(error)
@@ -124,7 +128,7 @@ export async function runTransactions({ current, baselines, collector, policyHas
   // run atomically over the same cached bytes. No second network observation.
   let shadowCompared = false
   if (shadow && outcomes.every(outcome => outcome.result)) {
-    const oracle = await build({ current, baselines, sourceFetcher: collector.forProducts(PRODUCT_IDS), productIds: PRODUCT_IDS, refreshedAt: assembledAt, reviewTexts: {} })
+    const oracle = await build({ current: structuredClone(current), baselines: structuredClone(baselines), sourceFetcher: collector.forProducts(PRODUCT_IDS), productIds: PRODUCT_IDS, refreshedAt: assembledAt, reviewTexts: {} })
     for (const id of PRODUCT_IDS) if (hash(normalizedPartition(oracle.catalog, id)) !== hash(normalizedPartition(assembled.catalog, id))) fail('ATOMIC_SHADOW_MISMATCH', id)
     if (hash(Object.entries(oracle.baselines.articles).sort()) !== hash(Object.entries(assembled.baselines.articles).sort())) fail('ATOMIC_BASELINE_MISMATCH')
     shadowCompared = true

@@ -149,6 +149,7 @@ export default function App() {
   const freshness = catalogFreshness(catalog.generatedAt)
   const selectedFreshness = productFreshness(catalog, productId)
   const retainedProducts = catalog.productValidation?.filter(item => item.state === 'retained') ?? []
+  const aggregateFreshness = retainedProducts.length && freshness === 'current' ? 'stale' : freshness
   const lifecycle = release ? findLifecycleNotice(catalog, productId, release.id) : undefined
   const findings = release ? findingsForRelease(catalog, release) : []
   const operationalNotices = release ? operationalNoticesForRelease(catalog, release) : []
@@ -385,7 +386,7 @@ export default function App() {
         <p className="hint">Use the exact release/build when available. Results are limited to the source-backed records shown below.</p>
         <VersionHelp productId={productId} />
       </section>
-      <p className={'freshness ' + (retainedProducts.length && freshness === 'current' ? 'stale' : freshness)}>Catalog {freshness} · oldest validation {new Date(catalog.generatedAt).toLocaleString()}{catalog.assembledAt ? ' · assembled ' + new Date(catalog.assembledAt).toLocaleString() : ''}{retainedProducts.length ? ' · refresh incomplete for ' + retainedProducts.map(item => catalog.products.find(product => product.id === item.productId)?.name).join(', ') : ''}</p>
+      <p className={'freshness ' + aggregateFreshness}>Catalog {aggregateFreshness} · oldest validation {new Date(catalog.generatedAt).toLocaleString()}{catalog.assembledAt ? ' · assembled ' + new Date(catalog.assembledAt).toLocaleString() : ''}{retainedProducts.length ? ' · refresh incomplete for ' + retainedProducts.map(item => catalog.products.find(product => product.id === item.productId)?.name).join(', ') : ''}</p>
       <section className={'freshness ' + selectedFreshness.state} aria-label="Product data freshness" role={selectedFreshness.state === 'current' ? 'status' : 'alert'}>
         <strong>{product.name}: {selectedFreshness.heading}</strong>
         <p>{selectedFreshness.detail}</p>

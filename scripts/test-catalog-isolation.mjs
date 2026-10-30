@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { assembleCatalog, BASE_TRANSACTIONS, PRODUCT_IDS, createObservationCollector, hash, productPartition, transactionClosure, validateCatalogProvenance, validateProductHealth } from './lib/catalog-provenance.mjs'
-import { runTransactions } from './lib/catalog-refresh-isolation.mjs'
+import { runTransactions, validateGlobalDatasets } from './lib/catalog-refresh-isolation.mjs'
 import { combinedCatalogFreshness } from './lib/catalog-health.mjs'
 import { projectRepairState, scopedRevert } from './lib/catalog-repair-feedback.mjs'
 import { verifyPublication } from './lib/catalog-repair-verification.mjs'
@@ -90,6 +90,28 @@ for (const mutate of [
 }
 assert.throws(() => validateProductHealth({ ...publicHealth, productValidation: publicHealth.productValidation.slice(1) }))
 
+const lifecycleNames = ['Veeam Backup & Replication', 'Veeam ONE', 'Veeam Recovery Orchestrator', 'Veeam Service Provider Console', 'Veeam Backup for Microsoft 365']
+const lifecycleHtml = lifecycleNames.flatMap(name => [12,13].map(version => '<tr><td>'+name+'</td><td>'+version+'</td><td>January 2025</td><td>November 2028</td><td>November 2028</td></tr>')).join('')
+const globalBase = { securityFindings: [{ isCisaKev: true, cves: ['CVE-2024-40711'] }] }
+const kevJson = JSON.stringify({ count: 1, vulnerabilities: [{ cveID: 'CVE-2024-40711' }] })
+assert.doesNotThrow(() => validateGlobalDatasets(globalBase, kevJson, lifecycleHtml))
+assert.throws(() => validateGlobalDatasets(globalBase, JSON.stringify({ count: 0, vulnerabilities: [] }), lifecycleHtml), /KEV_INVENTORY_INCOMPLETE/)
+assert.throws(() => validateGlobalDatasets(globalBase, JSON.stringify({ count: 10, vulnerabilities: [{ cveID: 'CVE-2024-40711' }] }), lifecycleHtml), /KEV_INVENTORY_INCOMPLETE/)
+assert.throws(() => validateGlobalDatasets(globalBase, kevJson.replace('40711','99999'), lifecycleHtml), /KEV_COVERAGE_REMOVED/)
+assert.throws(() => validateGlobalDatasets(globalBase, kevJson, lifecycleHtml.replaceAll('Veeam ONE','Veeam Backup & Replication')), /LIFECYCLE_INCOMPLETE/)
+for (const [edges, failedProduct, retainedProducts] of [
+  [[], 'veeam-one', ['veeam-one','vro']],
+  [[['vbr','enterprise-manager']], 'enterprise-manager', ['enterprise-manager','vbr']],
+  [[['vbr','veeam-one','vspc']], 'vspc', ['enterprise-manager','vbr','veeam-one','vro','vspc']],
+]) {
+  const coupled = await runTransactions({ current: initial, baselines, collector: collector(), policyHash, groups: transactionClosure(edges), shadow: false, now: () => nextTime, build: async ({ current, productIds }) => {
+    if (productIds.includes(failedProduct)) { current.releases.push({ id: 'unvalidated-new-release', productId: failedProduct }); throw new Error('CVE applicability failed after build discovery') }
+    return candidate(current, productIds, 'coupled')
+  } })
+  assert.deepEqual(coupled.catalog.productValidation.filter(item => item.state === 'retained').map(item => item.productId).sort(), retainedProducts.sort())
+  assert.ok(!coupled.catalog.releases.some(item => item.id === 'unvalidated-new-release'))
+  for (const id of retainedProducts) assert.deepEqual(productPartition(coupled.catalog,id), productPartition(initial,id))
+}
 const reviewedData = JSON.parse(await readFile(new URL('./data/reviewed-security-advisories.json', import.meta.url),'utf8'))
 const beforeRepair = { catalog: initial, baselines, reviewedData }
 const afterRepair = { catalog: recovered.catalog, baselines, reviewedData }
