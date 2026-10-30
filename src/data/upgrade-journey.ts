@@ -1,6 +1,7 @@
 // Manually reviewed guidance, separate from the automatically refreshed catalog.
 // Review the source wording and route coverage before extending the target release.
-export const journeyReviewedAt = '2026-10-07'
+export const journeyReviewedAt = '2026-10-30'
+export const journeyTargetReleaseId = 'vbr-build-13-1-2-57'
 export const journeySources = {
   route: { title: 'Supported upgrade paths (KB2053)', url: 'https://www.veeam.com/kb2053' },
   v12: { title: 'Original V12 release notes', url: 'https://www.veeam.com/veeam_backup_12_release_notes_rn.pdf#page=34' },
@@ -11,6 +12,8 @@ export const journeySources = {
   chain: { title: 'V12 backup-chain formats', url: 'https://helpcenter.veeam.com/archive/backup/120/vsphere/backup_change_type.html' },
   copy: { title: 'V12 backup-copy conversion', url: 'https://helpcenter.veeam.com/archive/backup/120/vsphere/backup_copy_change_type.html' },
   v13: { title: 'V13 upgrade checklist', url: 'https://helpcenter.veeam.com/docs/vbr/userguide/upgrade_vbr_byb.html' },
+  v131: { title: 'V13.1 release notes (build 13.1.2.57)', url: 'https://helpcenter.veeam.com/rn/veeam_backup_13_1_release_notes.html' },
+  v131Security: { title: 'V13.1.2 security fixes (KB4948)', url: 'https://www.veeam.com/kb4948' },
   agents: { title: 'Supported Veeam Agents', url: 'https://helpcenter.veeam.com/docs/vbr/userguide/agents_supported_veeam_agents.html' },
   after: { title: 'V13 post-upgrade steps', url: 'https://helpcenter.veeam.com/docs/vbr/userguide/upgrade_vbr_after_upgrade.html' },
   methods: { title: 'V13 backup methods', url: 'https://helpcenter.veeam.com/docs/vbr/userguide/backup_methods.html?ver=13' },
@@ -45,13 +48,13 @@ export const journeyItems: Record<string, JourneyItem> = {
     title: 'Plan the whole dependency sequence',
     text: 'If you use agents, Enterprise Manager, Veeam ONE or plug-ins, check compatible versions at every hop.',
     kind: 'Compatibility', due: 'Before each hop',
-    detail: 'A dependency must work with both the current and next backup-server version. Follow each release checklist when sequencing upgrades.', refs: ['v123', 'v13', 'agents'],
+    detail: 'A dependency must work with both the current and next backup-server version. When ONE monitors Enterprise Manager, upgrade ONE first, Enterprise Manager second and VBR third. Cloud Connect tenants must confirm that their provider supports the target version before each hop.', refs: ['v123', 'v13', 'agents'],
   },
   appliance: {
     title: 'Windows-to-appliance conversion',
     text: 'If you plan a Windows-to-Linux conversion, resolve that route before proceeding to Windows V13.1.',
     kind: 'Route caveat', due: 'Decide before V13.1', tone: 'change',
-    detail: 'Current conversion guidance requires a supported, patched V13.0.x deployment and a support-assisted migration. Complete conversion before upgrading to V13.1. The Windows route shown here does not describe that migration.', refs: ['vsa'],
+    detail: 'Current conversion guidance requires Windows VBR 13.0.3 (build 13.0.3.63) and a support-assisted migration. Stay on 13.0.3 until conversion is complete; migration from 13.1, including 13.1.2, is unsupported. The Windows route shown here does not describe that migration.', refs: ['vsa', 'route'],
   },
   rollback: {
     title: 'Reconfigure jobs that use rollback transformation',
@@ -91,9 +94,9 @@ export const journeyItems: Record<string, JourneyItem> = {
   },
   prereqs: {
     title: 'Confirm the final-target prerequisites',
-    text: 'Check supported platforms, required ports and PowerShell 7. If you use ONE and Enterprise Manager, follow their upgrade order.',
+    text: 'Use VBR 13.1.2.57 installation media. Check supported platforms, required ports and PowerShell 7, and follow the dependency upgrade order.',
     kind: 'Action required', due: 'Before installing V13', tone: 'required',
-    detail: 'Verify requirements for the exact target build using the complete vendor checklist, including the operating systems and platforms used by backup infrastructure components.', refs: ['v13'],
+    detail: 'Confirm ports 443 and 6162 are available on the backup server, and update scheduled PowerShell scripts to invoke pwsh.exe. Verify the operating systems and platforms of all backup components against the complete checklist. This target includes the VBR fixes in KB4948.', refs: ['v13', 'v131', 'v131Security'],
   },
   removed: {
     title: 'Review workflows discontinued in V13',
@@ -117,6 +120,6 @@ export const journeyItems: Record<string, JourneyItem> = {
     title: 'Finish component upgrades and resume protection',
     text: 'Update remote components and consoles; redeploy Virtual Labs if used. Re-enable schedules and verify backups and representative restores.',
     kind: 'After upgrade', due: 'After installing V13',
-    detail: 'Outdated remote components cannot run jobs. Check backup copies, integrations and application processing, then take a new encrypted configuration backup.', refs: ['after'],
+    detail: 'Confirm the installed build is 13.1.2.57 and complete any required update. Outdated remote components cannot run jobs. Check backup copies, integrations and application processing, then take a new encrypted configuration backup.', refs: ['after', 'v131'],
   },
 }
