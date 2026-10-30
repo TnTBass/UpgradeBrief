@@ -1,7 +1,17 @@
 import { describe, expect, it } from 'vitest'
-import { catalog } from '../data/catalog'
+import { catalog as liveCatalog } from '../data/catalog'
+import type { Catalog, UpgradePath } from './catalog-types'
+import reviewedJourney from './fixtures/reviewed-vbr-journey.json'
 import { buildUpgradeJourney, journeyItems, journeySources } from './upgrade-journey'
 import { findRelease, findUpgradePath } from './lookup'
+
+// These editorial tests exercise the route that was actually reviewed. A
+// scheduled release discovery must not silently extend the guidance's scope.
+const catalog: Catalog = {
+  ...liveCatalog,
+  products: liveCatalog.products.map(product => product.id === 'vbr' ? { ...product, recommendedReleaseId: reviewedJourney.recommendedReleaseId } : product),
+  upgradePaths: [...liveCatalog.upgradePaths.filter(path => path.productId !== 'vbr'), ...reviewedJourney.upgradePaths as UpgradePath[]],
+}
 
 function journeyFor(version: string) {
   const release = findRelease(catalog, 'vbr', version)!
@@ -64,6 +74,18 @@ describe('upgrade journey applicability', () => {
     expect(buildUpgradeJourney(catalog, { ...release, productId: 'veeam-one' }, path)).toBeUndefined()
     expect(journeyFor('13.0.2.29')).toBeUndefined()
     expect(journeyFor('13.1.1.18')).toBeUndefined()
+  })
+
+  it('holds editorial guidance when the catalog discovers a new destination build', () => {
+    const release = findRelease(catalog, 'vbr', '12.0')!
+    const path = findUpgradePath(catalog, release)!
+    const future = { id: 'unreviewed-vbr-build', productId: 'vbr' as const, name: '13.1.2', aliases: ['13.1.2.57'], sourceIds: ['kb2680'] }
+    const updated: Catalog = {
+      ...catalog,
+      releases: [...catalog.releases, future],
+      products: catalog.products.map(product => product.id === 'vbr' ? { ...product, recommendedReleaseId: future.id } : product),
+    }
+    expect(buildUpgradeJourney(updated, release, { ...path, toReleaseId: future.id, hopReleaseIds: [...path.hopReleaseIds.slice(0, -1), future.id] })).toBeUndefined()
   })
 
   it('keeps every displayed item source-linked and free of em dashes', () => {
