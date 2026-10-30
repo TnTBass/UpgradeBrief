@@ -39,8 +39,8 @@ describe('catalog lookup', () => {
   })
 
   it('does not give the current VBR build high upgrade urgency for KB4879', () => {
-    const current = findRelease(catalog, 'vbr', '13.1.1.18')!
-    const findings = findingsForRelease(catalog, current)
+    const current = catalog.releases.find(release => release.id === catalog.products.find(product => product.id === 'vbr')!.recommendedReleaseId)!
+    const findings = findingsForRelease(catalog, current).filter(finding => finding.sourceIds.includes('kb4879'))
     expect(findings).toEqual([])
     expect(summarizeAdvisoryUrgencies(findings)).toEqual([])
     expect(buildUpgradeSummary({ findings, isCurrentCatalogRelease: true, hasDocumentedPath: false })).toMatchObject({
@@ -241,13 +241,17 @@ describe('catalog lookup', () => {
     expect(v91Fixed.some((finding) => finding.sourceIds.includes('kb4788') && finding.cves.length === 0)).toBe(false)
   })
 
-  it('preserves build-specific Veeam ONE hotfix remediation without inventing a fixed server build', () => {
+  it('uses reviewed Veeam ONE upgrade remediation after the KB3144 hotfix was retired', () => {
     const vulnerable = findRelease(catalog, 'veeam-one', '10.0.0.750')!
     const finding = findingsForRelease(catalog, vulnerable).find((item) => item.cves.includes('CVE-2020-10914'))!
 
     expect(finding.fixedReleaseId).toBeUndefined()
-    expect(finding.remediation).toContain('KB3144 hotfix')
-    expect(finding.conditions.join(' ')).toContain('Veeam ONE Agent component')
+    expect(finding.remediation).toContain('10.0.2.1094')
+    expect(finding.sourceIds).toContain('kb3144')
+    expect(finding.affectedBuildRanges).toEqual(expect.arrayContaining([
+      { versionPrefix: '10.', throughBuild: '10.0.0.750' },
+      { versionPrefix: '9.5.', throughBuild: '9.5.4.4587' },
+    ]))
   })
 
   it('does not stamp other KB4649 product sections as VBR findings', () => {

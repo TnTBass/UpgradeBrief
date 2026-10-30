@@ -25,6 +25,8 @@ import { REVIEWED_SECURITY_CLASSIFICATIONS, REVIEWED_SECURITY_PARSED_COVERAGE, R
 import { VSPC_REVIEWED_CVE_EXCLUSIONS, VspcKbCveCoverageError, assertVspcKbCveCoverage, fetchVspcKbInventory, fingerprintVspcParsedModel, inspectVspcKbCveCoverage } from './lib/vspc-kb-cve-coverage.mjs'
 import { VspcCveRecordCoverageError, assertVspcCveRecordCoverage, fetchVspcCveRecords } from './lib/vspc-cve-record-coverage.mjs'
 import { createVspcReleaseSecurityReviewFromParsedCves, extractVspcReleaseSecuritySections, mergeVspcReleaseSecurityArticles, parseVspcReleaseSecurityPages } from './lib/vspc-release-security.mjs'
+import { hasSectionedSecurityLayout } from './lib/sectioned-security.mjs'
+import { unreviewedTrailingCveIds } from './lib/reviewed-mitigation-references.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const baselineFile = new URL('./data/security-review-baselines.json', import.meta.url)
@@ -81,7 +83,7 @@ const reportDirectory = new URL('../artifacts/catalog-review/', import.meta.url)
 async function reportReview(error) {
   return writeSecurityReviewReport({
     directory: fileURLToPath(reportDirectory), baselines, texts: reviewTexts, catalog: current, error,
-    equivalentChanges: baselineReview?.equivalentChanges ?? [], summaryPath: process.env.GITHUB_STEP_SUMMARY,
+    equivalentChanges: baselineReview?.equivalentChanges ?? [], inventoryChanges: baselineReview?.inventoryChanges ?? [], summaryPath: process.env.GITHUB_STEP_SUMMARY,
   })
 }
 
@@ -101,6 +103,7 @@ const releaseInformationSource = current.sources.find((item) => item.id === 'kb4
 const releaseInformation13Source = current.sources.find((item) => item.id === 'kb4738')
 if (!buildSource || !oneBuildSource || !vroBuildSource || !vspcBuildSource || !vb365BuildSource || !vb365UpgradeSource || !vbrUpgradeSource || !securitySource || !securityFeedSource || !kevSource || !lifecycleSource || !releaseInformationSource || !releaseInformation13Source) throw new Error('A required catalog source is missing from the catalog.')
 const sourceFetcher = createCatalogSourceFetcher()
+console.log('[catalog-refresh] Fetching build lists, security inventories, and lifecycle sources.')
 
 const securityProducts = {
   vbr: 'Veeam Backup & Replication',
@@ -124,6 +127,8 @@ const securityClassificationOverrides = {
   kb4679: { classification: 'dedicated', productIds: ['vspc'] },
   kb4858: { classification: 'inventory', productIds: ['veeam-one'] },
   kb4856: { classification: 'inventory', productIds: ['vspc'] },
+  kb4962: { classification: 'inventory', productIds: ['vb365'] },
+  kb4961: { classification: 'out-of-scope' },
   kb4582: { classification: 'out-of-scope' },
   kb4374: { classification: 'out-of-scope' },
   kb4338: { classification: 'out-of-scope' },
@@ -178,6 +183,7 @@ const securityFeedRoutes = assertSecurityFeedRouteContinuity(current.securityFee
 const sourceArticleById = new Map(securityArticles.map((article) => [article.id.toLowerCase(), article]))
 // Fetch new articles for review evidence; the coverage gate still rejects unclassified articles.
 const classifiedArticlesToFetch = classifiedSecurityArticles
+console.log(`[catalog-refresh] Fetching ${classifiedArticlesToFetch.length} security articles and ${vspcKbInventory.articles.length} VSPC inventory pages with source throttling.`)
 const classifiedArticleResponses = await Promise.allSettled(classifiedArticlesToFetch.map(async (article) => ({
     article,
     html: await fetchSource({ id: article.articleId, url: new URL(sourceArticleById.get(article.articleId).url, 'https://www.veeam.com').toString() }),
@@ -223,18 +229,20 @@ baselineReview = reconcileSecurityReviewBaselines({
 })
 const securityFeedPageStates = assertSecurityFeedPageStateContinuity(baselineReview.continuityStates, fetchedSecurityFeedPageStates, { allowInventoryExpansion: false })
 for (const [articleId, contentFingerprint] of Object.entries(baselineReview.acceptedFingerprints)) {
-  securityClassifications[articleId] = { ...securityClassifications[articleId], contentFingerprint }
+  if (securityClassifications[articleId]?.classification === 'informational') securityClassifications[articleId] = { ...securityClassifications[articleId], contentFingerprint }
 }
 const securityArticlePages = Object.fromEntries(classifiedArticlesToFetch.map((article) => {
   const response = articleResponseById.get(article.articleId)
   if (response.status !== 'fulfilled') return [article.articleId, response]
   const html = response.value.html
   if (!REVIEWED_SECURITY_OBSERVATION_POLICY[article.articleId]) {
-    const section = splitSecurityArticleVulnerabilityContent(html)
+    const section = hasSectionedSecurityLayout(html)
+      ? { vulnerabilityContent: normalizeReviewedSecurityMainArticle(html), trailingContent: '' }
+      : splitSecurityArticleVulnerabilityContent(html)
     const scope = extractSecurityArticleScope(section.vulnerabilityContent)
     return [article.articleId, {
       html: section.vulnerabilityContent,
-      trailingCveIds: extractCveIds(section.trailingContent),
+      trailingCveIds: unreviewedTrailingCveIds(article.articleId, html, extractCveIds(section.trailingContent)),
       observedProductIds: scope.productIds,
       observedOutOfScopeProduct: scope.hasOutOfScopeProduct,
     }]
@@ -251,6 +259,7 @@ const discoveredReleaseMaterials = (await Promise.all(releaseMaterialProducts.ma
     url: `${releaseMaterialEndpoint}?${new URLSearchParams({ productId: product.helpCenterProductId, localeCode: 'en', isInitial: 'true' })}`,
   })),
 })))).flat()
+console.log(`[catalog-refresh] Source continuity passed; fetching ${discoveredReleaseMaterials.length} release documents.`)
 if (!releaseMaterialProducts.every((product) => discoveredReleaseMaterials.some((material) => material.productId === product.productId))) throw new Error('Help Center release-material discovery returned no current document for one or more tracked products.')
 const releaseMaterialDocuments = await Promise.allSettled(discoveredReleaseMaterials.map(async (material) => {
   const document = await fetchDocument(material.url, `release-material-${material.productId}-${material.releaseFamily}-${material.kind}`)
@@ -464,6 +473,7 @@ for (const state of preliminaryVspcKbCoverage.pageStates) {
 
 let vspcCveRecordCoverage
 try {
+  console.log(`[catalog-refresh] Reconciling ${observedVspcCveIds.length} official VSPC CVE records.`)
   const vspcCveRecords = await fetchVspcCveRecords({
     cveIds: observedVspcCveIds,
     fetchRecord: ({ cveId, url }) => fetchSource({ id: `cve-record-${cveId.toLowerCase()}`, url }),

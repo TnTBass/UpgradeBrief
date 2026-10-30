@@ -16,6 +16,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -38,6 +39,7 @@ jobs:
       - run: npm run test:reviewed-security-advisories
       - run: npm run test:security-review-baselines
       - run: npm run test:catalog-repair
+      - run: npm run test:catalog-recovery
       - run: npm run test:release-material-discovery
       - run: npm run test:release-information-adapter
       - run: npm run test:release-material-adapter
@@ -55,6 +57,16 @@ jobs:
           path: artifacts/catalog-review/
           if-no-files-found: warn
           retention-days: 7
+      - name: Verify the refreshed catalog and application before publishing
+        run: node scripts/verify-catalog-repair.mjs
+      - name: Upload failed catalog verification logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: catalog-refresh-verification
+          path: artifacts/catalog-repair/verification/*.log
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Commit a validated catalog refresh when data changed
         run: |
           git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
@@ -63,3 +75,5 @@ jobs:
           git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
           git commit -m 'chore: refresh Veeam source catalog'
           git push origin HEAD:main
+      - name: Verify the published snapshot after the refresh commit
+        run: node scripts/verify-published-catalog.mjs

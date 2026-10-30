@@ -1,0 +1,318 @@
+{
+  "reviewedCommit": "0e4b3fe3420541fbffa5e9e88eba30198317e2ab",
+  "recommendedReleaseId": "vbr-build-13-1-1-18",
+  "upgradePaths": [
+    {
+      "id": "vbr-10a-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-10-0-1-4854-p20220304",
+      "fromVersionPrefixes": [
+        "10.0.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-11-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-11-0-0-837-p20210525",
+      "fromVersionPrefixes": [
+        "11.0.0."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-11a-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-11a-p20230227",
+      "fromVersionPrefixes": [
+        "11.0.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.0",
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-0-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.0",
+      "fromVersionPrefixes": [
+        "12.0."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-1-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.1",
+      "fromVersionPrefixes": [
+        "12.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-2-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.2",
+      "fromVersionPrefixes": [
+        "12.2."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-3-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-12-3-0-310",
+      "fromVersionPrefixes": [
+        "12.3."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-12.3.2",
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-3-1-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-12-3-1-1139",
+      "fromVersionPrefixes": [
+        "12.3.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-12-3-2-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-12.3.2",
+      "fromVersionPrefixes": [
+        "12.3.2."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-13-0-1-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-13-0-1-180",
+      "fromVersionPrefixes": [
+        "13.0.1."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-13-0-2-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-13.0.2",
+      "fromVersionPrefixes": [
+        "13.0.2."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-13-0-3-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-13-0-3-63",
+      "fromVersionPrefixes": [
+        "13.0.3."
+      ],
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this Windows upgrade route. Review prerequisites and use the upgrade wizard after confirming the supported source build."
+      ],
+      "howToSourceIds": [
+        "vbr-checklist"
+      ],
+      "sourceIds": [
+        "kb2053",
+        "vbr-checklist"
+      ]
+    },
+    {
+      "id": "vbr-build-13-1-0-411-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-13-1-0-411",
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents this as a same-family update. On Windows-based backup servers running 13.1 or later, use Veeam Updater after reviewing prerequisites."
+      ],
+      "howToSourceIds": [
+        "vbr-update"
+      ],
+      "sourceIds": [
+        "kb4738",
+        "vbr-update"
+      ]
+    },
+    {
+      "id": "vbr-13.0.0-vsa-to-vbr-build-13-1-1-18",
+      "productId": "vbr",
+      "fromReleaseId": "vbr-build-13-0-0-4967",
+      "toReleaseId": "vbr-build-13-1-1-18",
+      "hopReleaseIds": [
+        "vbr-build-13-1-1-18"
+      ],
+      "notes": [
+        "Veeam documents that Veeam Software Appliance updates, including major and minor releases, are installed through Veeam Updater within the appliance."
+      ],
+      "howToSourceIds": [
+        "vsa-update"
+      ],
+      "sourceIds": [
+        "kb4738",
+        "vsa-update"
+      ]
+    }
+  ]
+}

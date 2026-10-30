@@ -1,3 +1,5 @@
+import { hasSectionedSecurityLayout, parseSectionedSecurityArticle } from './sectioned-security.mjs'
+
 function decodeHtml(value) {
   return value
     .replace(/<br\s*\/?>(\s*)/gi, ' ')
@@ -109,6 +111,12 @@ export function parseVeeamOneLegacySecurityArticle(html, article) {
   const articleId = normalizedArticleId(article)
   const config = articleConfig[articleId]
   if (!config) throw new Error(`${articleId || 'Unknown article'} is not a supported legacy Veeam ONE security article.`)
+  if (hasSectionedSecurityLayout(html)) {
+    const parsed = parseSectionedSecurityArticle(html, article, { productId: 'veeam-one', productName: 'Veeam ONE' })
+    assertExpectedCves(articleId, parsed.records.map(record => record.cve), config.expectedCves)
+    return { ...parsed, records: parsed.records.map(record => ({ ...record, remediation: `Upgrade Veeam ONE to ${record.fixedBuild} or a later release containing the fix.` })) }
+  }
+  const retiredHotfix = articleId === 'kb4508' && /These vulnerabilities were resolved starting in release Veeam ONE 12\.1 12\.1\.0\.3208/.test(decodeHtml(html))
   const records = articleId === 'kb4508' ? parseKb4508(html, article, config) : parseSharedArticle(html, article, config)
 
   return {
@@ -119,8 +127,8 @@ export function parseVeeamOneLegacySecurityArticle(html, article) {
       affectedVersionPrefixes: articleId === 'kb4508'
         ? (record.cve === 'CVE-2023-38548' ? ['12.0.'] : ['11.0.0.', '11.0.1.', '12.0.'])
         : config.affectedVersionPrefixes,
-      remediation: config.remediation,
-      conditions: [...(record.conditions ?? []), ...config.conditions],
+      remediation: retiredHotfix ? 'Upgrade Veeam ONE to 12.1.0.3208 or a later release containing the fixes.' : config.remediation,
+      conditions: [...(record.conditions ?? []), ...(retiredHotfix ? [] : config.conditions)],
     })),
   }
 }
@@ -137,7 +145,8 @@ export function mergeVeeamOneLegacySecurityArticles(catalog, advisories) {
     title: record.title,
     cves: [record.cve],
     affectedReleaseIds: [],
-    affectedVersionPrefixes: record.affectedVersionPrefixes,
+    ...(record.affectedVersionPrefixes ? { affectedVersionPrefixes: record.affectedVersionPrefixes } : {}),
+    ...(record.affectedBuildRanges ? { affectedBuildRanges: record.affectedBuildRanges } : {}),
     cvssScore: record.cvssScore,
     isCisaKev: false,
     remediation: record.remediation,

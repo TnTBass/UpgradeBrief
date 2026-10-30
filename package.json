@@ -28,6 +28,7 @@
     "test:reviewed-security-advisories": "node scripts/test-reviewed-security-advisories.mjs",
     "test:security-review-baselines": "node scripts/test-security-review-baselines.mjs",
     "test:catalog-repair": "node scripts/test-catalog-repair.mjs",
+    "test:catalog-recovery": "node scripts/test-catalog-recovery.mjs",
     "test:release-material-discovery": "node scripts/test-release-material-discovery.mjs",
     "prepare:catalog-repair": "node scripts/prepare-catalog-repair.mjs",
     "test:release-information-adapter": "node scripts/test-vbr-release-information-adapter.mjs",

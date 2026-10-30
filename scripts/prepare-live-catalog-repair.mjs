@@ -10,6 +10,7 @@ import { normalizeSecurityReviewText } from './lib/security-review-baselines.mjs
 import { effectiveHolds } from './lib/catalog-repair-feedback.mjs'
 
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'))
+try {
 const root = resolve('.')
 const currentCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
 const reviewedData = await readJson('scripts/data/reviewed-security-advisories.json')
@@ -52,3 +53,14 @@ const directory = resolve(root, 'artifacts/catalog-repair/prepared')
 await mkdir(directory, { recursive: true })
 await writeFile(resolve(directory, 'repair.json'), `${JSON.stringify({ bundle, proposal, extractions, result, alreadyHandled: Boolean(alreadyHandled) }, null, 2)}\n`)
 console.log(JSON.stringify({ evidenceId: bundle.evidenceId, status: result.status, alreadyHandled: Boolean(alreadyHandled), blocked: result.blocked.map(item => item.code) }))
+} catch (error) {
+  const directory = resolve('artifacts/catalog-repair/prepared')
+  await mkdir(directory, { recursive: true })
+  const message = String(error.message).slice(0, 1200)
+  await writeFile(resolve(directory, 'failure.json'), JSON.stringify({
+    schemaVersion: 1, code: 'REPAIR_PREPARATION_FAILED', message,
+    articleId: message.match(/\bkb\d+\b/)?.[0] ?? null,
+    capturedAt: new Date().toISOString(),
+  }, null, 2) + '\n')
+  throw error
+}
