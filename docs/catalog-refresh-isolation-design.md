@@ -1,6 +1,6 @@
 # Safe product-scoped catalog refresh
 
-Status: implemented by [#24](https://github.com/TnTBass/UpgradeBrief/pull/24), with live acceptance and deployment verification required before merge. Reviewed against commit `388aad25e06d2115d38acb8f4da41e61d139b33b` on 2026-10-30. Implements the design deliverable in [#18](https://github.com/TnTBass/UpgradeBrief/issues/18).
+Status: implemented by [#24](https://github.com/TnTBass/UpgradeBrief/pull/24). [Live acceptance](https://github.com/TnTBass/UpgradeBrief/actions/runs/41125274358) passed; see [implementation and operations](catalog-repairs/2026-10-30-product-isolation.md). Reviewed against commit `388aad25e06d2115d38acb8f4da41e61d139b33b` on 2026-10-30. Implements the design deliverable in [#18](https://github.com/TnTBass/UpgradeBrief/issues/18).
 
 ## Decision
 

@@ -148,3 +148,14 @@ await assert.rejects(verifyPublication({ commit: 'a'.repeat(40), catalogHash: ha
 assert.equal((await verifyPublication({ commit: 'a'.repeat(40), catalogHash: hash(partial.catalog), attempts: 1, fetchImpl: async () => new Response(JSON.stringify(publicHealth)) })).commit, publicHealth.commit)
 console.log('Catalog isolation: migration, whole-partition retention, freshness, recovery, shared ownership, malformed provenance, response caching and publication checks passed.')
 
+
+for (const code of ['CATALOG_CVE_MISSING', 'CATALOG_CVE_AMBIGUOUS', 'RECORD_PRODUCT_MISMATCH', 'RECORD_PRODUCT_AMBIGUOUS', 'RECORD_SOURCE_CONFLICT']) {
+  await assert.rejects(runTransactions({
+    ...allFailed,
+    build: async ({ current, productIds }) => {
+      if (productIds.includes('vspc')) throw Object.assign(new Error('Unresolved product or CVE evidence'), { report: { findings: [{ code, articleId: 'kb4853' }] } })
+      return candidate(current, productIds, 'other-products-valid')
+    },
+  }), /Unresolved product or CVE evidence/)
+}
+console.log('Unmapped CVEs and contradictory official product/source records block every transaction.')

@@ -118,7 +118,7 @@ export async function runTransactions({ current, baselines, collector, policyHas
         if (extractCveIds(text).some(cve => !previousCves.has(cve))) fail('UNCLASSIFIED_NEW_CVE_IN_FAILED_TRANSACTION', articleId)
       }
       // Unknown ownership/CVE scope is a global failure, never a partition skip.
-      if (codes.some(code => /UNCLASSIFIED|UNKNOWN|SCOPE|PARSED_CVE_MISSING|UNSCOPED|TRAILING_CVE/.test(code))) throw error
+      if (codes.some(code => /UNCLASSIFIED|UNKNOWN|SCOPE|PARSED_CVE_MISSING|UNSCOPED|TRAILING_CVE|CATALOG_CVE_MISSING|CATALOG_CVE_AMBIGUOUS|RECORD_PRODUCT_MISMATCH|RECORD_PRODUCT_AMBIGUOUS|RECORD_SOURCE_CONFLICT/.test(code))) throw error
       outcomes.push({ productIds, failureCodes: codes, error: String(error.message).slice(0,1200), reviewError: error })
     }
   }

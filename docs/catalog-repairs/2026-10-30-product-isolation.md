@@ -20,7 +20,9 @@ Validation evidence:
 - The first live run matched isolated output to atomic output, validated all six products, then injected an incomplete VB365 build page. Only VB365 retained data; the composite passed whole-catalog validation with 272 releases and 110 security findings.
 - The acceptance matrix covers paired/shared failures, new-release rejection on failed security validation, all-failed and atomic behavior, unknown CVEs, malformed metadata, source-definition integrity, recovery, whole-group rollback and overlapping-change refusal.
 - Chromium checks all three executive-summary exports and the reviewed journey under both normal and 73-hour-old retained data.
-- Final migration, repository checks and deployment identities are recorded in the PR and Actions runs.
+- [Live acceptance run 41125274358](https://github.com/TnTBass/UpgradeBrief/actions/runs/41125274358) passed the atomic comparison, VB365 failure injection and all 35 repository checks. The accepted schema-2 snapshot was validated at 2026-10-30T20:45:43.715Z and committed as edaa745ec68dacb6480c065c237a914eb9c5bddd. Its catalog hash is c4825e9042012b600c9581a910aa257294ab5b6a748225a5a6af3af76416d9fb.
+- Deterministic tests additionally reject unmapped CVEs and contradictory official product/source records globally. Provenance retains the identity of the policy that actually validated the accepted snapshot; a subsequent policy change requires a complete refresh.
+- Deployment identity is recorded in the PR and the publication-verification workflow.
 
 Operational fallback: run the live refresher with `--atomic`. This requires every transaction to succeed while retaining schema-2 provenance. To roll application code back to schema 1, restore a fully validated compatible catalog and matching code together; never replace retained validation times with the rollback time.
 
