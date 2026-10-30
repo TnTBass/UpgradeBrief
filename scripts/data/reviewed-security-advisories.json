@@ -202,13 +202,13 @@
           "throughBuild": "9.5.0.1536"
         }
       ],
-      "remediation": "Apply the KB2662 hotfix for Veeam Backup & Replication 8 Update 3, 9.0 Update 2, 9.5 Update 2, or 9.5 Update 3. The fix is included in 9.5 Update 3a.",
+      "remediation": "Upgrade Veeam Backup & Replication to 9.5 Update 3a (9.5.0.1922) or a later release containing the fix.",
       "records": [
         {
           "cve": "CVE-2018-1002205",
           "title": "The DotNetZip Zip Slip vulnerability permits arbitrary file overwrite through path-traversal filenames during guest file system indexing.",
           "conditions": [
-            "Veeam documents guest file system indexing as the only known attack path. Veeam does not publish a CVSS score in KB2662."
+            "The advisory concerns guest file system indexing. KB2662 does not publish a CVSS score."
           ]
         }
       ]
@@ -312,18 +312,18 @@
         "12.1.",
         "12.2."
       ],
-      "remediation": "Upgrade Veeam Backup Enterprise Manager 12.1.2.172 or earlier to 12.2.0.334 using the repackaged ISO, or apply the KB4682 hotfix to an existing 12.2.0.334 deployment.",
+      "remediation": "Upgrade Veeam Backup Enterprise Manager to 12.3.0.310 or a later release containing the fix.",
       "records": [
         {
           "cve": "CVE-2024-40715",
           "title": "An attacker performing a man-in-the-middle attack can bypass Veeam Backup Enterprise Manager authentication.",
           "cvssScore": 7.7,
           "conditions": [
-            "Veeam documents this issue for the optional Veeam Backup Enterprise Manager component. Verify that Enterprise Manager is deployed; this does not downgrade the upgrade reason.",
-            "The 12.2.0.334 hotfix does not establish a distinct product build in the catalog; verify hotfix deployment."
+            "Veeam documents this issue for the optional Veeam Backup Enterprise Manager component. Verify that Enterprise Manager is deployed; this does not downgrade the upgrade reason."
           ]
         }
-      ]
+      ],
+      "fixedReleaseId": "em-build-12-3-0-310"
     },
     {
       "articleId": "kb4508",
@@ -338,9 +338,9 @@
         "5.",
         "6."
       ],
-      "remediation": "Apply the KB4508 hotfix matching the embedded Veeam ONE build. Veeam Recovery Orchestrator 6 GA must first be updated to VRO 6 P20230419 so its embedded Veeam ONE build is 12.0.1.2591.",
+      "remediation": "Upgrade to Veeam Recovery Orchestrator 7 or a later supported release containing Veeam ONE 12.1 or later. Review the embedded Veeam ONE build.",
       "conditions": [
-        "Veeam Recovery Orchestrator embeds Veeam ONE. VRO 7 is not affected because it uses Veeam ONE 12.1. Verify the embedded Veeam ONE build and hotfix files."
+        "The previously reviewed KB4508 identified embedded Veeam ONE in VRO 4, 5 and 6 as affected. Veeam has retired the hotfix download instructions; use an upgrade containing the fixes."
       ],
       "records": [
         {
@@ -791,6 +791,46 @@
           ]
         }
       ]
+    },
+    {
+      "articleId": "kb4948",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4948",
+        "title": "Veeam KB4948: Vulnerabilities Resolved in Veeam Backup & Replication 13.1.2",
+        "url": "https://www.veeam.com/kb4948"
+      },
+      "affectedBuildRanges": [
+        {
+          "versionPrefix": "13.1.",
+          "throughBuild": "13.1.1.18"
+        },
+        {
+          "versionPrefix": "13.0.",
+          "throughBuild": "13.0.2.29"
+        }
+      ],
+      "remediation": "Upgrade Veeam Backup & Replication to 13.1.2.57 or 13.0.3.63, or a later release containing the fixes.",
+      "conditions": [
+        "Veeam lists Windows-based Veeam Backup & Replication and Veeam Software Appliance deployments. Older versions, including 12.x, are not affected."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2026-108142",
+          "title": "A vulnerability allowing an unauthenticated attacker to bypass authorization on the CDP Coordinator Service.",
+          "cvssScore": 9.1
+        },
+        {
+          "cve": "CVE-2026-108140",
+          "title": "A vulnerability allowing an authenticated user with the Restore Operator role, who also controls the contents of a backed-up NAS share, to write attacker-controlled files to an arbitrary path on the backup server through relative path traversal.",
+          "cvssScore": 5.9
+        },
+        {
+          "cve": "CVE-2026-108141",
+          "title": "A vulnerability allowing an authenticated user with the Restore Operator role, who also controls the contents of a backed-up NAS share, to write attacker-controlled files to an arbitrary path on the backup server through relative path traversal.",
+          "cvssScore": 5.9
+        }
+      ]
     }
   ],
   "observationSpecs": {
@@ -925,7 +965,10 @@
         "CVE-2026-58069",
         "CVE-2025-64392",
         "CVE-2025-64393",
-        "CVE-2026-93026"
+        "CVE-2026-93026",
+        "CVE-2026-108142",
+        "CVE-2026-108140",
+        "CVE-2026-108141"
       ]
     },
     "kb4879": {
@@ -1115,7 +1158,7 @@
       },
       "allowNoCves": true,
       "informationalReason": "SUPERSEDED_BY_TRACKED_ADVISORY",
-      "contentFingerprint": "sha256:7f9ec10ab9104ee413a3ac5e2663008fbe8e7d04a5a2d0ca0761e06095d9f650"
+      "contentFingerprint": "sha256:8ac68fee14d0388b17e615d3dbe5a858fa8fddb5f6a88527d7267fa41a003ee0"
     },
     "kb4231": {
       "classification": "informational",
@@ -1254,7 +1297,7 @@
       },
       "allowNoCves": true,
       "informationalReason": "NO_VENDOR_VULNERABILITY_FINDING",
-      "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
+      "contentFingerprint": "sha256:bfae1aea48667e6dbcf3c9f5591268251e97a062c8967c1516c661d0a6f58564"
     },
     "kb4712": {
       "classification": "informational",
@@ -1303,6 +1346,20 @@
         "publishedAt": "2026-10-22",
         "displayUntil": "2026-11-21"
       }
+    },
+    "kb4948": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2026-108142",
+          "CVE-2026-108140",
+          "CVE-2026-108141"
+        ]
+      },
+      "ignoredCveIds": [
+        "CVE-2026-105477"
+      ],
+      "multiProduct": true
     }
   }
 }

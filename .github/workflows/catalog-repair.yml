@@ -122,6 +122,11 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
+      - uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          name: catalog-repair-prepared
+          path: artifacts/catalog-repair
       - run: node scripts/report-catalog-repair-workflow-failure.mjs
         env:
           GH_TOKEN: ${{ github.token }}

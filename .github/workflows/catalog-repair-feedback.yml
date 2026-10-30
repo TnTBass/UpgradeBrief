@@ -39,6 +39,11 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci --ignore-scripts
+      - name: Monitor validated catalog age independently of repair status
+        if: always()
+        run: node scripts/check-catalog-freshness.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Reconcile trusted feedback and pending notifications
         run: node scripts/process-catalog-repair-feedback.mjs
         env:

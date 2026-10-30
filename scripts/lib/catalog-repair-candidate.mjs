@@ -51,9 +51,18 @@ export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines
     const oldPolicyFingerprint = reviewedData.observationSpecs[article.articleId]?.contentFingerprint
     const checked = createSecurityReviewBaseline(article.articleId, before.normalizedText, before.reviewedFingerprint)
     requireCondition(canonicalJson(before) === canonicalJson(checked), `${article.articleId} has an inconsistent baseline`)
-    requireCondition(before.normalizedText === article.before && before.contentFingerprint === article.beforeHash && page.contentFingerprint === article.beforeHash, `${article.articleId} accepted text changed`)
+    requireCondition(before.normalizedText === article.before && before.contentFingerprint === article.beforeHash, `${article.articleId} accepted text changed`)
+    // Parsed sources deliberately have no page fingerprint. Their source text is
+    // still bound to the accepted baseline; a substantive edit needs a fresh
+    // parser/coverage pass, not a fabricated page hash or a crashed report.
+    const parsed = route?.classification === 'parsed'
+    requireCondition(parsed ? page.contentFingerprint === undefined : page.contentFingerprint === article.beforeHash, `${article.articleId} accepted fingerprint contract changed`)
     requireCondition(before.reviewedFingerprint === oldPolicyFingerprint, `${article.articleId} accepted policy changed`)
     requireCondition(canonicalJson(page) === canonicalJson(article.acceptedPageState) && canonicalJson(route) === canonicalJson(article.acceptedRoute), `${article.articleId} accepted scope changed`)
+    if (parsed && normalizeSecurityReviewText(article.articleId, article.before) !== normalizeSecurityReviewText(article.articleId, article.after)) {
+      blocked.push({ code: 'PARSED_ARTICLE_REQUIRES_REFRESH', articleId: article.articleId })
+      continue
+    }
     if (proposed.unresolved.length) blocked.push({ code: 'UNRESOLVED_CLAIMS', articleId: article.articleId })
     if (proposed.kind !== 'equivalent') {
       const semantic = applySemanticChange({ article, reviewedData: nextData, extraction: extractions[article.articleId] })
@@ -70,7 +79,7 @@ export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines
     const spec = nextData.observationSpecs[article.articleId]
     if (spec?.contentFingerprint) spec.contentFingerprint = article.afterHash
     nextBaselines.articles[article.articleId] = createSecurityReviewBaseline(article.articleId, article.after, spec?.contentFingerprint)
-    nextCatalog.securityFeedPageStates.find(item => item.articleId === article.articleId).contentFingerprint = article.afterHash
+    if (!parsed) nextCatalog.securityFeedPageStates.find(item => item.articleId === article.articleId).contentFingerprint = article.afterHash
   }
   const result = {
     schemaVersion: 1,

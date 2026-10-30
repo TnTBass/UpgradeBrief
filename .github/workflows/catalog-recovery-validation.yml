@@ -1,0 +1,47 @@
+name: Catalog recovery validation
+
+on:
+  push:
+    branches: [codex/catalog-recovery-20261030]
+    paths-ignore:
+      - src/data/catalog.snapshot.json
+      - scripts/data/security-review-baselines.json
+
+permissions:
+  contents: write
+
+jobs:
+  live-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Run all checks including live sources
+        run: node scripts/verify-catalog-repair.mjs --live
+      - name: Persist validated recovery snapshot on the recovery branch
+        run: |
+          git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
+          git diff --cached --quiet && exit 0
+          git config user.name 'upgrade-brief[bot]'
+          git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
+          git commit -m 'chore: validate recovery against current Veeam sources'
+          git push origin HEAD:codex/catalog-recovery-20261030
+      - name: Print structured source diagnostics
+        if: failure()
+        run: |
+          node --input-type=module -e "import {readFileSync} from 'node:fs'; try {const r=JSON.parse(readFileSync('artifacts/catalog-review/review.json')); console.log(JSON.stringify({error:r.error,changes:r.changes?.map(c=>({articleId:c.articleId,diff:c.diff}))},null,2))} catch {}"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: catalog-recovery-validation
+          path: |
+            artifacts/catalog-review/
+            artifacts/catalog-repair/verification/
+          retention-days: 7

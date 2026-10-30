@@ -25,6 +25,7 @@ import { REVIEWED_SECURITY_CLASSIFICATIONS, REVIEWED_SECURITY_PARSED_COVERAGE, R
 import { VSPC_REVIEWED_CVE_EXCLUSIONS, VspcKbCveCoverageError, assertVspcKbCveCoverage, fetchVspcKbInventory, fingerprintVspcParsedModel, inspectVspcKbCveCoverage } from './lib/vspc-kb-cve-coverage.mjs'
 import { VspcCveRecordCoverageError, assertVspcCveRecordCoverage, fetchVspcCveRecords } from './lib/vspc-cve-record-coverage.mjs'
 import { createVspcReleaseSecurityReviewFromParsedCves, extractVspcReleaseSecuritySections, mergeVspcReleaseSecurityArticles, parseVspcReleaseSecurityPages } from './lib/vspc-release-security.mjs'
+import { hasSectionedSecurityLayout } from './lib/sectioned-security.mjs'
 
 const snapshot = new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const baselineFile = new URL('./data/security-review-baselines.json', import.meta.url)
@@ -81,7 +82,7 @@ const reportDirectory = new URL('../artifacts/catalog-review/', import.meta.url)
 async function reportReview(error) {
   return writeSecurityReviewReport({
     directory: fileURLToPath(reportDirectory), baselines, texts: reviewTexts, catalog: current, error,
-    equivalentChanges: baselineReview?.equivalentChanges ?? [], summaryPath: process.env.GITHUB_STEP_SUMMARY,
+    equivalentChanges: baselineReview?.equivalentChanges ?? [], inventoryChanges: baselineReview?.inventoryChanges ?? [], summaryPath: process.env.GITHUB_STEP_SUMMARY,
   })
 }
 
@@ -124,6 +125,8 @@ const securityClassificationOverrides = {
   kb4679: { classification: 'dedicated', productIds: ['vspc'] },
   kb4858: { classification: 'inventory', productIds: ['veeam-one'] },
   kb4856: { classification: 'inventory', productIds: ['vspc'] },
+  kb4962: { classification: 'inventory', productIds: ['vb365'] },
+  kb4961: { classification: 'out-of-scope' },
   kb4582: { classification: 'out-of-scope' },
   kb4374: { classification: 'out-of-scope' },
   kb4338: { classification: 'out-of-scope' },
@@ -223,14 +226,16 @@ baselineReview = reconcileSecurityReviewBaselines({
 })
 const securityFeedPageStates = assertSecurityFeedPageStateContinuity(baselineReview.continuityStates, fetchedSecurityFeedPageStates, { allowInventoryExpansion: false })
 for (const [articleId, contentFingerprint] of Object.entries(baselineReview.acceptedFingerprints)) {
-  securityClassifications[articleId] = { ...securityClassifications[articleId], contentFingerprint }
+  if (securityClassifications[articleId]?.classification === 'informational') securityClassifications[articleId] = { ...securityClassifications[articleId], contentFingerprint }
 }
 const securityArticlePages = Object.fromEntries(classifiedArticlesToFetch.map((article) => {
   const response = articleResponseById.get(article.articleId)
   if (response.status !== 'fulfilled') return [article.articleId, response]
   const html = response.value.html
   if (!REVIEWED_SECURITY_OBSERVATION_POLICY[article.articleId]) {
-    const section = splitSecurityArticleVulnerabilityContent(html)
+    const section = hasSectionedSecurityLayout(html)
+      ? { vulnerabilityContent: normalizeReviewedSecurityMainArticle(html), trailingContent: '' }
+      : splitSecurityArticleVulnerabilityContent(html)
     const scope = extractSecurityArticleScope(section.vulnerabilityContent)
     return [article.articleId, {
       html: section.vulnerabilityContent,

@@ -133,7 +133,9 @@ export function observeReviewedSecurityArticle(articleId, content, { equivalentF
 
   const observedCves = extractReviewedSecurityCveIds(content)
   const missingCveIds = policy.expectedCveIds.filter((cve) => !observedCves.includes(cve))
-  const unexpectedCveIds = observedCves.filter((cve) => !policy.expectedCveIds.includes(cve))
+  // Supported inventory additions still require final product-wide CVE coverage.
+  const unexpectedCveIds = policy.classification === 'inventory' && equivalentFingerprint
+    ? [] : observedCves.filter((cve) => !policy.expectedCveIds.includes(cve))
   const fingerprintChanged = policy.contentFingerprint
     ? fingerprintReviewedSecurityMainArticle(content) !== (equivalentFingerprint ?? policy.contentFingerprint)
     : false

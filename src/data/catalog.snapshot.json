@@ -10355,7 +10355,12 @@
     "kb4925",
     "kb4926",
     "kb4934",
-    "kb4953"
+    "kb4948",
+    "kb4951",
+    "kb4953",
+    "kb4957",
+    "kb4961",
+    "kb4962"
   ],
   "securityFeedRoutes": [
     {
@@ -10821,6 +10826,22 @@
       "multiProduct": true
     },
     {
+      "articleId": "kb4948",
+      "classification": "dedicated",
+      "productIds": [
+        "vbr"
+      ],
+      "multiProduct": true
+    },
+    {
+      "articleId": "kb4951",
+      "classification": "parsed",
+      "productIds": [
+        "veeam-one"
+      ],
+      "multiProduct": false
+    },
+    {
       "articleId": "kb4953",
       "classification": "informational",
       "productIds": [
@@ -10832,6 +10853,28 @@
         "vspc"
       ],
       "multiProduct": true
+    },
+    {
+      "articleId": "kb4957",
+      "classification": "parsed",
+      "productIds": [
+        "vb365"
+      ],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4961",
+      "classification": "out-of-scope",
+      "productIds": [],
+      "multiProduct": false
+    },
+    {
+      "articleId": "kb4962",
+      "classification": "inventory",
+      "productIds": [
+        "vb365"
+      ],
+      "multiProduct": false
     }
   ],
   "securityFeedPageStates": [
@@ -10849,16 +10892,16 @@
         "vbr"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:8b56a7cc9ab6014ff0ddedc0280a49a84fb0714485e1c62c3a981e7f3412d6bc"
+      "contentFingerprint": "sha256:38a3ee2271322430b103b628beb6b8d0ed5d27ef6594f15f51052205cb37df02"
     },
     {
       "articleId": "kb3103",
       "productIds": [
-        "enterprise-manager",
-        "vbr"
+        "vbr",
+        "enterprise-manager"
       ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:c960c5670764029fdff624ce6fa0e57fe4e5cd9b67d09f811db2049dd9fd81ff",
+      "contentFingerprint": "sha256:4e75b025a224ca292fa1e6194e6c50216fb2ddef41453689dc1f8927eded1d0c",
       "observedCveIds": [
         "CVE-2021-35971",
         "CVE-2022-26500",
@@ -10896,6 +10939,9 @@
         "CVE-2025-59470",
         "CVE-2025-64392",
         "CVE-2025-64393",
+        "CVE-2026-108140",
+        "CVE-2026-108141",
+        "CVE-2026-108142",
         "CVE-2026-21666",
         "CVE-2026-21667",
         "CVE-2026-21668",
@@ -10917,7 +10963,7 @@
         "vbr"
       ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:57eec900268df80a7f17f4ea63efff333ed6620d3e63ca90d6da56df2d54620f"
+      "contentFingerprint": "sha256:2fbde7720f7bc4806005e7601286da4244c9d5e95a7e0e5cf4a10c993c1eb4f5"
     },
     {
       "articleId": "kb3109",
@@ -10925,16 +10971,15 @@
         "vbr"
       ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:999e4246f470e3321eb46f6e653cfbab8d06cc11f5dab0d429ef55d136dcb270"
+      "contentFingerprint": "sha256:83de254dcded34ee2a6b3f41303005523c342b1c334a6136af91972a9fd6e742"
     },
     {
       "articleId": "kb3144",
       "productIds": [
-        "vbr",
         "veeam-one"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:2fda50a7b797bb5fc60d41884563a1e37f72a575a8c9b16f9fad701a3d2f4c87"
+      "contentFingerprint": "sha256:7c1f60f86f3b8844722135306b1684f46d98167a118d48eac79a36ac169a5505"
     },
     {
       "articleId": "kb3221",
@@ -10942,7 +10987,7 @@
         "veeam-one"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:96fc358b55f2cbe0e994a8cfb0598d590d2fae150ee0957d1a7fcf13199a5c62"
+      "contentFingerprint": "sha256:f7f8fbdaa35ddf0c99d85d7b0bbeec4a34c512dbafc97a16fbcd950374c21dd2"
     },
     {
       "articleId": "kb4163",
@@ -10950,7 +10995,7 @@
         "vspc"
       ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:7f9ec10ab9104ee413a3ac5e2663008fbe8e7d04a5a2d0ca0761e06095d9f650"
+      "contentFingerprint": "sha256:8ac68fee14d0388b17e615d3dbe5a858fa8fddb5f6a88527d7267fa41a003ee0"
     },
     {
       "articleId": "kb4231",
@@ -10998,7 +11043,7 @@
       "articleId": "kb4289",
       "productIds": [],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:aef47ffc32b2a7afa726aaa492bc2feed76a6f135651b8f80a638d5e5177ad37"
+      "contentFingerprint": "sha256:72910a3a0e5adf3d45d281eea04c1fd38b1faa5b9649046cae61b053d510cf6e"
     },
     {
       "articleId": "kb4290",
@@ -11037,7 +11082,7 @@
         "vbr"
       ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:5260c4a9c16eefdeb3dc978d2304b29189c41168f9c87410cd06a02e735252ec"
+      "contentFingerprint": "sha256:5f015732d9e21d26ea34c8131c962d88fcd5104f5e40092e33230e8474e4edf4"
     },
     {
       "articleId": "kb4508",
@@ -11046,7 +11091,7 @@
         "vro"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:99474fb61ef16783fcd3f3cfb4a5492867d340dbb550df810597151aad9635bf"
+      "contentFingerprint": "sha256:e5a9c8fb89368a0a209883e788f1706ac3c103951255231523e1ab56e0731fe9"
     },
     {
       "articleId": "kb4541",
@@ -11054,7 +11099,7 @@
         "vro"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:99934dfd30163773f6b215bb3f57649ca3863222140af248fd05c5486015807e"
+      "contentFingerprint": "sha256:5057be37c16a69b54a9ae4e19b6f2eeabcd6734471f0de4f80c0f120c593573f"
     },
     {
       "articleId": "kb4575",
@@ -11069,11 +11114,11 @@
     {
       "articleId": "kb4581",
       "productIds": [
-        "enterprise-manager",
-        "vbr"
+        "vbr",
+        "enterprise-manager"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:cf4f7649b4d9b5c7d54237e6d01a0fd58874769a49217ce91e623fd9d8957269"
+      "contentFingerprint": "sha256:8ab5e6d096f5a0578f57d41a4baf6db4a283f0c42330ded74c6c7e110932c0c2"
     },
     {
       "articleId": "kb4582",
@@ -11093,7 +11138,7 @@
         "vspc"
       ],
       "hasOutOfScopeProduct": true,
-      "contentFingerprint": "sha256:5121c08e73e8f6b9f32475778635f31d50f470e53343244e36c6e234da9d62ee"
+      "contentFingerprint": "sha256:cfeb6678d93a4a1b1eecfe4c56177934aa95157befbd04c283a2de60193b0b55"
     },
     {
       "articleId": "kb4649",
@@ -11118,11 +11163,11 @@
     {
       "articleId": "kb4682",
       "productIds": [
-        "enterprise-manager",
-        "vbr"
+        "vbr",
+        "enterprise-manager"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:39d1cf805405903565dfa2db4407f817082cafdff74dbd97baaa706fa9c87b94"
+      "contentFingerprint": "sha256:3a11045ca924bada5b4ea680c33fbfd679993ae7d368a60493dba31270a65259"
     },
     {
       "articleId": "kb4693",
@@ -11154,7 +11199,7 @@
         "vbr"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:61e92eccc4241e5147632edfe1fdf73ac0a5884b435afa43bf9a71aa9fecf521"
+      "contentFingerprint": "sha256:bd0cac25dcd4b237607d88954ea4d61d94da22db073cff24b0e29af37f0f9f41"
     },
     {
       "articleId": "kb4743",
@@ -11230,7 +11275,7 @@
         "vro"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:054ef0b7a5d89cd798652343288db4834c5c6ec0cbe8498bed0986be3778f71f"
+      "contentFingerprint": "sha256:bfae1aea48667e6dbcf3c9f5591268251e97a062c8967c1516c661d0a6f58564"
     },
     {
       "articleId": "kb4858",
@@ -11238,8 +11283,9 @@
         "veeam-one"
       ],
       "hasOutOfScopeProduct": false,
-      "contentFingerprint": "sha256:223e2019bea8957d8b4c8f157bf6b32e17cba4a32150e5bf9eee0024808133e6",
+      "contentFingerprint": "sha256:6a331f76c90831dcad901a8649604193ad62f3a1f03523878a27b06dc8e27d8d",
       "observedCveIds": [
+        "CVE-2026-107671",
         "CVE-2026-58074",
         "CVE-2026-58075",
         "CVE-2026-64630",
@@ -11375,10 +11421,54 @@
       "contentFingerprint": "sha256:c6334b8609df8fff6e184fb752ad891afc1261ef088fb6961f91b7b5884f148c"
     },
     {
+      "articleId": "kb4948",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": false,
+      "contentFingerprint": "sha256:a7a9bc3176d2a435eee463e45c363d28a9e431922ee711e44bcb8d8f9a64c75e"
+    },
+    {
+      "articleId": "kb4951",
+      "productIds": [
+        "veeam-one"
+      ],
+      "hasOutOfScopeProduct": false
+    },
+    {
       "articleId": "kb4953",
       "productIds": [],
       "hasOutOfScopeProduct": false,
       "contentFingerprint": "sha256:1953c989d4ff486bd5a9d63aa0c1c6db904595dd60c3f2814f4bdb3240d2db49"
+    },
+    {
+      "articleId": "kb4957",
+      "productIds": [
+        "vb365"
+      ],
+      "hasOutOfScopeProduct": false
+    },
+    {
+      "articleId": "kb4961",
+      "productIds": [
+        "vbr"
+      ],
+      "hasOutOfScopeProduct": true,
+      "contentFingerprint": "sha256:27829ce920e2885826d93ff004e1ddea67354cc5250034a5d1692b0e11a4ed18"
+    },
+    {
+      "articleId": "kb4962",
+      "productIds": [
+        "vb365"
+      ],
+      "hasOutOfScopeProduct": false,
+      "contentFingerprint": "sha256:a13e9e971b2f24553d200c54f02e8daa1e27058c440a297e96e17464f1db7cac",
+      "observedCveIds": [
+        "CVE-2025-64394",
+        "CVE-2026-106076",
+        "CVE-2026-106077",
+        "CVE-2026-106078"
+      ]
     }
   ],
   "vspcKbArticleIds": [
