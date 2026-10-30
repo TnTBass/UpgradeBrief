@@ -69,6 +69,7 @@ jobs:
           retention-days: 7
       - name: Commit a validated catalog refresh when data changed
         run: |
+          test "$(git rev-parse HEAD)" = "$(git ls-remote origin refs/heads/main | cut -f1)" || { echo 'Main changed; discard this refresh and rerun against main.'; exit 1; }
           git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
           git diff --cached --quiet && exit 0
           git config user.name 'upgrade-brief[bot]'
@@ -77,3 +78,6 @@ jobs:
           git push origin HEAD:main
       - name: Verify the published snapshot after the refresh commit
         run: node scripts/verify-published-catalog.mjs
+      - name: Keep retained product failures open after publication
+        run: |
+          node --input-type=module -e "import {readFileSync} from 'node:fs'; const result=JSON.parse(readFileSync('artifacts/catalog-review/refresh-result.json','utf8')); if(result.status!=='complete') throw new Error('Partial refresh published; retained product groups still require repair: '+JSON.stringify(result.transactions.filter(item=>item.state==='retained')));"

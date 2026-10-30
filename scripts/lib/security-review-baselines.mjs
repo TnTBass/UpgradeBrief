@@ -39,7 +39,7 @@ export function createSecurityReviewBaseline(articleId, normalizedText, reviewed
   }
 }
 
-export function reconcileSecurityReviewBaselines({ baselines, previousStates, states, texts, policies = {} }) {
+export function reconcileSecurityReviewBaselines({ baselines, previousStates, states, texts, policies = {}, allowReviewedPolicyTransition = false }) {
   if (baselines.schemaVersion !== 1) throw new Error('Unsupported security review baseline schema')
   const continuityStates = structuredClone(previousStates)
   const previousById = new Map(continuityStates.map(state => [state.articleId, state]))
@@ -56,14 +56,15 @@ export function reconcileSecurityReviewBaselines({ baselines, previousStates, st
     const policyFingerprint = policies[id]?.contentFingerprint
     let equivalent = false
     if (baseline) {
+      const policyTransition = allowReviewedPolicyTransition && policyFingerprint && policyFingerprint !== baseline.reviewedFingerprint && policyFingerprint === state.contentFingerprint
       const checked = createSecurityReviewBaseline(id, baseline.normalizedText, baseline.reviewedFingerprint)
       if (checked.contentFingerprint !== baseline.contentFingerprint || checked.comparisonFingerprint !== baseline.comparisonFingerprint
         || (previous?.contentFingerprint && previous.contentFingerprint !== baseline.contentFingerprint)
-        || baseline.reviewedFingerprint !== policyFingerprint) {
+        || (baseline.reviewedFingerprint !== policyFingerprint && !policyTransition)) {
         throw new Error(`Security review baseline is inconsistent for ${id}; review the baseline and catalogue together`)
       }
       const inventoryExpanded = supportedInventoryExpansion(id, normalizeSecurityReviewText(id, baseline.normalizedText), normalizeSecurityReviewText(id, text))
-      equivalent = checked.comparisonFingerprint === fingerprintSecurityArticleContent(normalizeSecurityReviewText(id, text)) || inventoryExpanded
+      equivalent = policyTransition || checked.comparisonFingerprint === fingerprintSecurityArticleContent(normalizeSecurityReviewText(id, text)) || inventoryExpanded
       if (equivalent && previous?.contentFingerprint) {
         // Only the text fingerprint is reconciled. Product scope, classification,
         // CVE inventory and all downstream coverage checks still run unchanged.
@@ -96,7 +97,7 @@ function escapeMarkdown(text) {
   return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/([\\`*_[\]#|])/g, '\\$1')
 }
 
-export async function writeSecurityReviewReport({ directory, baselines, texts, catalog, error, equivalentChanges = [], inventoryChanges = [], summaryPath }) {
+export async function writeSecurityReviewReport({ directory, baselines, texts, catalog, error, equivalentChanges = [], inventoryChanges = [], summaryPath, partial = false }) {
   const changes = Object.entries(texts).flatMap(([articleId, after]) => {
     const before = baselines.articles[articleId]?.normalizedText
     if (before === after) return []
@@ -117,7 +118,7 @@ export async function writeSecurityReviewReport({ directory, baselines, texts, c
     ...(error ? { error: { message: error.message, code: error.code, report: error.report, diagnostic: error.diagnostic }, triage: classifyCatalogFailure(error) } : {}),
     equivalentChanges, inventoryChanges, changes,
   }
-  const lines = ['# Catalogue source review', '', error ? 'Refresh blocked. The previous catalogue and accepted baselines are retained.' : 'All catalogue checks passed.', '']
+  const lines = ['# Catalogue source review', '', partial ? 'Partial refresh. Failed product groups retain their previous data and accepted baselines; successful groups passed their checks.' : error ? 'Refresh blocked. The previous catalogue and accepted baselines are retained.' : 'All catalogue checks passed.', '']
   if (error) lines.push(`Error: ${escapeMarkdown(error.message)}`, '')
   if (error?.report?.findings) lines.push(...error.report.findings.map(finding => `- ${escapeMarkdown(finding.articleId ?? 'catalog')}: ${escapeMarkdown(finding.code)}`), '')
   lines.push(`Approved wording/date changes: ${equivalentChanges.join(', ') || 'none'}.`, '')

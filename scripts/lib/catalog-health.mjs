@@ -1,4 +1,22 @@
 import { repairHash } from './catalog-repair-evidence.mjs'
+import { validateProductHealth } from './catalog-provenance.mjs'
+
+export function productCatalogFreshness(catalog, now = Date.now()) {
+  if (typeof catalog === 'string') return catalogFreshness(catalog, now)
+  if (catalog?.schemaVersion === 1) return catalogFreshness(catalog.generatedAt, now)
+  try { validateProductHealth(catalog, now) }
+  catch { return { level: 'critical', ageHours: null, reason: 'invalid-product-health' } }
+  const products = catalog.productValidation.map(item => {
+    const age = catalogFreshness(item.validatedAt, now)
+    return { productId: item.productId, validatedAt: item.validatedAt, state: item.state, failureCodes: item.failureCodes, ...age,
+      level: item.state === 'retained' && age.level === 'healthy' ? 'warning' : age.level,
+      reason: item.state === 'retained' ? 'retained-product-data' : age.reason }
+  })
+  const rank = { healthy: 0, warning: 1, critical: 2 }
+  const worst = [...products].sort((a,b) => rank[b.level] - rank[a.level] || b.ageHours - a.ageHours)[0]
+  return { level: worst.level, ageHours: Math.max(...products.map(item => item.ageHours ?? Infinity)), reason: worst.reason, products }
+}
+
 
 export function catalogFreshness(generatedAt, now = Date.now()) {
   const timestamp = Date.parse(generatedAt)
@@ -8,9 +26,9 @@ export function catalogFreshness(generatedAt, now = Date.now()) {
 }
 
 export function combinedCatalogFreshness(generatedAt, published, now = Date.now()) {
-  const repository = catalogFreshness(generatedAt, now)
-  const validPublication = published?.schemaVersion === 1 && /^[a-f0-9]{40}$/.test(published.commit ?? '') && /^[a-f0-9]{64}$/.test(published.catalogHash ?? '')
-  const deployment = validPublication ? catalogFreshness(published.generatedAt, now) : { level: 'critical', ageHours: null, reason: 'published-health-unavailable' }
+  const repository = productCatalogFreshness(generatedAt, now)
+  const validPublication = [1, 2].includes(published?.schemaVersion) && /^[a-f0-9]{40}$/.test(published.commit ?? '') && /^[a-f0-9]{64}$/.test(published.catalogHash ?? '')
+  const deployment = validPublication ? productCatalogFreshness(published, now) : { level: 'critical', ageHours: null, reason: 'published-health-unavailable' }
   const rank = { healthy: 0, warning: 1, critical: 2 }
   return { level: rank[repository.level] > rank[deployment.level] ? repository.level : deployment.level, repository, deployment }
 }

@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises'
+import { validateCatalogProvenance } from './lib/catalog-provenance.mjs'
 import { REVIEWED_SECURITY_NOTICES } from './lib/reviewed-security-advisories.mjs'
 
 const catalogPath = process.argv[2] ?? new URL('../src/data/catalog.snapshot.json', import.meta.url)
@@ -12,7 +13,8 @@ const sourceIds = new Set(catalog.sources.map((source) => source.id))
 const releaseIds = new Set(catalog.releases.map((release) => release.id))
 const productIds = new Set(catalog.products.map((product) => product.id))
 const releaseById = new Map(catalog.releases.map((release) => [release.id, release]))
-assert(catalog.schemaVersion === 1, 'schemaVersion must equal 1')
+assert([1, 2].includes(catalog.schemaVersion), 'Unsupported catalog schema')
+if (catalog.schemaVersion === 2) validateCatalogProvenance(catalog)
 assert(new Date(catalog.generatedAt).toString() !== 'Invalid Date', 'generatedAt must be an ISO date')
 assert(Array.isArray(catalog.securityFeedArticleIds) && catalog.securityFeedArticleIds.length > 0, 'securityFeedArticleIds must retain the discovered security feed inventory')
 assert(new Set(catalog.securityFeedArticleIds).size === catalog.securityFeedArticleIds.length, 'securityFeedArticleIds must be unique')

@@ -11,6 +11,9 @@ on:
       - src/lib/upgrade-journey.ts
       - src/lib/executive-summary-pdf.ts
       - scripts/check-browser-pdf.mjs
+      - scripts/check-browser-stale-catalog.mjs
+      - src/lib/freshness.ts
+      - src/lib/catalog-types.ts
       - .github/workflows/dependency-audit.yml
   push:
     branches: [main]
@@ -24,6 +27,9 @@ on:
       - src/lib/upgrade-journey.ts
       - src/lib/executive-summary-pdf.ts
       - scripts/check-browser-pdf.mjs
+      - scripts/check-browser-stale-catalog.mjs
+      - src/lib/freshness.ts
+      - src/lib/catalog-types.ts
       - .github/workflows/dependency-audit.yml
   schedule:
     - cron: '23 15 * * 1'
@@ -81,6 +87,10 @@ jobs:
           node "$RUNNER_TEMP/dependency-browser-smoke/node_modules/playwright/cli.js" install --with-deps chromium
       - name: Verify browser PDF downloads
         run: node scripts/check-browser-pdf.mjs
+        env:
+          BROWSER_TEST_ROOT: ${{ runner.temp }}/dependency-browser-smoke
+      - name: Verify retained and outdated product warnings in the browser and PDF
+        run: node scripts/check-browser-stale-catalog.mjs
         env:
           BROWSER_TEST_ROOT: ${{ runner.temp }}/dependency-browser-smoke
       - uses: actions/upload-artifact@v7
