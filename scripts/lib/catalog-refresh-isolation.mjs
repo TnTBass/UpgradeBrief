@@ -4,7 +4,7 @@ import { createCatalogSourceFetcher } from './source-fetch.mjs'
 import { pinnedSecurityArticles, securityClassificationOverrides } from './catalog-refresh-registry.mjs'
 import { assertSecurityFeedContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractSecurityArticleScope, extractCveIds, fetchSecurityFeedPages, fingerprintSecurityArticleContent } from './security-feed-coverage.mjs'
 import { normalizeReviewedSecurityMainArticle } from './reviewed-security-advisories.mjs'
-import { fetchVspcKbInventory } from './vspc-kb-cve-coverage.mjs'
+import { assertVspcKbInventoryContinuity, fetchVspcKbInventory } from './vspc-kb-cve-coverage.mjs'
 import { parseCisaKev } from './cisa-kev.mjs'
 import { parseLifecyclePolicies } from './lifecycle.mjs'
 import { PRODUCT_IDS, PRODUCT_COLLECTIONS, assembleCatalog, createObservationCollector, hash, productPartition, sourceIdsForProduct, transactionClosure, validateCatalogProvenance } from './catalog-provenance.mjs'
@@ -44,7 +44,7 @@ export async function discoverTransactions({ current, baselines, collector, poli
     text(source('lifecycle').url, 'lifecycle'),
   ])
   assertSecurityFeedContinuity(current.securityFeedArticleIds, feed.articles)
-  if ((current.vspcKbArticleIds ?? []).some(id => !inventory.articles.some(article => article.id === id))) fail('VSPC_INVENTORY_TRUNCATED')
+  assertVspcKbInventoryContinuity({ previousArticleIds: current.vspcKbArticleIds, previousPageStates: current.vspcKbCvePageStates, previousCatalog: current, articles: inventory.articles })
   validateGlobalDatasets(current, kev, lifecycle)
   const articles = [...feed.articles, ...pinnedSecurityArticles.filter(item => !feed.articles.some(article => article.id.toLowerCase() === item.id))]
   const classified = classifySecurityFeedArticles({ articles, classifications: buildSecurityArticleClassifications(articles, securityClassificationOverrides) })
@@ -122,7 +122,12 @@ export async function runTransactions({ current, baselines, collector, policyHas
       outcomes.push({ productIds, failureCodes: codes, error: String(error.message).slice(0,1200), reviewError: error })
     }
   }
-  if (atomic && outcomes.some(outcome => !outcome.result)) fail('ATOMIC_REFRESH_BLOCKED')
+  const failed = outcomes.filter(outcome => !outcome.result)
+  const failureReport = { findings: failed.flatMap(item => item.reviewError.report?.findings ?? [{ code: item.failureCodes[0], productIds: item.productIds }]) }
+  if (failed.length && (atomic || failed.length === outcomes.length)) {
+    const code = atomic ? 'ATOMIC_REFRESH_BLOCKED' : 'ALL_TRANSACTIONS_BLOCKED'
+    throw Object.assign(new Error(code + ': ' + failed.map(item => item.error).join('; ')), { code, report: failureReport })
+  }
   const assembled = assembleCatalog({ current, baselines, outcomes, observations: collector.observations, usage: collector.usage, policyHash, assembledAt })
   // Always compare a fully successful isolated refresh with the same adapters
   // run atomically over the same cached bytes. No second network observation.
@@ -133,8 +138,7 @@ export async function runTransactions({ current, baselines, collector, policyHas
     if (hash(Object.entries(oracle.baselines.articles).sort()) !== hash(Object.entries(assembled.baselines.articles).sort())) fail('ATOMIC_BASELINE_MISMATCH')
     shadowCompared = true
   }
-  const failed = outcomes.filter(outcome => !outcome.result)
-  const reviewError = failed.length ? Object.assign(new Error('Partial refresh: ' + failed.map(item => item.productIds.join('+') + ': ' + item.error).join('; ')), { report: { findings: failed.flatMap(item => item.reviewError.report?.findings ?? [{ code: item.failureCodes[0], productIds: item.productIds }]) } }) : undefined
+  const reviewError = failed.length ? Object.assign(new Error('Partial refresh: ' + failed.map(item => item.productIds.join('+') + ': ' + item.error).join('; ')), { report: failureReport }) : undefined
   return { ...assembled, reviewError,
     equivalentChanges: outcomes.flatMap(outcome => outcome.result?.equivalentChanges ?? []),
     inventoryChanges: outcomes.flatMap(outcome => outcome.result?.inventoryChanges ?? []),

@@ -69,6 +69,16 @@ assert.equal(combinedCatalogFreshness(freshPartial, { ...publicHealth, generated
 const allFailed = { current: initial, baselines, collector: collector(), policyHash, groups: BASE_TRANSACTIONS, shadow: false, now: () => nextTime, build: async () => { throw new Error('failed') } }
 await assert.rejects(runTransactions(allFailed), /ALL_TRANSACTIONS_BLOCKED/)
 await assert.rejects(runTransactions({ ...allFailed, atomic: true }), /ATOMIC_REFRESH_BLOCKED/)
+for (const atomic of [false, true]) {
+  const findings = [{ code: 'ARTICLE_CVE_EVIDENCE_CHANGED', articleId: 'kb4853' }]
+  await assert.rejects(runTransactions({ ...allFailed, groups: [PRODUCT_IDS], atomic,
+    build: async () => { throw Object.assign(new Error('Specific source evidence changed'), { report: { findings } }) },
+  }), error => {
+    assert.equal(error.code, atomic ? 'ATOMIC_REFRESH_BLOCKED' : 'ALL_TRANSACTIONS_BLOCKED')
+    assert.deepEqual(error.report.findings, findings)
+    return true
+  })
+}
 await assert.rejects(runTransactions({ ...allFailed, build: async () => { throw Object.assign(new Error('unknown scope'), { code: 'UNKNOWN_SOURCE_OWNERSHIP' }) } }), /unknown scope/)
 await assert.rejects(runTransactions({ ...allFailed, reviewTexts: { kb3103: baselines.articles.kb3103.normalizedText + ' CVE-2099-99999' } }), /UNCLASSIFIED_NEW_CVE/)
 assert.throws(() => assembleCatalog({ current: legacy, baselines, outcomes: [{ productIds: ['vb365'], failureCodes: ['FAIL'] }, ...BASE_TRANSACTIONS.slice(0,3).map(productIds => ({ productIds, result: candidate(legacy, productIds) }))], ...collector(), policyHash, assembledAt: nextTime }), /SCHEMA_MIGRATION/)

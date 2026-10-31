@@ -176,7 +176,7 @@ export interface Catalog {
     articleId: string
     observedCveIds: string[]
     securityFingerprint: string
-    securityFingerprintVersion: 2
+    securityFingerprintVersion: 2 | 3
     catalogFingerprint: string
     parsedModelFingerprint?: string
   }>

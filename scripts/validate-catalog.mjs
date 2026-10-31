@@ -52,7 +52,7 @@ for (const state of catalog.vspcKbCvePageStates) {
   assert(catalog.vspcKbArticleIds.includes(state.articleId), `VSPC KB CVE page state ${state.articleId} must reference a discovered article`)
   assert(Array.isArray(state.observedCveIds) && state.observedCveIds.length > 0 && new Set(state.observedCveIds).size === state.observedCveIds.length && state.observedCveIds.every((cve) => /^CVE-\d{4}-\d{4,}$/.test(cve)), `VSPC KB CVE page state ${state.articleId} has invalid observed CVEs`)
   assert(/^sha256:[a-f0-9]{64}$/.test(state.securityFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid semantic fingerprint`)
-  assert(state.securityFingerprintVersion === 2, `VSPC KB CVE page state ${state.articleId} must retain semantic fingerprint version 2`)
+  assert([2, 3].includes(state.securityFingerprintVersion), `VSPC KB CVE page state ${state.articleId} must retain a supported semantic fingerprint version`)
   assert(/^sha256:[a-f0-9]{64}$/.test(state.catalogFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid catalog fingerprint`)
   if (state.parsedModelFingerprint !== undefined) assert(/^sha256:[a-f0-9]{64}$/.test(state.parsedModelFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid parsed-model fingerprint`)
 }

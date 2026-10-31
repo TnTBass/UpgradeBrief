@@ -60,7 +60,6 @@ function safeFileSegment(value: string): string {
 
 export function buildExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): jsPDF {
   const document = new jsPDF({ format: 'letter', orientation: 'portrait', unit: 'pt' })
-  let y = margin
 
   document.setFillColor(0, 110, 109)
   document.rect(0, 0, pageWidth, 90, 'F')
@@ -70,7 +69,7 @@ export function buildExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): jsPDF
   document.text('UPGRADE BRIEF', margin, 32)
   document.setFontSize(21)
   document.text('Executive summary', margin, 62)
-  y = 117
+  let y = 117
 
   document.setTextColor(29, 42, 53)
   document.setFont('helvetica', 'bold')
