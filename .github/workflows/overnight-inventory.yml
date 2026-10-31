@@ -1,47 +1,16 @@
-name: Validate inventory retirement
+name: Diagnose changed source evidence
 on:
   push:
     branches: [codex/overnight-inventory-20261031]
-    paths:
-      - scripts/lib/**
-      - scripts/test-vspc-kb-cve-coverage.mjs
-      - .github/workflows/overnight-inventory.yml
 permissions:
-  contents: write
-concurrency:
-  group: overnight-inventory-validation
-  cancel-in-progress: false
+  contents: read
 jobs:
-  validate:
+  diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: node scripts/test-vspc-kb-cve-coverage.mjs
-      - run: node scripts/refresh-catalog.mjs --live
-      - name: Require complete validation of all products
-        run: |
-          node --input-type=module -e "import {readFileSync} from 'node:fs'; const r=JSON.parse(readFileSync('artifacts/catalog-review/refresh-result.json')); if(r.status!=='complete'||!r.shadowCompared)throw Error('Complete refresh and atomic equivalence required'); console.log(JSON.stringify(r));"
-      - run: node scripts/verify-catalog-repair.mjs
-      - name: Save validated snapshot on this repair branch
-        run: |
-          test "$(git rev-parse HEAD)" = "$(git ls-remote origin refs/heads/codex/overnight-inventory-20261031 | cut -f1)" || { echo 'Branch changed; discard this candidate.'; exit 1; }
-          git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
-          git diff --cached --quiet && exit 0
-          git config user.name 'upgrade-brief[bot]'
-          git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
-          git commit -m 'Refresh all products after reviewed KB4131 retirement'
-          git push origin HEAD:codex/overnight-inventory-20261031
-      - uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: inventory-retirement-validation
-          path: |
-            artifacts/catalog-review/
-            artifacts/catalog-repair/verification/
-          retention-days: 7
+      - run: node scripts/diagnose-overnight-inventory.mjs
