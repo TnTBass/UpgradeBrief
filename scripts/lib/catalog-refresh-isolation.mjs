@@ -122,7 +122,12 @@ export async function runTransactions({ current, baselines, collector, policyHas
       outcomes.push({ productIds, failureCodes: codes, error: String(error.message).slice(0,1200), reviewError: error })
     }
   }
-  if (atomic && outcomes.some(outcome => !outcome.result)) fail('ATOMIC_REFRESH_BLOCKED')
+  const failed = outcomes.filter(outcome => !outcome.result)
+  const failureReport = { findings: failed.flatMap(item => item.reviewError.report?.findings ?? [{ code: item.failureCodes[0], productIds: item.productIds }]) }
+  if (failed.length && (atomic || failed.length === outcomes.length)) {
+    const code = atomic ? 'ATOMIC_REFRESH_BLOCKED' : 'ALL_TRANSACTIONS_BLOCKED'
+    throw Object.assign(new Error(code + ': ' + failed.map(item => item.error).join('; ')), { code, report: failureReport })
+  }
   const assembled = assembleCatalog({ current, baselines, outcomes, observations: collector.observations, usage: collector.usage, policyHash, assembledAt })
   // Always compare a fully successful isolated refresh with the same adapters
   // run atomically over the same cached bytes. No second network observation.
@@ -133,8 +138,7 @@ export async function runTransactions({ current, baselines, collector, policyHas
     if (hash(Object.entries(oracle.baselines.articles).sort()) !== hash(Object.entries(assembled.baselines.articles).sort())) fail('ATOMIC_BASELINE_MISMATCH')
     shadowCompared = true
   }
-  const failed = outcomes.filter(outcome => !outcome.result)
-  const reviewError = failed.length ? Object.assign(new Error('Partial refresh: ' + failed.map(item => item.productIds.join('+') + ': ' + item.error).join('; ')), { report: { findings: failed.flatMap(item => item.reviewError.report?.findings ?? [{ code: item.failureCodes[0], productIds: item.productIds }]) } }) : undefined
+  const reviewError = failed.length ? Object.assign(new Error('Partial refresh: ' + failed.map(item => item.productIds.join('+') + ': ' + item.error).join('; ')), { report: failureReport }) : undefined
   return { ...assembled, reviewError,
     equivalentChanges: outcomes.flatMap(outcome => outcome.result?.equivalentChanges ?? []),
     inventoryChanges: outcomes.flatMap(outcome => outcome.result?.inventoryChanges ?? []),

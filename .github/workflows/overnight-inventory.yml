@@ -1,7 +1,10 @@
-name: Diagnose changed source evidence
+name: Validate evidence scope and dependency recovery
 on:
   push:
     branches: [codex/overnight-inventory-20261031]
+    paths:
+      - scripts/lib/**
+      - .github/workflows/overnight-inventory.yml
 permissions:
   contents: read
 jobs:
@@ -14,3 +17,27 @@ jobs:
         with:
           node-version-file: .nvmrc
       - run: node scripts/diagnose-overnight-inventory.mjs
+  dependency-trial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+      - name: Try patched glob matcher with supported current lint tooling
+        run: |
+          npm pkg set 'overrides.minimatch=11.0.3'
+          npm install --ignore-scripts --save-dev --save-exact eslint@10.14.0 @eslint/js@10 typescript-eslint@8.72.1 eslint-plugin-react-hooks@latest eslint-plugin-react-refresh@latest
+          npm ls eslint minimatch typescript-eslint eslint-plugin-react-hooks eslint-plugin-react-refresh
+          npm audit --audit-level=moderate
+      - run: node scripts/verify-catalog-repair.mjs
+      - name: Save passing dependency trial to a separate branch
+        run: |
+          git add package.json package-lock.json
+          git config user.name 'upgrade-brief[bot]'
+          git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
+          git commit -m 'Update lint tooling to use patched minimatch'
+          git push origin HEAD:codex/overnight-dependency-candidate-20261031
