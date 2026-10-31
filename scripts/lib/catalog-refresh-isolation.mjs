@@ -4,7 +4,7 @@ import { createCatalogSourceFetcher } from './source-fetch.mjs'
 import { pinnedSecurityArticles, securityClassificationOverrides } from './catalog-refresh-registry.mjs'
 import { assertSecurityFeedContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractSecurityArticleScope, extractCveIds, fetchSecurityFeedPages, fingerprintSecurityArticleContent } from './security-feed-coverage.mjs'
 import { normalizeReviewedSecurityMainArticle } from './reviewed-security-advisories.mjs'
-import { fetchVspcKbInventory } from './vspc-kb-cve-coverage.mjs'
+import { assertVspcKbInventoryContinuity, fetchVspcKbInventory } from './vspc-kb-cve-coverage.mjs'
 import { parseCisaKev } from './cisa-kev.mjs'
 import { parseLifecyclePolicies } from './lifecycle.mjs'
 import { PRODUCT_IDS, PRODUCT_COLLECTIONS, assembleCatalog, createObservationCollector, hash, productPartition, sourceIdsForProduct, transactionClosure, validateCatalogProvenance } from './catalog-provenance.mjs'
@@ -44,7 +44,7 @@ export async function discoverTransactions({ current, baselines, collector, poli
     text(source('lifecycle').url, 'lifecycle'),
   ])
   assertSecurityFeedContinuity(current.securityFeedArticleIds, feed.articles)
-  if ((current.vspcKbArticleIds ?? []).some(id => !inventory.articles.some(article => article.id === id))) fail('VSPC_INVENTORY_TRUNCATED')
+  assertVspcKbInventoryContinuity({ previousArticleIds: current.vspcKbArticleIds, previousPageStates: current.vspcKbCvePageStates, previousCatalog: current, articles: inventory.articles })
   validateGlobalDatasets(current, kev, lifecycle)
   const articles = [...feed.articles, ...pinnedSecurityArticles.filter(item => !feed.articles.some(article => article.id.toLowerCase() === item.id))]
   const classified = classifySecurityFeedArticles({ articles, classifications: buildSecurityArticleClassifications(articles, securityClassificationOverrides) })
