@@ -25,7 +25,7 @@ Production retained the October 30 20:45 UTC catalog. The October 31 20:39 UTC p
 
 The incident inventory and prior revision are archived in `scripts/fixtures/catalog-repair/2026-10-31-inventory-retirement.json`. The regression suite covers the exact retirement, altered provenance, added security/citation dependencies, a second missing article, repair diagnostic serialization, and a reintroduced page with an unmodeled CVE.
 
-Validation: targeted VSPC coverage, product isolation, October recovery replay and changed-file lint passed locally. A complete live refresh and all repository checks must pass on the branch before publication.
+Validation: [live job 124669280699](https://github.com/TnTBass/UpgradeBrief/actions/runs/41245944469/job/124669280699) completed a full refresh, confirmed atomic equivalence and passed all 35 repository checks. All six products are validated at 2026-10-31T22:01:17.118Z; the catalog retains 272 releases and 110 security findings, with unchanged release/security records. The accepted catalog hash is `2bdeb12fe6cbff4b22da5443cf6df049a8d889296fbbb2b67f48f32f647e5b7a` and policy hash is `4b1b5159ce3fa6653414658b14fabb12531f3e8704b0eb9702e3c7b1d5d0a6af`.
 
 ## Additional blockers found during recovery
 
