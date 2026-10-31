@@ -20,9 +20,19 @@ Production retained the October 30 20:45 UTC catalog. The October 31 20:39 UTC p
 - Permit only the reviewed KB4131 retirement, bound to its exact previously accepted fetched revision and VSPC validation evidence.
 - Refuse retirement if the prior revision differs, evidence is absent, or any accepted catalog/security/ownership record references the article.
 - Continue to reject all other unexplained missing articles, duplicate entries, incomplete pagination, missing CVEs and changed security scope.
-- A reappearing KB4131 goes through ordinary page and CVE validation; the retirement does not skip its content.
+- If KB4131 returns to the inventory, it goes through ordinary page and CVE validation; the retirement does not skip its content.
 - Missing-article errors now carry the exact KB ID plus previous/current inventory counts through source-review and repair evidence. Triage classifies them as coverage investigations.
 
 The incident inventory and prior revision are archived in `scripts/fixtures/catalog-repair/2026-10-31-inventory-retirement.json`. The regression suite covers the exact retirement, altered provenance, added security/citation dependencies, a second missing article, repair diagnostic serialization, and a reintroduced page with an unmodeled CVE.
 
 Validation: targeted VSPC coverage, product isolation, October recovery replay and changed-file lint passed locally. A complete live refresh and all repository checks must pass on the branch before publication.
+
+## Additional blockers found during recovery
+
+The first complete live attempt passed inventory continuity and then stopped on nine changed VSPC fingerprints. [Source comparison](https://github.com/TnTBass/UpgradeBrief/actions/runs/41245188650) showed that the version-2 fingerprint included global navigation and footer text. The six pages with accepted normalized-text baselines matched those baselines exactly. The other three pages were reviewed against their existing coverage: KB4539's server-side Veeam Intelligence exclusion; KB4651's two vulnerabilities also documented in unchanged KB4679; and KB4788's release security sections, already covered by the catalog and release-security adapters.
+
+Fingerprint version 3 scopes evidence to the article, excludes navigation/footer/support-feedback components, and preserves security metadata. Migration from the nine accepted version-2 hashes is pinned to exact reviewed version-3 hashes and also requires unchanged CVE sets, catalog fingerprints and parsed-model fingerprints. Unknown transitions continue to block. The captured evidence is in `2026-10-31-fingerprint-scope.json`; the KB4893 HTML regression fixture verifies the exact transition and rejects changed applicability, baseline hashes and parser models. Synthetic fixtures verify that later menu/footer edits do not trigger a failure while article and metadata changes still do.
+
+The all-transactions-blocked and atomic-blocked paths now retain each underlying article finding in the review artifact. This prevents a detailed source failure from being replaced with an uninformative aggregate error.
+
+The dependency check also identified a newly indexed moderate advisory, [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249), in the development-only minimatch dependency chain. It is unrelated to the live catalog source failure. The accepted remediation upgrades ESLint to 10.14.0, @eslint/js to 10.0.1, typescript-eslint to 8.72.1 and compatible React lint plugins, with minimatch pinned to 11.0.3. The isolated dependency candidate passed lint, all 35 repository checks and an audit with zero findings ([run 41246105093](https://github.com/TnTBass/UpgradeBrief/actions/runs/41246105093)). The new linter identified one redundant initial PDF layout assignment, which was removed without changing output. No audit threshold is relaxed and no forced downgrade is used.
