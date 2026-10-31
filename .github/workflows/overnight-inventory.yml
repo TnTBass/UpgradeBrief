@@ -1,0 +1,16 @@
+name: Diagnose overnight inventory
+on:
+  push:
+    branches: [codex/overnight-inventory-20261031]
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+      - run: node scripts/diagnose-overnight-inventory.mjs
