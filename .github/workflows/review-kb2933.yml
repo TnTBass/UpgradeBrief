@@ -1,0 +1,16 @@
+name: Review Veeam inventory source
+on:
+  push:
+    branches: [codex/kb2933-source-review-20261105]
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+      - run: node review-kb2933.mjs
