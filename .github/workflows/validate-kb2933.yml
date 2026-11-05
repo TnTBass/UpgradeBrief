@@ -1,0 +1,32 @@
+name: Validate November 5 catalog recovery
+on:
+  push:
+    branches: [codex/kb2933-live-20261105]
+    paths:
+      - '.github/workflows/validate-kb2933.yml'
+      - 'scripts/**'
+permissions:
+  contents: write
+jobs:
+  recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run test:vspc-kb-cve-coverage
+      - run: npm run refresh:catalog -- --live
+      - run: node scripts/report-partial-refresh.mjs
+      - run: node scripts/verify-catalog-repair.mjs
+      - run: npm audit --audit-level=moderate
+      - name: Save the verified snapshot on this validation branch
+        run: |
+          git config user.name 'upgrade-brief[bot]'
+          git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
+          git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
+          git commit -m 'Refresh all six products against live sources'
+          git push origin HEAD:refs/heads/codex/kb2933-live-20261105
