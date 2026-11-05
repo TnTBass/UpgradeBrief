@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "bundle": {
+    "schemaVersion": 1,
+    "environment": "production",
+    "validatorVersion": "3-supported-semantics-and-isolated-trials",
+    "baseCommit": "0c65441afb3acfbc27cfaebc31656e8bc974df41",
+    "policyFingerprint": "sha256:0364ceb2a04cda88ea3846e38b544c2f68cac7991d7a7095f02f7421130b0caa",
+    "runId": "42026598432",
+    "capturedAt": "2026-11-05T12:23:03.656Z",
+    "failure": {
+      "message": "VSPC inventory continuity failed: kb2933: INVENTORY_ARTICLE_DISAPPEARED",
+      "code": "VSPC_KB_CVE_COVERAGE_FAILED",
+      "report": {
+        "schemaVersion": 1,
+        "ok": false,
+        "code": "VSPC_KB_CVE_COVERAGE_FAILED",
+        "articleCount": 70,
+        "cvePageCount": 0,
+        "findingCount": 1,
+        "findings": [
+          {
+            "code": "INVENTORY_ARTICLE_DISAPPEARED",
+            "articleId": "kb2933",
+            "actual": 70,
+            "expected": 71
+          }
+        ],
+        "fingerprint": "sha256:2fc0ffa41eeff37f73df41aada88e82f8c46161793217379756e1f19d90f8066"
+      }
+    },
+    "articles": [],
+    "evidenceId": "sha256:80d251f158fc6bc9a2ac66e31f4207450790ce40a1847ca5857f6c8d88ee4e97"
+  },
+  "proposal": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:80d251f158fc6bc9a2ac66e31f4207450790ce40a1847ca5857f6c8d88ee4e97",
+    "baseCommit": "0c65441afb3acfbc27cfaebc31656e8bc974df41",
+    "articles": []
+  },
+  "extractions": {},
+  "result": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:80d251f158fc6bc9a2ac66e31f4207450790ce40a1847ca5857f6c8d88ee4e97",
+    "baseCommit": "0c65441afb3acfbc27cfaebc31656e8bc974df41",
+    "status": "blocked",
+    "eligibleForPublication": false,
+    "blocked": [
+      {
+        "code": "UNSUPPORTED_FAILURE",
+        "categories": [
+          "parser-or-coverage"
+        ]
+      },
+      {
+        "code": "MISSING_SOURCE_EVIDENCE"
+      },
+      {
+        "code": "MISSING_FINDING_EVIDENCE",
+        "articleId": "kb2933"
+      }
+    ],
+    "checks": {
+      "passed": [
+        "evidence-integrity",
+        "proposal-schema",
+        "base-and-policy-continuity"
+      ],
+      "notRun": [
+        "full-catalog-validation",
+        "live-refresh",
+        "fresh-source-verification",
+        "github-checks",
+        "publication",
+        "notification-delivery"
+      ]
+    },
+    "files": {}
+  }
+}
