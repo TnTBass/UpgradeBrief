@@ -5,6 +5,24 @@ import { classifyUrgency } from './urgency'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './upgrade-summary'
 
 describe('catalog lookup', () => {
+  it('keeps KB4966 visible on current VBR builds until component patches are verified', () => {
+    for (const version of ['12.3.0.310', '12.3.2.4934', '13.1.0.411', '13.1.2.57']) {
+      const release = findRelease(catalog, 'vbr', version)!
+      expect(release).toBeDefined()
+      const finding = findingsForRelease(catalog, release).find(item => item.cves.includes('CVE-2026-98432'))!
+      expect(finding).toBeDefined()
+      expect(classifyUrgency(finding)).toBe('critical')
+      expect(finding.fixedReleaseId).toBeUndefined()
+      expect(finding.remediation).toContain('Veeam Updater')
+      expect(finding.remediation).toContain('private fix')
+      expect(finding.remediation).toContain('12.3 private fix was pending')
+      expect(finding.conditions.join(' ')).toContain('separate verification')
+    }
+    const findings = catalog.securityFindings.filter(item => item.cves.includes('CVE-2026-98432'))
+    expect(findings).toHaveLength(1)
+    expect(findings[0].productId).toBe('vbr')
+  })
+
   it('keeps the October VBR and Enterprise Manager fixes within their documented product and build boundaries', () => {
     for (const [productId, cves] of [
       ['vbr', ['CVE-2025-64393', 'CVE-2026-93026']],

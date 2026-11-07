@@ -1,0 +1,35 @@
+name: Validate November 7 security advisory recovery
+on:
+  push:
+    branches: [codex/kb4966-live-20261107]
+    paths:
+      - '.github/workflows/validate-kb4966.yml'
+      - 'scripts/**'
+      - 'src/lib/lookup.test.ts'
+      - 'review-kb4966.mjs'
+permissions:
+  contents: write
+jobs:
+  recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run test:reviewed-security-advisories
+      - run: node review-kb4966.mjs
+      - run: npm run refresh:catalog -- --live
+      - run: node scripts/report-partial-refresh.mjs
+      - run: node scripts/verify-catalog-repair.mjs
+      - run: npm audit --audit-level=moderate
+      - name: Save the verified snapshot on this validation branch
+        run: |
+          git config user.name 'upgrade-brief[bot]'
+          git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
+          git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
+          git commit -m 'Validate all six products including KB4966'
+          git push origin HEAD:refs/heads/codex/kb4966-live-20261107
