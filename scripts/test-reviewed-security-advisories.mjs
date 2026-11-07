@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
-import { inspectSecurityFeedCoverage } from './lib/security-feed-coverage.mjs'
+import { buildSecurityArticleClassifications, classifySecurityFeedArticles, inspectSecurityFeedCoverage } from './lib/security-feed-coverage.mjs'
 import {
   REVIEWED_SECURITY_ADVISORIES,
   REVIEWED_SECURITY_CLASSIFICATIONS,
@@ -184,3 +184,28 @@ const unknownCoverage = inspectSecurityFeedCoverage({ articles: [noImpactArticle
 assert.ok(unknownCoverage.report.findings.some(finding => finding.code === 'UNCLASSIFIED_SECURITY_ARTICLE'))
 
 console.log('Reviewed cross-product security advisory fixture test passed.')
+
+const kernelArticle = {
+  id: 'kb4966', type: 'security', url: '/kb4966', seoTitle: 'CVE-2026-98432 Impact Statement',
+  product: ['Veeam Backup & Replication', 'Veeam Software Appliance', 'Veeam Agent for Linux',
+    'Veeam Plug-In for AWS', 'Veeam Plug-In for Microsoft Azure', 'Veeam Plug-In for Google Cloud',
+    'Veeam Cloud Connect', 'Veeam Kasten for Kubernetes'].map(title => ({ title })),
+}
+const kernelClassification = classifySecurityFeedArticles({
+  articles: [kernelArticle],
+  classifications: buildSecurityArticleClassifications([kernelArticle], REVIEWED_SECURITY_CLASSIFICATIONS),
+})[0]
+assert.equal(kernelClassification.classification, 'dedicated')
+assert.deepEqual(kernelClassification.productIds, ['vbr'])
+assert.equal(kernelClassification.multiProduct, true)
+const kernelObservation = observeReviewedSecurityArticle('kb4966', 'CVE-2026-98432')
+assert.deepEqual(kernelObservation.observedCvesByProduct, { vbr: ['CVE-2026-98432'] })
+assert.throws(() => observeReviewedSecurityArticle('kb4966', 'CVE-2026-98432 CVE-2099-12345'), ReviewedSecurityObservationError)
+assert.throws(() => observeReviewedSecurityArticle('kb4966', ''), ReviewedSecurityObservationError)
+const kernelCoverage = inspectSecurityFeedCoverage({
+  articles: [kernelArticle], classifications: REVIEWED_SECURITY_CLASSIFICATIONS,
+  articlePages: { kb4966: { ...kernelObservation, observedProductIds: ['vbr'], observedOutOfScopeProduct: true } },
+  catalog: merged.catalog, parsedCoverage: REVIEWED_SECURITY_PARSED_COVERAGE,
+})
+assert.equal(kernelCoverage.report.ok, true, JSON.stringify(kernelCoverage.report))
+assert.deepEqual(merged.catalog.securityFindings.filter(finding => finding.cves.includes('CVE-2026-98432')).map(finding => finding.productId), ['vbr'])
