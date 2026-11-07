@@ -830,6 +830,32 @@
           "cvssScore": 5.9
         }
       ]
+    },
+    {
+      "articleId": "kb4966",
+      "productId": "vbr",
+      "source": {
+        "id": "kb4966",
+        "title": "Veeam KB4966: CVE-2026-98432 Impact Statement",
+        "url": "https://www.veeam.com/kb4966"
+      },
+      "affectedVersionPrefixes": [
+        "12.3.",
+        "13.1."
+      ],
+      "remediation": "For Software/Infrastructure Appliance 13.1, install the kernel update through Veeam Updater. For Windows VBR 13.1, install 13.1.2.57 and the KB4966 private fix, or use the repacked installation ISO. The VBR 12.3 private fix was pending on November 6, 2026. Redeploy persistent helper appliances and replace recovery media as directed in KB4966.",
+      "conditions": [
+        "Applies to the Linux components listed in KB4966, including helper appliances used by Windows backup servers. Verify the deployed component and its patch level.",
+        "The VBR build number alone cannot establish remediation. Appliance kernels and Windows private fixes require separate verification.",
+        "Cloud plug-in appliances require their updater's kernel patches. Customer-managed Linux hosts and Kubernetes nodes require their operating-system vendor's guidance."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2026-98432",
+          "title": "Linux kernel TCP/IPv4 use-after-free vulnerability in Veeam Linux components.",
+          "cvssScore": 9.8
+        }
+      ]
     }
   ],
   "observationSpecs": {
@@ -1358,6 +1384,15 @@
       "ignoredCveIds": [
         "CVE-2026-105477"
       ],
+      "multiProduct": true
+    },
+    "kb4966": {
+      "classification": "dedicated",
+      "productCves": {
+        "vbr": [
+          "CVE-2026-98432"
+        ]
+      },
       "multiProduct": true
     }
   }
