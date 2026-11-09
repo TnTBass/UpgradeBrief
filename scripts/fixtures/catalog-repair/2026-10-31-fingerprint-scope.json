@@ -1,0 +1,422 @@
+{
+  "schemaVersion": 1,
+  "acceptedCommit": "e8b2d1d2693d139174ac97da86e8a90d41120405",
+  "diagnosticRun": "https://github.com/TnTBass/UpgradeBrief/actions/runs/41245710020",
+  "articles": [
+    {
+      "articleId": "kb4539",
+      "before": {
+        "articleId": "kb4539",
+        "observedCveIds": [
+          "CVE-2025-27789"
+        ],
+        "securityFingerprint": "sha256:a770a333195ec0824a0b779b7a4b663be5c1c5811a26fd9adbbdb51ec33624a0",
+        "securityFingerprintVersion": 2,
+        "catalogFingerprint": "sha256:ade24c5da04e74b5cb1b521ae3faf64b466b3ab5ce4b5252c565351d3b9e9f5d"
+      },
+      "after": {
+        "securityFingerprint": "sha256:a1a30e2068aa3260a2b378c6c9ec5d4c3a1f4da328d4b5cdfeaf5681672d4ad3",
+        "observedCveIds": [
+          "CVE-2025-27789"
+        ],
+        "metadataFingerprint": "sha256:c650dc69a114e4b0f8b443d69a2b4568e8c68ad55e256d2884f7f1f384c66b41",
+        "evidenceSegments": [
+          "text:veeam backup & replication user guide > veeam intelligence",
+          "text:veeam one user guide > veeam intelligence",
+          "text:veeam service provider console guide for end users>veeam intelligence",
+          "text:this article documents new features, enhancements, and fixes deployed for the veeam intelligence backend logic.",
+          "text:since all veeam intelligence updates are server-side, no updates to veeam backup & replication, veeam one, or veeam service provider console are required to take advantage of the changes described in this article.",
+          "text:security & stability updates: routine bug fixes plus library upgrades that resolve known vulnerabilities (e.g., cve-2025-27789), delivering a safer and more reliable veeam intelligence experience.",
+          "metadata:veeam intelligence updates"
+        ]
+      },
+      "mainMatchesAcceptedReviewBaseline": false,
+      "hasAcceptedReviewBaseline": false
+    },
+    {
+      "articleId": "kb4575",
+      "before": {
+        "articleId": "kb4575",
+        "observedCveIds": [
+          "CVE-2024-29212"
+        ],
+        "securityFingerprint": "sha256:1373db23a7a7878e2cfad2bae3530e842aa68339730559bfbb57cbb84c549e39",
+        "securityFingerprintVersion": 2,
+        "catalogFingerprint": "sha256:840de5ca691f6c7e24aa0685cc7a1571dc5d8be271dd7d4b5628eb2e0ca5e828",
+        "parsedModelFingerprint": "sha256:7e017d1fe7e65322480e952e363de2cc85a87c1c98e6d374e0621b31a7468f6b"
+      },
+      "after": {
+        "securityFingerprint": "sha256:e2603521309c280a4cdeb99b2a3026fe26a4ea5a7785ce7e7827e1a69d283a67",
+        "observedCveIds": [
+          "CVE-2024-29212"
+        ],
+        "metadataFingerprint": "sha256:52140de61513afa645e2ba3088007b167b69b262c8babe46aefa04f76f542f24",
+        "evidenceSegments": [
+          "heading:veeam service provider console vulnerability ( cve-2024-29212 )",
+          "text:kb id: 4575",
+          "text:product: veeam service provider console | 4.0 | 5.0 | 6.0 | 7.0 | 8.0 | 8.1 | 9 | 9.1 | 9.2 | 9.3",
+          "text:published: 2024-05-07",
+          "text:last modified: 2024-09-12",
+          "text:on may 28th, 2024, veeam issued an enhanced update to address this critical vulnerability in veeam service provider console (vspc). although our initial patch, issued on may 7th, effectively addressed the primary concern, a subsequent review identified an area for further improvement. to ensure comprehensive protection, we swiftly developed and released a refined patch that fully mitigates the issue. we're confident this updated version reinforces the security of vspc and demonstrates our commitment to continually strengthening our response measures.",
+          "heading:issue details",
+          "heading:cve-2024-29212",
+          "text:due to an unsafe deserialization method used by the veeam service provider console (vspc) server in communication between the management agent and its components, under certain conditions, it is possible to perform remote code execution (rce) on the vspc server machine.",
+          "text:this vulnerability was detected during internal testing.",
+          "text:severity: critical cvss v3.1 score: 9.9 cvss:3.0/av:n/ac:l/pr:l/ui:n/s:c/c:h/i:h/a:h",
+          "heading:solution",
+          "text:veeam service provider console 7.0.0.19551",
+          "text:veeam service provider console 8.0.0.19552",
+          "metadata:due to an unsafe deserialization method used by the veeam service provider console (vspc) server in communication between the management agent and its components, under certain conditions, it is possible to perform remote code execution (rce) on the vspc server machine."
+        ]
+      },
+      "mainMatchesAcceptedReviewBaseline": true,
+      "hasAcceptedReviewBaseline": true
+    },
+    {
+      "articleId": "kb4649",
+      "before": {
+        "articleId": "kb4649",
+        "observedCveIds": [
+          "CVE-2024-38650",
+          "CVE-2024-38651",
+          "CVE-2024-39714",
+          "CVE-2024-39715",
+          "CVE-2024-45206"
+        ],
+        "securityFingerprint": "sha256:87ac95b91adf882018f3655f07c0a1fa74fb7f1533a1ad33ad19745e6b68b411",
+        "securityFingerprintVersion": 2,
+        "catalogFingerprint": "sha256:df4b6138ae72f06cc6eb67b028e8d71a75942c39d89358c239ade04013b4da08",
+        "parsedModelFingerprint": "sha256:aaa19f896e1afa920f4a222051f36fb009d2c2abfd67a5626115f4a932fce184"
+      },
+      "after": {
+        "securityFingerprint": "sha256:9af469168d9b0efbc5561239ce4164af9696b1db72abd88f673809a533d469ce",
+        "observedCveIds": [
+          "CVE-2024-38650",
+          "CVE-2024-38651",
+          "CVE-2024-39714",
+          "CVE-2024-39715",
+          "CVE-2024-45206"
+        ],
+        "metadataFingerprint": "sha256:3babf73624ba139551c825423f790444dc186d44ac8e7cad336c3b7ed73a027c",
+        "evidenceSegments": [
+          "heading:issue details",
+          "text:all vulnerabilities disclosed in this section were discovered during internal testing (unless otherwise indicated) and affect veeam service provider console 8.0.0.19552 and all earlier version 8 and version 7 builds . unsupported product versions are not tested, but are likely affected and should be considered vulnerable.",
+          "heading:cve-2024-38650",
+          "text:a vulnerability that allows a low privileged attacker to access the ntlm hash of service account on the vspc server.",
+          "text:this vulnerability was reported via hackerone.",
+          "text:severity: critical cvss v3.1 score: 9.9 cvss:3.1/av:n/ac:l/pr:l/ui:n/s:c/c:h/i:h/a:h",
+          "heading:cve-2024-39714",
+          "text:a vulnerability that permits a low-privileged user to upload arbitrary files to the server, leading to remote code execution on vspc server.",
+          "text:this vulnerability was reported via hackerone.",
+          "text:severity: critical cvss v3.1 score: 9.9 cvss:3.1/av:n/ac:l/pr:l/ui:n/s:c/c:h/i:h/a:h",
+          "heading:cve-2024-39715",
+          "text:a vulnerability that allows a low-privileged user with rest api access granted to remotely upload arbitrary files to the vspc server using rest api, leading to remote code execution on vspc server.",
+          "text:this vulnerability was reported via hackerone.",
+          "text:severity: high cvss v3.1 score: 8.5 cvss:3.1/av:n/ac:h/pr:l/ui:n/s:c/c:h/i:h/a:h",
+          "heading:cve-2024-38651",
+          "text:a vulnerability that permits a low-privileged user to overwrite files on that vspc server, which can lead to remote code execution on vspc server.",
+          "text:this vulnerability was reported via hackerone.",
+          "text:severity: high cvss v3.1 score: 8.5 cvss:3.1/av:n/ac:h/pr:l/ui:n/s:c/c:h/i:h/a:h",
+          "heading:cve-2024-45206",
+          "text:a vulnerability that allows an attacker to perform arbitrary http requests to arbitrary hosts of the network and get information about internal resources.",
+          "text:this vulnerability was reported by nikita petrov ( positive technologies ) via hackerone.",
+          "text:severity: medium cvss v3.1 score: 6.5 cvss:3.1/av:n/ac:l/pr:n/ui:n/s:u/c:l/i:l/a:n",
+          "heading:solution",
+          "text:the vulnerabilities documented in this section were fixed starting in the following build:",
+          "text:veeam service provider console v8.1 (build 8.1.0.21377)",
+          "metadata:veeam security bulletin (september 2024)"
+        ]
+      },
+      "mainMatchesAcceptedReviewBaseline": true,
+      "hasAcceptedReviewBaseline": true
+    },
+    {
+      "articleId": "kb4651",
+      "before": {
+        "articleId": "kb4651",
+        "observedCveIds": [
+          "CVE-2024-42448",
+          "CVE-2024-42449"
+        ],
+        "securityFingerprint": "sha256:8641b62e69091725536ad7359220a34968e1de52000072d8e60fcfd602e06bb5",
+        "securityFingerprintVersion": 2,
+        "catalogFingerprint": "sha256:dab34ed765da5ddfd3cec913d47989b14bee6c6b1341a0b36337957aa318c8a8"
+      },
+      "after": {
+        "securityFingerprint": "sha256:b7c9c862c44a07c18584de432e845adc72d697218d53f7ad3c5eb088e5853814",
+        "observedCveIds": [
+          "CVE-2024-42448",
+          "CVE-2024-42449"
+        ],
+        "metadataFingerprint": null,
+        "evidenceSegments": [
+          "heading:vulnerabilities",
+          "text:cve- 2024-42448 | severity: critical (9.9) from the vspc management agent machine, under the condition that the management agent is authorized on the server, it is possible to perform remote code execution (rce) on the vspc server machine.",
+          "text:cve- 2024-42449 | severity: high (7.1) from the vspc management agent machine, under the condition that the management agent is authorized on the server, it is possible to leak an ntlm hash of the vspc server service account and delete files on the vspc server machine."
+        ]
+      },
+      "mainMatchesAcceptedReviewBaseline": false,
+      "hasAcceptedReviewBaseline": false
+    },
+    {
+      "articleId": "kb4679",
+      "before": {
+        "articleId": "kb4679",
+        "observedCveIds": [
+          "CVE-2024-42448",
+          "CVE-2024-42449"
+        ],
+        "securityFingerprint": "sha256:fbc044dacdbf7ed1024411643160c027300558b52a4cee83a29ffb53a3346b4c",
+        "securityFingerprintVersion": 2,
+        "catalogFingerprint": "sha256:dab34ed765da5ddfd3cec913d47989b14bee6c6b1341a0b36337957aa318c8a8",
+        "parsedModelFingerprint": "sha256:152ce466100fd679a1c24dae621527a3c3c1891e424c35aac35ec369f926d532"
+      },
+      "after": {
+        "securityFingerprint": "sha256:df9eccef0fccd294099b1eff0266cc66b47cef81d5553c8e182f423a2b1d57a4",
+        "observedCveIds": [
+          "CVE-2024-42448",
+          "CVE-2024-42449"
+        ],
+        "metadataFingerprint": "sha256:42b7797b8276dcc746903982fff360921c3893eb51159476a3a13731a1d917ef",
+        "evidenceSegments": [
+          "heading:veeam service provider console vulnerabilities (cve-2024-42448 | cve-2024-42449)",
+          "text:kb id: 4679",
+          "text:product: veeam service provider console | 8.1",
+          "text:published: 2024-12-03",
+          "text:last modified: 2024-12-04",
+          "heading:issue details",
+          "text:all vulnerabilities disclosed in this section affect veeam service provider console 8.1.0.21377 and all earlier versions 8 and 7 builds .",
+          "text:note: private fixes for the veeam service provider console increase the build number. therefore, if a private fix has been applied, the deployed build number may exceed the ga build number mentioned above. in such instances, any deployed build number lower than the build reference in the solution section should be considered affected. unsupported product versions are not tested, but are likely affected and should be considered vulnerable.",
+          "heading:cve-2024-42448",
+          "text:from the vspc management agent machine, under the condition that the management agent is authorized on the server, it is possible to perform remote code execution (rce) on the vspc server machine.",
+          "text:severity: critical cvss v3.1 score: 9.9 cvss:3.1/av:n/ac:l/pr:l/ui:n/s:c/c:h/i:h/a:h source: discovered during internal testing.",
+          "heading:cve-2024-42449",
+          "text:from the vspc management agent machine, under the condition that the management agent is authorized on the server, it is possible to leak an ntlm hash of the vspc server service account and delete files on the vspc server machine.",
+          "text:severity: high cvss v3.1 score: 7.1 cvss:3.0/av:n/ac:l/pr:l/ui:n/s:c/c:h/i:h/a:h source: discovered during internal testing.",
+          "heading:solution",
+          "text:veeam service provider console 8.1.0.21999",
+          "metadata:veeam service provider console vulnerability (cve-2024-42448 | cve-2024-42449)"
+        ]
+      },
+      "mainMatchesAcceptedReviewBaseline": true,
+      "hasAcceptedReviewBaseline": true
+    },
+    {
+      "articleId": "kb4788",
+      "before": {
+        "articleId": "kb4788",
+        "observedCveIds": [
+          "CVE-2026-32998",
+          "CVE-2026-64635"
+        ],
+        "securityFingerprint": "sha256:f61a138f9d7458e2a203aecce8a266978b02fb0b93bfc24180f795aed7103ee0",
+        "securityFingerprintVersion": 2,
+        "catalogFingerprint": "sha256:e273aeac36f0eaadb76aa27ed211ff3e24b221b7f30c936e30399d9d2a32dbc6"
+      },
+      "after": {
+        "securityFingerprint": "sha256:4861ccf9ffb18eac562a085d672e3947ca6f9de17546282cda767d68c2d9d2b9",
+        "observedCveIds": [
+          "CVE-2026-32998",
+          "CVE-2026-64635"
+        ],
+        "metadataFingerprint": "sha256:619c33d126807847f1bd2c20dbc8852ba0279b8427719ae40ab9086a9a43dc92",
+        "evidenceSegments": [
+          "heading:security",
+          "text:cve-2026-32998 | severity: critical (9.4) a vulnerability in veeam service provider console allows for remote code execution.",
+          "text:cve-2026-64635 | severity: medium (5.3) a vulnerability in veeam service provider console that allows an unauthenticated attacker to hijack the password reset link and take over a user account.",
+          "text:third-party libraries and packages used in veeam service provider console and its components have been updated to their latest versions to address discovered vulnerabilities. (see: kb4856 )",
+          "heading:security",
+          "text:the reset user password functionality has been optimized to further minimize the possibility of user data hijacking.",
+          "heading:security",
+          "text:when logging into the web powershell console in the backup portal, the session always runs under the account used by the management agent service (e.g., local system), not the actual user’s credentials who started the powershell session. this allows privilege escalation for any authenticated user.",
+          "metadata:this article provides release history, build information, resolved issues, and update instructions for veeam service provider console version 9."
+        ]
+      },
+      "mainMatchesAcceptedReviewBaseline": false,
+      "hasAcceptedReviewBaseline": false
+    },
+    {
+      "articleId": "kb4853",
+      "before": {
+        "articleId": "kb4853",
+        "observedCveIds": [
+          "CVE-2026-32998",
+          "CVE-2026-64635"
+        ],
+        "securityFingerprint": "sha256:9a342c37c017c0c2f973ff719d581dd53df0d1de9097a55c3b711a9f23a92ab0",
+        "securityFingerprintVersion": 2,
+        "catalogFingerprint": "sha256:e273aeac36f0eaadb76aa27ed211ff3e24b221b7f30c936e30399d9d2a32dbc6",
+        "parsedModelFingerprint": "sha256:3a00db45f4d7bc3ae1b4c3d4dfe82c06ed2e8130a93f798719d9230f62e1c32d"
+      },
+      "after": {
+        "securityFingerprint": "sha256:45c884f06b0268cc48b14a672fb520b6b97e2357aa6176ed8994917f81d8cebc",
+        "observedCveIds": [
+          "CVE-2026-32998",
+          "CVE-2026-64635"
+        ],
+        "metadataFingerprint": "sha256:236296cddec686aab100b28e049714e0fcfb4f1bbb31b3d0d132b3a491f67a6d",
+        "evidenceSegments": [
+          "heading:vulnerability resolved in veeam service provider console 9.2.1",
+          "text:kb id: 4853",
+          "text:product: veeam service provider console | 9 | 9.1 | 9.2",
+          "text:published: 2026-05-27",
+          "text:last modified: 2026-07-29",
+          "heading:issue details",
+          "text:all vulnerabilities disclosed in this article affect veeam service provider console 9.2.0.33215 and all earlier version 9 builds .",
+          "heading:cve-2026-32998",
+          "text:a vulnerability in veeam service provider console allows for remote code execution.",
+          "text:severity: critical cvss v3.1 score: 9.4 cvss:av:n/ac:l/at:n/pr:l/ui:n/vc:h/vi:h/va:h/sc:h/si:h/sa:h source: reported by putsi through hackerone.",
+          "heading:cve-2026-64635",
+          "text:a vulnerability in veeam service provider console that allows an unauthenticated attacker to hijack the password reset link and take over a user account.",
+          "text:severity: medium cvss v3.1 score: 5.3 cvss:3.0/av:n/ac:h/pr:n/ui:r/s:u/c:h/i:n/a:n source: reported through hackerone.",
+          "heading:solution",
+          "text:these vulnerabilities were fixed starting with the following build:",
+          "text:veeam service provider console 9.2.1.33875",
+          "heading:mitigation",
+          "text:cve-2026-32998 can only be exploited when alarm script execution is enabled. starting in veeam service provider console 9.2.0.33215 , alarm script execution is disabled by default . the default applies to new deployments and to upgrades where no alarms had a script execution action configured; deployments where this setting remained at the default are not affected by this vulnerability.",
+          "text:note: the mitigation method discussed below cannot be applied to builds older than veeam service provider console 9.2.0.33215, because the setting alarmmanagement_scriptexecutionenabled was introduced in veeam service provider console 9.2.0.33215. therefore, all builds prior to 9.2.0.33215 (e.g., 9.1, 9.0, and 8) are affected and must be upgraded to 9.2.1.33875 .",
+          "text:to check whether a veeam service provider console 9.2.0.33215 deployment is affected:",
+          "text:on the veeam service provider console server, open the following file in a text editor: c:\\programdata\\veeam\\veeam availability console\\configuration\\service\\configuration.overrides.json",
+          "text:within the configuration.overrides.json file, identify the value \"alarmmanagement_scriptexecutionenabled\": if this setting is not present in the file, the deployment is not affected, and alarms with script execution are disabled by default.",
+          "text:if this value is set to false , then the deployment is not affected.",
+          "text:if the value is set to true , the issue can be mitigated prior to applying 9.2.1.33875 by setting the value to false and restarting the veeam management portal service .",
+          "metadata:vulnerability resolved in veeam service provider console 9.2.1"
+        ]
+      },
+      "mainMatchesAcceptedReviewBaseline": true,
+      "hasAcceptedReviewBaseline": true
+    },
+    {
+      "articleId": "kb4856",
+      "before": {
+        "articleId": "kb4856",
+        "observedCveIds": [
+          "CVE-2026-32998",
+          "CVE-2026-58067",
+          "CVE-2026-58071",
+          "CVE-2026-58072",
+          "CVE-2026-58073",
+          "CVE-2026-64635"
+        ],
+        "securityFingerprint": "sha256:77c8e8dfeff135174171ba5c56c8d59414a195ef43c6efa7a844edc9dd68c0e6",
+        "securityFingerprintVersion": 2,
+        "catalogFingerprint": "sha256:0acbfbffdc842dea7cfbed9e85b3aef4bf30bfe41cdafe8cd99af2eb171fcf30"
+      },
+      "after": {
+        "securityFingerprint": "sha256:00faa4e50f15337c94d5393d7d1956e9344fbbe8e02b74841addcd18db7e2d73",
+        "observedCveIds": [
+          "CVE-2026-32998",
+          "CVE-2026-58067",
+          "CVE-2026-58071",
+          "CVE-2026-58072",
+          "CVE-2026-58073",
+          "CVE-2026-64635"
+        ],
+        "metadataFingerprint": "sha256:44edd2a3a7e0be2f1f3f00dec5b31e0e9362eb7b4cf8eb518037ffeffefe1099",
+        "evidenceSegments": [
+          "heading:list of security fixes and improvements in veeam service provider console",
+          "text:kb id: 4856",
+          "text:product: veeam service provider console | 9.2 | 9.3",
+          "text:published: 2026-05-27",
+          "text:last modified: 2026-09-09",
+          "text:this article describes all security-related fixes and improvements introduced in each release or update of veeam service provider console .",
+          "text:this article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current veeam service provider console version to a later one.",
+          "heading:security fixes and improvements",
+          "heading:9.3.0.35057",
+          "text:cve-2026-58073 vulnerability was fixed.",
+          "text:cve-2026-58072 vulnerability was fixed.",
+          "text:cve-2026-58067 vulnerability was fixed.",
+          "text:cve-2026-58071 vulnerability was fixed.",
+          "text:@babel/runtime upgraded to version 7.29.7",
+          "text:axios upgraded to version 1.16.1",
+          "text:axios-cache-interceptor upgraded to version 1.12.0",
+          "text:dompurify upgraded to version 3.4.11",
+          "text:follow-redirects upgraded to version 1.16.0",
+          "text:form-data upgraded to version 4.0.6",
+          "text:happy-dom upgraded to version 20.9.0",
+          "text:i18next-http-backend upgraded to version 4.0.0",
+          "text:linkify-it upgraded to version 5.0.2",
+          "text:lodash upgraded to version 4.18.1",
+          "text:mailkit upgraded to version 4.16.0",
+          "text:mimekit upgraded to version 4.16.0",
+          "text:opentelemetry.api upgraded to version 1.16.0",
+          "text:picomatch upgraded to version 4.0.4",
+          "text:skiasharp upgraded to version 3.119.4",
+          "text:system.security.cryptography.xml upgraded to version 10.0.10",
+          "text:uuid upgraded to version 14.0.0",
+          "text:vite upgraded to version 8.0.15",
+          "text:ws upgraded to version 8.21.1",
+          "text:yaml upgraded to version 2.9.0",
+          "heading:9.2.1.33875",
+          "text:cve-2026-32998 vulnerability was fixed.",
+          "text:cve-2026-64635 vulnerability was fixed.",
+          "text:automapper was replaced with magicmapper 14.0.1.",
+          "text:axios upgraded to version 1.15.2",
+          "text:happy-dom upgraded to version 20.9.0",
+          "text:lodash upgraded to version 4.17.24",
+          "text:picomatch upgraded to version 4.0.4",
+          "text:system.security.cryptography.xml upgraded to version 8.0.3",
+          "text:system.text.regularexpressions upgraded to version 4.3.1",
+          "text:uuid upgraded to version 14.0.0",
+          "text:vite upgraded to version 7.3.2",
+          "metadata:this article describes all security-related fixes and improvements introduced in each release or update of veeam service provider console."
+        ]
+      },
+      "mainMatchesAcceptedReviewBaseline": true,
+      "hasAcceptedReviewBaseline": true
+    },
+    {
+      "articleId": "kb4893",
+      "before": {
+        "articleId": "kb4893",
+        "observedCveIds": [
+          "CVE-2026-58067",
+          "CVE-2026-58071",
+          "CVE-2026-58072",
+          "CVE-2026-58073"
+        ],
+        "securityFingerprint": "sha256:6730d22f3083329ef42e68fd0b53bea4779c01271e29ccf8f1dfa26bca27e6c3",
+        "securityFingerprintVersion": 2,
+        "catalogFingerprint": "sha256:cb492a4c92835764cbcae261be8e75380fe0afe82d1b0ea974a5202991895655",
+        "parsedModelFingerprint": "sha256:853df24cd54313f91d2c3746329a87e300b95aab8d6e699ed22087781e27c953"
+      },
+      "after": {
+        "securityFingerprint": "sha256:c1a9845e4e8702ef9d0465fc3ba952fd6efc433e5fe206e5903e22b98055da91",
+        "observedCveIds": [
+          "CVE-2026-58067",
+          "CVE-2026-58071",
+          "CVE-2026-58072",
+          "CVE-2026-58073"
+        ],
+        "metadataFingerprint": "sha256:fa2713350c76ef68714312f3a9d7b702d423349a114a199e218577e56eea5bcb",
+        "evidenceSegments": [
+          "heading:vulnerabilities resolved in veeam service provider console 9.3",
+          "text:kb id: 4893",
+          "text:product: veeam service provider console | 9 | 9.1 | 9.2",
+          "text:published: 2026-08-04",
+          "text:last modified: 2026-08-05",
+          "heading:issue details",
+          "text:all vulnerabilities disclosed in this article affect veeam service provider console 9.2.1.33875 and all earlier version 9 builds .",
+          "heading:cve-2026-58073",
+          "text:a vulnerability in veeam service provider console allowing an unauthenticated attacker to impersonate a managed agent and obtain that agent's credentials.",
+          "text:severity: critical cvss v4.0 score: 9.5 cvss:4.0/av:n/ac:h/at:n/pr:n/ui:n/vc:h/vi:h/va:h/sc:h/si:h/sa:h source: reported through hackerone.",
+          "heading:cve-2026-58072",
+          "text:a vulnerability in veeam service provider console allowing arbitrary file write on the management server, which can lead to remote code execution.",
+          "text:severity: critical cvss v4.0 score: 9.0 cvss:4.0/av:n/ac:l/at:p/pr:l/ui:n/vc:h/vi:h/va:h/sc:h/si:h/sa:h source: reported through hackerone.",
+          "heading:cve-2026-58067",
+          "text:a vulnerability in veeam service provider console allowing an unauthenticated attacker to exhaust host memory and cause a denial of service.",
+          "text:severity: high cvss v4.0 score: 8.7 cvss:4.0/av:n/ac:l/at:n/pr:n/ui:n/vc:n/vi:n/va:h/sc:n/si:n/sa:n source: discovered during internal testing.",
+          "heading:cve-2026-58071",
+          "text:a vulnerability in veeam service provider console allowing an unauthenticated attacker to access the proxied appliance api as portal administrator during a short window after an administrator session begins.",
+          "text:severity: high cvss v4.0 score: 8.2 cvss:4.0/av:n/ac:l/at:p/pr:n/ui:n/vc:h/vi:n/va:n/sc:n/si:n/sa:n source: discovered during internal testing.",
+          "heading:solution",
+          "text:these vulnerabilities were fixed starting with the following build:",
+          "text:veeam service provider console 9.3.0.35057",
+          "metadata:veeam has resolved four security vulnerabilities in veeam service provider console, two rated critical and two rated high, all affecting version 9.2 and earlier. this article documents each cve with its severity, cvss v4.0 score, and the build in which it was fixed."
+        ]
+      },
+      "mainMatchesAcceptedReviewBaseline": true,
+      "hasAcceptedReviewBaseline": true
+    }
+  ]
+}

@@ -29,6 +29,7 @@
     "test:reviewed-security-advisories": "node scripts/test-reviewed-security-advisories.mjs",
     "test:security-review-baselines": "node scripts/test-security-review-baselines.mjs",
     "test:catalog-repair": "node scripts/test-catalog-repair.mjs",
+    "test:catalog-recovery": "node scripts/test-catalog-recovery.mjs",
     "test:release-material-discovery": "node scripts/test-release-material-discovery.mjs",
     "prepare:catalog-repair": "node scripts/prepare-catalog-repair.mjs",
     "test:release-information-adapter": "node scripts/test-vbr-release-information-adapter.mjs",
@@ -44,7 +45,8 @@
     "test:catalog-repair-feedback": "node scripts/test-catalog-repair-feedback.mjs",
     "test:catalog-repair-publication": "node scripts/test-catalog-repair-publication.mjs",
     "verify:catalog-repair": "node scripts/verify-catalog-repair.mjs",
-    "test:catalog-repair-integration": "node scripts/test-catalog-repair-integration.mjs"
+    "test:catalog-repair-integration": "node scripts/test-catalog-repair-integration.mjs",
+    "test:catalog-isolation": "node scripts/test-catalog-isolation.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "6.0.3",
@@ -52,19 +54,22 @@
     "pdfjs-dist": "^5.4.394",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "vite": "8.1.5"
+    "vite": "8.3.5"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.5",
+    "@eslint/js": "10.0.1",
     "@types/node": "24.10.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "eslint": "9.39.5",
-    "eslint-plugin-react-hooks": "7.0.1",
-    "eslint-plugin-react-refresh": "0.5.0",
+    "eslint": "10.14.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.7",
     "globals": "17.3.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.57.1",
-    "vitest": "4.1.10"
+    "typescript-eslint": "8.72.1",
+    "vitest": "4.1.12"
+  },
+  "overrides": {
+    "minimatch": "11.0.3"
   }
 }

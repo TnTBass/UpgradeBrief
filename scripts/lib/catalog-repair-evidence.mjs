@@ -21,7 +21,7 @@ export function classifyCatalogFailure(error) {
   if (Array.isArray(findings) && findings.length) {
     const kinds = [...new Set(findings.map(finding => {
       if (finding.code === 'REVIEWED_ARTICLE_CONTENT_CHANGED') return 'reviewed-content'
-      if (['FEED_ARTICLE_ROUTE_CHANGED', 'ARTICLE_PRODUCT_SCOPE_CHANGED', 'CLASSIFICATION_PRODUCT_REQUIRED', 'UNCLASSIFIED_ARTICLE'].includes(finding.code)) return 'article-classification'
+      if (['FEED_ARTICLE_ROUTE_CHANGED', 'ARTICLE_PRODUCT_SCOPE_CHANGED', 'CLASSIFICATION_PRODUCT_REQUIRED', 'UNCLASSIFIED_SECURITY_ARTICLE', 'UNCLASSIFIED_ARTICLE'].includes(finding.code)) return 'article-classification'
       if (finding.code === 'ARTICLE_FETCH_FAILED') return 'retrieval-investigation'
       return 'parser-or-coverage'
     }))].sort()
@@ -33,6 +33,14 @@ export function classifyCatalogFailure(error) {
   if (/Help Center release-material discovery returned a mismatched product/.test(message)) return { categories: ['mismatched-product'], action: 'investigate', autoApply: false }
   if ([408, 429, 500, 502, 503, 504].includes(error?.diagnostic?.status)) return { categories: ['transient-retrieval-exhausted'], action: 'investigate', autoApply: false }
   return { categories: [error ? 'unclassified-failure' : 'missing-diagnostics'], action: 'investigate', autoApply: false }
+}
+
+// Findings can identify an article even when retrieval produced no source text.
+export function repairArticleIds(bundle) {
+  return [...new Set([
+    ...bundle.articles.map(article => article.articleId),
+    ...(bundle.failure?.report?.findings ?? []).map(finding => finding.articleId),
+  ].filter(id => typeof id === 'string' && /^kb\d+$/.test(id)))].sort()
 }
 
 function evidenceIdentity(bundle) {

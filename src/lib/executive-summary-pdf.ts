@@ -4,6 +4,7 @@ export interface ExecutiveSummaryPdfInput {
   productName: string
   installedRelease: string
   preparedOn: string
+  freshness?: { heading: string; detail: string }
   recommendation: { heading: string; detail: string }
   lifecycle: { heading: string; detail: string }
   upgradeRoute?: { heading: string; detail: string }
@@ -59,7 +60,6 @@ function safeFileSegment(value: string): string {
 
 export function buildExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): jsPDF {
   const document = new jsPDF({ format: 'letter', orientation: 'portrait', unit: 'pt' })
-  let y = margin
 
   document.setFillColor(0, 110, 109)
   document.rect(0, 0, pageWidth, 90, 'F')
@@ -69,7 +69,7 @@ export function buildExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): jsPDF
   document.text('UPGRADE BRIEF', margin, 32)
   document.setFontSize(21)
   document.text('Executive summary', margin, 62)
-  y = 117
+  let y = 117
 
   document.setTextColor(29, 42, 53)
   document.setFont('helvetica', 'bold')
@@ -80,6 +80,8 @@ export function buildExecutiveSummaryPdf(input: ExecutiveSummaryPdfInput): jsPDF
   document.setFontSize(9)
   document.text(`Prepared ${input.preparedOn}`, margin, y + 12)
   y += 34
+
+  if (input.freshness) y = addSection(document, 'Data freshness', input.freshness.heading, input.freshness.detail, y)
 
   const routeDecision = input.upgradeRoute
     ? ` ${input.upgradeRoute.heading}. Next step: Review the documented upgrade route and vendor checklist before scheduling the change.`

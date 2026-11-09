@@ -1,5 +1,5 @@
 import type { Catalog, Release, UpgradePath } from './catalog-types'
-import { journeyItems, journeySources } from '../data/upgrade-journey'
+import { journeyItems, journeySources, journeyTargetReleaseId } from '../data/upgrade-journey'
 
 export interface JourneyGroup { title: string; note?: string; itemIds: string[] }
 export interface JourneyStage { id: string; label: string; title: string; intro: string; groups: JourneyGroup[] }
@@ -22,7 +22,7 @@ export function journeyReleaseLabel(release: Release): string {
 // silently apply these considerations to a new, unreviewed target release.
 export function buildUpgradeJourney(catalog: Catalog, release: Release, path?: UpgradePath): UpgradeJourney | undefined {
   const major = versionParts(release)[0]
-  if (release.productId !== 'vbr' || ![11, 12].includes(major) || !path || path.productId !== 'vbr' || path.toReleaseId !== 'vbr-build-13-1-1-18') return
+  if (release.productId !== 'vbr' || ![11, 12].includes(major) || !path || path.productId !== 'vbr' || path.toReleaseId !== journeyTargetReleaseId) return
   const hops = path.hopReleaseIds.map((id) => catalog.releases.find((item) => item.id === id))
   if (!hops.length || hops.some((hop) => !hop || hop.productId !== 'vbr') || hops.at(-1)?.id !== path.toReleaseId) return
   const destinations = hops as Release[]

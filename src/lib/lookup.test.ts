@@ -21,6 +21,24 @@ describe('catalog lookup', () => {
     expect(findUpgradePath(catalog, findRelease(catalog, 'vspc', version)!)).toBeUndefined()
   })
 
+  it('keeps KB4966 visible on current VBR builds until component patches are verified', () => {
+    for (const version of ['12.3.0.310', '12.3.2.4934', '13.1.0.411', '13.1.2.57']) {
+      const release = findRelease(catalog, 'vbr', version)!
+      expect(release).toBeDefined()
+      const finding = findingsForRelease(catalog, release).find(item => item.cves.includes('CVE-2026-98432'))!
+      expect(finding).toBeDefined()
+      expect(classifyUrgency(finding)).toBe('critical')
+      expect(finding.fixedReleaseId).toBeUndefined()
+      expect(finding.remediation).toContain('Veeam Updater')
+      expect(finding.remediation).toContain('private fix')
+      expect(finding.remediation).toContain('12.3 private fix was pending')
+      expect(finding.conditions.join(' ')).toContain('separate verification')
+    }
+    const findings = catalog.securityFindings.filter(item => item.cves.includes('CVE-2026-98432'))
+    expect(findings).toHaveLength(1)
+    expect(findings[0].productId).toBe('vbr')
+  })
+
   it('keeps the October VBR and Enterprise Manager fixes within their documented product and build boundaries', () => {
     for (const [productId, cves] of [
       ['vbr', ['CVE-2025-64393', 'CVE-2026-93026']],
@@ -55,8 +73,8 @@ describe('catalog lookup', () => {
   })
 
   it('does not give the current VBR build high upgrade urgency for KB4879', () => {
-    const current = findRelease(catalog, 'vbr', '13.1.1.18')!
-    const findings = findingsForRelease(catalog, current)
+    const current = catalog.releases.find(release => release.id === catalog.products.find(product => product.id === 'vbr')!.recommendedReleaseId)!
+    const findings = findingsForRelease(catalog, current).filter(finding => finding.sourceIds.includes('kb4879'))
     expect(findings).toEqual([])
     expect(summarizeAdvisoryUrgencies(findings)).toEqual([])
     expect(buildUpgradeSummary({ findings, isCurrentCatalogRelease: true, hasDocumentedPath: false })).toMatchObject({
@@ -257,13 +275,17 @@ describe('catalog lookup', () => {
     expect(v91Fixed.some((finding) => finding.sourceIds.includes('kb4788') && finding.cves.length === 0)).toBe(false)
   })
 
-  it('preserves build-specific Veeam ONE hotfix remediation without inventing a fixed server build', () => {
+  it('uses reviewed Veeam ONE upgrade remediation after the KB3144 hotfix was retired', () => {
     const vulnerable = findRelease(catalog, 'veeam-one', '10.0.0.750')!
     const finding = findingsForRelease(catalog, vulnerable).find((item) => item.cves.includes('CVE-2020-10914'))!
 
     expect(finding.fixedReleaseId).toBeUndefined()
-    expect(finding.remediation).toContain('KB3144 hotfix')
-    expect(finding.conditions.join(' ')).toContain('Veeam ONE Agent component')
+    expect(finding.remediation).toContain('10.0.2.1094')
+    expect(finding.sourceIds).toContain('kb3144')
+    expect(finding.affectedBuildRanges).toEqual(expect.arrayContaining([
+      { versionPrefix: '10.', throughBuild: '10.0.0.750' },
+      { versionPrefix: '9.5.', throughBuild: '9.5.4.4587' },
+    ]))
   })
 
   it('does not stamp other KB4649 product sections as VBR findings', () => {

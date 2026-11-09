@@ -1,3 +1,4 @@
+import { captureProductRollback, restoreProductRollback } from './catalog-product-rollback.mjs'
 import { createHash } from 'node:crypto'
 
 const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex')
@@ -60,6 +61,7 @@ export function recordFeedback(state, repairId, feedback) {
 export function projectRepairState({ reviewedData, baselines, catalog }, articleIds) {
   const selected = new Set(articleIds)
   return structuredClone({
+    ...(catalog.schemaVersion === 2 ? { productRollback: captureProductRollback({ catalog, baselines }, articleIds) } : {}),
     advisories: reviewedData.advisories.filter(item => selected.has(item.articleId)),
     specs: Object.fromEntries(articleIds.map(id => [id, reviewedData.observationSpecs[id] ?? null])),
     baselines: Object.fromEntries(articleIds.map(id => [id, baselines.articles[id] ?? null])),
@@ -83,6 +85,7 @@ export function scopedRevert({ current, before, after, articleIds }) {
       else target[id] = structuredClone(source[id])
     }
   }
+  if (current.catalog.schemaVersion === 2) return restoreProductRollback(next, before.productRollback, after.productRollback)
   next.catalog.securityFeedPageStates = [...next.catalog.securityFeedPageStates.filter(item => !selected.has(item.articleId)), ...before.pageStates]
   next.catalog.securityFeedRoutes = [...next.catalog.securityFeedRoutes.filter(item => !selected.has(item.articleId)), ...before.routes]
   const replacedIds = new Set([...before.findings, ...after.findings].map(item => item.id))

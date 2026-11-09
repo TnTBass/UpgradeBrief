@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { execFileSync } from 'node:child_process'
 import { resolve, join } from 'node:path'
 import { buildRepairCandidate } from './lib/catalog-repair-candidate.mjs'
-import { repairHash, canonicalJson } from './lib/catalog-repair-evidence.mjs'
+import { repairHash, canonicalJson, repairArticleIds } from './lib/catalog-repair-evidence.mjs'
 import { githubClient, githubStateStore } from './lib/catalog-repair-state.mjs'
 import { effectiveHolds, projectRepairState, readTrustedFeedback, recordFeedback } from './lib/catalog-repair-feedback.mjs'
 import { assertCandidateScope, createRepairPullRequest, ensureInvestigation, ensureLabels, manifestPath, mergeCandidateCAS, notifyOnce, persistRepairEvidence, REPAIR_DATA_PATHS, repairBaseBranch, repairBrief, setRepairStateLabel, waitForExactVerification } from './lib/catalog-repair-publication.mjs'
@@ -25,7 +25,7 @@ const prepared = await readJson('artifacts/catalog-repair/prepared/repair.json')
 const { bundle, proposal, extractions } = prepared
 const baseBranch = repairBaseBranch(bundle.environment)
 const id = bundle.evidenceId
-const articleIds = bundle.articles.map(article => article.articleId)
+const articleIds = repairArticleIds(bundle)
 const sourceInputs = await inputs(root)
 const candidate = buildRepairCandidate({ bundle, proposal, extractions, ...sourceInputs, currentCommit, holds: effectiveHolds(state, bundle.environment) })
 if (canonicalJson(candidate) !== canonicalJson(prepared.result)) throw new Error('Candidate artifacts do not match independent reconstruction')
@@ -54,7 +54,7 @@ try {
   } else if (candidate.status !== 'candidate-ready') {
     const evidenceCommit = await persistRepairEvidence(api, id, { schemaVersion: 1, bundle, proposal, extractions, result: candidate })
     const body = repairBrief({ id, baseCommit: currentCommit, articleIds, outcome: 'needs-investigation', approach: 'Keep the accepted catalog. The changed source cannot be fully validated by the supported repair rules.', checks: candidate.checks.passed, blocked: candidate.blocked.map(item => `${item.articleId ?? 'bundle'}: ${item.code}`), headCommit: evidenceCommit })
-    const issue = await ensureInvestigation(api, { id, title: `Catalog refresh needs investigation: ${articleIds.join(', ') || 'source retrieval'}`, body })
+    const issue = await ensureInvestigation(api, { id, title: `Catalog refresh needs investigation: ${articleIds.join(', ') || 'refresh failure'}`, body })
     const repair = state.repairs[id] = { state: 'needs-investigation', environment: bundle.environment, number: issue.number, articleIds, evidenceCommit, baseCommit: currentCommit }
     await save()
     await announce(repair, `${id}:investigate`, `Catalog refresh needs attention. [Review the source changes and the reason it stopped](${issue.html_url}). The accepted catalog is retained.`)

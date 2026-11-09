@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { execFileSync } from 'node:child_process'
 import { fingerprintSecurityArticleContent } from './security-feed-coverage.mjs'
 import { classifyCatalogFailure } from './catalog-repair-evidence.mjs'
+import { supportedInventoryExpansion } from './inventory-expansion.mjs'
 
 // Reviewed 2026-09-23 against the exact previously accepted article hashes.
 // These are article-specific wording equivalences, not global product equivalences.
@@ -38,12 +39,13 @@ export function createSecurityReviewBaseline(articleId, normalizedText, reviewed
   }
 }
 
-export function reconcileSecurityReviewBaselines({ baselines, previousStates, states, texts, policies = {} }) {
+export function reconcileSecurityReviewBaselines({ baselines, previousStates, states, texts, policies = {}, allowReviewedPolicyTransition = false }) {
   if (baselines.schemaVersion !== 1) throw new Error('Unsupported security review baseline schema')
   const continuityStates = structuredClone(previousStates)
   const previousById = new Map(continuityStates.map(state => [state.articleId, state]))
   const acceptedFingerprints = {}
   const equivalentChanges = []
+  const inventoryChanges = []
   const next = { schemaVersion: 1, articles: {} }
   for (const state of states) {
     const id = state.articleId
@@ -54,24 +56,26 @@ export function reconcileSecurityReviewBaselines({ baselines, previousStates, st
     const policyFingerprint = policies[id]?.contentFingerprint
     let equivalent = false
     if (baseline) {
+      const policyTransition = allowReviewedPolicyTransition && policyFingerprint && policyFingerprint !== baseline.reviewedFingerprint && policyFingerprint === state.contentFingerprint
       const checked = createSecurityReviewBaseline(id, baseline.normalizedText, baseline.reviewedFingerprint)
       if (checked.contentFingerprint !== baseline.contentFingerprint || checked.comparisonFingerprint !== baseline.comparisonFingerprint
         || (previous?.contentFingerprint && previous.contentFingerprint !== baseline.contentFingerprint)
-        || baseline.reviewedFingerprint !== policyFingerprint) {
+        || (baseline.reviewedFingerprint !== policyFingerprint && !policyTransition)) {
         throw new Error(`Security review baseline is inconsistent for ${id}; review the baseline and catalogue together`)
       }
-      equivalent = checked.comparisonFingerprint === fingerprintSecurityArticleContent(normalizeSecurityReviewText(id, text))
+      const inventoryExpanded = supportedInventoryExpansion(id, normalizeSecurityReviewText(id, baseline.normalizedText), normalizeSecurityReviewText(id, text))
+      equivalent = policyTransition || checked.comparisonFingerprint === fingerprintSecurityArticleContent(normalizeSecurityReviewText(id, text)) || inventoryExpanded
       if (equivalent && previous?.contentFingerprint) {
         // Only the text fingerprint is reconciled. Product scope, classification,
         // CVE inventory and all downstream coverage checks still run unchanged.
         previous.contentFingerprint = state.contentFingerprint
-        if (baseline.contentFingerprint !== state.contentFingerprint) equivalentChanges.push(id)
-        if (policyFingerprint) acceptedFingerprints[id] = state.contentFingerprint
+        if (baseline.contentFingerprint !== state.contentFingerprint) (inventoryExpanded ? inventoryChanges : equivalentChanges).push(id)
+        if (policyFingerprint || policies[id]?.classification === 'inventory') acceptedFingerprints[id] = state.contentFingerprint
       }
     }
     next.articles[id] = createSecurityReviewBaseline(id, text, policyFingerprint)
   }
-  return { continuityStates, acceptedFingerprints, equivalentChanges, next }
+  return { continuityStates, acceptedFingerprints, equivalentChanges, inventoryChanges, next }
 }
 
 // One exact changed span, with shared context, keeps reports readable without
@@ -93,13 +97,13 @@ function escapeMarkdown(text) {
   return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/([\\`*_[\]#|])/g, '\\$1')
 }
 
-export async function writeSecurityReviewReport({ directory, baselines, texts, catalog, error, equivalentChanges = [], summaryPath }) {
+export async function writeSecurityReviewReport({ directory, baselines, texts, catalog, error, equivalentChanges = [], inventoryChanges = [], summaryPath, partial = false }) {
   const changes = Object.entries(texts).flatMap(([articleId, after]) => {
     const before = baselines.articles[articleId]?.normalizedText
     if (before === after) return []
     return [{
       articleId, url: `https://www.veeam.com/${articleId}`,
-      disposition: before === undefined ? 'baseline-capture' : equivalentChanges.includes(articleId) ? 'approved-equivalence' : error ? 'review-required' : 'validated-refresh',
+      disposition: before === undefined ? 'baseline-capture' : equivalentChanges.includes(articleId) ? 'approved-equivalence' : inventoryChanges.includes(articleId) ? 'supported-inventory-expansion' : error ? 'review-required' : 'validated-refresh',
       acceptedPageState: catalog.securityFeedPageStates?.find(state => state.articleId === articleId),
       acceptedRoute: catalog.securityFeedRoutes?.find(route => route.articleId === articleId),
       affectedFindingIds: catalog.securityFindings.filter(f => f.sourceIds?.includes(articleId)).map(f => f.id),
@@ -108,15 +112,17 @@ export async function writeSecurityReviewReport({ directory, baselines, texts, c
     }]
   })
   const report = {
-    schemaVersion: 1, ok: !error,
+    schemaVersion: 1, ok: !error, status: partial ? 'partial' : error ? 'blocked' : 'complete',
     capturedAt: new Date().toISOString(),
     baseCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
     ...(error ? { error: { message: error.message, code: error.code, report: error.report, diagnostic: error.diagnostic }, triage: classifyCatalogFailure(error) } : {}),
-    equivalentChanges, changes,
+    equivalentChanges, inventoryChanges, changes,
   }
-  const lines = ['# Catalogue source review', '', error ? 'Refresh blocked. The previous catalogue and accepted baselines are retained.' : 'All catalogue checks passed.', '']
+  const lines = ['# Catalogue source review', '', partial ? 'Partial refresh. Failed product groups retain their previous data and accepted baselines; successful groups passed their checks.' : error ? 'Refresh blocked. The previous catalogue and accepted baselines are retained.' : 'All catalogue checks passed.', '']
   if (error) lines.push(`Error: ${escapeMarkdown(error.message)}`, '')
+  if (error?.report?.findings) lines.push(...error.report.findings.map(finding => `- ${escapeMarkdown(finding.articleId ?? 'catalog')}: ${escapeMarkdown(finding.code)}`), '')
   lines.push(`Approved wording/date changes: ${equivalentChanges.join(', ') || 'none'}.`, '')
+  lines.push(`Recognized inventory additions (subject to final CVE coverage): ${inventoryChanges.join(', ') || 'none'}.`, '')
   for (const change of changes.filter(c => c.disposition !== 'baseline-capture')) {
     lines.push(`## ${change.articleId}`, '', `Source: ${change.url}`, '', `Disposition: ${change.disposition}`, '',
       `Affected findings: ${change.affectedFindingIds.join(', ') || 'none; see article classification and scope in review.json'}`, '',

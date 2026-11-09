@@ -121,6 +121,17 @@ export interface SecurityFinding {
   sourceIds: string[]
 }
 
+export interface SecurityNotice {
+  id: string
+  scope: 'vendor-wide'
+  impact: 'not-affected'
+  title: string
+  summary: string
+  publishedAt: string
+  displayUntil: string
+  sourceIds: string[]
+}
+
 export interface OperationalNotice {
   id: string
   productId: ProductId
@@ -132,8 +143,20 @@ export interface OperationalNotice {
 }
 
 export interface Catalog {
-  schemaVersion: 1
+  schemaVersion: 1 | 2
   generatedAt: string
+  assembledAt?: string
+  refreshPolicyHash?: string
+  productValidation?: Array<{
+    productId: ProductId
+    transactionId: string
+    validatedAt: string
+    attemptedAt: string
+    state: 'validated' | 'retained'
+    partitionHash: string
+    evidenceIds: string[]
+    failureCodes: string[]
+  }>
   securityFeedArticleIds?: string[]
   securityFeedRoutes?: Array<{
     articleId: string
@@ -153,7 +176,7 @@ export interface Catalog {
     articleId: string
     observedCveIds: string[]
     securityFingerprint: string
-    securityFingerprintVersion: 2
+    securityFingerprintVersion: 2 | 3
     catalogFingerprint: string
     parsedModelFingerprint?: string
   }>
@@ -172,6 +195,7 @@ export interface Catalog {
   lifecycleNotices: LifecycleNotice[]
   upgradePaths: UpgradePath[]
   securityFindings: SecurityFinding[]
+  securityNotices?: SecurityNotice[]
   operationalNotices: OperationalNotice[]
   releaseImprovements: ReleaseImprovement[]
   capabilities: ProductCapability[]

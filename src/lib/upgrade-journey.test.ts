@@ -1,7 +1,17 @@
 import { describe, expect, it } from 'vitest'
-import { catalog } from '../data/catalog'
+import { catalog as liveCatalog } from '../data/catalog'
+import type { Catalog, UpgradePath } from './catalog-types'
+import reviewedJourney from './fixtures/reviewed-vbr-journey.json'
 import { buildUpgradeJourney, journeyItems, journeySources } from './upgrade-journey'
 import { findRelease, findUpgradePath } from './lookup'
+
+// These editorial tests exercise the route that was actually reviewed. A
+// scheduled release discovery must not silently extend the guidance's scope.
+const catalog: Catalog = {
+  ...liveCatalog,
+  products: liveCatalog.products.map(product => product.id === 'vbr' ? { ...product, recommendedReleaseId: reviewedJourney.recommendedReleaseId } : product),
+  upgradePaths: [...liveCatalog.upgradePaths.filter(path => path.productId !== 'vbr'), ...reviewedJourney.upgradePaths as UpgradePath[]],
+}
 
 function journeyFor(version: string) {
   const release = findRelease(catalog, 'vbr', version)!
@@ -12,6 +22,37 @@ function ids(journey: ReturnType<typeof journeyFor>, stage: number) {
 }
 
 describe('upgrade journey applicability', () => {
+  it.each([
+    ['11.0.0.837', ['vbr-12.0', 'vbr-12.3.2', 'vbr-build-13-1-2-57']],
+    ['11a', ['vbr-12.0', 'vbr-12.3.2', 'vbr-build-13-1-2-57']],
+    ['11.0.1.1261 P20240304', ['vbr-12.3.2', 'vbr-build-13-1-2-57']],
+    ['12.0', ['vbr-12.3.2', 'vbr-build-13-1-2-57']],
+    ['12.1', ['vbr-12.3.2', 'vbr-build-13-1-2-57']],
+    ['12.2', ['vbr-12.3.2', 'vbr-build-13-1-2-57']],
+    ['12.3.0.310', ['vbr-12.3.2', 'vbr-build-13-1-2-57']],
+    ['12.3.1.1139', ['vbr-build-13-1-2-57']],
+    ['12.3.2.4854', ['vbr-build-13-1-2-57']],
+  ])('follows the reviewed 13.1.2 route from %s', (version, expectedHops) => {
+    const journey = journeyFor(version as string)
+    expect(journey).toBeDefined()
+    expect(journey.route.slice(1).map(release => release.id)).toEqual(expectedHops)
+    expect(journey.stages.at(-1)?.label).toBe('V13.1.2 hop')
+    expect(journey.stages.at(-1)?.groups.map(group => group.itemIds)).toEqual([
+      ['prereqs', 'removed', 'deprecated', 'processing'], ['finish'],
+    ])
+  })
+
+  it('keeps the appliance decision before every Windows upgrade route', () => {
+    for (const version of ['11a', '12.0', '12.3.2.4854']) {
+      expect(ids(journeyFor(version), 0)).toContain('appliance')
+    }
+    expect(journeyItems.appliance.detail).toContain('13.0.3.63')
+    expect(journeyItems.appliance.detail).toContain('migration from 13.1, including 13.1.2, is unsupported')
+    expect(journeyItems.prereqs.text).toContain('13.1.2.57')
+    expect(journeyItems.prereqs.refs).toContain('v131')
+    expect(journeyItems.finish.detail).toContain('13.1.2.57')
+  })
+
   it('puts V11 blockers before entering V12 and follows the catalog hops', () => {
     const release = findRelease(catalog, 'vbr', '11.0.0.837')!
     const path = findUpgradePath(catalog, release)!
@@ -26,7 +67,7 @@ describe('upgrade journey applicability', () => {
     expect(journey.retentionAlreadyApplies).toBe(true)
     expect(ids(journey, 0)).toContain('retention')
     expect(journey.stages.flatMap((stage) => stage.groups.flatMap((group) => group.itemIds))).not.toContain('rollback')
-    expect(journey.stages.map((stage) => stage.label)).toEqual(['Prepare now', 'V12.3.2 hop', 'V13.1.1 hop'])
+    expect(journey.stages.map((stage) => stage.label)).toEqual(['Prepare now', 'V12.3.2 hop', 'V13.1.2 hop'])
   })
 
   it.each(['12.3.1.1139', '12.3.2.4854'])('keeps conversion work before V13 on a direct route from %s', (version) => {
@@ -64,6 +105,18 @@ describe('upgrade journey applicability', () => {
     expect(buildUpgradeJourney(catalog, { ...release, productId: 'veeam-one' }, path)).toBeUndefined()
     expect(journeyFor('13.0.2.29')).toBeUndefined()
     expect(journeyFor('13.1.1.18')).toBeUndefined()
+  })
+
+  it('holds editorial guidance when the catalog discovers a new destination build', () => {
+    const release = findRelease(catalog, 'vbr', '12.0')!
+    const path = findUpgradePath(catalog, release)!
+    const future = { id: 'unreviewed-vbr-build', productId: 'vbr' as const, name: '13.1.3', aliases: ['13.1.3.999'], sourceIds: ['kb2680'] }
+    const updated: Catalog = {
+      ...catalog,
+      releases: [...catalog.releases, future],
+      products: catalog.products.map(product => product.id === 'vbr' ? { ...product, recommendedReleaseId: future.id } : product),
+    }
+    expect(buildUpgradeJourney(updated, release, { ...path, toReleaseId: future.id, hopReleaseIds: [...path.hopReleaseIds.slice(0, -1), future.id] })).toBeUndefined()
   })
 
   it('keeps every displayed item source-linked and free of em dashes', () => {

@@ -9,6 +9,7 @@ const read = async path => JSON.parse(await readFile(new URL(path, import.meta.u
 const production = { reviewedData: await read('./data/reviewed-security-advisories.json'), baselines: await read('./data/security-review-baselines.json'), catalog: await read('../src/data/catalog.snapshot.json') }
 const fixture = await read('./fixtures/catalog-repair/supported-semantics.json')
 const trial = structuredClone(production), articleId = 'kb4857', baseCommit = 'a'.repeat(40)
+trial.catalog.schemaVersion = 1
 // Pin this integration case to its independently reviewed source fixture rather
 // than allowing future catalog updates to redefine the expected source evidence.
 trial.reviewedData.observationSpecs[articleId].contentFingerprint = repairHash(fixture.informational.before)
@@ -26,6 +27,11 @@ const result = buildRepairCandidate({ bundle, proposal, ...trial, currentCommit:
 assert.equal(result.status, 'candidate-ready', JSON.stringify(result.blocked))
 assert.equal(result.eligibleForPublication, false)
 assert.equal(canonicalJson(trial), before)
+const schema2 = { ...trial, catalog: { ...trial.catalog, schemaVersion: 2 } }
+const policyOnly = buildRepairCandidate({ bundle, proposal, ...schema2, currentCommit: baseCommit })
+assert.equal(policyOnly.status, 'candidate-ready')
+assert.equal(policyOnly.files[REPAIR_OUTPUT_PATHS[1]], undefined, 'Schema-2 repairs preserve accepted baselines until complete validation')
+assert.equal(policyOnly.files[REPAIR_OUTPUT_PATHS[2]], undefined, 'Schema-2 repairs never predate accepted provenance')
 const updated = { reviewedData: JSON.parse(result.files[REPAIR_OUTPUT_PATHS[0]]), baselines: JSON.parse(result.files[REPAIR_OUTPUT_PATHS[1]]), catalog: JSON.parse(result.files[REPAIR_OUTPUT_PATHS[2]]) }
 assert.deepEqual(updated.catalog.securityFindings, trial.catalog.securityFindings, 'A dependency-note repair must not change public vulnerability findings')
 assert.equal(updated.baselines.articles[articleId].normalizedText, fixture.informational.after)

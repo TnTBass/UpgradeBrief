@@ -97,6 +97,14 @@ assert.equal(assertSecurityFeedCoverage({
   parsedCoverage: [], catalog: { securityFindings: [] },
 }).report.ok, true, 'Reconciled fingerprint must also pass the independent informational coverage gate')
 
+// An explicit reviewed-policy transition must match fetched bytes exactly;
+// accepted baseline and page-state evidence remain immutable until publication.
+const policyTransitionInput = { ...safe.input, policies: { kb4924: { contentFingerprint: safe.next.contentFingerprint } } }
+assert.throws(() => reconcileSecurityReviewBaselines(policyTransitionInput), /inconsistent/)
+const policyTransition = reconcileSecurityReviewBaselines({ ...policyTransitionInput, allowReviewedPolicyTransition: true })
+assert.deepEqual(assertSecurityFeedPageStateContinuity(policyTransition.continuityStates, [safe.next]), [safe.next])
+assert.equal(policyTransitionInput.baselines.articles.kb4924.normalizedText, before)
+assert.throws(() => reconcileSecurityReviewBaselines({ ...policyTransitionInput, allowReviewedPolicyTransition: true, policies: { kb4924: { contentFingerprint: fingerprintSecurityArticleContent('different source text') } } }), /inconsistent/)
 // Existing extraction ignores page furniture, while new mitigation remains significant.
 assert.equal(normalizeReviewedSecurityMainArticle('<nav>New navigation</nav><h1>Article</h1><p>Keep this guidance.</p>'), 'Article Keep this guidance.')
 

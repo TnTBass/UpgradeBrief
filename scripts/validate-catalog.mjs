@@ -1,4 +1,6 @@
 import { readFile } from 'node:fs/promises'
+import { validateCatalogProvenance } from './lib/catalog-provenance.mjs'
+import { REVIEWED_SECURITY_NOTICES } from './lib/reviewed-security-advisories.mjs'
 
 const catalogPath = process.argv[2] ?? new URL('../src/data/catalog.snapshot.json', import.meta.url)
 const catalog = JSON.parse(await readFile(catalogPath, 'utf8'))
@@ -11,7 +13,8 @@ const sourceIds = new Set(catalog.sources.map((source) => source.id))
 const releaseIds = new Set(catalog.releases.map((release) => release.id))
 const productIds = new Set(catalog.products.map((product) => product.id))
 const releaseById = new Map(catalog.releases.map((release) => [release.id, release]))
-assert(catalog.schemaVersion === 1, 'schemaVersion must equal 1')
+assert([1, 2].includes(catalog.schemaVersion), 'Unsupported catalog schema')
+if (catalog.schemaVersion === 2) validateCatalogProvenance(catalog)
 assert(new Date(catalog.generatedAt).toString() !== 'Invalid Date', 'generatedAt must be an ISO date')
 assert(Array.isArray(catalog.securityFeedArticleIds) && catalog.securityFeedArticleIds.length > 0, 'securityFeedArticleIds must retain the discovered security feed inventory')
 assert(new Set(catalog.securityFeedArticleIds).size === catalog.securityFeedArticleIds.length, 'securityFeedArticleIds must be unique')
@@ -49,7 +52,7 @@ for (const state of catalog.vspcKbCvePageStates) {
   assert(catalog.vspcKbArticleIds.includes(state.articleId), `VSPC KB CVE page state ${state.articleId} must reference a discovered article`)
   assert(Array.isArray(state.observedCveIds) && state.observedCveIds.length > 0 && new Set(state.observedCveIds).size === state.observedCveIds.length && state.observedCveIds.every((cve) => /^CVE-\d{4}-\d{4,}$/.test(cve)), `VSPC KB CVE page state ${state.articleId} has invalid observed CVEs`)
   assert(/^sha256:[a-f0-9]{64}$/.test(state.securityFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid semantic fingerprint`)
-  assert(state.securityFingerprintVersion === 2, `VSPC KB CVE page state ${state.articleId} must retain semantic fingerprint version 2`)
+  assert([2, 3].includes(state.securityFingerprintVersion), `VSPC KB CVE page state ${state.articleId} must retain a supported semantic fingerprint version`)
   assert(/^sha256:[a-f0-9]{64}$/.test(state.catalogFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid catalog fingerprint`)
   if (state.parsedModelFingerprint !== undefined) assert(/^sha256:[a-f0-9]{64}$/.test(state.parsedModelFingerprint), `VSPC KB CVE page state ${state.articleId} has an invalid parsed-model fingerprint`)
 }
@@ -97,6 +100,14 @@ for (const release of catalog.releases) {
   assert(productIds.has(release.productId), `${release.id} references an unknown product`)
   for (const highlight of release.highlights ?? []) {
     for (const sourceId of highlight.sourceIds) assert(sourceIds.has(sourceId), `${release.id} highlight references unknown source ${sourceId}`)
+  }
+}
+
+assert(JSON.stringify(catalog.securityNotices) === JSON.stringify(REVIEWED_SECURITY_NOTICES), 'security notices must match reviewed vendor statements')
+for (const notice of catalog.securityNotices) {
+  for (const sourceId of notice.sourceIds) {
+    const source = catalog.sources.find(source => source.id === sourceId)
+    assert(source?.url === 'https://www.veeam.com/' + notice.id, notice.id + ' must reference its reviewed vendor source')
   }
 }
 

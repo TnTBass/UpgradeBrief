@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 import * as reviewed from './lib/reviewed-security-advisories.mjs'
 import { validateReviewedSecurityData } from './lib/reviewed-security-data.mjs'
 import { createSecurityReviewBaseline } from './lib/security-review-baselines.mjs'
-import { canonicalJson, classifyCatalogFailure, createRepairEvidence, repairHash, validateRepairEvidence, validateRepairProposal } from './lib/catalog-repair-evidence.mjs'
+import { canonicalJson, classifyCatalogFailure, createRepairEvidence, repairArticleIds, repairHash, validateRepairEvidence, validateRepairProposal } from './lib/catalog-repair-evidence.mjs'
 import { buildRepairCandidate, renderRepairBrief, REPAIR_OUTPUT_PATHS } from './lib/catalog-repair-candidate.mjs'
 
 const read = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'))
@@ -17,6 +17,12 @@ const october = await read('./fixtures/catalog-repair/2026-10-07-source-review.j
 validateReviewedSecurityData(data)
 for (const mutate of [
   d => { d.schemaVersion = 2 },
+  d => { d.observationSpecs.kb4953.notice.displayUntil = '2026-12-22' },
+  d => { d.observationSpecs.kb4953.notice.publishedAt = '2026-02-30' },
+  d => { d.observationSpecs.kb4953.notice.impact = 'affected' },
+  d => { d.observationSpecs.kb4953.productCves.vbr = ['CVE-2026-99999'] },
+  d => { delete d.observationSpecs.kb4953.productCves.vb365 },
+  d => { d.observationSpecs.kb4953.informationalReason = 'UNTRACKED_MANAGED_COMPONENT' },
   d => { d.advisories[0].path = '../../arbitrary-file' },
   d => { d.advisories[0].records[0].cvssScore = -1 },
   d => { d.advisories[0].records[0].cve = 'CVE-2099-99999' },
@@ -40,6 +46,11 @@ assert.equal(classifyCatalogFailure().categories[0], 'missing-diagnostics')
 assert.equal(classifyCatalogFailure({ message: 'unknown parser failure' }).action, 'investigate')
 assert.equal(classifyCatalogFailure({ message: 'HTTP issue', diagnostic: { status: 429 } }).categories[0], 'transient-retrieval-exhausted')
 assert.equal(classifyCatalogFailure({ message: 'Help Center release-material discovery returned a mismatched product response.' }).action, 'investigate')
+
+const newArticleFailure = { message: 'Coverage failed', report: { findings: [{ code: 'UNCLASSIFIED_SECURITY_ARTICLE', articleId: 'kb4953' }] } }
+assert.deepEqual(classifyCatalogFailure(newArticleFailure), { categories: ['article-classification'], action: 'prepare-evidence', autoApply: false })
+assert.deepEqual(repairArticleIds({ articles: [], failure: newArticleFailure }), ['kb4953'])
+assert.deepEqual(repairArticleIds({ articles: [{ articleId: 'kb4953' }], failure: newArticleFailure }), ['kb4953'])
 
 const baseCommit = 'a'.repeat(40)
 const before = 'Reviewed article KB ID: 4924 Product: Veeam Backup & Replication Veeam Backup for AWS Published: 2026-09-09 Last Modified: 2026-09-09 Purpose Upgrade version 1.2 by 2026-10-01. Change the affected password. Severity: High. CVE-2026-12345.'

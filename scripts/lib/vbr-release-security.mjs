@@ -1,3 +1,5 @@
+import { hasSectionedSecurityLayout, parseSectionedSecurityArticle } from './sectioned-security.mjs'
+
 function decodeHtml(value) {
   return value
     .replace(/<br\s*\/?>(\s*)/gi, ' ')
@@ -57,6 +59,7 @@ function applyVspcMitigationScope(text, records, legacyVersionPrefixes) {
 }
 
 export function parseProductReleaseSecurityArticle(html, article, { productId, productName, legacyVersionPrefixes = [] }, { vulnerabilityHtml = html } = {}) {
+  if (hasSectionedSecurityLayout(html)) return parseSectionedSecurityArticle(html, article, { productId, productName })
   const text = decodeHtml(html)
   const productPattern = productName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const fixedBuild = text.match(new RegExp(`resolved in.*?${productPattern}\\s+(\\d+(?:\\.\\d+){3})`, 'i'))?.[1]
@@ -110,9 +113,11 @@ export function mergeProductReleaseSecurityArticles(catalog, advisories) {
   )
 
   const findings = advisories.flatMap((advisory) => {
-    const fixedReleaseId = next.releases.find((release) => release.productId === advisory.productId && release.aliases.includes(advisory.fixedBuild))?.id
-    if (!fixedReleaseId) throw new Error(`${advisory.source.id} fixed build ${advisory.fixedBuild} is missing from KB2680 data.`)
-    return advisory.records.map((record) => ({
+    return advisory.records.map((record) => {
+      const fixedBuild = record.fixedBuild ?? advisory.fixedBuild
+      const fixedReleaseId = next.releases.find((release) => release.productId === advisory.productId && release.aliases.includes(fixedBuild))?.id
+      if (!fixedReleaseId) throw new Error(`${advisory.source.id} fixed build ${fixedBuild} is missing from product build data.`)
+      return ({
       id: `${advisory.productId}-${record.cve.toLowerCase()}${findingKeyCounts.get(`${advisory.productId}:${record.cve}`) > 1 ? `-${advisory.source.id}` : ''}`,
       productId: advisory.productId,
       title: record.title,
@@ -125,7 +130,8 @@ export function mergeProductReleaseSecurityArticles(catalog, advisories) {
       isCisaKev: false,
       conditions: record.conditions,
       sourceIds: ['security-kb', advisory.source.id],
-    }))
+      })
+    })
   })
 
   next.securityFindings = [...retained, ...findings]

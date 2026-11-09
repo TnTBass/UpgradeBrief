@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { createHash } from 'node:crypto'
+import { validateProductHealth } from './catalog-provenance.mjs'
 
 export const snapshotHash = catalog => createHash('sha256').update(JSON.stringify(catalog)).digest('hex')
 
@@ -10,7 +11,7 @@ export function verifyCatalogCheckout(directory, { live = false } = {}) {
   mkdirSync(logDirectory, { recursive: true })
   const packageFile = JSON.parse(readFileSync(join(directory, 'package.json'), 'utf8'))
   const checks = [
-    ...(live ? [['live-refresh', ['scripts/refresh-catalog.mjs', '--live']]] : []),
+    ...(live ? [['live-refresh', ['scripts/refresh-catalog.mjs', '--live', '--atomic']]] : []),
     ['lint', ['node_modules/eslint/bin/eslint.js', '.']],
     ['app-tests', ['node_modules/vitest/vitest.mjs', 'run']],
     ...Object.entries(packageFile.scripts).filter(([key]) => key.startsWith('test:')).map(([key, command]) => {
@@ -44,7 +45,8 @@ export async function verifyPublication({ url = 'https://upgradebrief.com/catalo
       const response = await fetchImpl(`${url}?commit=${commit}`, { headers: { 'Cache-Control': 'no-cache' }, signal: AbortSignal.timeout(15_000), redirect: 'error' })
       if (response.ok) {
         const health = await response.json()
-        if (health.schemaVersion === 1 && health.commit === commit && health.catalogHash === catalogHash) return health
+        if (health.schemaVersion === 2) validateProductHealth(health)
+        if ([1, 2].includes(health.schemaVersion) && health.commit === commit && health.catalogHash === catalogHash) return health
       }
     } catch { /* Deployment may still be starting; retry within the fixed window. */ }
     if (attempt + 1 < attempts) await sleep(20_000)
