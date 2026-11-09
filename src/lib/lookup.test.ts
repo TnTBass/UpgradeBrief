@@ -5,6 +5,22 @@ import { classifyUrgency } from './urgency'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './upgrade-summary'
 
 describe('catalog lookup', () => {
+  it.each(['9.1', '9.1.0.30636', '9.1.0.30713', '9.2', '9.2.0.33215', '9.2.1.33875'])('routes supported VSPC %s directly to 9.3', (version) => {
+    const release = findRelease(catalog, 'vspc', version)!
+    const targetId = catalog.products.find((product) => product.id === 'vspc')!.recommendedReleaseId
+    const path = findUpgradePath(catalog, release)!
+    expect(path).toBeDefined()
+    expect(path.toReleaseId).toBe(targetId)
+    expect(path.hopReleaseIds).toEqual([targetId])
+    expect(path.sourceIds).toContain('vspc-upgrade')
+    expect(path.notes.join(' ')).toContain('9.1.0.30636')
+    expect(path.notes.join(' ')).toContain('ISO')
+  })
+
+  it.each(['9.1.0.30345', '9.0.0.29555', '9.3.0.35706'])('does not claim the VSPC 9.1/9.2 direct route for %s', (version) => {
+    expect(findUpgradePath(catalog, findRelease(catalog, 'vspc', version)!)).toBeUndefined()
+  })
+
   it('keeps KB4966 visible on current VBR builds until component patches are verified', () => {
     for (const version of ['12.3.0.310', '12.3.2.4934', '13.1.0.411', '13.1.2.57']) {
       const release = findRelease(catalog, 'vbr', version)!

@@ -4,6 +4,7 @@ import { mergeProductBuilds, parseProductBuilds } from './lib/product-builds.mjs
 import { mergeVb365Builds, parseVb365Builds } from './lib/vb365-builds.mjs'
 import { mergeVb365UpgradePaths, parseVb365UpgradePaths } from './lib/vb365-upgrade-paths.mjs'
 import { mergeVbrUpgradePaths, parseVbrUpgradePaths } from './lib/vbr-upgrade-paths.mjs'
+import { mergeVspcUpgradePaths, parseVspcUpgradePaths } from './lib/vspc-upgrade-paths.mjs'
 import { mergeVbrSecurityBulletin, mergeVeeamOneSecurityBulletin, mergeVspcSecurityBulletin, parseVbrSecurityBulletin, parseVeeamOneSecurityBulletin, parseVspcSecurityBulletin } from './lib/vbr-security.mjs'
 import { mergeProductReleaseSecurityArticles, parseProductReleaseSecurityArticle, parseVbrReleaseSecurityArticle } from './lib/vbr-release-security.mjs'
 import { mergeVeeamOneLegacySecurityArticles, parseVeeamOneLegacySecurityArticle, selectVeeamOneLegacySecurityArticles } from './lib/veeam-one-legacy-security.mjs'
@@ -33,6 +34,8 @@ const buildSource = current.sources.find((item) => item.id === 'kb2680')
 const oneBuildSource = current.sources.find((item) => item.id === 'kb4357')
 const vroBuildSource = current.sources.find((item) => item.id === 'kb4358')
 const vspcBuildSource = current.sources.find((item) => item.id === 'kb4464')
+const vspcUpgradeSource = current.sources.find((item) => item.id === 'vspc-upgrade')
+if (owns('vspc') && !vspcUpgradeSource) throw new Error('VSPC upgrade guide is missing from the catalog.')
 const vb365BuildSource = current.sources.find((item) => item.id === 'kb4106')
 const vb365UpgradeSource = current.sources.find((item) => item.id === 'kb4098')
 const vbrUpgradeSource = current.sources.find((item) => item.id === 'kb2053')
@@ -200,6 +203,7 @@ const vroBuilds = owns('vro') ? parseProductBuilds(vroBuildHtml, 'Veeam Recovery
 const vspcBuilds = owns('vspc') ? parseProductBuilds(vspcBuildHtml, 'Veeam Service Provider Console') : []
 const vb365Builds = owns('vb365') ? parseVb365Builds(vb365BuildHtml) : []
 const vb365Routes = owns('vb365') ? parseVb365UpgradePaths(vb365UpgradeHtml) : []
+const vspcGuidance = owns('vspc') ? parseVspcUpgradePaths(await fetchSource(vspcUpgradeSource)) : undefined
 const fulfilledArticleHtml = (articleId) => articleResponseById.get(articleId)?.status === 'fulfilled' ? articleResponseById.get(articleId).value.html : undefined
 const securityHtml = fulfilledArticleHtml('kb4649')
 let vbrAdvisories = []
@@ -321,7 +325,9 @@ if (shouldCheckVbrUpgradeGuidance && vbrPathsMerged.paths < 1) throw new Error('
 const oneBuildsMerged = owns('veeam-one') ? mergeProductBuilds(vbrPathsMerged.catalog, { productId: 'veeam-one', sourceId: oneBuildSource.id, records: oneBuilds }) : { catalog: vbrPathsMerged.catalog, additions: 0, paths: 0, attachments: 0 }
 const vroBuildsMerged = owns('vro') ? mergeProductBuilds(oneBuildsMerged.catalog, { productId: 'vro', sourceId: vroBuildSource.id, records: vroBuilds }) : { catalog: oneBuildsMerged.catalog, additions: 0, paths: 0, attachments: 0 }
 const vspcBuildsMerged = owns('vspc') ? mergeProductBuilds(vroBuildsMerged.catalog, { productId: 'vspc', sourceId: vspcBuildSource.id, records: vspcBuilds }) : { catalog: vroBuildsMerged.catalog, additions: 0, paths: 0, attachments: 0 }
-const vb365BuildsMerged = owns('vb365') ? mergeVb365Builds(vspcBuildsMerged.catalog, vb365Builds, vb365BuildSource.id) : { catalog: vspcBuildsMerged.catalog, additions: 0, paths: 0, attachments: 0 }
+const vspcPathsMerged = owns('vspc') ? mergeVspcUpgradePaths(vspcBuildsMerged.catalog, vspcGuidance) : { catalog: vspcBuildsMerged.catalog, paths: 0 }
+if (owns('vspc')) vspcPathsMerged.catalog.sources.find((source) => source.id === vspcUpgradeSource.id).checkedAt = refreshedAt
+const vb365BuildsMerged = owns('vb365') ? mergeVb365Builds(vspcPathsMerged.catalog, vb365Builds, vb365BuildSource.id) : { catalog: vspcPathsMerged.catalog, additions: 0, paths: 0, attachments: 0 }
 const vb365PathsMerged = owns('vb365') ? mergeVb365UpgradePaths(vb365BuildsMerged.catalog, vb365Routes) : { catalog: vb365BuildsMerged.catalog, additions: 0, paths: 0, attachments: 0 }
 const releaseInformation12Merged = owns('vbr') ? mergeVbrReleaseInformation(vb365PathsMerged.catalog, releaseInformationBuilds, releaseInformationSource.id) : { catalog: vb365PathsMerged.catalog, additions: 0, paths: 0, attachments: 0 }
 const releaseInformationMerged = owns('vbr') ? mergeVbrReleaseInformation(releaseInformation12Merged.catalog, releaseInformation13Builds, releaseInformation13Source.id, { applianceUpdateHowToSourceId: 'vsa-update', updateHowToSourceId: 'vbr-update' }) : { catalog: releaseInformation12Merged.catalog, additions: 0, paths: 0, attachments: 0 }
