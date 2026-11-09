@@ -259,8 +259,8 @@
     {
       "id": "vspc-upgrade",
       "title": "Veeam Service Provider Console deployment upgrade guide",
-      "url": "https://helpcenter.veeam.com/docs/vac/deployment/upgrade.html",
-      "checkedAt": "2026-07-18T18:00:00.000Z"
+      "url": "https://helpcenter.veeam.com/docs/vac/deployment/upgrade.html?ver=9.3",
+      "checkedAt": "2026-11-09T23:41:32.332Z"
     },
     {
       "id": "security-kb",
@@ -6459,24 +6459,6 @@
       ]
     },
     {
-      "id": "vspc-9.1-to-9.2",
-      "productId": "vspc",
-      "fromReleaseId": "vspc-9.1",
-      "fromVersionPrefixes": [
-        "9.1."
-      ],
-      "toReleaseId": "vspc-9.2",
-      "hopReleaseIds": [
-        "vspc-9.2"
-      ],
-      "notes": [
-        "Confirm the exact 9.1 build meets the documented in-place requirement."
-      ],
-      "sourceIds": [
-        "vspc-upgrade"
-      ]
-    },
-    {
       "id": "vbr-10a-to-vbr-build-13-1-1-18",
       "productId": "vbr",
       "fromReleaseId": "vbr-build-10-0-1-4854-p20220304",
@@ -6964,6 +6946,111 @@
       ],
       "sourceIds": [
         "kb4098"
+      ]
+    },
+    {
+      "id": "vspc-9.1-to-vspc-build-9-3-0-35706",
+      "productId": "vspc",
+      "fromReleaseId": "vspc-9.1",
+      "toReleaseId": "vspc-build-9-3-0-35706",
+      "hopReleaseIds": [
+        "vspc-build-9-3-0-35706"
+      ],
+      "notes": [
+        "Veeam supports an in-place upgrade to 9.3 from 9.2 or 9.1; 9.1 requires build 9.1.0.30636 or later.",
+        "Use the deployment ISO for this upgrade. Review the prerequisites and upgrade the managed components as described in the deployment guide."
+      ],
+      "howToSourceIds": [
+        "vspc-upgrade",
+        "kb4788"
+      ],
+      "sourceIds": [
+        "vspc-upgrade",
+        "kb4788"
+      ]
+    },
+    {
+      "id": "vspc-9.2-to-vspc-build-9-3-0-35706",
+      "productId": "vspc",
+      "fromReleaseId": "vspc-9.2",
+      "toReleaseId": "vspc-build-9-3-0-35706",
+      "hopReleaseIds": [
+        "vspc-build-9-3-0-35706"
+      ],
+      "notes": [
+        "Veeam supports an in-place upgrade to 9.3 from 9.2 or 9.1; 9.1 requires build 9.1.0.30636 or later.",
+        "Use the deployment ISO for this upgrade. Review the prerequisites and upgrade the managed components as described in the deployment guide."
+      ],
+      "howToSourceIds": [
+        "vspc-upgrade",
+        "kb4788"
+      ],
+      "sourceIds": [
+        "vspc-upgrade",
+        "kb4788"
+      ]
+    },
+    {
+      "id": "vspc-build-9-2-1-33875-to-vspc-build-9-3-0-35706",
+      "productId": "vspc",
+      "fromReleaseId": "vspc-build-9-2-1-33875",
+      "toReleaseId": "vspc-build-9-3-0-35706",
+      "hopReleaseIds": [
+        "vspc-build-9-3-0-35706"
+      ],
+      "notes": [
+        "Veeam supports an in-place upgrade to 9.3 from 9.2 or 9.1; 9.1 requires build 9.1.0.30636 or later.",
+        "Use the deployment ISO for this upgrade. Review the prerequisites and upgrade the managed components as described in the deployment guide."
+      ],
+      "howToSourceIds": [
+        "vspc-upgrade",
+        "kb4788"
+      ],
+      "sourceIds": [
+        "vspc-upgrade",
+        "kb4788"
+      ]
+    },
+    {
+      "id": "vspc-build-9-2-0-33215-to-vspc-build-9-3-0-35706",
+      "productId": "vspc",
+      "fromReleaseId": "vspc-build-9-2-0-33215",
+      "toReleaseId": "vspc-build-9-3-0-35706",
+      "hopReleaseIds": [
+        "vspc-build-9-3-0-35706"
+      ],
+      "notes": [
+        "Veeam supports an in-place upgrade to 9.3 from 9.2 or 9.1; 9.1 requires build 9.1.0.30636 or later.",
+        "Use the deployment ISO for this upgrade. Review the prerequisites and upgrade the managed components as described in the deployment guide."
+      ],
+      "howToSourceIds": [
+        "vspc-upgrade",
+        "kb4788"
+      ],
+      "sourceIds": [
+        "vspc-upgrade",
+        "kb4788"
+      ]
+    },
+    {
+      "id": "vspc-build-9-1-0-30713-to-vspc-build-9-3-0-35706",
+      "productId": "vspc",
+      "fromReleaseId": "vspc-build-9-1-0-30713",
+      "toReleaseId": "vspc-build-9-3-0-35706",
+      "hopReleaseIds": [
+        "vspc-build-9-3-0-35706"
+      ],
+      "notes": [
+        "Veeam supports an in-place upgrade to 9.3 from 9.2 or 9.1; 9.1 requires build 9.1.0.30636 or later.",
+        "Use the deployment ISO for this upgrade. Review the prerequisites and upgrade the managed components as described in the deployment guide."
+      ],
+      "howToSourceIds": [
+        "vspc-upgrade",
+        "kb4788"
+      ],
+      "sourceIds": [
+        "vspc-upgrade",
+        "kb4788"
       ]
     }
   ],

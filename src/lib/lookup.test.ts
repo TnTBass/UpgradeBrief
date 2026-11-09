@@ -5,6 +5,22 @@ import { classifyUrgency } from './urgency'
 import { buildUpgradeSummary, summarizeAdvisoryUrgencies } from './upgrade-summary'
 
 describe('catalog lookup', () => {
+  it.each(['9.1', '9.1.0.30636', '9.1.0.30713', '9.2', '9.2.0.33215', '9.2.1.33875'])('routes supported VSPC %s directly to 9.3', (version) => {
+    const release = findRelease(catalog, 'vspc', version)!
+    const targetId = catalog.products.find((product) => product.id === 'vspc')!.recommendedReleaseId
+    const path = findUpgradePath(catalog, release)!
+    expect(path).toBeDefined()
+    expect(path.toReleaseId).toBe(targetId)
+    expect(path.hopReleaseIds).toEqual([targetId])
+    expect(path.sourceIds).toContain('vspc-upgrade')
+    expect(path.notes.join(' ')).toContain('9.1.0.30636')
+    expect(path.notes.join(' ')).toContain('ISO')
+  })
+
+  it.each(['9.1.0.30345', '9.0.0.29555', '9.3.0.35706'])('does not claim the VSPC 9.1/9.2 direct route for %s', (version) => {
+    expect(findUpgradePath(catalog, findRelease(catalog, 'vspc', version)!)).toBeUndefined()
+  })
+
   it('keeps the October VBR and Enterprise Manager fixes within their documented product and build boundaries', () => {
     for (const [productId, cves] of [
       ['vbr', ['CVE-2025-64393', 'CVE-2026-93026']],

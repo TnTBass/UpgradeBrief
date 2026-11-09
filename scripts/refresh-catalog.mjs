@@ -9,6 +9,7 @@ import { mergeProductBuilds, parseProductBuilds } from './lib/product-builds.mjs
 import { mergeVb365Builds, parseVb365Builds } from './lib/vb365-builds.mjs'
 import { mergeVb365UpgradePaths, parseVb365UpgradePaths } from './lib/vb365-upgrade-paths.mjs'
 import { mergeVbrUpgradePaths, parseVbrUpgradePaths } from './lib/vbr-upgrade-paths.mjs'
+import { mergeVspcUpgradePaths, parseVspcUpgradePaths } from './lib/vspc-upgrade-paths.mjs'
 import { mergeVbrSecurityBulletin, mergeVeeamOneSecurityBulletin, mergeVspcSecurityBulletin, parseVbrSecurityBulletin, parseVeeamOneSecurityBulletin, parseVspcSecurityBulletin } from './lib/vbr-security.mjs'
 import { mergeProductReleaseSecurityArticles, parseProductReleaseSecurityArticle, parseVbrReleaseSecurityArticle } from './lib/vbr-release-security.mjs'
 import { mergeVeeamOneLegacySecurityArticles, parseVeeamOneLegacySecurityArticle, selectVeeamOneLegacySecurityArticles } from './lib/veeam-one-legacy-security.mjs'
@@ -90,6 +91,8 @@ const buildSource = current.sources.find((item) => item.id === 'kb2680')
 const oneBuildSource = current.sources.find((item) => item.id === 'kb4357')
 const vroBuildSource = current.sources.find((item) => item.id === 'kb4358')
 const vspcBuildSource = current.sources.find((item) => item.id === 'kb4464')
+const vspcUpgradeSource = current.sources.find((item) => item.id === 'vspc-upgrade')
+if (!vspcUpgradeSource) throw new Error('VSPC upgrade guide is missing from the catalog.')
 const vb365BuildSource = current.sources.find((item) => item.id === 'kb4106')
 const vb365UpgradeSource = current.sources.find((item) => item.id === 'kb4098')
 const vbrUpgradeSource = current.sources.find((item) => item.id === 'kb2053')
@@ -272,6 +275,7 @@ const vroBuilds = parseProductBuilds(vroBuildHtml, 'Veeam Recovery Orchestrator'
 const vspcBuilds = parseProductBuilds(vspcBuildHtml, 'Veeam Service Provider Console')
 const vb365Builds = parseVb365Builds(vb365BuildHtml)
 const vb365Routes = parseVb365UpgradePaths(vb365UpgradeHtml)
+const vspcGuidance = parseVspcUpgradePaths(await fetchSource(vspcUpgradeSource))
 const fulfilledArticleHtml = (articleId) => articleResponseById.get(articleId)?.status === 'fulfilled' ? articleResponseById.get(articleId).value.html : undefined
 const securityHtml = fulfilledArticleHtml('kb4649')
 let vbrAdvisories = []
@@ -391,7 +395,8 @@ if (shouldCheckVbrUpgradeGuidance && vbrPathsMerged.paths < 1) throw new Error('
 const oneBuildsMerged = mergeProductBuilds(vbrPathsMerged.catalog, { productId: 'veeam-one', sourceId: oneBuildSource.id, records: oneBuilds })
 const vroBuildsMerged = mergeProductBuilds(oneBuildsMerged.catalog, { productId: 'vro', sourceId: vroBuildSource.id, records: vroBuilds })
 const vspcBuildsMerged = mergeProductBuilds(vroBuildsMerged.catalog, { productId: 'vspc', sourceId: vspcBuildSource.id, records: vspcBuilds })
-const vb365BuildsMerged = mergeVb365Builds(vspcBuildsMerged.catalog, vb365Builds, vb365BuildSource.id)
+const vspcPathsMerged = mergeVspcUpgradePaths(vspcBuildsMerged.catalog, vspcGuidance)
+const vb365BuildsMerged = mergeVb365Builds(vspcPathsMerged.catalog, vb365Builds, vb365BuildSource.id)
 const vb365PathsMerged = mergeVb365UpgradePaths(vb365BuildsMerged.catalog, vb365Routes)
 const releaseInformation12Merged = mergeVbrReleaseInformation(vb365PathsMerged.catalog, releaseInformationBuilds, releaseInformationSource.id)
 const releaseInformationMerged = mergeVbrReleaseInformation(releaseInformation12Merged.catalog, releaseInformation13Builds, releaseInformation13Source.id, { applianceUpdateHowToSourceId: 'vsa-update', updateHowToSourceId: 'vbr-update' })
@@ -403,6 +408,7 @@ const releaseSecurityMerged = mergeProductReleaseSecurityArticles(vspcBulletinMe
 const oneLegacyMerged = mergeVeeamOneLegacySecurityArticles(releaseSecurityMerged.catalog, discoveredVeeamOneLegacyAdvisories)
 const vspcLegacyMerged = mergeVspcLegacySecurityArticles(oneLegacyMerged.catalog, discoveredVspcLegacyAdvisories)
 const refreshedAt = new Date().toISOString()
+vspcLegacyMerged.catalog.sources.find((source) => source.id === vspcUpgradeSource.id).checkedAt = refreshedAt
 const vspcReleaseSecurityMerged = mergeVspcReleaseSecurityArticles(vspcLegacyMerged.catalog, vspcReleaseSecurity.advisories, { checkedAt: refreshedAt })
 const reviewedSecurityMerged = mergeReviewedSecurityAdvisories(vspcReleaseSecurityMerged.catalog, { checkedAt: refreshedAt })
 const lifecycleMerged = mergeLifecyclePolicies(reviewedSecurityMerged.catalog, lifecyclePolicies)
