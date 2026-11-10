@@ -17,7 +17,21 @@ describe('catalog lookup', () => {
     expect(path.notes.join(' ')).toContain('ISO')
   })
 
-  it.each(['9.1.0.30345', '9.0.0.29555', '9.3.0.35706'])('does not claim the VSPC 9.1/9.2 direct route for %s', (version) => {
+  it.each(['9', '9 CP1', '9.0.0.29555', '9.0.0.29860'])('routes VSPC %s through a supported 9.1 build before 9.3', (version) => {
+    const release = findRelease(catalog, 'vspc', version)!
+    const path = findUpgradePath(catalog, release)!
+    const intermediate = findRelease(catalog, 'vspc', '9.1.0.30636')!
+    const targetId = catalog.products.find((product) => product.id === 'vspc')!.recommendedReleaseId
+    expect(path).toBeDefined()
+    expect(path.toReleaseId).toBe(targetId)
+    expect(path.hopReleaseIds).toEqual([intermediate.id, targetId])
+    expect(path.sourceIds).toContain('vspc-upgrade-9.1')
+    expect(path.notes.join(' ')).toContain('management agents')
+    expect(path.notes.join(' ')).toContain('9.1.0.30636')
+    expect(path.notes.join(' ')).toContain('Veeam Customer Support')
+  })
+
+  it.each(['9.1.0.30345', '9.3.0.35706'])('does not claim the VSPC 9.1/9.2 direct route for %s', (version) => {
     expect(findUpgradePath(catalog, findRelease(catalog, 'vspc', version)!)).toBeUndefined()
   })
 

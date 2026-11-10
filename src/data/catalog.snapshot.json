@@ -260,7 +260,7 @@
       "id": "vspc-upgrade",
       "title": "Veeam Service Provider Console deployment upgrade guide",
       "url": "https://helpcenter.veeam.com/docs/vac/deployment/upgrade.html?ver=9.3",
-      "checkedAt": "2026-11-09T23:41:32.332Z"
+      "checkedAt": "2026-11-10T00:44:20.272Z"
     },
     {
       "id": "security-kb",
@@ -829,6 +829,12 @@
       "title": "Veeam KB4966: CVE-2026-98432 Impact Statement",
       "url": "https://www.veeam.com/kb4966",
       "checkedAt": "2026-11-09T12:57:13.292Z"
+    },
+    {
+      "id": "vspc-upgrade-9.1",
+      "title": "Veeam Service Provider Console 9.1 upgrade guide (archived)",
+      "url": "https://helpcenter.veeam.com/archive/vac/9.1/deployment/upgrade.html",
+      "checkedAt": "2026-11-10T00:44:23.843Z"
     }
   ],
   "products": [
@@ -7032,6 +7038,56 @@
         "vspc-upgrade",
         "kb4788"
       ]
+    },
+    {
+      "id": "vspc-build-9-0-0-29860-to-vspc-build-9-3-0-35706",
+      "productId": "vspc",
+      "fromReleaseId": "vspc-build-9-0-0-29860",
+      "toReleaseId": "vspc-build-9-3-0-35706",
+      "hopReleaseIds": [
+        "vspc-9.1",
+        "vspc-build-9-3-0-35706"
+      ],
+      "notes": [
+        "Upgrade all Veeam Service Provider Console components, including management agents, to 9.1 build 9.1.0.30636 or later before upgrading to 9.3.",
+        "Contact Veeam Customer Support to obtain version 9.1 for the intermediate upgrade.",
+        "Use the deployment ISO for each upgrade and review the prerequisites for both versions."
+      ],
+      "howToSourceIds": [
+        "vspc-upgrade-9.1",
+        "vspc-upgrade",
+        "kb4788"
+      ],
+      "sourceIds": [
+        "vspc-upgrade-9.1",
+        "vspc-upgrade",
+        "kb4788"
+      ]
+    },
+    {
+      "id": "vspc-build-9-0-0-29555-to-vspc-build-9-3-0-35706",
+      "productId": "vspc",
+      "fromReleaseId": "vspc-build-9-0-0-29555",
+      "toReleaseId": "vspc-build-9-3-0-35706",
+      "hopReleaseIds": [
+        "vspc-9.1",
+        "vspc-build-9-3-0-35706"
+      ],
+      "notes": [
+        "Upgrade all Veeam Service Provider Console components, including management agents, to 9.1 build 9.1.0.30636 or later before upgrading to 9.3.",
+        "Contact Veeam Customer Support to obtain version 9.1 for the intermediate upgrade.",
+        "Use the deployment ISO for each upgrade and review the prerequisites for both versions."
+      ],
+      "howToSourceIds": [
+        "vspc-upgrade-9.1",
+        "vspc-upgrade",
+        "kb4788"
+      ],
+      "sourceIds": [
+        "vspc-upgrade-9.1",
+        "vspc-upgrade",
+        "kb4788"
+      ]
     }
   ],
   "securityFindings": [
@@ -12843,6 +12899,9 @@
     ],
     "vb365-release-materials": [
       "vb365"
+    ],
+    "vspc-upgrade-9.1": [
+      "vspc"
     ]
   },
   "assembledAt": "2026-11-09T12:57:13.292Z",
@@ -14746,9 +14805,16 @@
     {
       "sourceId": "vspc-upgrade",
       "url": "https://helpcenter.veeam.com/docs/vac/deployment/upgrade.html?ver=9.3",
-      "fetchedAt": "2026-11-09T23:41:32.332Z",
+      "fetchedAt": "2026-11-10T00:44:20.272Z",
       "status": "fetched",
       "digest": "bc6e1a84ff542e47fb41b319cdcd5f64e6eb398bf3b1bd106fa6a3050d2917f9"
+    },
+    {
+      "sourceId": "vspc-upgrade-9.1",
+      "url": "https://helpcenter.veeam.com/archive/vac/9.1/deployment/upgrade.html",
+      "fetchedAt": "2026-11-10T00:44:23.843Z",
+      "status": "fetched",
+      "digest": "f6245d3ab736f66e86ebfe1eb95756d32f825a7425d8b2641af9db544988ad0b"
     }
   ],
   "productValidation": [
@@ -15586,6 +15652,7 @@
         "5d2e8e3c221f38e966fc9469b5295111176e4d716e5f2de91d2fe343b33f4ef5",
         "5daec1d9e31e43b384de74a204cb41dcca5e757cfe291952766006bb34f235b4",
         "63561fb76b1fdaae4be4bd7df89f7c51fcd1317d8189cc13ca88a7bdcbf50727",
+        "659fbeeffc10549f8fbbf7ddf2cfc91743cd17243218650cea9de99c30c9aa2b",
         "6864b8ddfa29c37f49a023f5240bf4e30f035766f457b02612044a0697b8b4cb",
         "6afd8ab49b65e3a155eddc44425e4877a1a650c8e5ad0fbd56c4de0c144c6a91",
         "6b3c39ec9f4f9818ab993172bd33bccc5f8c53aac663ec10d6f8c071f501e8b4",
@@ -15659,6 +15726,7 @@
         "c041be9d866db8026c0d64430d7cd9ca945edc6c3ef3eb9e728b5f8b5e451765",
         "c20556138b36b7f5f995b5fc4c050b975595f7e3ce7aaf78d07af327935887fa",
         "c4347062052f6ed97a57d68fbad645b3ded7ec0c4a8f92b118aff2bbe01f5d48",
+        "c773c25c5748b0a6c4b3372c450dc86d38e74634e88b011e51ccacecb5e2ada7",
         "ca774edfa4ac215dd851d1229f8986ca14b206aa61b9046bd3759d51ad3acdca",
         "cb80f41fb9ece35f9191a8883f1b9afe156f073c85f656b24696050359b55e38",
         "cb930066b62cb10936060c3eec2e5bfe7eebbb6bd919e70d0e985c5f0396875b",
@@ -15689,11 +15757,10 @@
         "f85981a47ca215141ed8faffff685f8bc531ea148fa523b171ee6c1ef9a9b153",
         "f933da2622b48dec5ca2ef00c4017602263d33a8ae45f511aa1d9231626b2be6",
         "fb0cb61e41efc2934d25d6e37d03759be4d2cfcc7e53225b06b7310c76c69d15",
-        "fe08884328410729ee37c1f08acb276db6a0222ca2a9ef9bf2af6a1ec6d1cf2d",
-        "feb8f360934c6206b6a4301daf159286d370c41fd1c99e72df7e8eb86d3f0eda"
+        "fe08884328410729ee37c1f08acb276db6a0222ca2a9ef9bf2af6a1ec6d1cf2d"
       ],
       "failureCodes": [],
-      "partitionHash": "05c86ff026daff145b95497eb6198d8f6fad498145d1159e293a7fae47c07621"
+      "partitionHash": "7ea586926d403089785cbd04af57f0ded45bf3e1b8cd4e442a5126dfa164c37d"
     },
     {
       "productId": "vb365",
@@ -17332,6 +17399,17 @@
       ]
     },
     {
+      "sourceId": "vspc-upgrade-9.1",
+      "digest": "f6245d3ab736f66e86ebfe1eb95756d32f825a7425d8b2641af9db544988ad0b",
+      "definitionHash": "f2f6d23a3605a502209d8efd81f2f5c3c003b0ea1b13d7218cc4e8a18c97b149",
+      "kind": "fetched",
+      "policyHash": "3e8ae164274c795612db2b16c042a99c2ddfe511f138e52624b7cfa7257982ed",
+      "id": "659fbeeffc10549f8fbbf7ddf2cfc91743cd17243218650cea9de99c30c9aa2b",
+      "validatedConsumers": [
+        "vspc"
+      ]
+    },
+    {
       "sourceId": "cve-record-cve-2026-58072",
       "digest": "db36627a86c4577a478b76db76d594016dace5790dc7e1510d5778f67890bff6",
       "definitionHash": "db36627a86c4577a478b76db76d594016dace5790dc7e1510d5778f67890bff6",
@@ -18894,6 +18972,17 @@
       ]
     },
     {
+      "sourceId": "vspc-upgrade",
+      "digest": "bc6e1a84ff542e47fb41b319cdcd5f64e6eb398bf3b1bd106fa6a3050d2917f9",
+      "definitionHash": "357000640e2d0104b6ede80461f5bb98b53b8c67daf186a05dfd6ac4e4b1c2e7",
+      "kind": "fetched",
+      "policyHash": "3e8ae164274c795612db2b16c042a99c2ddfe511f138e52624b7cfa7257982ed",
+      "id": "c773c25c5748b0a6c4b3372c450dc86d38e74634e88b011e51ccacecb5e2ada7",
+      "validatedConsumers": [
+        "vspc"
+      ]
+    },
+    {
       "sourceId": "kb4923",
       "digest": "2e349185487eb45d10978b39dc38140e204357306b92e807c5bf08145917379d",
       "kind": "fetched",
@@ -19613,17 +19702,6 @@
         "vbr",
         "veeam-one",
         "vro",
-        "vspc"
-      ]
-    },
-    {
-      "sourceId": "vspc-upgrade",
-      "digest": "bc6e1a84ff542e47fb41b319cdcd5f64e6eb398bf3b1bd106fa6a3050d2917f9",
-      "definitionHash": "357000640e2d0104b6ede80461f5bb98b53b8c67daf186a05dfd6ac4e4b1c2e7",
-      "kind": "fetched",
-      "policyHash": "03af10fc1d4c88a236cd5d6cf17efea7aac1f08038254a26f24423247047ae32",
-      "id": "feb8f360934c6206b6a4301daf159286d370c41fd1c99e72df7e8eb86d3f0eda",
-      "validatedConsumers": [
         "vspc"
       ]
     },

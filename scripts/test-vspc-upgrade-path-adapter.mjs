@@ -4,13 +4,15 @@ import { mergeVspcUpgradePaths, parseVspcUpgradePaths } from './lib/vspc-upgrade
 
 const fixture = await readFile(new URL('../src/data/fixtures/vspc-upgrade.fixture.html', import.meta.url), 'utf8')
 const guidance = parseVspcUpgradePaths(fixture)
-assert.deepEqual(guidance, { targetFamily: '9.3', sourceFamilies: ['9.2', '9.1'], minimumBuild: '9.1.0.30636', minimumBuildFamily: '9.1' })
-for (const html of [fixture.replace(' or later', ''), fixture.replace('9.1.0.30636', '9.0.0.30636'), fixture.replace('Page content applies', 'Unknown target')]) {
+assert.deepEqual(guidance, { targetFamily: '9.3', sourceFamilies: ['9.2', '9.1'], minimumBuild: '9.1.0.30636', minimumBuildFamily: '9.1', intermediate: { fromFamily: '9.0', viaFamily: '9.1', supportRequired: true } })
+for (const html of [fixture.replace(' or later', ''), fixture.replace('9.1.0.30636', '9.0.0.30636'), fixture.replace('Page content applies', 'Unknown target'), fixture.replace('you must first', 'you may'), fixture.replace('components to version 9.1:', 'components to version 9.2:')]) {
   assert.throws(() => parseVspcUpgradePaths(html), /refusing to replace/)
 }
 assert.deepEqual(parseVspcUpgradePaths(fixture.replace('9.1 (build', '<b>9.1</b>&nbsp;(build')), guidance)
+assert.deepEqual(parseVspcUpgradePaths(fixture.replace('version 9,', 'version 9.0,')), guidance)
+assert.equal(parseVspcUpgradePaths(fixture.replace('To upgrade to version 9.1, contact', 'Download version 9.1 from')).intermediate.supportRequired, false)
 
-const releases = ['9.1.0.30345', '9.1.0.30636', '9.1.0.30713', '9.2.0.33215', '9.2.1.33875', '9.3.0.35706', '9.4.0.1']
+const releases = ['9.0.0.29555', '9.0.0.29860', '9.1.0.30345', '9.1.0.30636', '9.1.0.30713', '9.2.0.33215', '9.2.1.33875', '9.3.0.35706', '9.4.0.1']
   .map((build) => ({ id: build, productId: 'vspc', aliases: [build] }))
 releases.push({ id: 'family-only', productId: 'vspc', aliases: ['9.1'] })
 const legacyPath = { id: 'legacy', productId: 'vspc', fromReleaseId: '8.1', toReleaseId: '9.2.0.33215' }
@@ -22,13 +24,21 @@ const catalog = {
 }
 const before = structuredClone(catalog)
 const merged = mergeVspcUpgradePaths(catalog, guidance)
-assert.equal(merged.paths, 4)
-const routes = merged.catalog.upgradePaths.filter((path) => path.sourceIds?.includes('vspc-upgrade'))
+assert.equal(merged.paths, 6)
+const routes = merged.catalog.upgradePaths.filter((path) => path.sourceIds?.includes('vspc-upgrade') && path.hopReleaseIds.length === 1)
 assert.deepEqual(routes.map((path) => path.fromReleaseId), ['9.1.0.30636', '9.1.0.30713', '9.2.0.33215', '9.2.1.33875'])
 for (const path of routes) {
   assert.equal(path.toReleaseId, '9.3.0.35706')
   assert.deepEqual(path.hopReleaseIds, ['9.3.0.35706'])
   assert.equal(path.fromVersionPrefixes, undefined)
+}
+const intermediateRoutes = merged.catalog.upgradePaths.filter((path) => path.hopReleaseIds?.length === 2)
+assert.deepEqual(intermediateRoutes.map((path) => path.fromReleaseId), ['9.0.0.29555', '9.0.0.29860'])
+for (const path of intermediateRoutes) {
+  assert.deepEqual(path.hopReleaseIds, ['9.1.0.30636', '9.3.0.35706'])
+  assert.ok(path.sourceIds.includes('vspc-upgrade-9.1'))
+  assert.match(path.notes.join(' '), /management agents/)
+  assert.match(path.notes.join(' '), /Veeam Customer Support/)
 }
 assert.deepEqual(merged.catalog.upgradePaths.slice(0, 2), [legacyPath, otherPath])
 assert.deepEqual(catalog, before)
@@ -36,10 +46,16 @@ assert.deepEqual(mergeVspcUpgradePaths(merged.catalog, guidance), merged)
 
 const refreshed = structuredClone(catalog)
 refreshed.releases.push({ id: 'future-9.1-patch', productId: 'vspc', aliases: ['9.1.0.31000'] })
-assert.equal(mergeVspcUpgradePaths(refreshed, guidance).paths, 5)
+assert.equal(mergeVspcUpgradePaths(refreshed, guidance).paths, 7)
 refreshed.products[0].recommendedReleaseId = '9.4.0.1'
 assert.throws(() => mergeVspcUpgradePaths(refreshed, guidance), /outside the documented upgrade target family/)
 const incomplete = structuredClone(catalog)
 incomplete.releases = incomplete.releases.filter((release) => !release.aliases.some((alias) => alias.startsWith('9.2.')))
 assert.throws(() => mergeVspcUpgradePaths(incomplete, guidance), /missing a supported source family/)
+const noIntermediate = structuredClone(catalog)
+noIntermediate.releases = noIntermediate.releases.filter((release) => !['9.1.0.30636', '9.1.0.30713'].includes(release.id))
+assert.throws(() => mergeVspcUpgradePaths(noIntermediate, guidance), /missing a supported source family/)
+const patchedIntermediate = structuredClone(catalog)
+patchedIntermediate.releases = patchedIntermediate.releases.filter((release) => release.id !== '9.1.0.30636')
+assert.deepEqual(mergeVspcUpgradePaths(patchedIntermediate, guidance).catalog.upgradePaths.find((path) => path.fromReleaseId === '9.0.0.29555').hopReleaseIds, ['9.1.0.30713', '9.3.0.35706'])
 console.log('VSPC upgrade-path adapter tests passed.')
