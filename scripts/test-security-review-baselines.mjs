@@ -107,8 +107,8 @@ assert.equal(policyTransitionInput.baselines.articles.kb4924.normalizedText, bef
 assert.throws(() => reconcileSecurityReviewBaselines({ ...policyTransitionInput, allowReviewedPolicyTransition: true, policies: { kb4924: { contentFingerprint: fingerprintSecurityArticleContent('different source text') } } }), /inconsistent/)
 
 // Dedicated advisory revisions use the same explicit, exact-content review path.
-const privateFixBefore = 'KB ID: 4966 Last Modified: 2026-11-06 CVE-2026-98432 Private fix pending.'
-const privateFixAfter = 'KB ID: 4966 Last Modified: 2026-11-11 CVE-2026-98432 Install the private fix on 12.3.2.4934.'
+const privateFixBefore = 'Reviewed article KB ID: 4966 Product: Veeam Backup & Replication Published: 2026-11-06 Last Modified: 2026-11-06 CVE-2026-98432 Private fix pending.'
+const privateFixAfter = 'Reviewed article KB ID: 4966 Product: Veeam Backup & Replication Published: 2026-11-06 Last Modified: 2026-11-11 CVE-2026-98432 Install the private fix on 12.3.2.4934.'
 const dedicated = scenario('kb4966', privateFixBefore, privateFixAfter)
 assert.throws(() => assertSecurityFeedPageStateContinuity(dedicated.review.continuityStates, [dedicated.next]), /Security feed coverage failed/)
 const dedicatedInput = {
