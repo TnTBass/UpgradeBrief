@@ -105,6 +105,41 @@ const policyTransition = reconcileSecurityReviewBaselines({ ...policyTransitionI
 assert.deepEqual(assertSecurityFeedPageStateContinuity(policyTransition.continuityStates, [safe.next]), [safe.next])
 assert.equal(policyTransitionInput.baselines.articles.kb4924.normalizedText, before)
 assert.throws(() => reconcileSecurityReviewBaselines({ ...policyTransitionInput, allowReviewedPolicyTransition: true, policies: { kb4924: { contentFingerprint: fingerprintSecurityArticleContent('different source text') } } }), /inconsistent/)
+
+// Dedicated advisory revisions use the same explicit, exact-content review path.
+const privateFixBefore = 'KB ID: 4966 Last Modified: 2026-11-06 CVE-2026-98432 Private fix pending.'
+const privateFixAfter = 'KB ID: 4966 Last Modified: 2026-11-11 CVE-2026-98432 Install the private fix on 12.3.2.4934.'
+const dedicated = scenario('kb4966', privateFixBefore, privateFixAfter)
+assert.throws(() => assertSecurityFeedPageStateContinuity(dedicated.review.continuityStates, [dedicated.next]), /Security feed coverage failed/)
+const dedicatedInput = {
+  ...dedicated.input,
+  policies: { kb4966: { classification: 'dedicated', contentFingerprint: dedicated.next.contentFingerprint } },
+  allowReviewedPolicyTransition: true,
+}
+const dedicatedReview = reconcileSecurityReviewBaselines(dedicatedInput)
+assert.deepEqual(assertSecurityFeedPageStateContinuity(dedicatedReview.continuityStates, [dedicated.next]), [dedicated.next])
+assert.equal(dedicatedReview.acceptedFingerprints.kb4966, dedicated.next.contentFingerprint)
+assert.equal(dedicated.input.baselines.articles.kb4966.normalizedText, privateFixBefore)
+assert.throws(() => reconcileSecurityReviewBaselines({ ...dedicatedInput, allowReviewedPolicyTransition: false }), /inconsistent/)
+assert.throws(() => reconcileSecurityReviewBaselines({
+  ...dedicatedInput,
+  states: [{ ...dedicated.next, contentFingerprint: fingerprintSecurityArticleContent(privateFixAfter + ' Unreviewed change.') }],
+  texts: { kb4966: privateFixAfter + ' Unreviewed change.' },
+}), /inconsistent/)
+for (const [after, accepted] of [
+  [privateFixAfter.replace('2026-11-11', '2026-11-12'), true],
+  [privateFixAfter.replace('12.3.2.4934', '12.3.2.9999'), false],
+]) {
+  const state = { ...dedicated.next, contentFingerprint: fingerprintSecurityArticleContent(after) }
+  const review = reconcileSecurityReviewBaselines({
+    ...dedicatedInput, baselines: dedicatedReview.next, previousStates: [dedicated.next],
+    states: [state], texts: { kb4966: after },
+  })
+  if (accepted) assert.deepEqual(assertSecurityFeedPageStateContinuity(review.continuityStates, [state]), [state])
+  else assert.throws(() => assertSecurityFeedPageStateContinuity(review.continuityStates, [state]), /Security feed coverage failed/)
+}
+assert.throws(() => assertSecurityFeedPageStateContinuity(dedicatedReview.continuityStates, [{ ...dedicated.next, productIds: ['vro'] }]), /Security feed coverage failed/)
+
 // Existing extraction ignores page furniture, while new mitigation remains significant.
 assert.equal(normalizeReviewedSecurityMainArticle('<nav>New navigation</nav><h1>Article</h1><p>Keep this guidance.</p>'), 'Article Keep this guidance.')
 

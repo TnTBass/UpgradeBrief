@@ -1,0 +1,48 @@
+name: Validate KB4966 catalog repair
+on:
+  push:
+    branches: ['repair/kb4966-review-20261111']
+    paths:
+      - '.github/workflows/validate-kb4966.yml'
+      - 'scripts/lib/**'
+      - 'scripts/data/reviewed-security-advisories.json'
+      - 'scripts/test-*.mjs'
+      - 'src/lib/lookup.test.ts'
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Refresh all products from live sources
+        run: npm run refresh:catalog -- --live
+      - name: Require complete product refresh
+        run: node scripts/report-partial-refresh.mjs
+      - name: Run catalog and application verification
+        run: node scripts/verify-catalog-repair.mjs
+      - run: npm audit --audit-level=moderate
+      - name: Save the validated snapshot and review baseline
+        run: |
+          git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
+          git diff --cached --quiet && exit 0
+          git config user.name 'upgrade-brief[bot]'
+          git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
+          git commit -m 'chore: regenerate catalog after KB4966 source review'
+          git push origin HEAD:repair/kb4966-review-20261111
+      - name: Retain verification evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: kb4966-review-validation
+          path: |
+            artifacts/catalog-review/
+            artifacts/catalog-repair/verification/
+          if-no-files-found: ignore
+          retention-days: 7
