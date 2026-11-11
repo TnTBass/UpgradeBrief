@@ -92,7 +92,11 @@ export function validateReviewedSecurityData(data) {
       requireCondition(REASONS.has(spec.informationalReason), 'informational reason')
       string(spec.contentFingerprint, 'informational fingerprint', HASH)
     } else {
-      requireCondition(spec.informationalReason === undefined && spec.contentFingerprint === undefined, 'unexpected informational policy')
+      requireCondition(spec.informationalReason === undefined, 'unexpected informational policy')
+      if (spec.contentFingerprint !== undefined) {
+        requireCondition(spec.classification === 'dedicated', 'content fingerprint requires a reviewed advisory')
+        string(spec.contentFingerprint, 'reviewed advisory fingerprint', HASH)
+      }
     }
   }
   const seen = new Set()

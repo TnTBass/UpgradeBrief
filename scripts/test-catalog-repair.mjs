@@ -17,6 +17,9 @@ const october = await read('./fixtures/catalog-repair/2026-10-07-source-review.j
 validateReviewedSecurityData(data)
 for (const mutate of [
   d => { d.schemaVersion = 2 },
+  d => { d.observationSpecs.kb4966.contentFingerprint = 'sha256:invalid' },
+  d => { d.observationSpecs.kb4966.informationalReason = 'NO_VENDOR_VULNERABILITY_FINDING' },
+  d => { d.observationSpecs.kb4926.contentFingerprint = 'sha256:' + 'a'.repeat(64) },
   d => { d.observationSpecs.kb4953.notice.displayUntil = '2026-12-22' },
   d => { d.observationSpecs.kb4953.notice.publishedAt = '2026-02-30' },
   d => { d.observationSpecs.kb4953.notice.impact = 'affected' },

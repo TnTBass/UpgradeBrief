@@ -45,7 +45,10 @@ describe('catalog lookup', () => {
       expect(finding.fixedReleaseId).toBeUndefined()
       expect(finding.remediation).toContain('Veeam Updater')
       expect(finding.remediation).toContain('private fix')
-      expect(finding.remediation).toContain('12.3 private fix was pending')
+      expect(finding.remediation).toContain('For VBR 12.3, install 12.3.2.4934 and the KB4966 private fix')
+      expect(finding.remediation).toContain('Veeam Agent for Linux 13.1 or 6.3')
+      expect(finding.remediation).toContain('Additional Downloads')
+      expect(finding.remediation).not.toContain('pending')
       expect(finding.conditions.join(' ')).toContain('separate verification')
     }
     const findings = catalog.securityFindings.filter(item => item.cves.includes('CVE-2026-98432'))
