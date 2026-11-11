@@ -78,7 +78,8 @@ export const REVIEWED_SECURITY_OBSERVATION_POLICY = Object.freeze(Object.fromEnt
     ignoredCveIds: Object.freeze(sortedUnique(spec.ignoredCveIds ?? [])),
     allowNoCves: spec.allowNoCves === true,
     multiProduct: spec.multiProduct === true,
-    ...(spec.informationalReason ? { informationalReason: spec.informationalReason, contentFingerprint: spec.contentFingerprint } : {}),
+    ...(spec.informationalReason ? { informationalReason: spec.informationalReason } : {}),
+    ...(spec.contentFingerprint ? { contentFingerprint: spec.contentFingerprint } : {}),
     productCves: Object.freeze(Object.fromEntries(Object.entries(spec.productCves).map(([productId, cves]) => [productId, Object.freeze(sortedUnique(cves))]))),
   })]),
 ))

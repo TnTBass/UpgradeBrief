@@ -14,6 +14,8 @@ import {
   observeReviewedSecurityArticle,
 } from './lib/reviewed-security-advisories.mjs'
 
+const reviewBaselines = JSON.parse(await readFile(new URL('./data/security-review-baselines.json', import.meta.url), 'utf8'))
+
 assert.deepEqual(extractReviewedSecurityCveIds('CVE20155742 and CVE-2024-40715'), ['CVE-2015-5742', 'CVE-2024-40715'])
 
 for (const [articleId, policy] of Object.entries(REVIEWED_SECURITY_OBSERVATION_POLICY)) {
@@ -21,8 +23,10 @@ for (const [articleId, policy] of Object.entries(REVIEWED_SECURITY_OBSERVATION_P
     assert.match(policy.contentFingerprint, /^sha256:[a-f0-9]{64}$/)
     continue
   }
-  const content = policy.expectedCveIds.join(' ')
-  const observation = observeReviewedSecurityArticle(articleId.toUpperCase(), content)
+  const content = policy.contentFingerprint ? reviewBaselines.articles[articleId].normalizedText : policy.expectedCveIds.join(' ')
+  const observation = observeReviewedSecurityArticle(articleId.toUpperCase(), content, {
+    equivalentFingerprint: policy.contentFingerprint ? reviewBaselines.articles[articleId].contentFingerprint : undefined,
+  })
   assert.deepEqual(observation.observedCves, policy.expectedCveIds, `${articleId} did not retain its reviewed page-CVE set`)
 }
 
@@ -198,7 +202,15 @@ const kernelClassification = classifySecurityFeedArticles({
 assert.equal(kernelClassification.classification, 'dedicated')
 assert.deepEqual(kernelClassification.productIds, ['vbr'])
 assert.equal(kernelClassification.multiProduct, true)
-const kernelObservation = observeReviewedSecurityArticle('kb4966', 'CVE-2026-98432')
+const kernelText = reviewBaselines.articles.kb4966.normalizedText
+assert.equal(reviewBaselines.articles.kb4966.reviewedFingerprint, REVIEWED_SECURITY_OBSERVATION_POLICY.kb4966.contentFingerprint)
+assert.equal(fingerprintReviewedSecurityMainArticle(kernelText), reviewBaselines.articles.kb4966.contentFingerprint)
+const kernelOptions = { equivalentFingerprint: reviewBaselines.articles.kb4966.contentFingerprint }
+const kernelObservation = observeReviewedSecurityArticle('kb4966', kernelText, kernelOptions)
+assert.throws(() => observeReviewedSecurityArticle('kb4966', kernelText.replaceAll('12.3.2.4934', '12.3.2.9999'), kernelOptions), ReviewedSecurityObservationError, 'Changed patch prerequisites require review even when CVEs are unchanged')
+assert.throws(() => observeReviewedSecurityArticle('kb4966', kernelText + ' The private fix is no longer available.', kernelOptions), ReviewedSecurityObservationError)
+assert.throws(() => observeReviewedSecurityArticle('kb4966', kernelText + ' CVE-2099-12345', kernelOptions), ReviewedSecurityObservationError)
+assert.throws(() => observeReviewedSecurityArticle('kb4966', kernelText.replaceAll('CVE-2026-98432', ''), kernelOptions), ReviewedSecurityObservationError)
 assert.deepEqual(kernelObservation.observedCvesByProduct, { vbr: ['CVE-2026-98432'] })
 assert.throws(() => observeReviewedSecurityArticle('kb4966', 'CVE-2026-98432 CVE-2099-12345'), ReviewedSecurityObservationError)
 assert.throws(() => observeReviewedSecurityArticle('kb4966', ''), ReviewedSecurityObservationError)
