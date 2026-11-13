@@ -52,8 +52,12 @@ describe('catalog lookup', () => {
       expect(finding.conditions.join(' ')).toContain('separate verification')
     }
     const findings = catalog.securityFindings.filter(item => item.cves.includes('CVE-2026-98432'))
-    expect(findings).toHaveLength(1)
-    expect(findings[0].productId).toBe('vbr')
+    expect(findings.map(finding => finding.productId).sort()).toEqual(['vbr', 'vro'])
+    const orchestrator = findRelease(catalog, 'vro', '13.1.2.25')!
+    const embedded = findingsForRelease(catalog, orchestrator).find(finding => finding.cves.includes('CVE-2026-98432'))!
+    expect(embedded.fixedReleaseId).toBeUndefined()
+    expect(embedded.remediation).toContain('embedded VBR 13.1.2.57')
+    expect(embedded.remediation).toContain('private fix')
   })
 
   it('keeps the October VBR and Enterprise Manager fixes within their documented product and build boundaries', () => {
@@ -510,3 +514,4 @@ describe('catalog lookup', () => {
     ]))
   })
 })
+
