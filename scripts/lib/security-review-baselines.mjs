@@ -100,10 +100,10 @@ function escapeMarkdown(text) {
 export async function writeSecurityReviewReport({ directory, baselines, texts, catalog, error, equivalentChanges = [], inventoryChanges = [], summaryPath, partial = false }) {
   const changes = Object.entries(texts).flatMap(([articleId, after]) => {
     const before = baselines.articles[articleId]?.normalizedText
-    if (before === after) return []
+    if (before === after && !(error?.report?.findings ?? []).some(finding => finding.articleId === articleId)) return []
     return [{
       articleId, url: `https://www.veeam.com/${articleId}`,
-      disposition: before === undefined ? 'baseline-capture' : equivalentChanges.includes(articleId) ? 'approved-equivalence' : inventoryChanges.includes(articleId) ? 'supported-inventory-expansion' : error ? 'review-required' : 'validated-refresh',
+      disposition: before === undefined ? (error ? 'new-source-review' : 'baseline-capture') : equivalentChanges.includes(articleId) ? 'approved-equivalence' : inventoryChanges.includes(articleId) ? 'supported-inventory-expansion' : error ? 'review-required' : 'validated-refresh',
       acceptedPageState: catalog.securityFeedPageStates?.find(state => state.articleId === articleId),
       acceptedRoute: catalog.securityFeedRoutes?.find(route => route.articleId === articleId),
       affectedFindingIds: catalog.securityFindings.filter(f => f.sourceIds?.includes(articleId)).map(f => f.id),
@@ -115,7 +115,7 @@ export async function writeSecurityReviewReport({ directory, baselines, texts, c
     schemaVersion: 1, ok: !error, status: partial ? 'partial' : error ? 'blocked' : 'complete',
     capturedAt: new Date().toISOString(),
     baseCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
-    ...(error ? { error: { message: error.message, code: error.code, report: error.report, diagnostic: error.diagnostic }, triage: classifyCatalogFailure(error) } : {}),
+    ...(error ? { error: { message: error.message, code: error.code, report: error.report, diagnostic: error.diagnostic, articleIds: error.articleIds }, triage: classifyCatalogFailure(error) } : {}),
     equivalentChanges, inventoryChanges, changes,
   }
   const lines = ['# Catalogue source review', '', partial ? 'Partial refresh. Failed product groups retain their previous data and accepted baselines; successful groups passed their checks.' : error ? 'Refresh blocked. The previous catalogue and accepted baselines are retained.' : 'All catalogue checks passed.', '']
@@ -126,7 +126,7 @@ export async function writeSecurityReviewReport({ directory, baselines, texts, c
   for (const change of changes.filter(c => c.disposition !== 'baseline-capture')) {
     lines.push(`## ${change.articleId}`, '', `Source: ${change.url}`, '', `Disposition: ${change.disposition}`, '',
       `Affected findings: ${change.affectedFindingIds.join(', ') || 'none; see article classification and scope in review.json'}`, '',
-      `Before: ${escapeMarkdown(change.diff.before)}`, '', `After: ${escapeMarkdown(change.diff.after)}`, '')
+      `Before: ${escapeMarkdown(change.diff?.before ?? 'No previously accepted article')}`, '', `After: ${escapeMarkdown(change.diff?.after ?? change.after)}`, '')
   }
   if (changes.some(c => c.disposition === 'baseline-capture')) lines.push('First accepted text captures are included in review.json.', '')
   lines.push('Full accepted and fetched texts, changed spans, and structured gate findings are in review.json.', '')

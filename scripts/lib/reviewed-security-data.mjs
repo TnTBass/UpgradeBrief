@@ -62,6 +62,40 @@ export function validateSecurityNotice(notice) {
   requireCondition(duration > 0 && duration <= 30 * 86_400_000, 'security notice display window must be at most 30 days')
 }
 
+function validateComponentModel(spec) {
+  const m = spec.componentAdvisory
+  const keys = ['schemaVersion', 'kind', 'cve', 'cvssScore', 'kernel', 'productIds', 'privateFixes', 'recoveryMedia', 'workerUpdates', 'orchestrator']
+  exactKeys(m, keys, keys, 'component advisory')
+  requireCondition(spec.classification === 'dedicated' && spec.multiProduct === true && m.schemaVersion === 1 && m.kind === 'linux-kernel-helper-appliances', 'component advisory kind')
+  string(m.cve, 'component CVE', CVE)
+  string(spec.contentFingerprint, 'component source fingerprint', HASH)
+  string(m.kernel, 'component kernel', /^[\w.+-]+$/)
+  requireCondition(Number.isFinite(m.cvssScore) && m.cvssScore > 0 && m.cvssScore <= 10, 'component score')
+  requireCondition(['pending-legacy', 'download-legacy', 'additional-downloads'].includes(m.recoveryMedia), 'component recovery media')
+  requireCondition(['legacy-summary', 'automatic-on-launch'].includes(m.workerUpdates), 'component worker updates')
+  requireCondition(Array.isArray(m.privateFixes) && m.privateFixes.length === 2, 'component fixes')
+  for (const [i, fix] of m.privateFixes.entries()) {
+    const keys = fix.status === 'pending' ? ['family', 'status'] : ['family', 'status', 'prerequisiteBuild', 'filename', 'sha256']
+    exactKeys(fix, keys, keys, 'component fix')
+    requireCondition(fix.family === ['13.1', '12.3'][i] && ['pending', 'available'].includes(fix.status) && (i === 1 || fix.status === 'available'), 'component fix family')
+    if (fix.status === 'available') {
+      string(fix.prerequisiteBuild, 'component prerequisite', /^\d+\.\d+\.\d+\.\d+$/)
+      requireCondition(fix.prerequisiteBuild.startsWith(fix.family + '.'), 'component prerequisite family')
+      string(fix.filename, 'component filename', /^VeeamBackup&Replication_\d+\.\d+\.\d+\.\d+_\d{8}_PrivateFix\.exe$/)
+      requireCondition(fix.filename.startsWith('VeeamBackup&Replication_' + fix.prerequisiteBuild + '_'), 'component filename build')
+      string(fix.sha256, 'component checksum', /^[A-F0-9]{64}$/)
+    }
+  }
+  if (m.orchestrator !== null) {
+    exactKeys(m.orchestrator, ['version', 'embeddedBuild'], ['version', 'embeddedBuild'], 'embedded VBR')
+    string(m.orchestrator.version, 'orchestrator version', /^13\.1\.\d+\.\d+$/)
+    requireCondition(m.orchestrator.embeddedBuild === m.privateFixes[0].prerequisiteBuild, 'embedded prerequisite')
+  }
+  const products = m.orchestrator ? ['vbr', 'vro'] : ['vbr']
+  requireCondition(JSON.stringify(m.productIds) === JSON.stringify(products) && JSON.stringify(Object.keys(spec.productCves).sort()) === JSON.stringify(products), 'component product mapping')
+  requireCondition(Object.values(spec.productCves).every(cves => JSON.stringify(cves) === JSON.stringify([m.cve])), 'component CVE mapping')
+}
+
 export function validateReviewedSecurityData(data) {
   exactKeys(data, ['schemaVersion', 'advisories', 'observationSpecs'], ['schemaVersion', 'advisories', 'observationSpecs'], 'reviewed data')
   requireCondition(data.schemaVersion === 1, 'unsupported reviewed data schema')
@@ -70,7 +104,7 @@ export function validateReviewedSecurityData(data) {
   exactKeys(specs, Object.keys(specs ?? {}), [], 'observation specs')
   for (const [articleId, spec] of Object.entries(specs)) {
     string(articleId, 'article ID', KB)
-    exactKeys(spec, ['classification', 'productCves', 'ignoredCveIds', 'allowNoCves', 'informationalReason', 'contentFingerprint', 'multiProduct', 'notice'], ['classification', 'productCves'], articleId)
+    exactKeys(spec, ['classification', 'productCves', 'ignoredCveIds', 'allowNoCves', 'informationalReason', 'contentFingerprint', 'multiProduct', 'notice', 'componentAdvisory'], ['classification', 'productCves'], articleId)
     requireCondition(['dedicated', 'inventory', 'informational', 'out-of-scope'].includes(spec.classification), 'classification')
     exactKeys(spec.productCves, [...PRODUCTS], [], 'product CVEs')
     const productIds = Object.keys(spec.productCves)
@@ -81,6 +115,7 @@ export function validateReviewedSecurityData(data) {
       const mapped = Object.values(spec.productCves).flat()
       requireCondition(!spec.ignoredCveIds.some(cve => mapped.includes(cve)), 'CVE is both mapped and ignored')
     }
+    if (spec.componentAdvisory !== undefined) validateComponentModel(spec)
     if (spec.notice !== undefined) {
       validateSecurityNotice(spec.notice)
       requireCondition(spec.classification === 'informational' && spec.informationalReason === 'NO_VENDOR_VULNERABILITY_FINDING', 'notice requires a reviewed no-impact classification')
@@ -130,3 +165,4 @@ export function validateReviewedSecurityData(data) {
   }
   return data
 }
+

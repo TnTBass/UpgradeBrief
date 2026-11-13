@@ -46,7 +46,8 @@
     "test:catalog-repair-publication": "node scripts/test-catalog-repair-publication.mjs",
     "verify:catalog-repair": "node scripts/verify-catalog-repair.mjs",
     "test:catalog-repair-integration": "node scripts/test-catalog-repair-integration.mjs",
-    "test:catalog-isolation": "node scripts/test-catalog-isolation.mjs"
+    "test:catalog-isolation": "node scripts/test-catalog-isolation.mjs",
+    "test:component-advisory": "node scripts/test-component-advisory.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "6.0.3",

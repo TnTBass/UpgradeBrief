@@ -2,8 +2,9 @@ import { readFile, readdir } from 'node:fs/promises'
 import { buildCatalogCandidate } from '../catalog-refresh-candidate.mjs'
 import { createCatalogSourceFetcher } from './source-fetch.mjs'
 import { pinnedSecurityArticles, securityClassificationOverrides } from './catalog-refresh-registry.mjs'
-import { assertSecurityFeedContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractSecurityArticleScope, extractCveIds, fetchSecurityFeedPages, fingerprintSecurityArticleContent } from './security-feed-coverage.mjs'
-import { normalizeReviewedSecurityMainArticle } from './reviewed-security-advisories.mjs'
+import { assertSecurityFeedContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractCveIds, fetchSecurityFeedPages } from './security-feed-coverage.mjs'
+import { REVIEWED_SECURITY_OBSERVATION_POLICY } from './reviewed-security-advisories.mjs'
+import { discoverArticleScopes, discoveryError } from './catalog-discovery.mjs'
 import { assertVspcKbInventoryContinuity, fetchVspcKbInventory } from './vspc-kb-cve-coverage.mjs'
 import { parseCisaKev } from './cisa-kev.mjs'
 import { parseLifecyclePolicies } from './lifecycle.mjs'
@@ -29,7 +30,7 @@ export function validateGlobalDatasets(current, kev, lifecycle) {
   if (lifecyclePolicies.length < 10 || PRODUCT_IDS.filter(id => id !== 'enterprise-manager').some(id => !lifecyclePolicies.some(policy => policy.productId === id))) fail('LIFECYCLE_INCOMPLETE')
 }
 
-export async function discoverTransactions({ current, baselines, collector, policyHash, reviewTexts }) {
+export async function discoverTransactions({ current, baselines, collector, policyHash, reviewTexts, discovery = { blocked: [] } }) {
   const globalFetcher = collector.forProducts(PRODUCT_IDS)
   const text = async (url, sourceId) => (await globalFetcher.request(url, { sourceId })).text()
   const source = id => {
@@ -48,42 +49,21 @@ export async function discoverTransactions({ current, baselines, collector, poli
   validateGlobalDatasets(current, kev, lifecycle)
   const articles = [...feed.articles, ...pinnedSecurityArticles.filter(item => !feed.articles.some(article => article.id.toLowerCase() === item.id))]
   const classified = classifySecurityFeedArticles({ articles, classifications: buildSecurityArticleClassifications(articles, securityClassificationOverrides) })
-  const unknown = classified.filter(article => article.classification === 'unclassified')
-  if (unknown.length) fail('UNKNOWN_SOURCE_OWNERSHIP', unknown.map(item => item.articleId).join(','))
-  const feedIds = new Set(feed.articles.map(article => article.id.toLowerCase()))
-  assertSecurityFeedRouteContinuity(current.securityFeedRoutes, classified.filter(article => feedIds.has(article.articleId)).map(({ articleId, classification, productIds, multiProduct }) => ({ articleId, classification, productIds, multiProduct })))
   const edges = []
   if (current.refreshPolicyHash && current.refreshPolicyHash !== policyHash) edges.push(PRODUCT_IDS)
-  const ownership = new Map()
-  for (const article of classified) {
-    const previous = current.securityFeedRoutes.find(route => route.articleId === article.articleId)
-    const owners = new Set([...(previous?.productIds ?? []), ...article.productIds])
-    for (const productId of PRODUCT_IDS) if (sourceIdsForProduct(current, productId).includes(article.articleId)) owners.add(productId)
-    ownership.set(article.articleId, owners.size ? [...owners].sort() : PRODUCT_IDS)
-  }
-  // Global data revisions affect every transaction. An unavailable global
-  // inventory already threw above; a changed one cannot evade a retained group.
+  // Feed membership and article ownership are checked independently. Metadata
+  // changes in a feed do not by themselves join unrelated product groups.
   for (const observation of collector.observations.values()) {
     const prior = current.sourceRevisions?.filter(item => item.sourceId === observation.sourceId && item.kind === 'fetched')
-    if (prior?.length && prior.some(item => item.digest !== observation.digest)) edges.push(PRODUCT_IDS)
-  }
-  await Promise.all(classified.map(async article => {
-    const owners = ownership.get(article.articleId)
-    const url = new URL(articles.find(item => item.id.toLowerCase() === article.articleId).url, 'https://www.veeam.com').toString()
-    let html
-    try { html = await (await collector.forProducts(owners).request(url, { sourceId: article.articleId })).text() }
-    catch {
-      edges.push(owners)
-      if (owners.length === PRODUCT_IDS.length) fail('GLOBAL_SECURITY_SOURCE_UNAVAILABLE', article.articleId)
-      return
+    if (prior?.some(item => item.digest !== observation.digest)) {
+      if (['cisa-kev', 'lifecycle'].includes(observation.sourceId)) edges.push(PRODUCT_IDS)
+      else if (observation.sourceId.startsWith('vspc-kb-inventory-')) edges.push(['vspc'])
     }
-    const scope = extractSecurityArticleScope(html)
-    const previous = current.securityFeedPageStates.find(state => state.articleId === article.articleId)
-    if (previous && (JSON.stringify([...scope.productIds].sort()) !== JSON.stringify([...previous.productIds].sort()) || scope.hasOutOfScopeProduct !== previous.hasOutOfScopeProduct)) fail('UNKNOWN_SOURCE_SCOPE_CHANGE', article.articleId)
-    reviewTexts[article.articleId] = normalizeReviewedSecurityMainArticle(html)
-    const digest = fingerprintSecurityArticleContent(reviewTexts[article.articleId])
-    if (baselines.articles[article.articleId]?.contentFingerprint !== digest) edges.push(owners)
-  }))
+  }
+  const inspected = await discoverArticleScopes({ classified, articles, current, baselines, collector,
+    policies: REVIEWED_SECURITY_OBSERVATION_POLICY, reviewTexts, productIds: PRODUCT_IDS })
+  edges.push(...inspected.edges)
+  discovery.blocked = inspected.blocked
   return transactionClosure(edges)
 }
 
@@ -100,12 +80,18 @@ function normalizedPartition(catalog, productId) {
   return partition
 }
 
-export async function runTransactions({ current, baselines, collector, policyHash, groups, build = buildCatalogCandidate, reviewTexts = {}, atomic = false, shadow = true, now = () => new Date().toISOString() }) {
+export async function runTransactions({ current, baselines, collector, policyHash, groups, build = buildCatalogCandidate, reviewTexts = {}, discovery = { blocked: [] }, atomic = false, shadow = true, now = () => new Date().toISOString() }) {
   const outcomes = []
   // One timestamp for the immutable composite. All sources must be collected
   // and validated in this run before this timestamp is accepted.
   const assembledAt = now()
   for (const productIds of groups) {
+    const pending = discovery.blocked.filter(item => item.productIds.some(id => productIds.includes(id)))
+    if (pending.length) {
+      const error = discoveryError(pending)
+      outcomes.push({ productIds, failureCodes: failureCodes(error), error: error.message, reviewError: error })
+      continue
+    }
     try {
       const result = await build({ current: structuredClone(current), baselines: structuredClone(baselines), sourceFetcher: collector.forProducts(productIds), productIds, refreshedAt: assembledAt, reviewTexts })
       outcomes.push({ productIds, result })
@@ -151,7 +137,8 @@ export async function refreshCatalog({ current, baselines, reviewTexts = {}, ato
   if (current.schemaVersion === 2) validateCatalogProvenance(current)
   const policyHash = await refreshPolicyHash()
   const collector = createObservationCollector(createCatalogSourceFetcher())
-  const groups = await discoverTransactions({ current, baselines, collector, policyHash, reviewTexts })
-  return runTransactions({ current, baselines, collector, policyHash, groups, reviewTexts, atomic })
+  const discovery = { blocked: [] }
+  const groups = await discoverTransactions({ current, baselines, collector, policyHash, reviewTexts, discovery })
+  return runTransactions({ current, baselines, collector, policyHash, groups, reviewTexts, discovery, atomic })
 }
 

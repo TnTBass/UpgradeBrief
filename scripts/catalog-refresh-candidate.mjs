@@ -15,6 +15,7 @@ import { mergeVbrReleaseInformation, parseVbrReleaseInformation } from './lib/vb
 import { contentFingerprint, extractSourceSupportedHighlights, mergeReleaseMaterials, mergeSourceSupportedHighlights, textFromDocument } from './lib/release-materials.mjs'
 import { discoverReleaseMaterials } from './lib/release-material-discovery.mjs'
 import { reconcileSecurityReviewBaselines } from './lib/security-review-baselines.mjs'
+import { reconcileComponentScope } from './lib/component-review.mjs'
 import { SecurityFeedCoverageError, assertSecurityFeedContinuity, assertSecurityFeedCoverage, assertSecurityFeedPageStateContinuity, assertSecurityFeedRouteContinuity, buildSecurityArticleClassifications, classifySecurityFeedArticles, extractCveIds, extractSecurityArticleScope, fetchSecurityFeedPages, fingerprintSecurityArticleContent, splitSecurityArticleVulnerabilityContent } from './lib/security-feed-coverage.mjs'
 import { REVIEWED_SECURITY_PARSED_COVERAGE, REVIEWED_SECURITY_OBSERVATION_POLICY, mergeReviewedSecurityAdvisories, normalizeReviewedSecurityMainArticle, observeReviewedSecurityArticle } from './lib/reviewed-security-advisories.mjs'
 import { VSPC_REVIEWED_CVE_EXCLUSIONS, VspcKbCveCoverageError, assertVspcKbCveCoverage, fetchVspcKbInventory, fingerprintVspcParsedModel, inspectVspcKbCveCoverage } from './lib/vspc-kb-cve-coverage.mjs'
@@ -96,9 +97,9 @@ const securityArticles = [...securityFeed.articles, ...pinnedSecurityArticles.fi
 const securityClassifications = buildSecurityArticleClassifications(securityArticles, securityClassificationOverrides)
 const classifiedSecurityArticles = classifySecurityFeedArticles({ articles: securityArticles, classifications: securityClassifications })
 const securityFeedArticleIdSet = new Set(securityFeed.articles.map((article) => article.id.toLowerCase()))
-const securityFeedRoutes = assertSecurityFeedRouteContinuity(current.securityFeedRoutes, classifiedSecurityArticles
+const proposedSecurityFeedRoutes = classifiedSecurityArticles
   .filter((article) => securityFeedArticleIdSet.has(article.articleId))
-  .map(({ articleId, classification, productIds, multiProduct }) => ({ articleId, classification, productIds, multiProduct })))
+  .map(({ articleId, classification, productIds, multiProduct }) => ({ articleId, classification, productIds, multiProduct }))
 const sourceArticleById = new Map(securityArticles.map((article) => [article.id.toLowerCase(), article]))
 // Fetch new articles for review evidence; the coverage gate still rejects unclassified articles.
 const classifiedArticlesToFetch = classifiedSecurityArticles.filter(article => !article.productIds.length || article.productIds.some(owns))
@@ -144,8 +145,10 @@ const fetchedSecurityFeedPageStates = classifiedArticlesToFetch.flatMap((article
     ...(article.classification === 'inventory' ? { observedCveIds: extractCveIds(normalizedContent) } : {}),
   }]
 })
+const reviewedScope = reconcileComponentScope({ routes: current.securityFeedRoutes, pageStates: previousPageStates, baselines, texts: reviewTexts, policies: REVIEWED_SECURITY_OBSERVATION_POLICY })
+const securityFeedRoutes = assertSecurityFeedRouteContinuity(reviewedScope.routes, proposedSecurityFeedRoutes)
 baselineReview = reconcileSecurityReviewBaselines({
-  baselines, previousStates: previousPageStates, states: fetchedSecurityFeedPageStates,
+  baselines, previousStates: reviewedScope.pageStates, states: fetchedSecurityFeedPageStates,
   texts: reviewTexts, policies: REVIEWED_SECURITY_OBSERVATION_POLICY, allowReviewedPolicyTransition: current.schemaVersion === 2,
 })
 const securityFeedPageStates = assertSecurityFeedPageStateContinuity(baselineReview.continuityStates, fetchedSecurityFeedPageStates, { allowInventoryExpansion: false })

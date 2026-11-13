@@ -1,3 +1,4 @@
+import { inspectComponentChange, applyComponentChange } from './component-advisory.mjs'
 import { normalizeSecurityReviewText } from './security-review-baselines.mjs'
 
 const cves = text => [...new Set(text.match(/CVE-\d{4}-\d{4,}/g) ?? [])].sort()
@@ -47,6 +48,8 @@ function dependencyChange(article, spec) {
 }
 
 export function inspectSemanticChange(article, reviewedData) {
+  const component = inspectComponentChange(article, reviewedData)
+  if (component) return component
   if (!article.before) return null
   const spec = reviewedData.observationSpecs[article.articleId]
   if (!spec) return null
@@ -80,6 +83,8 @@ export function inspectSemanticChange(article, reviewedData) {
 }
 
 export function applySemanticChange({ article, reviewedData, extraction }) {
+  const component = applyComponentChange(article, reviewedData)
+  if (component) return component
   const result = inspectSemanticChange(article, reviewedData)
   if (!result) return null
   if (result.kind === 'vulnerability') {

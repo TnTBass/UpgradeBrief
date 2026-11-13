@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises'
+import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises'
 import { execFileSync } from 'node:child_process'
 import { resolve, join } from 'node:path'
 import { buildRepairCandidate } from './lib/catalog-repair-candidate.mjs'
@@ -9,6 +9,7 @@ import { assertCandidateScope, createRepairPullRequest, ensureInvestigation, ens
 import { snapshotHash, verifyCatalogCheckout, verifyRepairDeployment } from './lib/catalog-repair-verification.mjs'
 import { createCatalogSourceFetcher } from './lib/source-fetch.mjs'
 import { normalizeReviewedSecurityMainArticle } from './lib/reviewed-security-advisories.mjs'
+import { publicationOutcome } from './lib/catalog-repair-outcome.mjs'
 import { inspectSemanticChange } from './lib/catalog-repair-semantics.mjs'
 
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'))
@@ -80,7 +81,7 @@ try {
     const changes = bundle.articles.map(article => `${article.articleId}: ${inspectSemanticChange(article, sourceInputs.reviewedData)?.summary ?? 'Accepted metadata or naming equivalence; security meaning is unchanged.'}`)
     const manifest = {
       schemaVersion: 1, environment: bundle.environment, repairId: id, baseCommit: currentCommit, articleIds, bundle, proposal, extractions,
-      sections: Object.fromEntries(bundle.articles.map(article => [article.articleId, inspectSemanticChange(article, sourceInputs.reviewedData)?.records.map(record => ({ cve: record.cve, start: record.section.start, end: record.section.end })) ?? []])),
+      sections: Object.fromEntries(bundle.articles.map(article => [article.articleId, inspectSemanticChange(article, sourceInputs.reviewedData)?.records.filter(record => record.section).map(record => ({ cve: record.cve, start: record.section.start, end: record.section.end })) ?? []])),
       before: projectRepairState(sourceInputs, articleIds), after: projectRepairState(finalInputs, articleIds), checks,
       changes, catalogHash: snapshotHash(finalInputs.catalog), verifiedAt: new Date().toISOString(),
     }
@@ -140,5 +141,10 @@ try {
   throw error
 } finally {
   await mkdir('artifacts/catalog-repair', { recursive: true })
-  await writeFile('artifacts/catalog-repair/publication-result.json', `${JSON.stringify(state.repairs[id] ?? { id, state: 'failed-before-publication' }, null, 2)}\n`)
+  const repairResult = state.repairs[id] ?? { id, state: 'failed-before-publication' }
+  const outcome = publicationOutcome(repairResult)
+  if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, '\nCatalogue repair outcome: **' + outcome.outcome + '**. Catalogue: ' + outcome.catalogue + '.\n')
+  console.log(JSON.stringify({ id, ...outcome }))
+  if (!outcome.publicationVerified) process.exitCode = 1
+  await writeFile('artifacts/catalog-repair/publication-result.json', `${JSON.stringify({ ...repairResult, ...outcome }, null, 2)}\n`)
 }

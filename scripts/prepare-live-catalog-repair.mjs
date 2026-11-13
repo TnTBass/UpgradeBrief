@@ -6,7 +6,7 @@ import { buildRepairCandidate } from './lib/catalog-repair-candidate.mjs'
 import { inspectSemanticChange } from './lib/catalog-repair-semantics.mjs'
 import { extractWithWorkersAi } from './lib/catalog-repair-ai.mjs'
 import { githubClient, githubStateStore } from './lib/catalog-repair-state.mjs'
-import { normalizeSecurityReviewText } from './lib/security-review-baselines.mjs'
+import { changedTextSpan, normalizeSecurityReviewText } from './lib/security-review-baselines.mjs'
 import { effectiveHolds } from './lib/catalog-repair-feedback.mjs'
 
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'))
@@ -31,13 +31,14 @@ for (const article of bundle.articles) {
   const semantic = equivalent ? null : inspectSemanticChange(article, reviewedData)
   const unresolved = []
   if (!equivalent && !semantic) unresolved.push('The maintained validator cannot establish a supported semantic change.')
-  if (semantic?.kind === 'vulnerability') {
+  if (semantic?.kind === 'vulnerability' || (!equivalent && !semantic)) {
     if (alreadyHandled || effectiveHolds(state, environment).includes(bundle.evidenceId) || effectiveHolds(state, environment).includes(article.articleId)) unresolved.push('A durable review state or hold prevents repeated inference.')
     else if (process.env.CATALOG_REPAIR_AI_ENABLED !== 'true') unresolved.push('AI proposal generation is disabled.')
     else {
       try {
         extractions[article.articleId] = (await extractWithWorkersAi({
-          excerpt: semantic.excerpt, accountId: process.env.CLOUDFLARE_ACCOUNT_ID, token: process.env.CLOUDFLARE_WORKERS_AI_TOKEN,
+          excerpt: semantic?.excerpt ?? changedTextSpan(article.before ?? '', article.after).after,
+          mode: semantic ? 'vulnerability' : 'review', accountId: process.env.CLOUDFLARE_ACCOUNT_ID, token: process.env.CLOUDFLARE_WORKERS_AI_TOKEN,
           cacheKey: { evidenceId: bundle.evidenceId, validator: bundle.validatorVersion },
           loadState: async () => state,
           saveState: async next => { await store.save(next); state = next },

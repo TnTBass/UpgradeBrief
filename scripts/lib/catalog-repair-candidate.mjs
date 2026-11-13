@@ -1,6 +1,7 @@
 import { canonicalJson, classifyCatalogFailure, repairHash, validateRepairEvidence, validateRepairProposal } from './catalog-repair-evidence.mjs'
 import { requireCondition, validateReviewedSecurityData } from './reviewed-security-data.mjs'
 import { createSecurityReviewBaseline, normalizeSecurityReviewText } from './security-review-baselines.mjs'
+import { applyComponentChange } from './component-advisory.mjs'
 import { applySemanticChange } from './catalog-repair-semantics.mjs'
 
 export const REPAIR_OUTPUT_PATHS = Object.freeze([
@@ -24,7 +25,7 @@ export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines
   const blocked = []
   if (holds.includes(bundle.evidenceId) || bundle.articles.some(article => holds.includes(article.articleId))) blocked.push({ code: 'REVIEW_CHANGE_REQUEST_HOLD' })
   const triage = classifyCatalogFailure(bundle.failure)
-  if (triage.categories.some(category => category !== 'reviewed-content')) blocked.push({ code: 'UNSUPPORTED_FAILURE', categories: triage.categories })
+  if (triage.categories.some(category => !['reviewed-content', 'article-classification'].includes(category))) blocked.push({ code: 'UNSUPPORTED_FAILURE', categories: triage.categories })
   if (!bundle.articles.length) blocked.push({ code: 'MISSING_SOURCE_EVIDENCE' })
   const articleIds = new Set(bundle.articles.map(article => article.articleId))
   for (const finding of bundle.failure.report?.findings ?? []) {
@@ -44,6 +45,14 @@ export function buildRepairCandidate({ bundle, proposal, reviewedData, baselines
     // manufacture a feed route or broaden classification policy.
     const supplemental = article.articleId === 'kb4857' && reviewedData.observationSpecs.kb4857?.classification === 'informational'
       && Array.isArray(catalog.securityFeedArticleIds) && !catalog.securityFeedArticleIds.includes(article.articleId)
+    if (!before && !page && !route && article.before === null && article.acceptedPageState === null && article.acceptedRoute === null && proposed.kind === 'component' && !proposed.unresolved.length) {
+      const component = applyComponentChange(article, nextData)
+      if (component && catalog.schemaVersion === 2) {
+        nextData = component.reviewedData
+        semanticChecks.push(...component.checks)
+        continue
+      }
+    }
     if (!before || !page || (!route && !supplemental) || article.before === null) {
       blocked.push({ code: 'NEW_ARTICLE_REQUIRES_CLASSIFICATION', articleId: article.articleId })
       continue
