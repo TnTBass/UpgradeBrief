@@ -64,7 +64,7 @@ export function validateSecurityNotice(notice) {
 
 function validateComponentModel(spec) {
   const m = spec.componentAdvisory
-  const keys = ['schemaVersion', 'kind', 'cve', 'cvssScore', 'kernel', 'productIds', 'privateFixes', 'recoveryMedia', 'orchestrator']
+  const keys = ['schemaVersion', 'kind', 'cve', 'cvssScore', 'kernel', 'productIds', 'privateFixes', 'recoveryMedia', 'workerUpdates', 'orchestrator']
   exactKeys(m, keys, keys, 'component advisory')
   requireCondition(spec.classification === 'dedicated' && spec.multiProduct === true && m.schemaVersion === 1 && m.kind === 'linux-kernel-helper-appliances', 'component advisory kind')
   string(m.cve, 'component CVE', CVE)
@@ -72,6 +72,7 @@ function validateComponentModel(spec) {
   string(m.kernel, 'component kernel', /^[\w.+-]+$/)
   requireCondition(Number.isFinite(m.cvssScore) && m.cvssScore > 0 && m.cvssScore <= 10, 'component score')
   requireCondition(['pending-legacy', 'download-legacy', 'additional-downloads'].includes(m.recoveryMedia), 'component recovery media')
+  requireCondition(['legacy-summary', 'automatic-on-launch'].includes(m.workerUpdates), 'component worker updates')
   requireCondition(Array.isArray(m.privateFixes) && m.privateFixes.length === 2, 'component fixes')
   for (const [i, fix] of m.privateFixes.entries()) {
     const keys = fix.status === 'pending' ? ['family', 'status'] : ['family', 'status', 'prerequisiteBuild', 'filename', 'sha256']

@@ -26,7 +26,7 @@ Repair publication records recovered, needs-review or retained outcomes. Only a 
 
 ## Regression coverage
 
-The historical fixture contains the captured November 6, 10, 11 and 12 article revisions used to reproduce the three incidents. Tests exercise candidate generation without accepted-state mutation, complete discovery evidence, reviewed scope transitions, unaffected-product refresh, exact AI quote validation, durable review-proposal caching, and truthful publication outcomes. Negative cases include extra CVEs, product substitution, changed patch checksums, removed products, changed prerequisites and unsupported source guidance.
+The historical fixture contains the captured November 6, 10, 11, 12 and 13 article revisions used to reproduce the three incidents and a further edit encountered during live validation. The November 13 edit explicitly clarifies automatic worker updates on launch; its table and body must agree, and this guidance cannot silently regress. Tests exercise candidate generation without accepted-state mutation, complete discovery evidence, reviewed scope transitions, unaffected-product refresh, exact AI quote validation, durable review-proposal caching, and truthful publication outcomes. Negative cases include extra CVEs, product substitution, changed patch checksums, removed products, changed prerequisites and unsupported source guidance.
 
 The current KB4966 repair is generated through the same maintained handler and adds conditional VRO coverage while retaining separate component-patch verification.
 

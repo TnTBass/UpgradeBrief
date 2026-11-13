@@ -10,6 +10,10 @@ const VRO_ROW = 'Veeam Recovery Orchestrator 13.1 (embedded Veeam Backup & Repli
 const MEDIA_OLD = 'Veeam Recovery Media for Veeam Agent for Linux For Veeam Agent for Linux 13.1, the updated recovery media is delivered through Veeam Updater and available for download from this Veeam webpage . For the Veeam Agent for Linux version included with Veeam Backup & Replication 12.3, the updated recovery media is '
 const MEDIA_NEW = 'Veeam Recovery Media for Veeam Agent for Linux Updated recovery media for Veeam Agent for Linux is available in the Additional Downloads section of the Veeam Recovery Media Download page.'
 const SOURCE_TITLE = 'Linux kernel TCP/IPv4 use-after-free vulnerability in Veeam Linux components.'
+const WORKER_ROW = 'Workers deployed by Veeam Plug-Ins for hypervisors Yes, until the kernel is updated Install the update through Veeam Updater '
+const WORKER_ROW_CLARIFIED = 'Workers deployed by Veeam Plug-Ins for hypervisors Yes, until the worker is next launched Workers automatically update on launch. '
+const WORKER_DESCRIPTION = 'Workers Deployed by Veeam Plug-Ins for Hypervisors For Veeam Plug-Ins for hypervisors included with Veeam Backup & Replication 13.1, workers receive the updated kernel the next time they are launched.'
+const WORKER_DESCRIPTION_CLARIFIED = 'Workers Deployed by Veeam Plug-Ins for Hypervisors Workers deployed by Veeam Plug-Ins for hypervisors receive the updated kernel the next time they are launched.'
 
 function once(text, expression) {
   const matches = [...text.matchAll(new RegExp(expression.source, expression.flags.replace('g', '') + 'g'))]
@@ -31,6 +35,12 @@ export function inspectComponentEnvelope(articleId, input) {
   const kernel = once(text, /\(kernel ([\w.+-]+) \)/)
   if (!kernel) return null
   const quotes = [score[0], kernel[0]]
+  const workerUpdates = text.includes(WORKER_ROW_CLARIFIED) ? 'automatic-on-launch' : 'legacy-summary'
+  const workerRow = workerUpdates === 'automatic-on-launch' ? WORKER_ROW_CLARIFIED : WORKER_ROW
+  const workerDescription = workerUpdates === 'automatic-on-launch' ? WORKER_DESCRIPTION_CLARIFIED : WORKER_DESCRIPTION
+  if (!text.includes(workerRow) || !text.includes(workerDescription)) return null
+  quotes.push(workerRow.trim(), workerDescription)
+  text = text.replace(workerRow, WORKER_ROW).replace(workerDescription, WORKER_DESCRIPTION)
   const privateFixes = []
   for (const family of ['13.1', '12.3']) {
     const start = text.indexOf('Private Fixes Veeam Backup & Replication 13.1')
@@ -86,7 +96,7 @@ export function inspectComponentEnvelope(articleId, input) {
     .replace(/Published: \d{4}-\d{2}-\d{2} Last Modified: \d{4}-\d{2}-\d{2}/, 'Published: [date] Last Modified: [date]')
     .replace(score[0], '(CVSS [score])').replace(kernel[0], '(kernel [version])')
   const model = { schemaVersion: 1, kind: 'linux-kernel-helper-appliances', cve, cvssScore: +score[1], kernel: kernel[1],
-    productIds: orchestrator ? ['vbr', 'vro'] : ['vbr'], privateFixes, recoveryMedia, orchestrator }
+    productIds: orchestrator ? ['vbr', 'vro'] : ['vbr'], privateFixes, recoveryMedia, workerUpdates, orchestrator }
   return { model, quotes, envelopeHash: hash(text) }
 }
 
@@ -99,6 +109,7 @@ export function supportedComponentTransition(before, after) {
   if (!after) return false
   if (!before) return true
   if (before.cve !== after.cve || before.cvssScore !== after.cvssScore || before.kernel !== after.kernel
+    || (before.workerUpdates === 'automatic-on-launch' && after.workerUpdates !== 'automatic-on-launch')
     || before.productIds.some(id => !after.productIds.includes(id))
     || (before.orchestrator && !same(before.orchestrator, after.orchestrator))) return false
   for (const old of before.privateFixes) {
@@ -120,7 +131,7 @@ export function componentAdvisories(articleId, model, existing = []) {
     const old = existing.find(record => record.productId === productId)
     const remediation = productId === 'vbr'
       ? 'For Software/Infrastructure Appliance 13.1, install the kernel update through Veeam Updater. For Windows VBR 13.1, install ' + private13.prerequisiteBuild + ' and the ' + articleId.toUpperCase() + ' private fix, or use the repacked installation ISO for a new installation. ' +
-        (private12.status === 'pending' ? 'The VBR 12.3 private fix is pending.' : 'For VBR 12.3, install ' + private12.prerequisiteBuild + ' and the ' + articleId.toUpperCase() + ' private fix.') + ' Redeploy persistent helper appliances. ' + media
+        (private12.status === 'pending' ? 'The VBR 12.3 private fix is pending.' : 'For VBR 12.3, install ' + private12.prerequisiteBuild + ' and the ' + articleId.toUpperCase() + ' private fix.') + ' Redeploy persistent helper appliances. ' + (model.workerUpdates === 'automatic-on-launch' ? 'Hypervisor workers automatically update when next launched. ' : '') + media
       : 'On existing Veeam Recovery Orchestrator ' + model.orchestrator.version + ' servers, install the VBR 13.1.2 private fix for the embedded VBR ' + model.orchestrator.embeddedBuild + ' component, as directed in ' + articleId.toUpperCase() + '. New installations use the repacked Veeam Data Platform Premium 13.1 ISO. Redeploy persistent helper appliances as directed in the advisory.'
     return {
       ...(old ?? { articleId, productId, source: { id: articleId, title: 'Veeam ' + articleId.toUpperCase() + ': ' + model.cve + ' Impact Statement', url: 'https://www.veeam.com/' + articleId },

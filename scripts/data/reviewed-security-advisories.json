@@ -843,7 +843,7 @@
         "12.3.",
         "13.1."
       ],
-      "remediation": "For Software/Infrastructure Appliance 13.1, install the kernel update through Veeam Updater. For Windows VBR 13.1, install 13.1.2.57 and the KB4966 private fix, or use the repacked installation ISO for a new installation. For VBR 12.3, install 12.3.2.4934 and the KB4966 private fix. Redeploy persistent helper appliances. Download updated recovery media for Veeam Agent for Linux 13.1 or 6.3 from Additional Downloads on the Veeam Recovery Media Download page and replace old media.",
+      "remediation": "For Software/Infrastructure Appliance 13.1, install the kernel update through Veeam Updater. For Windows VBR 13.1, install 13.1.2.57 and the KB4966 private fix, or use the repacked installation ISO for a new installation. For VBR 12.3, install 12.3.2.4934 and the KB4966 private fix. Redeploy persistent helper appliances. Hypervisor workers automatically update when next launched. Download updated recovery media for Veeam Agent for Linux 13.1 or 6.3 from Additional Downloads on the Veeam Recovery Media Download page and replace old media.",
       "conditions": [
         "Applies to the Linux components listed in KB4966, including helper appliances used by Windows backup servers. Verify the deployed component and its patch level.",
         "The VBR build number alone cannot establish remediation. Appliance kernels and Windows private fixes require separate verification.",
@@ -1420,7 +1420,7 @@
         ]
       },
       "multiProduct": true,
-      "contentFingerprint": "sha256:6fab2ca44e4d0cab3d271ac9f5395640217f6376718a8a54aff7ef9131396a16",
+      "contentFingerprint": "sha256:d524eb035a692dd9d7d58f6bfb2994090b956e54b9e8d365ccc0f399cefa3527",
       "componentAdvisory": {
         "schemaVersion": 1,
         "kind": "linux-kernel-helper-appliances",
@@ -1448,6 +1448,7 @@
           }
         ],
         "recoveryMedia": "additional-downloads",
+        "workerUpdates": "automatic-on-launch",
         "orchestrator": {
           "version": "13.1.2.25",
           "embeddedBuild": "13.1.2.57"

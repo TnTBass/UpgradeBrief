@@ -49,6 +49,7 @@ for (const [label, before, after] of [
   ['November 11: private fix available', history.nov7, history.nov11Morning],
   ['November 11: recovery media', history.nov11Morning, history.nov11Reviewed],
   ['November 13: new affected product', history.nov11Reviewed, history.nov13],
+  ['November 13 live: worker update clarification', history.nov13, history.nov13Evening],
 ]) {
   const trial = candidate(before, after, true)
   assert.equal(trial.result.status, 'candidate-ready', label + JSON.stringify(trial.result.blocked))
@@ -70,6 +71,9 @@ for (const after of [
 ]) assert.equal(candidate(history.nov11Reviewed, after).result.status, 'blocked')
 assert.equal(candidate(history.nov13, history.nov11Reviewed).result.status, 'blocked', 'Product coverage cannot disappear')
 assert.equal(candidate(history.nov11Reviewed, history.nov7).result.status, 'blocked', 'Available patches cannot regress')
+assert.equal(candidate(history.nov13Evening, history.nov13).result.status, 'blocked', 'Worker guidance cannot silently regress')
+assert.equal(candidate(history.nov13, history.nov13Evening.replace('Workers automatically update on launch.', 'Workers do not automatically update on launch.')).result.status, 'blocked')
+assert.equal(candidate(history.nov13, history.nov13Evening.replace('until the worker is next launched', 'until the kernel is updated')).result.status, 'blocked', 'Worker row and body must agree')
 const latest = candidate(history.nov11Reviewed, history.nov13, true)
 const next = JSON.parse(latest.result.files['scripts/data/reviewed-security-advisories.json'])
 const policy = next.observationSpecs[id]
