@@ -1,0 +1,40 @@
+name: Inspect November 13 catalog failure
+on:
+  push:
+    branches: ['investigate/kb4966-scope-20261113']
+    paths: ['.github/workflows/inspect-nov13.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+      - name: Compare the current source and verify production
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs'
+          import { createHash } from 'node:crypto'
+          import { normalizeReviewedSecurityMainArticle, fingerprintReviewedSecurityMainArticle } from './scripts/lib/reviewed-security-advisories.mjs'
+          import { extractSecurityArticleScope } from './scripts/lib/security-feed-coverage.mjs'
+          import { changedTextSpan } from './scripts/lib/security-review-baselines.mjs'
+          const catalog = JSON.parse(readFileSync('src/data/catalog.snapshot.json', 'utf8'))
+          const baselines = JSON.parse(readFileSync('scripts/data/security-review-baselines.json', 'utf8'))
+          const response = await fetch('https://www.veeam.com/kb4966', {signal: AbortSignal.timeout(60000)})
+          if (!response.ok) throw new Error('Source HTTP ' + response.status)
+          const html = await response.text()
+          const after = normalizeReviewedSecurityMainArticle(html)
+          const before = baselines.articles.kb4966.normalizedText
+          console.log('SOURCE_REVIEW=' + JSON.stringify({url: response.url, beforeScope: catalog.securityFeedPageStates.find(x => x.articleId === 'kb4966'), afterScope: extractSecurityArticleScope(html), beforeHash: baselines.articles.kb4966.contentFingerprint, afterHash: fingerprintReviewedSecurityMainArticle(html), diff: changedTextSpan(before, after), text: after}))
+          const responseHealth = await fetch('https://upgradebrief.com/catalog-health.json?investigation=20261113', {signal: AbortSignal.timeout(60000)})
+          if (!responseHealth.ok) throw new Error('Production HTTP ' + responseHealth.status)
+          const health = await responseHealth.json()
+          const expectedHash = createHash('sha256').update(JSON.stringify(catalog)).digest('hex')
+          console.log('PRODUCTION_REVIEW=' + JSON.stringify({status: responseHealth.status, commit: health.commit, catalogHash: health.catalogHash, expectedHash, matchesMain: health.commit === '52cf3532b80e182198278215a052dbeaada70e67' && health.catalogHash === expectedHash, generatedAt: health.generatedAt, products: health.productValidation.map(x => ({productId: x.productId, state: x.state, validatedAt: x.validatedAt, failureCodes: x.failureCodes}))}))
+          NODE
