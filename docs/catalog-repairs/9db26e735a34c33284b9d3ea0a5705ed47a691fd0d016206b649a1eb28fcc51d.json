@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "bundle": {
+    "schemaVersion": 1,
+    "environment": "production",
+    "validatorVersion": "3-supported-semantics-and-isolated-trials",
+    "baseCommit": "52cf3532b80e182198278215a052dbeaada70e67",
+    "policyFingerprint": "sha256:624abe312e47ede31a0eefc6690c8ac7e87415e9625a0745c1d12bc56219a99e",
+    "runId": "43423402984",
+    "capturedAt": "2026-11-13T12:14:17.276Z",
+    "failure": {
+      "message": "UNKNOWN_SOURCE_SCOPE_CHANGE: kb4966",
+      "code": "UNKNOWN_SOURCE_SCOPE_CHANGE"
+    },
+    "articles": [],
+    "evidenceId": "sha256:9db26e735a34c33284b9d3ea0a5705ed47a691fd0d016206b649a1eb28fcc51d"
+  },
+  "proposal": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:9db26e735a34c33284b9d3ea0a5705ed47a691fd0d016206b649a1eb28fcc51d",
+    "baseCommit": "52cf3532b80e182198278215a052dbeaada70e67",
+    "articles": []
+  },
+  "extractions": {},
+  "result": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:9db26e735a34c33284b9d3ea0a5705ed47a691fd0d016206b649a1eb28fcc51d",
+    "baseCommit": "52cf3532b80e182198278215a052dbeaada70e67",
+    "status": "blocked",
+    "eligibleForPublication": false,
+    "blocked": [
+      {
+        "code": "UNSUPPORTED_FAILURE",
+        "categories": [
+          "unclassified-failure"
+        ]
+      },
+      {
+        "code": "MISSING_SOURCE_EVIDENCE"
+      }
+    ],
+    "checks": {
+      "passed": [
+        "evidence-integrity",
+        "proposal-schema",
+        "base-and-policy-continuity"
+      ],
+      "notRun": [
+        "full-catalog-validation",
+        "live-refresh",
+        "fresh-source-verification",
+        "github-checks",
+        "publication",
+        "notification-delivery"
+      ]
+    },
+    "files": {}
+  }
+}
