@@ -1,0 +1,48 @@
+name: Validate component advisory automation
+on:
+  push:
+    branches: ['validation/component-advisory-automation-20261113']
+    paths:
+      - '.github/workflows/validate-component-automation.yml'
+      - 'scripts/**'
+      - '!scripts/data/security-review-baselines.json'
+      - 'package.json'
+      - 'src/lib/lookup.test.ts'
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Replay component incidents and negative cases
+        run: node scripts/test-component-advisory.mjs
+      - name: Refresh all products from live official sources
+        run: npm run refresh:catalog -- --live
+      - name: Require complete recovery
+        run: node scripts/report-partial-refresh.mjs
+      - name: Verify all catalogue and application checks
+        run: node scripts/verify-catalog-repair.mjs
+      - run: npm audit --audit-level=moderate
+      - name: Save the verified catalogue and review baseline
+        run: |
+          git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
+          git diff --cached --quiet && exit 0
+          git config user.name 'upgrade-brief[bot]'
+          git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
+          git commit -m 'chore: refresh catalogue through component advisory validation'
+          git push origin HEAD:validation/component-advisory-automation-20261113
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: component-automation-verification
+          path: |
+            artifacts/catalog-review/
+            artifacts/catalog-repair/verification/
+          retention-days: 7

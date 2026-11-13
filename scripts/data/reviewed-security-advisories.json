@@ -843,7 +843,7 @@
         "12.3.",
         "13.1."
       ],
-      "remediation": "For Software/Infrastructure Appliance 13.1, install the kernel update through Veeam Updater. For Windows VBR 13.1, install 13.1.2.57 and the KB4966 private fix, or use the repacked installation ISO for a new installation. For VBR 12.3, install 12.3.2.4934 and the KB4966 private fix. Redeploy persistent helper appliances. Download updated recovery media for Veeam Agent for Linux 13.1 or 6.3 from Additional Downloads on the Veeam Recovery Media Download page and replace old media, as directed in KB4966.",
+      "remediation": "For Software/Infrastructure Appliance 13.1, install the kernel update through Veeam Updater. For Windows VBR 13.1, install 13.1.2.57 and the KB4966 private fix, or use the repacked installation ISO for a new installation. For VBR 12.3, install 12.3.2.4934 and the KB4966 private fix. Redeploy persistent helper appliances. Download updated recovery media for Veeam Agent for Linux 13.1 or 6.3 from Additional Downloads on the Veeam Recovery Media Download page and replace old media.",
       "conditions": [
         "Applies to the Linux components listed in KB4966, including helper appliances used by Windows backup servers. Verify the deployed component and its patch level.",
         "The VBR build number alone cannot establish remediation. Appliance kernels and Windows private fixes require separate verification.",
@@ -856,6 +856,29 @@
           "cvssScore": 9.8
         }
       ]
+    },
+    {
+      "articleId": "kb4966",
+      "productId": "vro",
+      "source": {
+        "id": "kb4966",
+        "title": "Veeam KB4966: CVE-2026-98432 Impact Statement",
+        "url": "https://www.veeam.com/kb4966"
+      },
+      "affectedVersionPrefixes": [
+        "13.1."
+      ],
+      "conditions": [
+        "Applies to the Linux helper appliances documented in the advisory. The product build alone does not establish remediation; component patches require separate verification."
+      ],
+      "records": [
+        {
+          "cve": "CVE-2026-98432",
+          "title": "Linux kernel TCP/IPv4 use-after-free vulnerability in Veeam Linux components.",
+          "cvssScore": 9.8
+        }
+      ],
+      "remediation": "On existing Veeam Recovery Orchestrator 13.1.2.25 servers, install the VBR 13.1.2 private fix for the embedded VBR 13.1.2.57 component, as directed in KB4966. New installations use the repacked Veeam Data Platform Premium 13.1 ISO. Redeploy persistent helper appliances as directed in the advisory."
     }
   ],
   "observationSpecs": {
@@ -1391,10 +1414,45 @@
       "productCves": {
         "vbr": [
           "CVE-2026-98432"
+        ],
+        "vro": [
+          "CVE-2026-98432"
         ]
       },
       "multiProduct": true,
-      "contentFingerprint": "sha256:4487717c616f86ccc8b4c61233d0ec94e11cf10eca93fd7895a965b357eaea92"
+      "contentFingerprint": "sha256:6fab2ca44e4d0cab3d271ac9f5395640217f6376718a8a54aff7ef9131396a16",
+      "componentAdvisory": {
+        "schemaVersion": 1,
+        "kind": "linux-kernel-helper-appliances",
+        "cve": "CVE-2026-98432",
+        "cvssScore": 9.8,
+        "kernel": "5.14.0-570.60.1+27.2.el9_6_ciq",
+        "productIds": [
+          "vbr",
+          "vro"
+        ],
+        "privateFixes": [
+          {
+            "family": "13.1",
+            "status": "available",
+            "prerequisiteBuild": "13.1.2.57",
+            "filename": "VeeamBackup&Replication_13.1.2.57_20261105_PrivateFix.exe",
+            "sha256": "63772D1ED2E9759E028F4D9693321E952B7D6D1FED4BAFC1C3C76D4DF2D0BE2B"
+          },
+          {
+            "family": "12.3",
+            "status": "available",
+            "prerequisiteBuild": "12.3.2.4934",
+            "filename": "VeeamBackup&Replication_12.3.2.4934_20261106_PrivateFix.exe",
+            "sha256": "411259ED41BE5F0258452C3E6B5CD5FEC5511473EE2068EC558ACEB6EAA65BCB"
+          }
+        ],
+        "recoveryMedia": "additional-downloads",
+        "orchestrator": {
+          "version": "13.1.2.25",
+          "embeddedBuild": "13.1.2.57"
+        }
+      }
     }
   }
 }

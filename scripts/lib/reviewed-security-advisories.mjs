@@ -80,6 +80,7 @@ export const REVIEWED_SECURITY_OBSERVATION_POLICY = Object.freeze(Object.fromEnt
     multiProduct: spec.multiProduct === true,
     ...(spec.informationalReason ? { informationalReason: spec.informationalReason } : {}),
     ...(spec.contentFingerprint ? { contentFingerprint: spec.contentFingerprint } : {}),
+    ...(spec.componentAdvisory ? { componentAdvisory: structuredClone(spec.componentAdvisory) } : {}),
     productCves: Object.freeze(Object.fromEntries(Object.entries(spec.productCves).map(([productId, cves]) => [productId, Object.freeze(sortedUnique(cves))]))),
   })]),
 ))
@@ -251,3 +252,4 @@ export function mergeReviewedSecurityAdvisories(catalog, { checkedAt } = {}) {
     parsedCoverage: structuredClone(REVIEWED_SECURITY_PARSED_COVERAGE),
   }
 }
+

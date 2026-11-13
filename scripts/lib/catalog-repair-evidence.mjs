@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { exactKeys, requireCondition } from './reviewed-security-data.mjs'
 
 export const REPAIR_SCHEMA_VERSION = 1
-export const REPAIR_VALIDATOR_VERSION = '3-supported-semantics-and-isolated-trials'
+export const REPAIR_VALIDATOR_VERSION = '4-component-advisories-and-discovery-evidence'
 const HASH = /^sha256:[a-f0-9]{64}$/
 const SHA = /^[a-f0-9]{40}$/
 
@@ -21,12 +21,13 @@ export function classifyCatalogFailure(error) {
   if (Array.isArray(findings) && findings.length) {
     const kinds = [...new Set(findings.map(finding => {
       if (finding.code === 'REVIEWED_ARTICLE_CONTENT_CHANGED') return 'reviewed-content'
-      if (['FEED_ARTICLE_ROUTE_CHANGED', 'ARTICLE_PRODUCT_SCOPE_CHANGED', 'CLASSIFICATION_PRODUCT_REQUIRED', 'UNCLASSIFIED_SECURITY_ARTICLE', 'UNCLASSIFIED_ARTICLE'].includes(finding.code)) return 'article-classification'
+      if (['UNKNOWN_SOURCE_OWNERSHIP', 'UNKNOWN_SOURCE_SCOPE_CHANGE', 'COMPONENT_ADVISORY_REVIEW_REQUIRED', 'FEED_ARTICLE_ROUTE_CHANGED', 'ARTICLE_PRODUCT_SCOPE_CHANGED', 'CLASSIFICATION_PRODUCT_REQUIRED', 'UNCLASSIFIED_SECURITY_ARTICLE', 'UNCLASSIFIED_ARTICLE'].includes(finding.code)) return 'article-classification'
       if (finding.code === 'ARTICLE_FETCH_FAILED') return 'retrieval-investigation'
       return 'parser-or-coverage'
     }))].sort()
     return { categories: kinds, action: kinds.every(kind => ['reviewed-content', 'article-classification'].includes(kind)) ? 'prepare-evidence' : 'investigate', autoApply: false }
   }
+  if (['UNKNOWN_SOURCE_OWNERSHIP', 'UNKNOWN_SOURCE_SCOPE_CHANGE', 'COMPONENT_ADVISORY_REVIEW_REQUIRED'].includes(error?.code)) return { categories: ['article-classification'], action: 'prepare-evidence', autoApply: false }
   const message = String(error?.message ?? '')
   if (error?.diagnostic?.status === 403 || /request failed with HTTP 403\b/.test(message)) return { categories: ['http-access-refusal'], action: 'investigate', autoApply: false }
   if (/Help Center release-material discovery returned no current document/.test(message)) return { categories: ['empty-release-discovery'], action: 'bounded-refetch', autoApply: false }
@@ -39,6 +40,8 @@ export function classifyCatalogFailure(error) {
 export function repairArticleIds(bundle) {
   return [...new Set([
     ...bundle.articles.map(article => article.articleId),
+    ...(bundle.failure?.articleIds ?? []),
+    ...(['UNKNOWN_SOURCE_OWNERSHIP', 'UNKNOWN_SOURCE_SCOPE_CHANGE'].includes(bundle.failure?.code) ? (bundle.failure.message.match(/\bkb\d+\b/g) ?? []) : []),
     ...(bundle.failure?.report?.findings ?? []).map(finding => finding.articleId),
   ].filter(id => typeof id === 'string' && /^kb\d+$/.test(id)))].sort()
 }
@@ -123,7 +126,7 @@ export function validateRepairProposal(proposal, bundle) {
     const article = bundle.articles.find(item => item.articleId === proposalArticle.articleId)
     requireCondition(article && !seen.has(article.articleId), 'unknown or repeated proposal article')
     seen.add(article.articleId)
-    requireCondition(['equivalent', 'vulnerability', 'informational', 'classification'].includes(proposalArticle.kind), 'proposal variant')
+    requireCondition(['equivalent', 'vulnerability', 'informational', 'classification', 'component'].includes(proposalArticle.kind), 'proposal variant')
     requireCondition(typeof proposalArticle.rationale === 'string' && proposalArticle.rationale.trim() && proposalArticle.rationale.length <= 4000, 'proposal rationale')
     requireCondition(Array.isArray(proposalArticle.unresolved) && proposalArticle.unresolved.length <= 100 && proposalArticle.unresolved.every(value => typeof value === 'string' && value.trim() && value.length <= 4000), 'unresolved claims')
     requireCondition(Array.isArray(proposalArticle.evidence) && proposalArticle.evidence.length > 0 && proposalArticle.evidence.length <= 100, 'evidence spans')

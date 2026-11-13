@@ -200,7 +200,7 @@ const kernelClassification = classifySecurityFeedArticles({
   classifications: buildSecurityArticleClassifications([kernelArticle], REVIEWED_SECURITY_CLASSIFICATIONS),
 })[0]
 assert.equal(kernelClassification.classification, 'dedicated')
-assert.deepEqual(kernelClassification.productIds, ['vbr'])
+assert.deepEqual(kernelClassification.productIds, ['vbr', 'vro'])
 assert.equal(kernelClassification.multiProduct, true)
 const kernelText = reviewBaselines.articles.kb4966.normalizedText
 assert.equal(reviewBaselines.articles.kb4966.reviewedFingerprint, REVIEWED_SECURITY_OBSERVATION_POLICY.kb4966.contentFingerprint)
@@ -211,13 +211,14 @@ assert.throws(() => observeReviewedSecurityArticle('kb4966', kernelText.replaceA
 assert.throws(() => observeReviewedSecurityArticle('kb4966', kernelText + ' The private fix is no longer available.', kernelOptions), ReviewedSecurityObservationError)
 assert.throws(() => observeReviewedSecurityArticle('kb4966', kernelText + ' CVE-2099-12345', kernelOptions), ReviewedSecurityObservationError)
 assert.throws(() => observeReviewedSecurityArticle('kb4966', kernelText.replaceAll('CVE-2026-98432', ''), kernelOptions), ReviewedSecurityObservationError)
-assert.deepEqual(kernelObservation.observedCvesByProduct, { vbr: ['CVE-2026-98432'] })
+assert.deepEqual(kernelObservation.observedCvesByProduct, { vbr: ['CVE-2026-98432'], vro: ['CVE-2026-98432'] })
 assert.throws(() => observeReviewedSecurityArticle('kb4966', 'CVE-2026-98432 CVE-2099-12345'), ReviewedSecurityObservationError)
 assert.throws(() => observeReviewedSecurityArticle('kb4966', ''), ReviewedSecurityObservationError)
 const kernelCoverage = inspectSecurityFeedCoverage({
   articles: [kernelArticle], classifications: REVIEWED_SECURITY_CLASSIFICATIONS,
-  articlePages: { kb4966: { ...kernelObservation, observedProductIds: ['vbr'], observedOutOfScopeProduct: true } },
+  articlePages: { kb4966: { ...kernelObservation, observedProductIds: ['vbr', 'vro'], observedOutOfScopeProduct: true } },
   catalog: merged.catalog, parsedCoverage: REVIEWED_SECURITY_PARSED_COVERAGE,
 })
 assert.equal(kernelCoverage.report.ok, true, JSON.stringify(kernelCoverage.report))
-assert.deepEqual(merged.catalog.securityFindings.filter(finding => finding.cves.includes('CVE-2026-98432')).map(finding => finding.productId), ['vbr'])
+assert.deepEqual(merged.catalog.securityFindings.filter(finding => finding.cves.includes('CVE-2026-98432')).map(finding => finding.productId), ['vbr', 'vro'])
+
