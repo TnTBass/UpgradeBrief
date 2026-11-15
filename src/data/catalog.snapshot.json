@@ -1,54 +1,54 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-14T11:32:30.605Z",
+  "generatedAt": "2026-11-15T12:01:00.902Z",
   "sources": [
     {
       "id": "kb2680",
       "title": "Veeam KB2680: Veeam Backup & Replication build numbers",
       "url": "https://www.veeam.com/kb2680",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4357",
       "title": "Veeam KB4357: Veeam ONE build numbers",
       "url": "https://www.veeam.com/kb4357",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4358",
       "title": "Veeam KB4358: Veeam Recovery Orchestrator build numbers",
       "url": "https://www.veeam.com/kb4358",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4464",
       "title": "Veeam KB4464: Veeam Service Provider Console build numbers",
       "url": "https://www.veeam.com/kb4464",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4581",
       "title": "Veeam KB4581: Veeam Backup Enterprise Manager Vulnerabilities",
       "url": "https://www.veeam.com/kb4581",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4585",
       "title": "Veeam KB4585: Veeam Recovery Orchestrator Vulnerability (CVE-2024-29855)",
       "url": "https://www.veeam.com/kb4585",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4541",
       "title": "Veeam KB4541: Veeam Recovery Orchestrator Vulnerabilities",
       "url": "https://www.veeam.com/kb4541",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4679",
       "title": "Veeam KB4679: Veeam Service Provider Console Vulnerability (CVE-2024-42448 | CVE-2024-42449)",
       "url": "https://www.veeam.com/kb4679",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb2053",
@@ -66,7 +66,7 @@
       "id": "lifecycle",
       "title": "Veeam Product Lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "em-upgrade",
@@ -260,85 +260,85 @@
       "id": "vspc-upgrade",
       "title": "Veeam Service Provider Console deployment upgrade guide",
       "url": "https://helpcenter.veeam.com/docs/vac/deployment/upgrade.html?ver=9.3",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "security-kb",
       "title": "Veeam Knowledge Base security advisories",
       "url": "https://www.veeam.com/knowledge-base.html?type=security",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4771",
       "title": "Veeam KB4771: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4165 Patch",
       "url": "https://www.veeam.com/kb4771",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4649",
       "title": "Veeam KB4649: Veeam Security Bulletin (September 2024)",
       "url": "https://www.veeam.com/kb4649",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cisa-kev",
       "title": "CISA Known Exploited Vulnerabilities Catalog",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4852",
       "title": "Veeam KB4852: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.2",
       "url": "https://www.veeam.com/kb4852",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4831",
       "title": "Veeam KB4831: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.2067",
       "url": "https://www.veeam.com/kb4831",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4830",
       "title": "Veeam KB4830: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2.4465",
       "url": "https://www.veeam.com/kb4830",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4869",
       "title": "Veeam KB4869: Vulnerability Resolved in Veeam Backup & Replication 12.3.2.4854",
       "url": "https://www.veeam.com/kb4869",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4792",
       "title": "Veeam KB4792: Vulnerabilities Resolved in Veeam Backup & Replication 13.0.1.1071",
       "url": "https://www.veeam.com/kb4792",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4693",
       "title": "Veeam KB4693: Vulnerabilities Resolved in Veeam Backup & Replication 12.3",
       "url": "https://www.veeam.com/kb4693",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4696",
       "title": "Veeam KB4696: Release Information for Veeam Backup & Replication 12.3 and updates",
       "url": "https://www.veeam.com/kb4696",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4738",
       "title": "Veeam KB4738: Release Information for Veeam Backup & Replication 13 and updates",
       "url": "https://www.veeam.com/kb4738",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4853",
       "title": "Veeam KB4853: Vulnerability Resolved in Veeam Service Provider Console 9.2.1",
       "url": "https://www.veeam.com/kb4853",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "release-material-vbr-13-0-release-notes",
@@ -388,7 +388,7 @@
       "id": "kb4106",
       "title": "Veeam KB4106: Veeam Backup for Microsoft 365 build numbers",
       "url": "https://www.veeam.com/kb4106",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4098",
@@ -412,7 +412,7 @@
       "id": "vb365-release-materials",
       "title": "Veeam Backup for Microsoft 365 release notes and What’s New",
       "url": "https://helpcenter.veeam.com/all-products-and-versions.html?prd=vbo365",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "vb365"
     },
     {
@@ -437,7 +437,7 @@
       "id": "release-material-vb365-8-0-whats-new",
       "title": "Veeam Backup for Microsoft 365 8 What's New",
       "url": "https://www.veeam.com/veeam_backup_m365_8_whats_new_wn.pdf",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "vb365",
       "releaseFamily": "8.0",
       "materialKind": "whats-new",
@@ -448,7 +448,7 @@
       "id": "release-material-vbr-13-1-release-notes",
       "title": "Veeam Backup & Replication 13.1 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_13_1_release_notes.html",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "vbr",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
@@ -470,7 +470,7 @@
       "id": "release-material-vbr-13-0-whats-new",
       "title": "Veeam Backup & Replication 13.1 What's New v13.1",
       "url": "https://helpcenter.veeam.com/docs/vbr/wn/introduction.html?ver=13",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "vbr",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -481,7 +481,7 @@
       "id": "release-material-veeam-one-13-1-release-notes",
       "title": "Veeam ONE 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_one_13_1_release_notes.html",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "veeam-one",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
@@ -492,7 +492,7 @@
       "id": "release-material-veeam-one-13-1-whats-new",
       "title": "Veeam ONE 13 What's New v13.1",
       "url": "https://www.veeam.com/veeam_one_13_1_whats_new_wn.pdf",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "veeam-one",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -503,7 +503,7 @@
       "id": "release-material-vro-13-1-whats-new",
       "title": "Veeam Recovery Orchestrator 13 What's New v13.1",
       "url": "https://www.veeam.com/veeam_orchestrator_13_1_whats_new_wn.pdf",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "vro",
       "releaseFamily": "13.1",
       "materialKind": "whats-new",
@@ -514,7 +514,7 @@
       "id": "release-material-vspc-9-3-whats-new",
       "title": "Veeam Service Provider Console 9.3 What's New",
       "url": "https://www.veeam.com/veeam_console_9_3_whats_new_wn.pdf",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "vspc",
       "releaseFamily": "9.3",
       "materialKind": "whats-new",
@@ -525,7 +525,7 @@
       "id": "release-material-vro-13-1-release-notes",
       "title": "Veeam Recovery Orchestrator 13 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_1_release_notes.html",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "vro",
       "releaseFamily": "13.1",
       "materialKind": "release-notes",
@@ -536,7 +536,7 @@
       "id": "release-material-vspc-9-3-release-notes",
       "title": "Veeam Service Provider Console 9.3 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/vspc_9_3_release_notes.html",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "vspc",
       "releaseFamily": "9.3",
       "materialKind": "release-notes",
@@ -547,115 +547,115 @@
       "id": "kb4892",
       "title": "Veeam KB4892: Vulnerabilities Resolved in Veeam ONE 13.1",
       "url": "https://www.veeam.com/kb4892",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4858",
       "title": "Veeam KB4858: List of Security Fixes and Improvements in Veeam ONE",
       "url": "https://www.veeam.com/kb4858",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4508",
       "title": "Veeam KB4508: CVE-2023-38547 | CVE-2023-38548 | CVE-2023-38549 | CVE-2023-41723",
       "url": "https://www.veeam.com/kb4508",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb3221",
       "title": "Veeam KB3221: Vulnerabilities Resolved in Veeam ONE 10a CVE-2020-15418 | CVE-2020-15419",
       "url": "https://www.veeam.com/kb3221",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb3144",
       "title": "Veeam KB3144: Vulnerabilities Resolved in Veeam ONE 10a CVE-2020-10914 | CVE-2020-10915",
       "url": "https://www.veeam.com/kb3144",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4893",
       "title": "Veeam KB4893: Vulnerabilities Resolved in Veeam Service Provider Console 9.3",
       "url": "https://www.veeam.com/kb4893",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4575",
       "title": "Veeam KB4575: Veeam Service Provider Console Vulnerability ( CVE-2024-29212 )",
       "url": "https://www.veeam.com/kb4575",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4856",
       "title": "Veeam KB4856: List of Security Fixes and Improvements in Veeam Service Provider Console",
       "url": "https://www.veeam.com/kb4856",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4743",
       "title": "Veeam KB4743: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2",
       "url": "https://www.veeam.com/kb4743",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4724",
       "title": "Veeam KB4724: CVE-2025-23120",
       "url": "https://www.veeam.com/kb4724",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4424",
       "title": "Veeam KB4424: CVE-2023-27532",
       "url": "https://www.veeam.com/kb4424",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4290",
       "title": "Veeam KB4290: CVE-2022-26504",
       "url": "https://www.veeam.com/kb4290",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4288",
       "title": "Veeam KB4288: CVE-2022-26500 and CVE-2022-26501",
       "url": "https://www.veeam.com/kb4288",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb2662",
       "title": "Veeam KB2662: Zip Slip Vulnerability",
       "url": "https://www.veeam.com/kb2662",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb2180",
       "title": "Veeam KB2180: Veeam Backup & Replication Local Privilege Escalation Vulnerability",
       "url": "https://www.veeam.com/kb2180",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb3103",
       "title": "Veeam KB3103: List of Security Fixes and Improvements in Veeam Backup & Replication",
       "url": "https://www.veeam.com/kb3103",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4879",
       "title": "Veeam KB4879: Veeam Software Appliance and Veeam Infrastructure Appliance Updater Component Vulnerability",
       "url": "https://www.veeam.com/kb4879",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4491",
       "title": "Veeam KB4491: Security Issue in Microsoft Azure Plug-In for Veeam Backup & Replication",
       "url": "https://www.veeam.com/kb4491",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4682",
       "title": "Veeam KB4682: Veeam Backup Enterprise Manager Vulnerability (CVE-2024-40715)",
       "url": "https://www.veeam.com/kb4682",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4857",
@@ -667,127 +667,127 @@
       "id": "kb4788",
       "title": "Veeam KB4788: Release Information for Veeam Service Provider Console 9 and Updates",
       "url": "https://www.veeam.com/kb4788",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4277",
       "title": "Veeam KB4277: Release Information for Veeam Service Provider Console v6 Patch 1",
       "url": "https://www.veeam.com/kb4277",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4223",
       "title": "Veeam KB4223: Veeam Service Provider Console v5 Patch 4",
       "url": "https://www.veeam.com/kb4223",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4651",
       "title": "Veeam KB4651: Release History for Veeam Service Provider Console 8.1",
       "url": "https://www.veeam.com/kb4651",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2024-29212",
       "title": "CVE-2024-29212 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-29212",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2024-38650",
       "title": "CVE-2024-38650 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-38650",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2024-38651",
       "title": "CVE-2024-38651 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-38651",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2024-39714",
       "title": "CVE-2024-39714 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-39714",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2024-39715",
       "title": "CVE-2024-39715 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-39715",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2024-42448",
       "title": "CVE-2024-42448 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-42448",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2024-42449",
       "title": "CVE-2024-42449 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-42449",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2024-45206",
       "title": "CVE-2024-45206 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2024-45206",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2026-32998",
       "title": "CVE-2026-32998 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-32998",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2026-58067",
       "title": "CVE-2026-58067 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-58067",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2026-58071",
       "title": "CVE-2026-58071 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-58071",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2026-58072",
       "title": "CVE-2026-58072 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-58072",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2026-58073",
       "title": "CVE-2026-58073 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-58073",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "cve-record-cve-2026-64635",
       "title": "CVE-2026-64635 CVE Record",
       "url": "https://www.cve.org/CVERecord?id=CVE-2026-64635",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4902",
       "title": "Veeam KB4902: Vulnerabilities Resolved in Veeam Backup & Replication 13.1",
       "url": "https://www.veeam.com/kb4902",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4905",
       "title": "Veeam KB4905: Vulnerability Resolved in Veeam ONE 13.1 Patch 0",
       "url": "https://www.veeam.com/kb4905",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "release-material-vb365-8-6-release-notes",
       "title": "Veeam Backup for Microsoft 365 8 Release Notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_m365_8_6_release_notes.html",
-      "checkedAt": "2026-11-14T11:32:30.605Z",
+      "checkedAt": "2026-11-15T12:01:00.902Z",
       "productId": "vb365",
       "releaseFamily": "8.6",
       "materialKind": "release-notes",
@@ -798,37 +798,37 @@
       "id": "kb4934",
       "title": "Veeam KB4934: Vulnerabilities Resolved in Veeam Backup & Replication 12.3.2 P4",
       "url": "https://www.veeam.com/kb4934",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4953",
       "title": "Veeam KB4953: PHP2Shell",
       "url": "https://www.veeam.com/kb4953",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4948",
       "title": "Veeam KB4948: Vulnerabilities Resolved in Veeam Backup & Replication 13.1.2",
       "url": "https://www.veeam.com/kb4948",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4951",
       "title": "Veeam KB4951: Vulnerabilities Resolved in Veeam ONE 13.1 Patch 1",
       "url": "https://www.veeam.com/kb4951",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4957",
       "title": "Veeam KB4957: Vulnerabilities Resolved in Veeam Backup for Microsoft 365 8.6",
       "url": "https://www.veeam.com/kb4957",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "kb4966",
       "title": "Veeam KB4966: CVE-2026-98432 Impact Statement",
       "url": "https://www.veeam.com/kb4966",
-      "checkedAt": "2026-11-14T11:32:30.605Z"
+      "checkedAt": "2026-11-15T12:01:00.902Z"
     },
     {
       "id": "vspc-upgrade-9.1",
@@ -12928,13 +12928,13 @@
       "vb365"
     ]
   },
-  "assembledAt": "2026-11-14T11:32:30.605Z",
+  "assembledAt": "2026-11-15T12:01:00.902Z",
   "refreshPolicyHash": "ddc9522a37de8610033a90d91b8ef25cc1fa36dfadf09365a92864feac6c999b",
   "sourceObservations": [
     {
       "sourceId": "cve-record-cve-2024-29212",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2024-29212",
-      "fetchedAt": "2026-11-14T11:36:20.523Z",
+      "fetchedAt": "2026-11-15T12:04:50.357Z",
       "status": "fetched",
       "digest": "ab4b808d48340eb48c5e33720fe25bc4face61f1245bd443ec8618cf0c79e8e9",
       "responseStatus": 200,
@@ -12946,7 +12946,7 @@
     {
       "sourceId": "cve-record-cve-2024-38650",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2024-38650",
-      "fetchedAt": "2026-11-14T11:36:20.527Z",
+      "fetchedAt": "2026-11-15T12:04:50.370Z",
       "status": "fetched",
       "digest": "2375a538d1298a3b57d9d4a3c545bcececa10088490396b840150d4bb1f09885",
       "responseStatus": 200,
@@ -12958,7 +12958,7 @@
     {
       "sourceId": "cve-record-cve-2024-38651",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2024-38651",
-      "fetchedAt": "2026-11-14T11:36:20.570Z",
+      "fetchedAt": "2026-11-15T12:04:50.393Z",
       "status": "fetched",
       "digest": "a1700ea849cbc814b52deaf9b5ec69933e14b302c978b836b2464089767f2b27",
       "responseStatus": 200,
@@ -12970,7 +12970,7 @@
     {
       "sourceId": "cve-record-cve-2024-39714",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2024-39714",
-      "fetchedAt": "2026-11-14T11:36:20.541Z",
+      "fetchedAt": "2026-11-15T12:04:50.384Z",
       "status": "fetched",
       "digest": "74bc4c5679863036841eabd0f66b7f1024d2de813f627df470ccf9badfe2e6ad",
       "responseStatus": 200,
@@ -12982,7 +12982,7 @@
     {
       "sourceId": "cve-record-cve-2024-39715",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2024-39715",
-      "fetchedAt": "2026-11-14T11:36:20.598Z",
+      "fetchedAt": "2026-11-15T12:04:50.452Z",
       "status": "fetched",
       "digest": "46f8b7c60fc20cbef7516022cd4e6da6dcf609a189ee097b78253d0d303a60fa",
       "responseStatus": 200,
@@ -12994,7 +12994,7 @@
     {
       "sourceId": "cve-record-cve-2024-42448",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2024-42448",
-      "fetchedAt": "2026-11-14T11:36:20.568Z",
+      "fetchedAt": "2026-11-15T12:04:50.454Z",
       "status": "fetched",
       "digest": "f7e893e2f45328f31ba3973e9b2fd8129e1da01477827d7e1b8db68d89eb1e3b",
       "responseStatus": 200,
@@ -13006,7 +13006,7 @@
     {
       "sourceId": "cve-record-cve-2024-42449",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2024-42449",
-      "fetchedAt": "2026-11-14T11:36:20.577Z",
+      "fetchedAt": "2026-11-15T12:04:50.432Z",
       "status": "fetched",
       "digest": "ee25488652a9d8172a3b1e9b3b6851284f6e15be5ff32e880bb8fccb3d185197",
       "responseStatus": 200,
@@ -13018,7 +13018,7 @@
     {
       "sourceId": "cve-record-cve-2024-45206",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2024-45206",
-      "fetchedAt": "2026-11-14T11:36:20.617Z",
+      "fetchedAt": "2026-11-15T12:04:50.476Z",
       "status": "fetched",
       "digest": "00eecd5187546b0123a3d70e94370baab4956ab8bdc4bb259a15865aad2de4c9",
       "responseStatus": 200,
@@ -13030,7 +13030,7 @@
     {
       "sourceId": "cve-record-cve-2026-32998",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2026-32998",
-      "fetchedAt": "2026-11-14T11:36:20.587Z",
+      "fetchedAt": "2026-11-15T12:04:50.464Z",
       "status": "fetched",
       "digest": "bfe5547aebc0febd6468a6b325a8802b64a78849513664b5e6256583a8ef3d73",
       "responseStatus": 200,
@@ -13042,7 +13042,7 @@
     {
       "sourceId": "cve-record-cve-2026-58067",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2026-58067",
-      "fetchedAt": "2026-11-14T11:36:20.590Z",
+      "fetchedAt": "2026-11-15T12:04:50.475Z",
       "status": "fetched",
       "digest": "f080f332c1f5ad8348c0b25cc6d9517ab2cc221889d89770f3b0ba90ee6bb30d",
       "responseStatus": 200,
@@ -13054,7 +13054,7 @@
     {
       "sourceId": "cve-record-cve-2026-58071",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2026-58071",
-      "fetchedAt": "2026-11-14T11:36:20.625Z",
+      "fetchedAt": "2026-11-15T12:04:50.528Z",
       "status": "fetched",
       "digest": "5c5bfd7cc3b65e80bd3abf1f73fb023c41a33288bf48e67d6d52a0c73f9efc70",
       "responseStatus": 200,
@@ -13066,7 +13066,7 @@
     {
       "sourceId": "cve-record-cve-2026-58072",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2026-58072",
-      "fetchedAt": "2026-11-14T11:36:20.620Z",
+      "fetchedAt": "2026-11-15T12:04:50.552Z",
       "status": "fetched",
       "digest": "94502cc5c6757b37b439d015f637295d135b48432b6fb4e1520410d01eaea15d",
       "responseStatus": 200,
@@ -13078,7 +13078,7 @@
     {
       "sourceId": "cve-record-cve-2026-58073",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2026-58073",
-      "fetchedAt": "2026-11-14T11:36:20.643Z",
+      "fetchedAt": "2026-11-15T12:04:50.592Z",
       "status": "fetched",
       "digest": "c29584925a3fdb7c84f6771fee8ddeef89173f5ac5b323a71c1a424b305238d6",
       "responseStatus": 200,
@@ -13090,7 +13090,7 @@
     {
       "sourceId": "cve-record-cve-2026-64635",
       "url": "https://cveawg.mitre.org/api/cve/CVE-2026-64635",
-      "fetchedAt": "2026-11-14T11:36:20.616Z",
+      "fetchedAt": "2026-11-15T12:04:50.588Z",
       "status": "fetched",
       "digest": "5315693900b8cc67b0ea1064a288a58cc2b217ae6ea0e87a7ea057d5db0943b0",
       "responseStatus": 200,
@@ -13102,7 +13102,7 @@
     {
       "sourceId": "vspc-upgrade",
       "url": "https://helpcenter.veeam.com/docs/vac/deployment/upgrade.html?ver=9.3",
-      "fetchedAt": "2026-11-14T11:36:20.101Z",
+      "fetchedAt": "2026-11-15T12:04:50.058Z",
       "status": "fetched",
       "digest": "bc6e1a84ff542e47fb41b319cdcd5f64e6eb398bf3b1bd106fa6a3050d2917f9",
       "responseStatus": 200,
@@ -13115,7 +13115,7 @@
     {
       "sourceId": "release-material-vbr-13.1-whats-new",
       "url": "https://helpcenter.veeam.com/docs/vbr/wn/introduction.html?ver=13",
-      "fetchedAt": "2026-11-14T11:32:54.687Z",
+      "fetchedAt": "2026-11-15T12:01:25.128Z",
       "status": "fetched",
       "digest": "016cbbc08383b7a328f21be485fd313f1f81841c63a39a23f0cb0cab137c02e9",
       "responseStatus": 200,
@@ -13128,7 +13128,7 @@
     {
       "sourceId": "release-material-vbr-13.1-release-notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_13_1_release_notes.html",
-      "fetchedAt": "2026-11-14T11:32:51.782Z",
+      "fetchedAt": "2026-11-15T12:01:22.145Z",
       "status": "fetched",
       "digest": "90769e5572c0d88ba19662e31e8a0ff7f131146ceb51f102a5a2347ce5e6ac8d",
       "responseStatus": 200,
@@ -13141,7 +13141,7 @@
     {
       "sourceId": "release-material-vb365-8.6-release-notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_backup_m365_8_6_release_notes.html",
-      "fetchedAt": "2026-11-14T11:32:39.640Z",
+      "fetchedAt": "2026-11-15T12:01:10.144Z",
       "status": "fetched",
       "digest": "06bc85b750d811cb64cdf9cbf4026c6f3a89d6c605c80fa9e89591abae530579",
       "responseStatus": 200,
@@ -13154,7 +13154,7 @@
     {
       "sourceId": "release-material-veeam-one-13.1-release-notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_one_13_1_release_notes.html",
-      "fetchedAt": "2026-11-14T11:33:04.307Z",
+      "fetchedAt": "2026-11-15T12:01:34.373Z",
       "status": "fetched",
       "digest": "c7c27ddd18626ef3e97a1f2e8be98c11863affdccbafa7ec9a384b97d0cee8f0",
       "responseStatus": 200,
@@ -13167,7 +13167,7 @@
     {
       "sourceId": "release-material-vro-13.1-release-notes",
       "url": "https://helpcenter.veeam.com/rn/veeam_recovery_orchestrator_13_1_release_notes.html",
-      "fetchedAt": "2026-11-14T11:33:07.300Z",
+      "fetchedAt": "2026-11-15T12:01:37.361Z",
       "status": "fetched",
       "digest": "9a7bb41595678fa478376a8f88b54cda3f86a1851725de7963319b05a602a754",
       "responseStatus": 200,
@@ -13180,7 +13180,7 @@
     {
       "sourceId": "release-material-vspc-9.3-release-notes",
       "url": "https://helpcenter.veeam.com/rn/vspc_9_3_release_notes.html",
-      "fetchedAt": "2026-11-14T11:36:17.202Z",
+      "fetchedAt": "2026-11-15T12:04:47.110Z",
       "status": "fetched",
       "digest": "a25da39d25695eef0a9d2eae29bce47005363d8ab246ca4524df945ebbfcebb8",
       "responseStatus": 200,
@@ -13193,7 +13193,7 @@
     {
       "sourceId": "release-materials-vb365",
       "url": "https://helpcenter.veeam.com/services/component/technical_documentation_table/select?productId=36&localeCode=en&isInitial=true",
-      "fetchedAt": "2026-11-14T11:32:36.789Z",
+      "fetchedAt": "2026-11-15T12:01:07.327Z",
       "status": "fetched",
       "digest": "56c7b67fc2114691f4989b2c8f7d80f0e2ccbcb4a3ae95d5bde46438eea0eb19",
       "responseStatus": 200,
@@ -13204,7 +13204,7 @@
     {
       "sourceId": "release-materials-vspc",
       "url": "https://helpcenter.veeam.com/services/component/technical_documentation_table/select?productId=49&localeCode=en&isInitial=true",
-      "fetchedAt": "2026-11-14T11:36:14.443Z",
+      "fetchedAt": "2026-11-15T12:04:44.284Z",
       "status": "fetched",
       "digest": "053a217851a3473b73ddb5447d61c9d85acf2c9ea97e6b7d91fa3ea55d2b18f3",
       "responseStatus": 200,
@@ -13215,7 +13215,7 @@
     {
       "sourceId": "release-materials-vro",
       "url": "https://helpcenter.veeam.com/services/component/technical_documentation_table/select?productId=51&localeCode=en&isInitial=true",
-      "fetchedAt": "2026-11-14T11:33:01.428Z",
+      "fetchedAt": "2026-11-15T12:01:31.502Z",
       "status": "fetched",
       "digest": "f0fdd48de8c55da61b522805208cb18a96f8e5b660e3aa6f05068e25ca12017f",
       "responseStatus": 200,
@@ -13226,7 +13226,7 @@
     {
       "sourceId": "release-materials-vbr",
       "url": "https://helpcenter.veeam.com/services/component/technical_documentation_table/select?productId=8&localeCode=en&isInitial=true",
-      "fetchedAt": "2026-11-14T11:32:48.980Z",
+      "fetchedAt": "2026-11-15T12:01:19.359Z",
       "status": "fetched",
       "digest": "e98cc2ace26b80169e2a24efb6bce1f92412b98db7c8d5383fe280978d122501",
       "responseStatus": 200,
@@ -13237,9 +13237,9 @@
     {
       "sourceId": "release-materials-veeam-one",
       "url": "https://helpcenter.veeam.com/services/component/technical_documentation_table/select?productId=9&localeCode=en&isInitial=true",
-      "fetchedAt": "2026-11-14T11:32:58.419Z",
+      "fetchedAt": "2026-11-15T12:01:28.471Z",
       "status": "fetched",
-      "digest": "4d5c33871c555b3d376c0020ed1b30afb04a3c0f7e3b16cec628939516977568",
+      "digest": "ff94e8c7377ffa1f98c2063889dab85c6abf60765aaefcef0f4c19cb2b719920",
       "responseStatus": 200,
       "headers": {
         "content-type": "application/json;charset=utf-8"
@@ -13248,7 +13248,7 @@
     {
       "sourceId": "cisa-kev",
       "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
-      "fetchedAt": "2026-11-14T11:29:06.425Z",
+      "fetchedAt": "2026-11-15T11:57:37.050Z",
       "status": "fetched",
       "digest": "4028ec035856331a717d3305e87e45be37d400fc500da34a5464f05fc2773764",
       "responseStatus": 200,
@@ -13261,7 +13261,7 @@
     {
       "sourceId": "vspc-kb-page-kb1471",
       "url": "https://www.veeam.com/kb1471",
-      "fetchedAt": "2026-11-14T11:36:13.538Z",
+      "fetchedAt": "2026-11-15T12:04:43.677Z",
       "status": "fetched",
       "digest": "499fc7cc05c01ebbf61c8fb30f3495a8b03a40d211552d91f6110af957a4df1d",
       "responseStatus": 200,
@@ -13272,7 +13272,7 @@
     {
       "sourceId": "vspc-kb-page-kb1974",
       "url": "https://www.veeam.com/kb1974",
-      "fetchedAt": "2026-11-14T11:36:10.748Z",
+      "fetchedAt": "2026-11-15T12:04:40.678Z",
       "status": "fetched",
       "digest": "81a364fe1fbc77f605bac94db7e0fc14fe7195da8dcdfd40940cfbfc79174362",
       "responseStatus": 200,
@@ -13283,7 +13283,7 @@
     {
       "sourceId": "vspc-kb-page-kb1975",
       "url": "https://www.veeam.com/kb1975",
-      "fetchedAt": "2026-11-14T11:36:07.542Z",
+      "fetchedAt": "2026-11-15T12:04:37.586Z",
       "status": "fetched",
       "digest": "9ce5dce4ef1df429c605980f800174ac29ba86d54c0ee55761bc12af230ceb2b",
       "responseStatus": 200,
@@ -13294,7 +13294,7 @@
     {
       "sourceId": "vspc-kb-page-kb2143",
       "url": "https://www.veeam.com/kb2143",
-      "fetchedAt": "2026-11-14T11:36:04.537Z",
+      "fetchedAt": "2026-11-15T12:04:34.585Z",
       "status": "fetched",
       "digest": "6c1b769a2821b4a7b2627df8b5266bf59e89de28d264b647965d44b04107fae7",
       "responseStatus": 200,
@@ -13305,7 +13305,7 @@
     {
       "sourceId": "vspc-kb-page-kb2157",
       "url": "https://www.veeam.com/kb2157",
-      "fetchedAt": "2026-11-14T11:36:01.538Z",
+      "fetchedAt": "2026-11-15T12:04:31.586Z",
       "status": "fetched",
       "digest": "44a890d7f3f2e551b98707a3b40165413c1e11c95324bc8de99f42e8eca2b59c",
       "responseStatus": 200,
@@ -13316,7 +13316,7 @@
     {
       "sourceId": "kb2180",
       "url": "https://www.veeam.com/kb2180",
-      "fetchedAt": "2026-11-14T11:32:27.595Z",
+      "fetchedAt": "2026-11-15T12:00:57.896Z",
       "status": "fetched",
       "digest": "f28b069d508c7952657873c18f47fabe32c76f2900b1a75b439cdbcb61ab5693",
       "responseStatus": 200,
@@ -13327,7 +13327,7 @@
     {
       "sourceId": "vspc-kb-page-kb2261",
       "url": "https://www.veeam.com/kb2261",
-      "fetchedAt": "2026-11-14T11:35:58.747Z",
+      "fetchedAt": "2026-11-15T12:04:28.677Z",
       "status": "fetched",
       "digest": "e11d4d3d13263da971b7d2dcb3b8dec069653df69ce6920f2c4c6a000688a87d",
       "responseStatus": 200,
@@ -13338,7 +13338,7 @@
     {
       "sourceId": "vspc-kb-page-kb2408",
       "url": "https://www.veeam.com/kb2408",
-      "fetchedAt": "2026-11-14T11:35:55.744Z",
+      "fetchedAt": "2026-11-15T12:04:25.667Z",
       "status": "fetched",
       "digest": "ebefc303232994cbe0399be15e7c2ce800694b0a205c641697b4014dcf3c1934",
       "responseStatus": 200,
@@ -13349,7 +13349,7 @@
     {
       "sourceId": "vspc-kb-page-kb2418",
       "url": "https://www.veeam.com/kb2418",
-      "fetchedAt": "2026-11-14T11:35:52.751Z",
+      "fetchedAt": "2026-11-15T12:04:22.590Z",
       "status": "fetched",
       "digest": "faa751d60262242bc0cc1bf79b1be5654df8bb2b729e47ef678ec6eee6cfdf01",
       "responseStatus": 200,
@@ -13360,7 +13360,7 @@
     {
       "sourceId": "vspc-kb-page-kb2465",
       "url": "https://www.veeam.com/kb2465",
-      "fetchedAt": "2026-11-14T11:35:49.534Z",
+      "fetchedAt": "2026-11-15T12:04:19.650Z",
       "status": "fetched",
       "digest": "f7ba0a50a69be843a53620360627cf9a3125e02912fd8f5b2a8680fc0209ff98",
       "responseStatus": 200,
@@ -13371,7 +13371,7 @@
     {
       "sourceId": "vspc-kb-page-kb2642",
       "url": "https://www.veeam.com/kb2642",
-      "fetchedAt": "2026-11-14T11:35:47.610Z",
+      "fetchedAt": "2026-11-15T12:04:16.673Z",
       "status": "fetched",
       "digest": "890a12520c6697d46d29784cc199ec8ddbb6bb40ab513a1e0dabc2c595525596",
       "responseStatus": 200,
@@ -13382,7 +13382,7 @@
     {
       "sourceId": "vspc-kb-page-kb2644",
       "url": "https://www.veeam.com/kb2644",
-      "fetchedAt": "2026-11-14T11:35:43.750Z",
+      "fetchedAt": "2026-11-15T12:04:13.609Z",
       "status": "fetched",
       "digest": "ff2773d89326fb73065fa260a14a09555672c60d8b1192b9bb1f90611d8dd766",
       "responseStatus": 200,
@@ -13393,7 +13393,7 @@
     {
       "sourceId": "kb2662",
       "url": "https://www.veeam.com/kb2662",
-      "fetchedAt": "2026-11-14T11:32:24.377Z",
+      "fetchedAt": "2026-11-15T12:00:54.891Z",
       "status": "fetched",
       "digest": "6ab5af19a5239fc98be25b5782c4cc6785df0d67e37b3b92a10400385281227d",
       "responseStatus": 200,
@@ -13404,7 +13404,7 @@
     {
       "sourceId": "vspc-kb-page-kb2665",
       "url": "https://www.veeam.com/kb2665",
-      "fetchedAt": "2026-11-14T11:35:40.752Z",
+      "fetchedAt": "2026-11-15T12:04:10.671Z",
       "status": "fetched",
       "digest": "3ad070d472478776e6a7273dead9b0fdc81a65b5a37edc7a3b05dcee63c30c6f",
       "responseStatus": 200,
@@ -13415,7 +13415,7 @@
     {
       "sourceId": "kb2680",
       "url": "https://www.veeam.com/kb2680",
-      "fetchedAt": "2026-11-14T11:32:42.384Z",
+      "fetchedAt": "2026-11-15T12:01:12.992Z",
       "status": "fetched",
       "digest": "6aa6c647438ab1a9b1ebe74439e9b2df466ea429e18224302db4bd3bac56d760",
       "responseStatus": 200,
@@ -13426,7 +13426,7 @@
     {
       "sourceId": "vspc-kb-page-kb2694",
       "url": "https://www.veeam.com/kb2694",
-      "fetchedAt": "2026-11-14T11:35:37.740Z",
+      "fetchedAt": "2026-11-15T12:04:07.667Z",
       "status": "fetched",
       "digest": "12066cdf1b74d446e97213d8a3cab3a43b3c24d7aaf7cb47a3e8c95f414b0289",
       "responseStatus": 200,
@@ -13437,7 +13437,7 @@
     {
       "sourceId": "vspc-kb-page-kb2705",
       "url": "https://www.veeam.com/kb2705",
-      "fetchedAt": "2026-11-14T11:35:34.536Z",
+      "fetchedAt": "2026-11-15T12:04:04.670Z",
       "status": "fetched",
       "digest": "fba63b52c5c7d8f7a114868844002085020cb785e261c37bc2cb834f44ec3134",
       "responseStatus": 200,
@@ -13448,7 +13448,7 @@
     {
       "sourceId": "vspc-kb-page-kb2715",
       "url": "https://www.veeam.com/kb2715",
-      "fetchedAt": "2026-11-14T11:35:31.749Z",
+      "fetchedAt": "2026-11-15T12:04:01.673Z",
       "status": "fetched",
       "digest": "27c8b04dca413e85e6f61291d5a3465bc2926443cc9d0936b6e959634883fcb4",
       "responseStatus": 200,
@@ -13459,7 +13459,7 @@
     {
       "sourceId": "vspc-kb-page-kb2766",
       "url": "https://www.veeam.com/kb2766",
-      "fetchedAt": "2026-11-14T11:35:25.533Z",
+      "fetchedAt": "2026-11-15T12:03:55.670Z",
       "status": "fetched",
       "digest": "7b73d32b24d010492d7a7a2ccca4d53e6fa1c2fe4f6da1599c08fe59d73de097",
       "responseStatus": 200,
@@ -13470,7 +13470,7 @@
     {
       "sourceId": "vspc-kb-page-kb2773",
       "url": "https://www.veeam.com/kb2773",
-      "fetchedAt": "2026-11-14T11:35:28.748Z",
+      "fetchedAt": "2026-11-15T12:03:58.673Z",
       "status": "fetched",
       "digest": "eb22a12ee676412b90477a8f5003ec9d50b39888f4932b33a040824202a6bf53",
       "responseStatus": 200,
@@ -13481,7 +13481,7 @@
     {
       "sourceId": "vspc-kb-page-kb2781",
       "url": "https://www.veeam.com/kb2781",
-      "fetchedAt": "2026-11-14T11:35:23.637Z",
+      "fetchedAt": "2026-11-15T12:03:52.669Z",
       "status": "fetched",
       "digest": "3bd5745543b472abdf5a2ca39c8cfd8483634ede8f52405f4197761eff602462",
       "responseStatus": 200,
@@ -13492,7 +13492,7 @@
     {
       "sourceId": "vspc-kb-page-kb2795",
       "url": "https://www.veeam.com/kb2795",
-      "fetchedAt": "2026-11-14T11:35:19.533Z",
+      "fetchedAt": "2026-11-15T12:03:49.580Z",
       "status": "fetched",
       "digest": "81fde32cb7a7b5df9304db6720d6ae8a44d324c59a34c7cc3e63da036c8e61c8",
       "responseStatus": 200,
@@ -13503,7 +13503,7 @@
     {
       "sourceId": "vspc-kb-page-kb2835",
       "url": "https://www.veeam.com/kb2835",
-      "fetchedAt": "2026-11-14T11:35:17.408Z",
+      "fetchedAt": "2026-11-15T12:03:46.663Z",
       "status": "fetched",
       "digest": "f9615c6f3012793935853dd55e411ca51aa26cf662aa53793a95f6deaf76c23a",
       "responseStatus": 200,
@@ -13514,7 +13514,7 @@
     {
       "sourceId": "vspc-kb-page-kb2902",
       "url": "https://www.veeam.com/kb2902",
-      "fetchedAt": "2026-11-14T11:35:11.449Z",
+      "fetchedAt": "2026-11-15T12:03:40.669Z",
       "status": "fetched",
       "digest": "d22b8f5d5860e2aa1bc02dc4193998de41205bce5c56b6ba2f8e7afb97be35f0",
       "responseStatus": 200,
@@ -13525,7 +13525,7 @@
     {
       "sourceId": "vspc-kb-page-kb2913",
       "url": "https://www.veeam.com/kb2913",
-      "fetchedAt": "2026-11-14T11:35:13.742Z",
+      "fetchedAt": "2026-11-15T12:03:43.595Z",
       "status": "fetched",
       "digest": "368f597e3c11ae0f93773c341b22aba0be6432a308edc56e39129017869b3d9a",
       "responseStatus": 200,
@@ -13536,7 +13536,7 @@
     {
       "sourceId": "vspc-kb-page-kb2934",
       "url": "https://www.veeam.com/kb2934",
-      "fetchedAt": "2026-11-14T11:35:07.694Z",
+      "fetchedAt": "2026-11-15T12:03:37.663Z",
       "status": "fetched",
       "digest": "08e701b010a8f788e815ebb30cde62d5f7391c8e4a5af1dce0648999cd8252ff",
       "responseStatus": 200,
@@ -13547,7 +13547,7 @@
     {
       "sourceId": "vspc-kb-page-kb2960",
       "url": "https://www.veeam.com/kb2960",
-      "fetchedAt": "2026-11-14T11:35:04.537Z",
+      "fetchedAt": "2026-11-15T12:03:34.666Z",
       "status": "fetched",
       "digest": "2e5cc8187cdf0861935307863d89bdf5bc23b10cf6f8ce7cb5baf61a6b85e128",
       "responseStatus": 200,
@@ -13558,7 +13558,7 @@
     {
       "sourceId": "vspc-kb-page-kb3003",
       "url": "https://www.veeam.com/kb3003",
-      "fetchedAt": "2026-11-14T11:35:01.744Z",
+      "fetchedAt": "2026-11-15T12:03:31.661Z",
       "status": "fetched",
       "digest": "6668be227b5723126372defc2cfb1df0394fb568eb83e74400661c1e548f6907",
       "responseStatus": 200,
@@ -13569,7 +13569,7 @@
     {
       "sourceId": "vspc-kb-page-kb3036",
       "url": "https://www.veeam.com/kb3036",
-      "fetchedAt": "2026-11-14T11:34:59.584Z",
+      "fetchedAt": "2026-11-15T12:03:29.451Z",
       "status": "fetched",
       "digest": "d091fd5dec020ed7985f454684d7025f64d9f534b389780937fa9a7ed1f95a48",
       "responseStatus": 200,
@@ -13580,7 +13580,7 @@
     {
       "sourceId": "vspc-kb-page-kb3040",
       "url": "https://www.veeam.com/kb3040",
-      "fetchedAt": "2026-11-14T11:34:55.527Z",
+      "fetchedAt": "2026-11-15T12:03:25.664Z",
       "status": "fetched",
       "digest": "2f3b8f11ed7771f7688e005f3d7f178a9d71eb8ad4e95c46b65564113a285f1f",
       "responseStatus": 200,
@@ -13591,7 +13591,7 @@
     {
       "sourceId": "kb3103",
       "url": "https://www.veeam.com/kb3103",
-      "fetchedAt": "2026-11-14T11:32:21.382Z",
+      "fetchedAt": "2026-11-15T12:00:51.981Z",
       "status": "fetched",
       "digest": "96985a0c3ec724f5372ad1f31c7915be76ca7452f98d39b231bf3d6f96e9c10e",
       "responseStatus": 200,
@@ -13602,7 +13602,7 @@
     {
       "sourceId": "kb3108",
       "url": "https://www.veeam.com/kb3108",
-      "fetchedAt": "2026-11-14T11:32:15.383Z",
+      "fetchedAt": "2026-11-15T12:00:45.983Z",
       "status": "fetched",
       "digest": "c034f592e133d015c06282d9731b1376fa5a73ccca94f76f54f4d4dc94bb8962",
       "responseStatus": 200,
@@ -13613,7 +13613,7 @@
     {
       "sourceId": "kb3109",
       "url": "https://www.veeam.com/kb3109",
-      "fetchedAt": "2026-11-14T11:32:18.377Z",
+      "fetchedAt": "2026-11-15T12:00:48.920Z",
       "status": "fetched",
       "digest": "a667db81773ebe3a5e1aeb00872da21cdd8645706a986d4690aefd6482035973",
       "responseStatus": 200,
@@ -13624,7 +13624,7 @@
     {
       "sourceId": "vspc-kb-page-kb3138",
       "url": "https://www.veeam.com/kb3138",
-      "fetchedAt": "2026-11-14T11:34:52.743Z",
+      "fetchedAt": "2026-11-15T12:03:22.665Z",
       "status": "fetched",
       "digest": "8f757a97963829b7501d17d3ebd863dcd69e56de8c8c1a8b27098c5077b35080",
       "responseStatus": 200,
@@ -13635,7 +13635,7 @@
     {
       "sourceId": "kb3144",
       "url": "https://www.veeam.com/kb3144",
-      "fetchedAt": "2026-11-14T11:32:12.381Z",
+      "fetchedAt": "2026-11-15T12:00:42.888Z",
       "status": "fetched",
       "digest": "505c0632e2e924cbf7915e25cd3f0d8dfe9f204219b6748d5856d9f58f134eaa",
       "responseStatus": 200,
@@ -13646,7 +13646,7 @@
     {
       "sourceId": "vspc-kb-page-kb3158",
       "url": "https://www.veeam.com/kb3158",
-      "fetchedAt": "2026-11-14T11:34:49.738Z",
+      "fetchedAt": "2026-11-15T12:03:20.439Z",
       "status": "fetched",
       "digest": "55236f7a67a3f37d3d879c1f74e9e8e407b201f955a87792ab338d8af566a9f1",
       "responseStatus": 200,
@@ -13657,7 +13657,7 @@
     {
       "sourceId": "vspc-kb-page-kb3170",
       "url": "https://www.veeam.com/kb3170",
-      "fetchedAt": "2026-11-14T11:34:47.624Z",
+      "fetchedAt": "2026-11-15T12:03:16.574Z",
       "status": "fetched",
       "digest": "eb6f8539b09f2d2d3fee8eaa12f96574aed4110eeda900a61cd33e56ba515dd0",
       "responseStatus": 200,
@@ -13668,7 +13668,7 @@
     {
       "sourceId": "vspc-kb-page-kb3200",
       "url": "https://www.veeam.com/kb3200",
-      "fetchedAt": "2026-11-14T11:34:40.740Z",
+      "fetchedAt": "2026-11-15T12:03:10.666Z",
       "status": "fetched",
       "digest": "7bf556662ce27c671f136cce54600c9849650d02c0d22f30a997116359c96382",
       "responseStatus": 200,
@@ -13679,7 +13679,7 @@
     {
       "sourceId": "vspc-kb-page-kb3211",
       "url": "https://www.veeam.com/kb3211",
-      "fetchedAt": "2026-11-14T11:34:43.743Z",
+      "fetchedAt": "2026-11-15T12:03:13.663Z",
       "status": "fetched",
       "digest": "af5226bf7ffbd04a2fef43d39b4e64211b29a9c872c6d7e8f4909652e7d0e64c",
       "responseStatus": 200,
@@ -13690,7 +13690,7 @@
     {
       "sourceId": "kb3221",
       "url": "https://www.veeam.com/kb3221",
-      "fetchedAt": "2026-11-14T11:32:09.385Z",
+      "fetchedAt": "2026-11-15T12:00:39.982Z",
       "status": "fetched",
       "digest": "e09f43bf3d5af1c968ff5c8b789d602682711e4900de82fb89261a4884015229",
       "responseStatus": 200,
@@ -13701,7 +13701,7 @@
     {
       "sourceId": "vspc-kb-page-kb3237",
       "url": "https://www.veeam.com/kb3237",
-      "fetchedAt": "2026-11-14T11:34:34.738Z",
+      "fetchedAt": "2026-11-15T12:03:04.577Z",
       "status": "fetched",
       "digest": "42c5c9a2bc6644d293cf07957e9d185ad7ea1e852474674fd43592a20cb7f620",
       "responseStatus": 200,
@@ -13712,7 +13712,7 @@
     {
       "sourceId": "vspc-kb-page-kb3242",
       "url": "https://www.veeam.com/kb3242",
-      "fetchedAt": "2026-11-14T11:34:37.742Z",
+      "fetchedAt": "2026-11-15T12:03:07.572Z",
       "status": "fetched",
       "digest": "b9ffac1e2b594c305dab6f4a716053a0d2f90830e655c8d9929f153f51947cf0",
       "responseStatus": 200,
@@ -13723,7 +13723,7 @@
     {
       "sourceId": "vspc-kb-page-kb4069",
       "url": "https://www.veeam.com/kb4069",
-      "fetchedAt": "2026-11-14T11:34:31.742Z",
+      "fetchedAt": "2026-11-15T12:03:02.424Z",
       "status": "fetched",
       "digest": "4a3b276562c8d55bddd26a0e927916eb0028b58fde6468fea4027c6a9f12f749",
       "responseStatus": 200,
@@ -13734,7 +13734,7 @@
     {
       "sourceId": "kb4098",
       "url": "https://www.veeam.com/kb4098",
-      "fetchedAt": "2026-11-14T11:32:36.382Z",
+      "fetchedAt": "2026-11-15T12:01:06.987Z",
       "status": "fetched",
       "digest": "9a7564267f7f05a79d756a0096d2c90798a64050ac4f84c3abf79bee6ad037aa",
       "responseStatus": 200,
@@ -13745,7 +13745,7 @@
     {
       "sourceId": "kb4106",
       "url": "https://www.veeam.com/kb4106",
-      "fetchedAt": "2026-11-14T11:32:33.381Z",
+      "fetchedAt": "2026-11-15T12:01:03.990Z",
       "status": "fetched",
       "digest": "bae17227970a0747cbdd8ba996466173f345902c8b8a0b8f6fcd31d34d5312b9",
       "responseStatus": 200,
@@ -13756,7 +13756,7 @@
     {
       "sourceId": "vspc-kb-page-kb4111",
       "url": "https://www.veeam.com/kb4111",
-      "fetchedAt": "2026-11-14T11:34:28.739Z",
+      "fetchedAt": "2026-11-15T12:02:58.593Z",
       "status": "fetched",
       "digest": "4df656b3b42ede9ce5732d410fd082699ce556eb1d9f69b83b035af6201ee51e",
       "responseStatus": 200,
@@ -13767,7 +13767,7 @@
     {
       "sourceId": "vspc-kb-page-kb4114",
       "url": "https://www.veeam.com/kb4114",
-      "fetchedAt": "2026-11-14T11:34:25.690Z",
+      "fetchedAt": "2026-11-15T12:02:55.660Z",
       "status": "fetched",
       "digest": "dbd7c6935f276f2f575243d981d657332ffbaf2d6311f3690309c8cb4f673e27",
       "responseStatus": 200,
@@ -13778,7 +13778,7 @@
     {
       "sourceId": "vspc-kb-page-kb4116",
       "url": "https://www.veeam.com/kb4116",
-      "fetchedAt": "2026-11-14T11:34:22.528Z",
+      "fetchedAt": "2026-11-15T12:02:52.660Z",
       "status": "fetched",
       "digest": "c5e748d1466173ac9953e818a69eb79333de21371a3255f9b14bd5bb3c8b6d46",
       "responseStatus": 200,
@@ -13789,7 +13789,7 @@
     {
       "sourceId": "vspc-kb-page-kb4127",
       "url": "https://www.veeam.com/kb4127",
-      "fetchedAt": "2026-11-14T11:34:19.530Z",
+      "fetchedAt": "2026-11-15T12:02:49.661Z",
       "status": "fetched",
       "digest": "86a631ee569da20ce3f3befe1d8de68b9c0553b9b9c552955eba6a54ac4deb6e",
       "responseStatus": 200,
@@ -13800,7 +13800,7 @@
     {
       "sourceId": "vspc-kb-page-kb4130",
       "url": "https://www.veeam.com/kb4130",
-      "fetchedAt": "2026-11-14T11:34:16.742Z",
+      "fetchedAt": "2026-11-15T12:02:46.662Z",
       "status": "fetched",
       "digest": "28dd2a87892286e02d5930a30343e397aa85dfe11256e27aba9af3cb862db6f9",
       "responseStatus": 200,
@@ -13811,7 +13811,7 @@
     {
       "sourceId": "vspc-kb-page-kb4132",
       "url": "https://www.veeam.com/kb4132",
-      "fetchedAt": "2026-11-14T11:34:13.688Z",
+      "fetchedAt": "2026-11-15T12:02:43.660Z",
       "status": "fetched",
       "digest": "eb1023db2d14fcf44865639b75f1a746f9de2fd2c14ee709f4a4fe500bbc88c2",
       "responseStatus": 200,
@@ -13822,7 +13822,7 @@
     {
       "sourceId": "kb4163",
       "url": "https://www.veeam.com/kb4163",
-      "fetchedAt": "2026-11-14T11:32:06.378Z",
+      "fetchedAt": "2026-11-15T12:00:36.977Z",
       "status": "fetched",
       "digest": "933b15ddea31e76143b3d514ef133764efe122badba08c63c1c4792350c6fa89",
       "responseStatus": 200,
@@ -13833,7 +13833,7 @@
     {
       "sourceId": "vspc-kb-page-kb4189",
       "url": "https://www.veeam.com/kb4189",
-      "fetchedAt": "2026-11-14T11:34:10.733Z",
+      "fetchedAt": "2026-11-15T12:02:40.572Z",
       "status": "fetched",
       "digest": "19ea80188b7f8d6168cdabec8d21bd3acd87f7d7eb50b75010038b67c3d8f3df",
       "responseStatus": 200,
@@ -13844,7 +13844,7 @@
     {
       "sourceId": "vspc-kb-page-kb4195",
       "url": "https://www.veeam.com/kb4195",
-      "fetchedAt": "2026-11-14T11:34:07.524Z",
+      "fetchedAt": "2026-11-15T12:02:37.571Z",
       "status": "fetched",
       "digest": "512613c9199b507b5a778a095b426a03cd31bfca5129529e8f279dbdea833dad",
       "responseStatus": 200,
@@ -13855,7 +13855,7 @@
     {
       "sourceId": "vspc-kb-page-kb4210",
       "url": "https://www.veeam.com/kb4210",
-      "fetchedAt": "2026-11-14T11:34:04.529Z",
+      "fetchedAt": "2026-11-15T12:02:34.572Z",
       "status": "fetched",
       "digest": "3f218b9d987f44987df617bd3a50544caf52ce7f71da7e91ebe13e937c2dab75",
       "responseStatus": 200,
@@ -13866,7 +13866,7 @@
     {
       "sourceId": "vspc-kb-page-kb4212",
       "url": "https://www.veeam.com/kb4212",
-      "fetchedAt": "2026-11-14T11:34:01.731Z",
+      "fetchedAt": "2026-11-15T12:02:31.571Z",
       "status": "fetched",
       "digest": "f59ab9467de6a8f4201ff177fd5b17046d1ebe3c73eb9de4ea1f79e9b43b32e8",
       "responseStatus": 200,
@@ -13877,7 +13877,7 @@
     {
       "sourceId": "vspc-kb-page-kb4223",
       "url": "https://www.veeam.com/kb4223",
-      "fetchedAt": "2026-11-14T11:33:58.741Z",
+      "fetchedAt": "2026-11-15T12:02:28.661Z",
       "status": "fetched",
       "digest": "218589ed6bc56b713ad7b63528f56e69f3ae33f5ecaf44063a35294c490dd4d9",
       "responseStatus": 200,
@@ -13888,7 +13888,7 @@
     {
       "sourceId": "kb4231",
       "url": "https://www.veeam.com/kb4231",
-      "fetchedAt": "2026-11-14T11:32:03.383Z",
+      "fetchedAt": "2026-11-15T12:00:33.886Z",
       "status": "fetched",
       "digest": "6ed3658d82c127553b74b8ebc5a9302ceb1e46cfbca4f257345d1482000e54f2",
       "responseStatus": 200,
@@ -13899,7 +13899,7 @@
     {
       "sourceId": "kb4233",
       "url": "https://www.veeam.com/kb4233",
-      "fetchedAt": "2026-11-14T11:32:00.385Z",
+      "fetchedAt": "2026-11-15T12:00:30.975Z",
       "status": "fetched",
       "digest": "a7f1bdfd96fa9ed5232ce3e77facb2f3d8dd214612bb9ad798fecc4840863f2a",
       "responseStatus": 200,
@@ -13910,7 +13910,7 @@
     {
       "sourceId": "kb4236",
       "url": "https://www.veeam.com/kb4236",
-      "fetchedAt": "2026-11-14T11:31:57.388Z",
+      "fetchedAt": "2026-11-15T12:00:27.909Z",
       "status": "fetched",
       "digest": "4ab37e8313d6e44081558a47407142f9b62f962e379b996d5c8782fc003414d5",
       "responseStatus": 200,
@@ -13921,7 +13921,7 @@
     {
       "sourceId": "kb4254",
       "url": "https://www.veeam.com/kb4254",
-      "fetchedAt": "2026-11-14T11:31:54.385Z",
+      "fetchedAt": "2026-11-15T12:00:24.972Z",
       "status": "fetched",
       "digest": "eabfbcef72e3fd676e6174c5f88ca1a13fc9da8f16b49a4175ca8bf02eccd1f3",
       "responseStatus": 200,
@@ -13932,7 +13932,7 @@
     {
       "sourceId": "vspc-kb-page-kb4255",
       "url": "https://www.veeam.com/kb4255",
-      "fetchedAt": "2026-11-14T11:33:50.821Z",
+      "fetchedAt": "2026-11-15T12:02:20.523Z",
       "status": "fetched",
       "digest": "6cc566e2f7670b4996644e0dd0ecdd09639aa764e663e722d7b4a02f4731f8bd",
       "responseStatus": 200,
@@ -13943,7 +13943,7 @@
     {
       "sourceId": "kb4261",
       "url": "https://www.veeam.com/kb4261",
-      "fetchedAt": "2026-11-14T11:31:51.383Z",
+      "fetchedAt": "2026-11-15T12:00:21.984Z",
       "status": "fetched",
       "digest": "8f2331ec51eee059b054ff3210245687fb7689219bbcba1701b7eb46f0d7e62c",
       "responseStatus": 200,
@@ -13954,7 +13954,7 @@
     {
       "sourceId": "vspc-kb-page-kb4269",
       "url": "https://www.veeam.com/kb4269",
-      "fetchedAt": "2026-11-14T11:33:56.815Z",
+      "fetchedAt": "2026-11-15T12:02:25.661Z",
       "status": "fetched",
       "digest": "d2d90e025a1ed50cc68f908de54f6a5da0d6d47e29c52b5dda54b4d495a28a74",
       "responseStatus": 200,
@@ -13965,7 +13965,7 @@
     {
       "sourceId": "vspc-kb-page-kb4277",
       "url": "https://www.veeam.com/kb4277",
-      "fetchedAt": "2026-11-14T11:33:52.744Z",
+      "fetchedAt": "2026-11-15T12:02:22.666Z",
       "status": "fetched",
       "digest": "55b06673dae7936d265bf21a5d41bf52250fcd531e1cb26b3a9c7a5a7e1dab1e",
       "responseStatus": 200,
@@ -13976,7 +13976,7 @@
     {
       "sourceId": "kb4288",
       "url": "https://www.veeam.com/kb4288",
-      "fetchedAt": "2026-11-14T11:31:48.384Z",
+      "fetchedAt": "2026-11-15T12:00:18.979Z",
       "status": "fetched",
       "digest": "3336213fdf8c4188be913c058cad2f1ab76e13844b41d47cdbd5f1a89822924d",
       "responseStatus": 200,
@@ -13987,7 +13987,7 @@
     {
       "sourceId": "kb4289",
       "url": "https://www.veeam.com/kb4289",
-      "fetchedAt": "2026-11-14T11:31:42.369Z",
+      "fetchedAt": "2026-11-15T12:00:12.891Z",
       "status": "fetched",
       "digest": "a3ba0647c82af86c1784713a067df6171ef767509343d80b807a64f3abee4e0b",
       "responseStatus": 200,
@@ -13998,7 +13998,7 @@
     {
       "sourceId": "kb4290",
       "url": "https://www.veeam.com/kb4290",
-      "fetchedAt": "2026-11-14T11:31:45.380Z",
+      "fetchedAt": "2026-11-15T12:00:15.889Z",
       "status": "fetched",
       "digest": "18514a10a768e76d2122c8840103ee8ca87b18c1065c056621bec04ba4c34232",
       "responseStatus": 200,
@@ -14009,7 +14009,7 @@
     {
       "sourceId": "vspc-kb-page-kb4311",
       "url": "https://www.veeam.com/kb4311",
-      "fetchedAt": "2026-11-14T11:33:46.744Z",
+      "fetchedAt": "2026-11-15T12:02:16.660Z",
       "status": "fetched",
       "digest": "0319d7c061823086830e85b6551553b50470fe939e51119b0dc7c664954c3f01",
       "responseStatus": 200,
@@ -14020,7 +14020,7 @@
     {
       "sourceId": "kb4338",
       "url": "https://www.veeam.com/kb4338",
-      "fetchedAt": "2026-11-14T11:31:39.388Z",
+      "fetchedAt": "2026-11-15T12:00:09.887Z",
       "status": "fetched",
       "digest": "f4d18029b9d22fdfe67701f617b24c045a733a52777896bb05415134a3c59f0e",
       "responseStatus": 200,
@@ -14031,7 +14031,7 @@
     {
       "sourceId": "kb4357",
       "url": "https://www.veeam.com/kb4357",
-      "fetchedAt": "2026-11-14T11:32:55.149Z",
+      "fetchedAt": "2026-11-15T12:01:25.381Z",
       "status": "fetched",
       "digest": "48c72878e314153daacce67f17385f07624f3a6faad0d21285862d154045a99d",
       "responseStatus": 200,
@@ -14042,7 +14042,7 @@
     {
       "sourceId": "kb4358",
       "url": "https://www.veeam.com/kb4358",
-      "fetchedAt": "2026-11-14T11:32:58.085Z",
+      "fetchedAt": "2026-11-15T12:01:28.243Z",
       "status": "fetched",
       "digest": "62dcc775af7307946aba7440cffe189a38483d7a074e7c40e10badf4f861e41d",
       "responseStatus": 200,
@@ -14053,7 +14053,7 @@
     {
       "sourceId": "kb4374",
       "url": "https://www.veeam.com/kb4374",
-      "fetchedAt": "2026-11-14T11:31:36.373Z",
+      "fetchedAt": "2026-11-15T12:00:06.979Z",
       "status": "fetched",
       "digest": "28ba388056ca88ef03f53934c17cc8425f8fd807f94c28faacb5834adf7ba9e0",
       "responseStatus": 200,
@@ -14064,7 +14064,7 @@
     {
       "sourceId": "kb4424",
       "url": "https://www.veeam.com/kb4424",
-      "fetchedAt": "2026-11-14T11:31:33.381Z",
+      "fetchedAt": "2026-11-15T12:00:03.985Z",
       "status": "fetched",
       "digest": "48b244cda86665498675eb18d4b65bcc62ab115d082843f8863fd6a28c7a46a2",
       "responseStatus": 200,
@@ -14075,7 +14075,7 @@
     {
       "sourceId": "vspc-kb-page-kb4431",
       "url": "https://www.veeam.com/kb4431",
-      "fetchedAt": "2026-11-14T11:33:43.738Z",
+      "fetchedAt": "2026-11-15T12:02:13.588Z",
       "status": "fetched",
       "digest": "e1718d06647b4791192b1d6386fbddd6be45c88f2a595f25689388c644b3969f",
       "responseStatus": 200,
@@ -14086,7 +14086,7 @@
     {
       "sourceId": "vspc-kb-page-kb4441",
       "url": "https://www.veeam.com/kb4441",
-      "fetchedAt": "2026-11-14T11:33:41.781Z",
+      "fetchedAt": "2026-11-15T12:02:10.567Z",
       "status": "fetched",
       "digest": "2d699f8f56e14e3cf8fd3f23d56dfaefda81b4cea93b284ced6a5213d4ffee47",
       "responseStatus": 200,
@@ -14097,7 +14097,7 @@
     {
       "sourceId": "kb4464",
       "url": "https://www.veeam.com/kb4464",
-      "fetchedAt": "2026-11-14T11:33:07.718Z",
+      "fetchedAt": "2026-11-15T12:01:37.643Z",
       "status": "fetched",
       "digest": "42451ef3f5fd624d873e205b32bcab4ab9b9b8278bc6e4302451d49c4c639010",
       "responseStatus": 200,
@@ -14108,7 +14108,7 @@
     {
       "sourceId": "kb4491",
       "url": "https://www.veeam.com/kb4491",
-      "fetchedAt": "2026-11-14T11:31:30.368Z",
+      "fetchedAt": "2026-11-15T12:00:00.916Z",
       "status": "fetched",
       "digest": "8049eb5ffdcbd06155014c093aabc6c8bcebb06961938cd367dc52451639fb1b",
       "responseStatus": 200,
@@ -14119,7 +14119,7 @@
     {
       "sourceId": "kb4508",
       "url": "https://www.veeam.com/kb4508",
-      "fetchedAt": "2026-11-14T11:31:27.377Z",
+      "fetchedAt": "2026-11-15T11:59:57.977Z",
       "status": "fetched",
       "digest": "7469b07b61329b0fda012de3e037af833372456a54f11d15b5d789d29fa77c7d",
       "responseStatus": 200,
@@ -14130,7 +14130,7 @@
     {
       "sourceId": "vspc-kb-page-kb4509",
       "url": "https://www.veeam.com/kb4509",
-      "fetchedAt": "2026-11-14T11:33:37.529Z",
+      "fetchedAt": "2026-11-15T12:02:07.668Z",
       "status": "fetched",
       "digest": "208ebda39d866d6bd5af2d744e47e6b399fa14edd07410dac8899b669a372720",
       "responseStatus": 200,
@@ -14141,7 +14141,7 @@
     {
       "sourceId": "vspc-kb-page-kb4534",
       "url": "https://www.veeam.com/kb4534",
-      "fetchedAt": "2026-11-14T11:33:31.736Z",
+      "fetchedAt": "2026-11-15T12:02:01.661Z",
       "status": "fetched",
       "digest": "51100857088cbb1ac2226dcbc683b7902618b98157cf433d328f0398c73facfa",
       "responseStatus": 200,
@@ -14152,7 +14152,7 @@
     {
       "sourceId": "vspc-kb-page-kb4539",
       "url": "https://www.veeam.com/kb4539",
-      "fetchedAt": "2026-11-14T11:33:28.738Z",
+      "fetchedAt": "2026-11-15T12:01:58.660Z",
       "status": "fetched",
       "digest": "49076191a4fc6981f900929b869ea6784eec814dd437d52fdf79a3cf28b5c8c0",
       "responseStatus": 200,
@@ -14163,7 +14163,7 @@
     {
       "sourceId": "kb4541",
       "url": "https://www.veeam.com/kb4541",
-      "fetchedAt": "2026-11-14T11:31:24.383Z",
+      "fetchedAt": "2026-11-15T11:59:54.967Z",
       "status": "fetched",
       "digest": "3e2431c9034f9c200ec21ffd5a78a6c575aa3e3702a516b6275b303f0f8dac09",
       "responseStatus": 200,
@@ -14174,7 +14174,7 @@
     {
       "sourceId": "vspc-kb-page-kb4544",
       "url": "https://www.veeam.com/kb4544",
-      "fetchedAt": "2026-11-14T11:33:34.739Z",
+      "fetchedAt": "2026-11-15T12:02:04.660Z",
       "status": "fetched",
       "digest": "4abfa994a20ea77fb88a0b772e728ad900f57eeafd95722793f7369f7a2221b1",
       "responseStatus": 200,
@@ -14185,7 +14185,7 @@
     {
       "sourceId": "kb4575",
       "url": "https://www.veeam.com/kb4575",
-      "fetchedAt": "2026-11-14T11:31:21.380Z",
+      "fetchedAt": "2026-11-15T11:59:51.977Z",
       "status": "fetched",
       "digest": "50b08d34280fb43063a2f641fb805293c6c49402ede7856a5bd80ccac5afdfef",
       "responseStatus": 200,
@@ -14196,7 +14196,7 @@
     {
       "sourceId": "kb4581",
       "url": "https://www.veeam.com/kb4581",
-      "fetchedAt": "2026-11-14T11:31:15.371Z",
+      "fetchedAt": "2026-11-15T11:59:45.965Z",
       "status": "fetched",
       "digest": "f6ba565f08405d2136a51ca35f20aa1056cc44386e560a21ea2dad303f6b4837",
       "responseStatus": 200,
@@ -14207,7 +14207,7 @@
     {
       "sourceId": "kb4582",
       "url": "https://www.veeam.com/kb4582",
-      "fetchedAt": "2026-11-14T11:31:18.369Z",
+      "fetchedAt": "2026-11-15T11:59:48.970Z",
       "status": "fetched",
       "digest": "1f3b047b7eef1dfb3ad997afaf2e1f0dc09b8c8d9218c3aa55fa23a55145cd34",
       "responseStatus": 200,
@@ -14218,7 +14218,7 @@
     {
       "sourceId": "kb4585",
       "url": "https://www.veeam.com/kb4585",
-      "fetchedAt": "2026-11-14T11:31:12.582Z",
+      "fetchedAt": "2026-11-15T11:59:42.974Z",
       "status": "fetched",
       "digest": "32d640316a0b54979f43f9cb671fa233edb07b7121874817eb7e3217a1de6ddc",
       "responseStatus": 200,
@@ -14229,7 +14229,7 @@
     {
       "sourceId": "kb4649",
       "url": "https://www.veeam.com/kb4649",
-      "fetchedAt": "2026-11-14T11:31:09.380Z",
+      "fetchedAt": "2026-11-15T11:59:39.943Z",
       "status": "fetched",
       "digest": "e52155ffabb818a0c0470fbea2b2baa5dba0536e6ef8106c5178374725863acb",
       "responseStatus": 200,
@@ -14240,7 +14240,7 @@
     {
       "sourceId": "vspc-kb-page-kb4651",
       "url": "https://www.veeam.com/kb4651",
-      "fetchedAt": "2026-11-14T11:33:25.748Z",
+      "fetchedAt": "2026-11-15T12:01:55.651Z",
       "status": "fetched",
       "digest": "91a21abc57a7afb21938fdaaa7c397e3ee11ad848a8aa2fd60166db7844e328d",
       "responseStatus": 200,
@@ -14251,7 +14251,7 @@
     {
       "sourceId": "vspc-kb-page-kb4670",
       "url": "https://www.veeam.com/kb4670",
-      "fetchedAt": "2026-11-14T11:33:22.732Z",
+      "fetchedAt": "2026-11-15T12:01:52.652Z",
       "status": "fetched",
       "digest": "efacc36d11a7d4ef5f8a1fce309b33fbef3c9b17ec96727f9dafa410f08afb9d",
       "responseStatus": 200,
@@ -14262,7 +14262,7 @@
     {
       "sourceId": "kb4679",
       "url": "https://www.veeam.com/kb4679",
-      "fetchedAt": "2026-11-14T11:31:03.377Z",
+      "fetchedAt": "2026-11-15T11:59:33.968Z",
       "status": "fetched",
       "digest": "8a2477df3eef2522f4b1ee2b43865c3c91906dca46ad8277714a25f3491ffaac",
       "responseStatus": 200,
@@ -14273,7 +14273,7 @@
     {
       "sourceId": "kb4682",
       "url": "https://www.veeam.com/kb4682",
-      "fetchedAt": "2026-11-14T11:31:06.372Z",
+      "fetchedAt": "2026-11-15T11:59:36.972Z",
       "status": "fetched",
       "digest": "bc2e2ac04887541f050e655906fd54f45f167bcfaae5bafc5dcea21d1b470929",
       "responseStatus": 200,
@@ -14284,7 +14284,7 @@
     {
       "sourceId": "kb4693",
       "url": "https://www.veeam.com/kb4693",
-      "fetchedAt": "2026-11-14T11:31:00.383Z",
+      "fetchedAt": "2026-11-15T11:59:30.965Z",
       "status": "fetched",
       "digest": "328f9f10f63e5922581808ef3abfe180aecdff8f08a154984acead8c8676ed9c",
       "responseStatus": 200,
@@ -14295,7 +14295,7 @@
     {
       "sourceId": "kb4696",
       "url": "https://www.veeam.com/kb4696",
-      "fetchedAt": "2026-11-14T11:32:45.605Z",
+      "fetchedAt": "2026-11-15T12:01:16.087Z",
       "status": "fetched",
       "digest": "2ab382163cd79b4e01d1b332b196f2e7e96e97fc4c33e88a742589365c03dd23",
       "responseStatus": 200,
@@ -14306,7 +14306,7 @@
     {
       "sourceId": "kb4709",
       "url": "https://www.veeam.com/kb4709",
-      "fetchedAt": "2026-11-14T11:30:57.579Z",
+      "fetchedAt": "2026-11-15T11:59:27.969Z",
       "status": "fetched",
       "digest": "e5510796b3686733b169fb4ae3bfaa2e430b3e78582d69bdf090432e18150d04",
       "responseStatus": 200,
@@ -14317,7 +14317,7 @@
     {
       "sourceId": "kb4712",
       "url": "https://www.veeam.com/kb4712",
-      "fetchedAt": "2026-11-14T11:30:54.583Z",
+      "fetchedAt": "2026-11-15T11:59:24.968Z",
       "status": "fetched",
       "digest": "8424c1e94999314506343a49e5863e97652418c2809bdde37e74c012b5ae0e99",
       "responseStatus": 200,
@@ -14328,7 +14328,7 @@
     {
       "sourceId": "kb4724",
       "url": "https://www.veeam.com/kb4724",
-      "fetchedAt": "2026-11-14T11:30:51.365Z",
+      "fetchedAt": "2026-11-15T11:59:21.971Z",
       "status": "fetched",
       "digest": "ec4df5a76029cbb579e7e6e7b9e468875a2d0118c3ecefe016e811127d87ec00",
       "responseStatus": 200,
@@ -14339,7 +14339,7 @@
     {
       "sourceId": "kb4738",
       "url": "https://www.veeam.com/kb4738",
-      "fetchedAt": "2026-11-14T11:32:48.388Z",
+      "fetchedAt": "2026-11-15T12:01:18.930Z",
       "status": "fetched",
       "digest": "dc0338775e1745a34719280d889ea8ed0d840ed198fb55e2ad713718918d5ac3",
       "responseStatus": 200,
@@ -14350,7 +14350,7 @@
     {
       "sourceId": "kb4743",
       "url": "https://www.veeam.com/kb4743",
-      "fetchedAt": "2026-11-14T11:30:48.574Z",
+      "fetchedAt": "2026-11-15T11:59:18.974Z",
       "status": "fetched",
       "digest": "252ad14dcf5b302e6284adbdff81b9e78944c30d035a331d8135ada53b4a8c7f",
       "responseStatus": 200,
@@ -14361,7 +14361,7 @@
     {
       "sourceId": "kb4771",
       "url": "https://www.veeam.com/kb4771",
-      "fetchedAt": "2026-11-14T11:30:45.577Z",
+      "fetchedAt": "2026-11-15T11:59:15.962Z",
       "status": "fetched",
       "digest": "89ee3470a6942aa47a8f2b3b32e68eb038ca30f73fc5327e2e5819bd5efab4af",
       "responseStatus": 200,
@@ -14372,7 +14372,7 @@
     {
       "sourceId": "vspc-kb-page-kb4788",
       "url": "https://www.veeam.com/kb4788",
-      "fetchedAt": "2026-11-14T11:33:19.737Z",
+      "fetchedAt": "2026-11-15T12:01:49.648Z",
       "status": "fetched",
       "digest": "c29c7c179b7d61726d455fb8d9e2e046ebd004a1cb362cca6fbd28d5ff350eb6",
       "responseStatus": 200,
@@ -14383,7 +14383,7 @@
     {
       "sourceId": "kb4792",
       "url": "https://www.veeam.com/kb4792",
-      "fetchedAt": "2026-11-14T11:30:42.524Z",
+      "fetchedAt": "2026-11-15T11:59:12.965Z",
       "status": "fetched",
       "digest": "f96c7879fec87d4c8e108ffed59afeda6a99eabac4c6547c39c2bdc4606eb7a9",
       "responseStatus": 200,
@@ -14394,7 +14394,7 @@
     {
       "sourceId": "kb4830",
       "url": "https://www.veeam.com/kb4830",
-      "fetchedAt": "2026-11-14T11:30:39.365Z",
+      "fetchedAt": "2026-11-15T11:59:09.969Z",
       "status": "fetched",
       "digest": "794cb90a298953ea2e4aaee7bedacd1a92f98eec6ded211c53088eb9e08a4141",
       "responseStatus": 200,
@@ -14405,7 +14405,7 @@
     {
       "sourceId": "kb4831",
       "url": "https://www.veeam.com/kb4831",
-      "fetchedAt": "2026-11-14T11:30:36.369Z",
+      "fetchedAt": "2026-11-15T11:59:06.947Z",
       "status": "fetched",
       "digest": "eb9ef61fe7162f832da8b05f5a26a54a61ae1d50b0e564011e1cf22ff5a6d5d4",
       "responseStatus": 200,
@@ -14416,7 +14416,7 @@
     {
       "sourceId": "kb4852",
       "url": "https://www.veeam.com/kb4852",
-      "fetchedAt": "2026-11-14T11:30:30.537Z",
+      "fetchedAt": "2026-11-15T11:59:00.970Z",
       "status": "fetched",
       "digest": "a2d4e5249db575b7321241dd9c2408c0dd8892c4798052da3625cd2166754dd9",
       "responseStatus": 200,
@@ -14427,7 +14427,7 @@
     {
       "sourceId": "kb4853",
       "url": "https://www.veeam.com/kb4853",
-      "fetchedAt": "2026-11-14T11:30:33.373Z",
+      "fetchedAt": "2026-11-15T11:59:03.961Z",
       "status": "fetched",
       "digest": "af3d803eb297e43e8fbbb80db0452ed441dbf3b2551f82d48fb1e5b92c12bd74",
       "responseStatus": 200,
@@ -14438,7 +14438,7 @@
     {
       "sourceId": "kb4856",
       "url": "https://www.veeam.com/kb4856",
-      "fetchedAt": "2026-11-14T11:30:27.364Z",
+      "fetchedAt": "2026-11-15T11:58:57.963Z",
       "status": "fetched",
       "digest": "d9990bade22a4fdb785a8dfe6e76d067a3de459e95034091a67fea945b495df8",
       "responseStatus": 200,
@@ -14449,7 +14449,7 @@
     {
       "sourceId": "kb4857",
       "url": "https://www.veeam.com/kb4857",
-      "fetchedAt": "2026-11-14T11:32:30.594Z",
+      "fetchedAt": "2026-11-15T12:01:00.896Z",
       "status": "fetched",
       "digest": "731a165ef8a3c49eeba25fe3b1a84b2bd6e605c36b08f219d87b42c5d800f031",
       "responseStatus": 200,
@@ -14460,7 +14460,7 @@
     {
       "sourceId": "kb4858",
       "url": "https://www.veeam.com/kb4858",
-      "fetchedAt": "2026-11-14T11:30:24.370Z",
+      "fetchedAt": "2026-11-15T11:58:54.965Z",
       "status": "fetched",
       "digest": "378ad47110561866437d0cf480e67f7a3f92c829affd712061a81df1372d8842",
       "responseStatus": 200,
@@ -14471,7 +14471,7 @@
     {
       "sourceId": "kb4869",
       "url": "https://www.veeam.com/kb4869",
-      "fetchedAt": "2026-11-14T11:30:21.579Z",
+      "fetchedAt": "2026-11-15T11:58:51.966Z",
       "status": "fetched",
       "digest": "732090a2c79f6837d90f41a79a0800fde41bd2791cb88ba1220e475ec24217c0",
       "responseStatus": 200,
@@ -14482,7 +14482,7 @@
     {
       "sourceId": "kb4879",
       "url": "https://www.veeam.com/kb4879",
-      "fetchedAt": "2026-11-14T11:30:18.572Z",
+      "fetchedAt": "2026-11-15T11:58:48.970Z",
       "status": "fetched",
       "digest": "9a22c7cb9d781db4d2f99488e5b1a3dc2335deb0ae2ceacff151b3ad5d729697",
       "responseStatus": 200,
@@ -14493,7 +14493,7 @@
     {
       "sourceId": "kb4892",
       "url": "https://www.veeam.com/kb4892",
-      "fetchedAt": "2026-11-14T11:30:12.363Z",
+      "fetchedAt": "2026-11-15T11:58:42.876Z",
       "status": "fetched",
       "digest": "36e16d5377e2e8e22322fb35df7b2055eea979d6156a4f4ed77483a2b53ef904",
       "responseStatus": 200,
@@ -14504,7 +14504,7 @@
     {
       "sourceId": "kb4893",
       "url": "https://www.veeam.com/kb4893",
-      "fetchedAt": "2026-11-14T11:30:15.360Z",
+      "fetchedAt": "2026-11-15T11:58:45.942Z",
       "status": "fetched",
       "digest": "102218e3c77522ce8b2ace1733d9d5ab0ded54820cc347a035f634dbc1b37a45",
       "responseStatus": 200,
@@ -14515,7 +14515,7 @@
     {
       "sourceId": "kb4902",
       "url": "https://www.veeam.com/kb4902",
-      "fetchedAt": "2026-11-14T11:30:06.360Z",
+      "fetchedAt": "2026-11-15T11:58:36.960Z",
       "status": "fetched",
       "digest": "60fedbfe96a3596e0d8edcbe4a9b1aa1cbebe1b2960981dc9850b1a652351567",
       "responseStatus": 200,
@@ -14526,7 +14526,7 @@
     {
       "sourceId": "kb4905",
       "url": "https://www.veeam.com/kb4905",
-      "fetchedAt": "2026-11-14T11:30:09.359Z",
+      "fetchedAt": "2026-11-15T11:58:39.963Z",
       "status": "fetched",
       "digest": "0217db7da605eda8f25fe4d5feab6ea12fac0e1436306a95deb0bad31f8b5a36",
       "responseStatus": 200,
@@ -14537,7 +14537,7 @@
     {
       "sourceId": "vspc-kb-page-kb4908",
       "url": "https://www.veeam.com/kb4908",
-      "fetchedAt": "2026-11-14T11:33:16.726Z",
+      "fetchedAt": "2026-11-15T12:01:46.560Z",
       "status": "fetched",
       "digest": "a9224626b6b46fb275105dbfb6d66bf5f989f4698e8d736b5e74dd5c08927afe",
       "responseStatus": 200,
@@ -14548,7 +14548,7 @@
     {
       "sourceId": "kb4917",
       "url": "https://www.veeam.com/kb4917",
-      "fetchedAt": "2026-11-14T11:30:03.527Z",
+      "fetchedAt": "2026-11-15T11:58:33.959Z",
       "status": "fetched",
       "digest": "dec0da77ebf8570a64c2332bcc52de516cce7d504e5565186617718058a8d1b7",
       "responseStatus": 200,
@@ -14559,7 +14559,7 @@
     {
       "sourceId": "kb4919",
       "url": "https://www.veeam.com/kb4919",
-      "fetchedAt": "2026-11-14T11:30:00.573Z",
+      "fetchedAt": "2026-11-15T11:58:30.872Z",
       "status": "fetched",
       "digest": "17853b3d31415539cc5971e4400218b880249095acdfe5c1680bb25015d0b177",
       "responseStatus": 200,
@@ -14570,7 +14570,7 @@
     {
       "sourceId": "kb4920",
       "url": "https://www.veeam.com/kb4920",
-      "fetchedAt": "2026-11-14T11:29:57.407Z",
+      "fetchedAt": "2026-11-15T11:58:27.958Z",
       "status": "fetched",
       "digest": "7f26bf6551f6333330a545fa8a64f1b1cc03123387b37a5570eca33a8c544171",
       "responseStatus": 200,
@@ -14581,7 +14581,7 @@
     {
       "sourceId": "kb4921",
       "url": "https://www.veeam.com/kb4921",
-      "fetchedAt": "2026-11-14T11:29:54.569Z",
+      "fetchedAt": "2026-11-15T11:58:24.935Z",
       "status": "fetched",
       "digest": "abdae4971c09dc1356397edbe3f3e7756b6eebdebee1d4e3c2ffe686e36a6417",
       "responseStatus": 200,
@@ -14592,7 +14592,7 @@
     {
       "sourceId": "kb4922",
       "url": "https://www.veeam.com/kb4922",
-      "fetchedAt": "2026-11-14T11:29:51.580Z",
+      "fetchedAt": "2026-11-15T11:58:21.955Z",
       "status": "fetched",
       "digest": "1f78d762c6a1c3952f89e5b1de6eebfe6e9e6ed96fe6f15fb657e566d2d73ea9",
       "responseStatus": 200,
@@ -14603,7 +14603,7 @@
     {
       "sourceId": "kb4923",
       "url": "https://www.veeam.com/kb4923",
-      "fetchedAt": "2026-11-14T11:29:48.364Z",
+      "fetchedAt": "2026-11-15T11:58:18.959Z",
       "status": "fetched",
       "digest": "b64cf3921e5848e3bd6f7ca390172910fcba36e67e5c27b5d60cc1f541092cf7",
       "responseStatus": 200,
@@ -14614,7 +14614,7 @@
     {
       "sourceId": "kb4924",
       "url": "https://www.veeam.com/kb4924",
-      "fetchedAt": "2026-11-14T11:29:45.571Z",
+      "fetchedAt": "2026-11-15T11:58:15.871Z",
       "status": "fetched",
       "digest": "1700b1e6cfc20d043a56007e04b63cffd120c038bbacb23c64adccfe18312444",
       "responseStatus": 200,
@@ -14625,7 +14625,7 @@
     {
       "sourceId": "kb4925",
       "url": "https://www.veeam.com/kb4925",
-      "fetchedAt": "2026-11-14T11:29:42.360Z",
+      "fetchedAt": "2026-11-15T11:58:12.964Z",
       "status": "fetched",
       "digest": "4a3c4e9e74b8dfda9c920614358213df73665e608c46d182c769b7999c6520c9",
       "responseStatus": 200,
@@ -14636,7 +14636,7 @@
     {
       "sourceId": "kb4926",
       "url": "https://www.veeam.com/kb4926",
-      "fetchedAt": "2026-11-14T11:29:39.358Z",
+      "fetchedAt": "2026-11-15T11:58:09.958Z",
       "status": "fetched",
       "digest": "3f3262bb2bb158d7bd0bee98bd6bfc5f1ab6322d6e4a79c35da0198774fb3b2f",
       "responseStatus": 200,
@@ -14647,7 +14647,7 @@
     {
       "sourceId": "vspc-kb-page-kb4930",
       "url": "https://www.veeam.com/kb4930",
-      "fetchedAt": "2026-11-14T11:33:13.724Z",
+      "fetchedAt": "2026-11-15T12:01:43.649Z",
       "status": "fetched",
       "digest": "7d002a659aa449f0876ab008ff5ca5e22971bed1ac8ba8900d79d36769b4d2cf",
       "responseStatus": 200,
@@ -14658,7 +14658,7 @@
     {
       "sourceId": "kb4934",
       "url": "https://www.veeam.com/kb4934",
-      "fetchedAt": "2026-11-14T11:29:36.366Z",
+      "fetchedAt": "2026-11-15T11:58:06.966Z",
       "status": "fetched",
       "digest": "809686970f4013538bc8a8e0727de5c577bfcba6718e0da794185e3610f82b63",
       "responseStatus": 200,
@@ -14669,7 +14669,7 @@
     {
       "sourceId": "kb4948",
       "url": "https://www.veeam.com/kb4948",
-      "fetchedAt": "2026-11-14T11:29:24.421Z",
+      "fetchedAt": "2026-11-15T11:57:54.867Z",
       "status": "fetched",
       "digest": "fd479776674d7c40b851ff60da3f15fe3180b92bc9cbaf0e8f05f5bea50f8b2f",
       "responseStatus": 200,
@@ -14680,7 +14680,7 @@
     {
       "sourceId": "kb4951",
       "url": "https://www.veeam.com/kb4951",
-      "fetchedAt": "2026-11-14T11:29:27.523Z",
+      "fetchedAt": "2026-11-15T11:57:57.955Z",
       "status": "fetched",
       "digest": "ccce9764d48f48dccae8f934f5ec773e3193a3b0bb0508fe0bb43020d61dcac7",
       "responseStatus": 200,
@@ -14691,7 +14691,7 @@
     {
       "sourceId": "vspc-kb-page-kb4952",
       "url": "https://www.veeam.com/kb4952",
-      "fetchedAt": "2026-11-14T11:33:10.723Z",
+      "fetchedAt": "2026-11-15T12:01:40.639Z",
       "status": "fetched",
       "digest": "f5dc65201d0bc19363eaeae7a709216dc7df43256c73c69596b1b7c261e350a0",
       "responseStatus": 200,
@@ -14702,7 +14702,7 @@
     {
       "sourceId": "kb4953",
       "url": "https://www.veeam.com/kb4953",
-      "fetchedAt": "2026-11-14T11:29:33.362Z",
+      "fetchedAt": "2026-11-15T11:58:03.956Z",
       "status": "fetched",
       "digest": "4489cfdc596688b625bde7e9681c358cd29904138330cf24cdc36c24a99baffd",
       "responseStatus": 200,
@@ -14713,7 +14713,7 @@
     {
       "sourceId": "kb4957",
       "url": "https://www.veeam.com/kb4957",
-      "fetchedAt": "2026-11-14T11:29:30.572Z",
+      "fetchedAt": "2026-11-15T11:58:00.951Z",
       "status": "fetched",
       "digest": "b70f276812a88d568d69430d4a9bfe576f46d0a0b970177cf728518ba8ebf275",
       "responseStatus": 200,
@@ -14724,7 +14724,7 @@
     {
       "sourceId": "kb4961",
       "url": "https://www.veeam.com/kb4961",
-      "fetchedAt": "2026-11-14T11:29:18.403Z",
+      "fetchedAt": "2026-11-15T11:57:48.948Z",
       "status": "fetched",
       "digest": "92688c2156280427dd9a245ac88449d06591a409dc7ed6ba7b2aa092eef16bec",
       "responseStatus": 200,
@@ -14735,7 +14735,7 @@
     {
       "sourceId": "kb4962",
       "url": "https://www.veeam.com/kb4962",
-      "fetchedAt": "2026-11-14T11:29:21.575Z",
+      "fetchedAt": "2026-11-15T11:57:51.949Z",
       "status": "fetched",
       "digest": "ed99f7291e341bd5c262bd044926b98defc7e91e5c517ba0b04be58717622591",
       "responseStatus": 200,
@@ -14746,7 +14746,7 @@
     {
       "sourceId": "kb4966",
       "url": "https://www.veeam.com/kb4966",
-      "fetchedAt": "2026-11-14T11:29:15.355Z",
+      "fetchedAt": "2026-11-15T11:57:45.952Z",
       "status": "fetched",
       "digest": "407c7a79421ba22ffbdcd1870f4e81062d0d35d0208e0dcaca1d537a4ce81492",
       "responseStatus": 200,
@@ -14757,7 +14757,7 @@
     {
       "sourceId": "lifecycle",
       "url": "https://www.veeam.com/product-lifecycle.html",
-      "fetchedAt": "2026-11-14T11:29:12.568Z",
+      "fetchedAt": "2026-11-15T11:57:42.944Z",
       "status": "fetched",
       "digest": "4f5479c4853cc8e15a8ebd242a298f842afce58a634c0e75d04f28e43bef1f0d",
       "responseStatus": 200,
@@ -14768,7 +14768,7 @@
     {
       "sourceId": "vspc-kb-inventory-0",
       "url": "https://www.veeam.com/services/kb-articles?product=VAC&offset=0&limit=100",
-      "fetchedAt": "2026-11-14T11:29:09.362Z",
+      "fetchedAt": "2026-11-15T11:57:39.935Z",
       "status": "fetched",
       "digest": "cf2067b1fd07a16be8253708a622ac39d266fa470ea8aeb88dfb42d1dfa9a269",
       "responseStatus": 200,
@@ -14779,7 +14779,7 @@
     {
       "sourceId": "security-kb-0",
       "url": "https://www.veeam.com/services/kb-articles?type=security&offset=0&limit=100",
-      "fetchedAt": "2026-11-14T11:29:06.860Z",
+      "fetchedAt": "2026-11-15T11:57:37.098Z",
       "status": "fetched",
       "digest": "577441a726d10e85c0c2afed0071d58ef0cfe85426f4b9de3e4aa68077b52790",
       "responseStatus": 200,
@@ -14790,62 +14790,62 @@
     {
       "sourceId": "release-material-vb365-8.0-whats-new",
       "url": "https://www.veeam.com/veeam_backup_m365_8_whats_new_wn.pdf",
-      "fetchedAt": "2026-11-14T11:32:39.674Z",
+      "fetchedAt": "2026-11-15T12:01:10.180Z",
       "status": "fetched",
       "digest": "ea6be9fad023d0655ba38250b4b1a85573e963f4a445e7daf7f6284d189c30a6",
       "responseStatus": 200,
       "headers": {
         "content-type": "application/pdf",
-        "etag": "W/\"ac282-6603ae6f4b6d8-gzip\"",
-        "last-modified": "Sat, 14 Nov 2026 11:32:39 GMT"
+        "etag": "W/\"ac282-6604f6ac1ebaa-gzip\"",
+        "last-modified": "Sun, 15 Nov 2026 12:01:10 GMT"
       }
     },
     {
       "sourceId": "release-material-vspc-9.3-whats-new",
       "url": "https://www.veeam.com/veeam_console_9_3_whats_new_wn.pdf",
-      "fetchedAt": "2026-11-14T11:36:16.758Z",
+      "fetchedAt": "2026-11-15T12:04:46.799Z",
       "status": "fetched",
       "digest": "e52116bf6e3bb7fe30d58cea9b8557b85e1d8e34da82013373d31a4f347850c0",
       "responseStatus": 200,
       "headers": {
         "content-type": "application/pdf",
-        "etag": "W/\"fa998-6603af3e5e31c-gzip\"",
-        "last-modified": "Sat, 14 Nov 2026 11:36:16 GMT"
+        "etag": "W/\"fa998-6604f77ab43ad-gzip\"",
+        "last-modified": "Sun, 15 Nov 2026 12:04:46 GMT"
       }
     },
     {
       "sourceId": "release-material-veeam-one-13.1-whats-new",
       "url": "https://www.veeam.com/veeam_one_13_1_whats_new_wn.pdf",
-      "fetchedAt": "2026-11-14T11:33:01.966Z",
+      "fetchedAt": "2026-11-15T12:01:31.726Z",
       "status": "fetched",
       "digest": "2c8985796bdc53396155492a76a5d736c165ba4faf5a2de0f2f3d5e93481f888",
       "responseStatus": 200,
       "headers": {
         "content-type": "application/pdf",
-        "etag": "W/\"adc8e-6603ae84816fe-gzip\"",
-        "last-modified": "Sat, 14 Nov 2026 11:33:01 GMT"
+        "etag": "\"adc8e-6604cc9ffdeb1-gzip\"",
+        "last-modified": "Sun, 15 Nov 2026 08:53:03 GMT"
       }
     },
     {
       "sourceId": "release-material-vro-13.1-whats-new",
       "url": "https://www.veeam.com/veeam_orchestrator_13_1_whats_new_wn.pdf",
-      "fetchedAt": "2026-11-14T11:33:05.011Z",
+      "fetchedAt": "2026-11-15T12:01:34.636Z",
       "status": "fetched",
       "digest": "b76613427cfd18310f6a81513ce9012e101435390e4cf5366d5b901a6b3a4da0",
       "responseStatus": 200,
       "headers": {
         "content-type": "application/pdf",
-        "etag": "W/\"9ea7c-6603ae876922f-gzip\"",
-        "last-modified": "Sat, 14 Nov 2026 11:33:04 GMT"
+        "etag": "\"9ea7c-6604ebc5f6c37-gzip\"",
+        "last-modified": "Sun, 15 Nov 2026 11:12:24 GMT"
       }
     }
   ],
   "productValidation": [
     {
       "productId": "vbr",
-      "transactionId": "c12b74dc1370e144737744b400a99976e8a063ab827228b1ab6cc4c82e48949f",
-      "validatedAt": "2026-11-14T11:32:30.605Z",
-      "attemptedAt": "2026-11-14T11:32:30.605Z",
+      "transactionId": "758aece3fb4db85c609d073a06a318bd64139d1dc772f935aab9cd7407a20098",
+      "validatedAt": "2026-11-15T12:01:00.902Z",
+      "attemptedAt": "2026-11-15T12:01:00.902Z",
       "state": "validated",
       "evidenceIds": [
         "0286f88fd8eefcce937dcfaf0484121f72848487b9e00d6dce8fe7c437aaea6b",
@@ -14926,9 +14926,9 @@
     },
     {
       "productId": "enterprise-manager",
-      "transactionId": "c12b74dc1370e144737744b400a99976e8a063ab827228b1ab6cc4c82e48949f",
-      "validatedAt": "2026-11-14T11:32:30.605Z",
-      "attemptedAt": "2026-11-14T11:32:30.605Z",
+      "transactionId": "758aece3fb4db85c609d073a06a318bd64139d1dc772f935aab9cd7407a20098",
+      "validatedAt": "2026-11-15T12:01:00.902Z",
+      "attemptedAt": "2026-11-15T12:01:00.902Z",
       "state": "validated",
       "evidenceIds": [
         "03cec7905d136c23a5cdb4b64b84ad128cbf0575f03e6f38f3a3d3f227c3bd71",
@@ -15000,9 +15000,9 @@
     },
     {
       "productId": "veeam-one",
-      "transactionId": "7af0de7e753d39ca0bd13d96583bd91a370edfe3c7df53caf15573b08ec4f9ae",
-      "validatedAt": "2026-11-14T11:32:30.605Z",
-      "attemptedAt": "2026-11-14T11:32:30.605Z",
+      "transactionId": "99de0c5f208892a3e2c858f7a419a3d851eccc1a8adf0ca7c1e7c3356ee498b1",
+      "validatedAt": "2026-11-15T12:01:00.902Z",
+      "attemptedAt": "2026-11-15T12:01:00.902Z",
       "state": "validated",
       "evidenceIds": [
         "029d37636a6747289c5b20a7a6182bd06ad53479a3069f8074cd82ce18f85fe1",
@@ -15026,7 +15026,6 @@
         "8bf20610c3d525641e628015d206b6fe29a8643abe10eab2348b3ebb50e85f9c",
         "91da350c05707b7e7e4c2ab206b32887d6406a780b7a0b7dc3a5bc903ce1277a",
         "9685b96e47afefa5138526d463b544a3688ab9c82b368420915ea2e666ee07c9",
-        "99e84c0f78aa950c9041974f686818dd14faa31c85ad3bdcf4ed4a3188cb8e90",
         "a24f4ec9b9ad73981174dc18c557dc3fcaae2926f6b01c7d22ed9d1bf21212c0",
         "a3972a0e3587a6ca28f82a36ca4bc1b253c171d20753a2184f429dbeb41fc1b9",
         "b5e547ae69e4987012a8ab7352e4793746dc443581fece3312befe76cd404a61",
@@ -15045,18 +15044,19 @@
         "eabe7c958250bedd5a81f42ed4c79e11b27d4746b0524ac25571d2c52a0e7eff",
         "edfad85d105d342638c52bb089830d3b1b054b515174dc81d3649f49071c851d",
         "f9e81d3e90d265517c958d9d893684c837dbb0f88d37eba8796ee15547d6d96d",
+        "fcb5a771bfdcb12c7b22d781a68cad470c92aba68b78e62935e2eae028ec6f38",
         "fe4334986ee1f5d9191738f4930acb926a664e9917a61c86bcd475abf36fb841",
         "fed73fa5429e4b3d7b67a70851b11aed3d5ae7c86e51de842eb2599b24702969",
         "fef25710dfa53a07b41627b3885c69725f3a7f92dc47871a1e0ea036cf4d42d7"
       ],
       "failureCodes": [],
-      "partitionHash": "83db99fbb2a187998ebd028bc290a0e09e15edf29d3eb1b4dd64840a2ee3de17"
+      "partitionHash": "6f02193efedd82852fe6df7f7a822fda30b46a1b76b474985571a1745c3a3bf7"
     },
     {
       "productId": "vro",
-      "transactionId": "7af0de7e753d39ca0bd13d96583bd91a370edfe3c7df53caf15573b08ec4f9ae",
-      "validatedAt": "2026-11-14T11:32:30.605Z",
-      "attemptedAt": "2026-11-14T11:32:30.605Z",
+      "transactionId": "99de0c5f208892a3e2c858f7a419a3d851eccc1a8adf0ca7c1e7c3356ee498b1",
+      "validatedAt": "2026-11-15T12:01:00.902Z",
+      "attemptedAt": "2026-11-15T12:01:00.902Z",
       "state": "validated",
       "evidenceIds": [
         "029d37636a6747289c5b20a7a6182bd06ad53479a3069f8074cd82ce18f85fe1",
@@ -15080,7 +15080,6 @@
         "7f4c47ff92831e4a4fd5445a6ad537d9b395d8e7765896f65db6ae14be633d9a",
         "8bec3371b46d62d34c3f5da922682eb7b537b4a723acad5e74750539f1c8c032",
         "8bf20610c3d525641e628015d206b6fe29a8643abe10eab2348b3ebb50e85f9c",
-        "99e84c0f78aa950c9041974f686818dd14faa31c85ad3bdcf4ed4a3188cb8e90",
         "9d18b83da0579a207487c56b15417e73e3701fdf08d0cc91cf3139b179e4598a",
         "a04c968ea2ad61c405251cb182bccbf4e18969a5be07329b9c5e020816d96141",
         "b5e547ae69e4987012a8ab7352e4793746dc443581fece3312befe76cd404a61",
@@ -15097,19 +15096,20 @@
         "ea3099cabc16f05185a73fa5adc78e52853bf997a6207e596daa8ef6b761e8af",
         "f6e46755748d240c2557d428529aff7271022ed08ccb28a20fc92a447b336296",
         "f9e81d3e90d265517c958d9d893684c837dbb0f88d37eba8796ee15547d6d96d",
+        "fcb5a771bfdcb12c7b22d781a68cad470c92aba68b78e62935e2eae028ec6f38",
         "fe04b366d81b20da6e2e7109255ed3b547fa848a58b1afe88ea8d1d54b2d5329",
         "fe4334986ee1f5d9191738f4930acb926a664e9917a61c86bcd475abf36fb841",
         "fed73fa5429e4b3d7b67a70851b11aed3d5ae7c86e51de842eb2599b24702969",
         "fef25710dfa53a07b41627b3885c69725f3a7f92dc47871a1e0ea036cf4d42d7"
       ],
       "failureCodes": [],
-      "partitionHash": "c93a3d4f73dfd1457493d89e51e4b45bef2174813445e47e2dba9129dfd3dbf9"
+      "partitionHash": "3408d4786047b16bd693a3aaa02101430b37bf358ddfe2b7a62ec4f336d44079"
     },
     {
       "productId": "vspc",
-      "transactionId": "d89207d62860aa95ffc6bf33edea902e4d247ff7ae14e0dfdf297e900d9f6345",
-      "validatedAt": "2026-11-14T11:32:30.605Z",
-      "attemptedAt": "2026-11-14T11:32:30.605Z",
+      "transactionId": "59ce0cea2e688245c1daa2291532a6846c9650cb7924c3571d652497d0e0465b",
+      "validatedAt": "2026-11-15T12:01:00.902Z",
+      "attemptedAt": "2026-11-15T12:01:00.902Z",
       "state": "validated",
       "evidenceIds": [
         "0066d81f6741d347f57c152b48fcc5c0fa8fb525c4e4f461e0cc67dcf3e3b7d1",
@@ -15233,9 +15233,9 @@
     },
     {
       "productId": "vb365",
-      "transactionId": "3bfbd9b4c9c83c7ecb883eb32b34117546afbebabf86bcc3e3f5566759218963",
-      "validatedAt": "2026-11-14T11:32:30.605Z",
-      "attemptedAt": "2026-11-14T11:32:30.605Z",
+      "transactionId": "d316f135b940701f3da5d24f0ac9bcb781a4f210a1919c50d97d46c1adf8c7c0",
+      "validatedAt": "2026-11-15T12:01:00.902Z",
+      "attemptedAt": "2026-11-15T12:01:00.902Z",
       "state": "validated",
       "evidenceIds": [
         "0f7471d8c93a0cad9c46f945d846796565a54ae0a03211a2b014f2d260697c8c",
@@ -17003,17 +17003,6 @@
       ]
     },
     {
-      "sourceId": "release-materials-veeam-one",
-      "digest": "4d5c33871c555b3d376c0020ed1b30afb04a3c0f7e3b16cec628939516977568",
-      "kind": "fetched",
-      "policyHash": "ddc9522a37de8610033a90d91b8ef25cc1fa36dfadf09365a92864feac6c999b",
-      "id": "99e84c0f78aa950c9041974f686818dd14faa31c85ad3bdcf4ed4a3188cb8e90",
-      "validatedConsumers": [
-        "veeam-one",
-        "vro"
-      ]
-    },
-    {
       "sourceId": "kb4925",
       "digest": "4a3c4e9e74b8dfda9c920614358213df73665e608c46d182c769b7999c6520c9",
       "definitionHash": "a70c57d727658154360bc8f1471cc8f0265001e61f6ff95600370c2dcd76b754",
@@ -17991,6 +17980,17 @@
       "id": "fc90c1379a3da03ff9887465545c9ffc39d500a832d10aed86f2d2cc76288e48",
       "validatedConsumers": [
         "enterprise-manager"
+      ]
+    },
+    {
+      "sourceId": "release-materials-veeam-one",
+      "digest": "ff94e8c7377ffa1f98c2063889dab85c6abf60765aaefcef0f4c19cb2b719920",
+      "kind": "fetched",
+      "policyHash": "ddc9522a37de8610033a90d91b8ef25cc1fa36dfadf09365a92864feac6c999b",
+      "id": "fcb5a771bfdcb12c7b22d781a68cad470c92aba68b78e62935e2eae028ec6f38",
+      "validatedConsumers": [
+        "veeam-one",
+        "vro"
       ]
     },
     {
