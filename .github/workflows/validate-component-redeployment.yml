@@ -1,0 +1,66 @@
+name: Validate component redeployment recovery
+on:
+  push:
+    branches: ['validation/component-redeployment-20261119']
+    paths:
+      - '.github/workflows/validate-component-redeployment.yml'
+      - 'scripts/**'
+      - '!scripts/data/security-review-baselines.json'
+      - 'package.json'
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Replay historical component changes and the November 19 failure
+        run: |
+          node scripts/test-component-advisory.mjs
+          node scripts/test-component-redeployment.mjs
+      - name: Confirm the live article matches the reviewed source
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync} from 'node:fs'
+          import {createHash} from 'node:crypto'
+          import {normalizeReviewedSecurityMainArticle} from './scripts/lib/reviewed-security-advisories.mjs'
+          import {parseComponentAdvisory} from './scripts/lib/component-advisory.mjs'
+          const html=await(await fetch('https://www.veeam.com/kb4966')).text()
+          const text=normalizeReviewedSecurityMainArticle(html)
+          const expected=JSON.parse(readFileSync('scripts/data/reviewed-security-advisories.json')).observationSpecs.kb4966.contentFingerprint
+          const actual='sha256:'+createHash('sha256').update(text).digest('hex')
+          console.log(JSON.stringify({actual,expected,parsed:Boolean(parseComponentAdvisory('kb4966',text))}))
+          if(actual!==expected||!parseComponentAdvisory('kb4966',text)){console.log('CURRENT_SOURCE '+JSON.stringify(text));process.exitCode=1}
+          NODE
+      - name: Refresh all products from live official sources
+        run: npm run refresh:catalog -- --live
+      - name: Require complete recovery
+        run: node scripts/report-partial-refresh.mjs
+      - name: Verify all catalogue and application checks
+        run: node scripts/verify-catalog-repair.mjs
+      - run: npm audit --audit-level=moderate
+      - name: Save the verified catalogue and baseline
+        run: |
+          git add src/data/catalog.snapshot.json scripts/data/security-review-baselines.json
+          git diff --cached --quiet && exit 0
+          git config user.name 'upgrade-brief[bot]'
+          git config user.email 'upgrade-brief[bot]@users.noreply.github.com'
+          git commit -m 'chore: validate the November 19 component advisory refresh'
+          git push origin HEAD:validation/component-redeployment-20261119
+      - name: Print review diagnostics on failure
+        if: failure()
+        run: find artifacts/catalog-review -name '*.json' -exec cat {} \;
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: component-redeployment-verification
+          path: |
+            artifacts/catalog-review/
+            artifacts/catalog-repair/verification/
+          retention-days: 7

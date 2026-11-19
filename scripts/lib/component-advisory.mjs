@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto'
+import { normalizeComponentRedeployment } from './component-redeployment.mjs'
 
 const hash = text => 'sha256:' + createHash('sha256').update(text).digest('hex')
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b)
@@ -25,7 +26,10 @@ function once(text, expression) {
 // Unknown paragraphs, negations, exclusions and additional products fail closed.
 export function inspectComponentEnvelope(articleId, input) {
   if (typeof input !== 'string' || input.length > 100_000) return null
-  let text = input.replace(/\s+/g, ' ').trim()
+  const sourceText = input.replace(/\s+/g, ' ').trim()
+  const redeployment = normalizeComponentRedeployment(sourceText)
+  if (!redeployment) return null
+  let text = redeployment.text
   const title = text.match(/^(CVE-\d{4}-\d{4,}) Impact Statement KB ID: (\d+) Product: /)
   if (!title || articleId !== 'kb' + title[2]) return null
   const cve = title[1]
@@ -34,7 +38,7 @@ export function inspectComponentEnvelope(articleId, input) {
   if (!score || +score[1] <= 0 || +score[1] > 10) return null
   const kernel = once(text, /\(kernel ([\w.+-]+) \)/)
   if (!kernel) return null
-  const quotes = [score[0], kernel[0]]
+  const quotes = [score[0], kernel[0], ...redeployment.quotes]
   const workerUpdates = text.includes(WORKER_ROW_CLARIFIED) ? 'automatic-on-launch' : 'legacy-summary'
   const workerRow = workerUpdates === 'automatic-on-launch' ? WORKER_ROW_CLARIFIED : WORKER_ROW
   const workerDescription = workerUpdates === 'automatic-on-launch' ? WORKER_DESCRIPTION_CLARIFIED : WORKER_DESCRIPTION
@@ -96,8 +100,10 @@ export function inspectComponentEnvelope(articleId, input) {
     .replace(/Published: \d{4}-\d{2}-\d{2} Last Modified: \d{4}-\d{2}-\d{2}/, 'Published: [date] Last Modified: [date]')
     .replace(score[0], '(CVSS [score])').replace(kernel[0], '(kernel [version])')
   const model = { schemaVersion: 1, kind: 'linux-kernel-helper-appliances', cve, cvssScore: +score[1], kernel: kernel[1],
-    productIds: orchestrator ? ['vbr', 'vro'] : ['vbr'], privateFixes, recoveryMedia, workerUpdates, orchestrator }
-  return { model, quotes, envelopeHash: hash(text) }
+    productIds: orchestrator ? ['vbr', 'vro'] : ['vbr'], privateFixes, recoveryMedia, workerUpdates, orchestrator,
+    ...(redeployment.model ? { redeployment: redeployment.model } : {}) }
+  if (model.redeployment && (model.redeployment.applianceVersion !== privateFixes[0].prerequisiteBuild || !orchestrator || recoveryMedia !== 'additional-downloads')) return null
+  return { model, quotes: quotes.filter(quote => sourceText.includes(quote)), envelopeHash: hash(text) }
 }
 
 export function parseComponentAdvisory(articleId, text) {
@@ -110,6 +116,7 @@ export function supportedComponentTransition(before, after) {
   if (!before) return true
   if (before.cve !== after.cve || before.cvssScore !== after.cvssScore || before.kernel !== after.kernel
     || (before.workerUpdates === 'automatic-on-launch' && after.workerUpdates !== 'automatic-on-launch')
+    || (before.redeployment && !same(before.redeployment, after.redeployment))
     || before.productIds.some(id => !after.productIds.includes(id))
     || (before.orchestrator && !same(before.orchestrator, after.orchestrator))) return false
   for (const old of before.privateFixes) {
@@ -127,6 +134,7 @@ export function componentAdvisories(articleId, model, existing = []) {
   const media = model.recoveryMedia === 'additional-downloads'
     ? 'Download updated recovery media for Veeam Agent for Linux 13.1 or 6.3 from Additional Downloads on the Veeam Recovery Media Download page and replace old media.'
     : 'Replace old recovery media using the delivery instructions in the advisory.'
+  const redeployment = model.redeployment ? ' For Azure helper appliances, the vendor-documented database procedure is an alternative to removing and re-adding appliances. For Cloud Connect deployments where the private fix was installed on VBR 13.1.2.57, also upgrade or redeploy provider and tenant network extension appliances as directed in ' + articleId.toUpperCase() + '. Deployments updated using the repacked ISO with the integrated fix require no further network-extension action.' : ''
   return model.productIds.map(productId => {
     const old = existing.find(record => record.productId === productId)
     const remediation = productId === 'vbr'
@@ -138,7 +146,7 @@ export function componentAdvisories(articleId, model, existing = []) {
         affectedVersionPrefixes: productId === 'vbr' ? ['12.3.', '13.1.'] : ['13.1.'],
         conditions: ['Applies to the Linux helper appliances documented in the advisory. The product build alone does not establish remediation; component patches require separate verification.'],
         records: [{ cve: model.cve, title: SOURCE_TITLE, cvssScore: model.cvssScore }] }),
-      remediation,
+      remediation: remediation + (productId === 'vbr' ? redeployment : ''),
     }
   })
 }

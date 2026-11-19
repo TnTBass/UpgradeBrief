@@ -65,7 +65,14 @@ export function validateSecurityNotice(notice) {
 function validateComponentModel(spec) {
   const m = spec.componentAdvisory
   const keys = ['schemaVersion', 'kind', 'cve', 'cvssScore', 'kernel', 'productIds', 'privateFixes', 'recoveryMedia', 'workerUpdates', 'orchestrator']
-  exactKeys(m, keys, keys, 'component advisory')
+  exactKeys(m, [...keys, 'redeployment'], keys, 'component advisory')
+  if (m.redeployment !== undefined) {
+    const expected = { applianceVersion: '13.1.2.57', upgradeMarkerVersion: '13.1.2.56', azureHelpers: 'redeploy-or-vendor-script', cloudConnect: 'private-fix-upgrade-or-redeploy' }
+    exactKeys(m.redeployment, Object.keys(expected), Object.keys(expected), 'component redeployment')
+    requireCondition(Object.entries(expected).every(([key, value]) => m.redeployment[key] === value) &&
+      m.privateFixes?.[0]?.prerequisiteBuild === expected.applianceVersion && m.workerUpdates === 'automatic-on-launch' &&
+      m.recoveryMedia === 'additional-downloads' && m.orchestrator !== null, 'component redeployment procedure')
+  }
   requireCondition(spec.classification === 'dedicated' && spec.multiProduct === true && m.schemaVersion === 1 && m.kind === 'linux-kernel-helper-appliances', 'component advisory kind')
   string(m.cve, 'component CVE', CVE)
   string(spec.contentFingerprint, 'component source fingerprint', HASH)

@@ -5,8 +5,9 @@ import { createRepairEvidence, REPAIR_SCHEMA_VERSION } from './lib/catalog-repai
 import { buildRepairCandidate } from './lib/catalog-repair-candidate.mjs'
 import { inspectSemanticChange } from './lib/catalog-repair-semantics.mjs'
 import { extractWithWorkersAi } from './lib/catalog-repair-ai.mjs'
+import { reviewWithWorkersAi } from './lib/catalog-repair-review.mjs'
 import { githubClient, githubStateStore } from './lib/catalog-repair-state.mjs'
-import { changedTextSpan, normalizeSecurityReviewText } from './lib/security-review-baselines.mjs'
+import { normalizeSecurityReviewText } from './lib/security-review-baselines.mjs'
 import { effectiveHolds } from './lib/catalog-repair-feedback.mjs'
 
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'))
@@ -36,13 +37,18 @@ for (const article of bundle.articles) {
     else if (process.env.CATALOG_REPAIR_AI_ENABLED !== 'true') unresolved.push('AI proposal generation is disabled.')
     else {
       try {
-        extractions[article.articleId] = (await extractWithWorkersAi({
-          excerpt: semantic?.excerpt ?? changedTextSpan(article.before ?? '', article.after).after,
-          mode: semantic ? 'vulnerability' : 'review', accountId: process.env.CLOUDFLARE_ACCOUNT_ID, token: process.env.CLOUDFLARE_WORKERS_AI_TOKEN,
+        const options = {
+          accountId: process.env.CLOUDFLARE_ACCOUNT_ID, token: process.env.CLOUDFLARE_WORKERS_AI_TOKEN,
           cacheKey: { evidenceId: bundle.evidenceId, validator: bundle.validatorVersion },
           loadState: async () => state,
           saveState: async next => { await store.save(next); state = next },
-        })).extraction
+        }
+        if (semantic) extractions[article.articleId] = (await extractWithWorkersAi({ ...options, excerpt: semantic.excerpt })).extraction
+        else {
+          const review = await reviewWithWorkersAi({ ...options, text: article.after })
+          extractions[article.articleId] = review
+          unresolved.push(...review.unresolved)
+        }
       } catch (error) { unresolved.push(error.message) }
     }
   }
