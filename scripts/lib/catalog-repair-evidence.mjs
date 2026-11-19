@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { exactKeys, requireCondition } from './reviewed-security-data.mjs'
 
 export const REPAIR_SCHEMA_VERSION = 1
-export const REPAIR_VALIDATOR_VERSION = '4-component-advisories-and-discovery-evidence'
+export const REPAIR_VALIDATOR_VERSION = '5-component-redeployment-and-bounded-reviews'
 const HASH = /^sha256:[a-f0-9]{64}$/
 const SHA = /^[a-f0-9]{40}$/
 
