@@ -222,3 +222,62 @@ const kernelCoverage = inspectSecurityFeedCoverage({
 assert.equal(kernelCoverage.report.ok, true, JSON.stringify(kernelCoverage.report))
 assert.deepEqual(merged.catalog.securityFindings.filter(finding => finding.cves.includes('CVE-2026-98432')).map(finding => finding.productId), ['vbr', 'vro'])
 
+const nginxArticle = {
+  id: 'kb4976', type: 'security', url: '/kb4976', seoTitle: 'NGINX2ROOT Impact Statement',
+  product: [
+    'Veeam Backup & Replication', 'Veeam Software Appliance',
+    'Veeam Data Cloud for AWS', 'Veeam Data Cloud for Salesforce',
+    'Veeam Data Cloud for Microsoft Azure', 'Veeam Backup for Salesforce',
+    'Veeam Plug-In for AWS', 'Veeam Plug-In for Microsoft Azure',
+    'Veeam Plug-In for Google Cloud',
+  ].map((title) => ({ title })),
+}
+const nginxClassification = classifySecurityFeedArticles({
+  articles: [nginxArticle],
+  classifications: buildSecurityArticleClassifications([nginxArticle], REVIEWED_SECURITY_CLASSIFICATIONS),
+})[0]
+assert.equal(nginxClassification.classification, 'dedicated')
+assert.deepEqual(nginxClassification.productIds, ['vbr'])
+assert.equal(nginxClassification.multiProduct, true)
+const nginxText = reviewBaselines.articles.kb4976.normalizedText
+assert.equal(reviewBaselines.articles.kb4976.reviewedFingerprint, REVIEWED_SECURITY_OBSERVATION_POLICY.kb4976.contentFingerprint)
+assert.equal(fingerprintReviewedSecurityMainArticle(nginxText), reviewBaselines.articles.kb4976.contentFingerprint)
+const nginxOptions = { equivalentFingerprint: reviewBaselines.articles.kb4976.contentFingerprint }
+const nginxObservation = observeReviewedSecurityArticle('kb4976', nginxText, nginxOptions)
+assert.throws(() => observeReviewedSecurityArticle('kb4976', nginxText + ' CVE-2099-12345', nginxOptions), ReviewedSecurityObservationError)
+assert.throws(() => observeReviewedSecurityArticle('kb4976', nginxText.replace('CVE-2026-123007', 'CVE-2026-999999'), nginxOptions), ReviewedSecurityObservationError)
+assert.throws(() => observeReviewedSecurityArticle('kb4976', nginxText.replace('a fix is not yet available', 'a fix is available'), nginxOptions), ReviewedSecurityObservationError)
+assert.deepEqual(nginxObservation.observedCves.slice().sort(), [
+  'CVE-2026-113425',
+  'CVE-2026-121810',
+  'CVE-2026-123007',
+  'CVE-2026-123633',
+  'CVE-2026-123634',
+])
+assert.deepEqual(nginxObservation.observedCvesByProduct, {
+  vbr: [
+    'CVE-2026-113425',
+    'CVE-2026-121810',
+    'CVE-2026-123007',
+    'CVE-2026-123633',
+    'CVE-2026-123634',
+  ],
+})
+const nginxHtmlFixture = await readFile(new URL('./fixtures/security-notices/kb4976.html', import.meta.url), 'utf8')
+const fixtureObservation = observeReviewedSecurityArticle('kb4976', nginxHtmlFixture, nginxOptions)
+assert.deepEqual(fixtureObservation.observedCves.slice().sort(), nginxObservation.observedCves.slice().sort())
+
+const nginxFindings = merged.catalog.securityFindings.filter((finding) => finding.sourceIds.includes('kb4976'))
+assert.equal(nginxFindings.length, 5)
+for (const finding of nginxFindings) {
+  assert.equal(finding.productId, 'vbr')
+  assert.equal(finding.title, 'nginx memory corruption vulnerability (nginx2root) in Veeam appliances.')
+  assert.equal(finding.cvssScore, undefined)
+  assert.equal(finding.fixedReleaseId, undefined)
+  assert.deepEqual(finding.affectedVersionPrefixes, ['13.1.'])
+  assert.match(finding.remediation, /Veeam Software Appliance 13\.1 and Veeam Infrastructure Appliance 13\.1/)
+  assert.match(finding.remediation, /a fixed nginx package is not yet available/)
+  assert.match(finding.remediation, /restrict access to TCP port 443/)
+  assert.ok(finding.conditions.some((c) => /Applies only to Veeam Software Appliance 13\.1/.test(c)))
+}
+assert.equal(merged.catalog.securityFindings.some((finding) => finding.sourceIds.includes('kb4976') && finding.productId === 'enterprise-manager'), false)

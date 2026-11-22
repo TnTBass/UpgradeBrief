@@ -188,4 +188,14 @@ assertSecurityFeedRouteContinuity(
   catalog.securityFeedRoutes.filter(({ articleId }) => articleId === 'kb4879'),
   updaterCoverage.articles.map(({ articleId, classification, productIds, multiProduct }) => ({ articleId, classification, productIds, multiProduct })),
 )
+
+// KB4976 dedicated advisory baseline
+const nginxPersisted = persisted.articles.kb4976
+assert.ok(nginxPersisted)
+assert.equal(nginxPersisted.contentFingerprint, REVIEWED_SECURITY_OBSERVATION_POLICY.kb4976.contentFingerprint)
+assert.equal(nginxPersisted.reviewedFingerprint, REVIEWED_SECURITY_OBSERVATION_POLICY.kb4976.contentFingerprint)
+const nginxReconciled = createSecurityReviewBaseline('kb4976', nginxPersisted.normalizedText, nginxPersisted.reviewedFingerprint)
+assert.equal(nginxReconciled.contentFingerprint, nginxPersisted.contentFingerprint)
+assert.equal(nginxReconciled.comparisonFingerprint, nginxPersisted.comparisonFingerprint)
+assert.equal(observeReviewedSecurityArticle('kb4976', nginxPersisted.normalizedText, { equivalentFingerprint: nginxPersisted.contentFingerprint }).observedCves.length, 5)
 console.log('Security review baseline, equivalence, fail-closed, and report tests passed.')
