@@ -4,7 +4,7 @@ import { resolve, join } from 'node:path'
 import { buildRepairCandidate } from './lib/catalog-repair-candidate.mjs'
 import { repairHash, canonicalJson, repairArticleIds } from './lib/catalog-repair-evidence.mjs'
 import { githubClient, githubStateStore } from './lib/catalog-repair-state.mjs'
-import { effectiveHolds, projectRepairState, readTrustedFeedback, recordFeedback } from './lib/catalog-repair-feedback.mjs'
+import { effectiveHolds, projectRepairState, reviewCandidateFeedback } from './lib/catalog-repair-feedback.mjs'
 import { assertCandidateScope, createRepairPullRequest, ensureInvestigation, ensureLabels, manifestPath, mergeCandidateCAS, notifyOnce, persistRepairEvidence, REPAIR_DATA_PATHS, repairBaseBranch, repairBrief, setRepairStateLabel, waitForExactVerification } from './lib/catalog-repair-publication.mjs'
 import { snapshotHash, verifyCatalogCheckout, verifyRepairDeployment } from './lib/catalog-repair-verification.mjs'
 import { createCatalogSourceFetcher } from './lib/source-fetch.mjs'
@@ -38,13 +38,6 @@ async function announce(repair, key, message) {
   const result = await notifyOnce(api, repair.number, key, message)
   repair.notification = { key, message, pending: false, ...result }
   await save()
-}
-
-async function feedbackBeforeMerge(repair) {
-  for (const feedback of await readTrustedFeedback(api, repair.number)) {
-    const recorded = recordFeedback(state, id, feedback)
-    if (recorded.changed) { state = recorded.state; await save() }
-  }
 }
 
 try {
@@ -94,11 +87,14 @@ try {
     await assertCandidateScope(api, { sha: pull.head.sha, baseCommit: currentCommit, id, environment: bundle.environment })
     repair.verificationUrl = await waitForExactVerification(api, { sha: pull.head.sha, baseCommit: currentCommit, id, environment: bundle.environment })
     await save()
-    await feedbackBeforeMerge(repair)
+    const feedback = await reviewCandidateFeedback(api, state, id)
+    if (feedback.state !== state) { state = feedback.state; await save() }
     const holds = effectiveHolds(state, bundle.environment)
     const held = holds.includes(id) || articleIds.some(articleId => holds.includes(articleId))
     if (held) throw new Error('Trusted review feedback put this repair on hold')
-    if (process.env.CATALOG_REPAIR_AUTO_APPLY !== 'true') {
+    if (feedback.needsClarification) {
+      await announce(state.repairs[id], `${id}:clarify-feedback`, 'Automatic publication stopped for this candidate only. Please clarify whether the feedback requests changes or approves the candidate before merging this PR.')
+    } else if (process.env.CATALOG_REPAIR_AUTO_APPLY !== 'true') {
       await announce(state.repairs[id], `${id}:ready`, `A validated catalog repair is ready. Automatic application is disabled. [Review the exact candidate](${pull.html_url}).`)
     } else {
       if ((await api(`/git/ref/heads/${baseBranch}`)).object.sha !== currentCommit) throw new Error('Main changed after validation; publication held')

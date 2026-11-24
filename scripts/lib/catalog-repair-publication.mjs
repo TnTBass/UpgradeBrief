@@ -29,7 +29,7 @@ export function repairBrief({ id, baseCommit, articleIds, outcome, approach, che
     `Base: \`${baseCommit}\`.${headCommit ? ` Candidate: \`${headCommit}\`.` : ''}`,
     `Repair: \`${id}\`.`,
     ...(headCommit ? [`[Exact evidence and before/after security records](https://github.com/${repository}/blob/${headCommit}/${manifestPath(id)})`] : []), '',
-    '**Review afterward:** leave a normal comment such as “use a different approach.” A trusted reviewer’s concern places this repair on hold. “Please revert this” requests a scoped revert. Other corrections become linked implementation work when they exceed the supported data rules.',
+    '**Review afterward:** request changes in a GitHub review or with a clear comment such as “use a different approach.” An explicit change request puts the repair on hold. “Please revert this” requests a scoped revert. Other corrections become linked implementation work when they exceed the supported data rules.',
     'A ChatGPT/Dot reviewer should inspect the linked source evidence and exact commit, then report supported, changes needed, or insufficient evidence. The brief and passing tests alone are not independent proof.',
   ].join('\n')
 }

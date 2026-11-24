@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { execFileSync } from 'node:child_process'
 import { resolve, join } from 'node:path'
 import { githubClient, githubStateStore } from './lib/catalog-repair-state.mjs'
-import { projectRepairState, readTrustedFeedback, recordFeedback, scopedRevert } from './lib/catalog-repair-feedback.mjs'
+import { projectRepairState, readTrustedFeedback, recordFeedback, reviewCandidateFeedback, scopedRevert } from './lib/catalog-repair-feedback.mjs'
 import { createRepairPullRequest, ensureInvestigation, ensureLabels, manifestPath, mergeCandidateCAS, notifyOnce, REPAIR_DATA_PATHS, repairBaseBranch, repairBrief, setRepairStateLabel, waitForExactVerification } from './lib/catalog-repair-publication.mjs'
 import { canonicalJson, repairHash } from './lib/catalog-repair-evidence.mjs'
 import { snapshotHash, verifyCatalogCheckout, verifyRepairDeployment } from './lib/catalog-repair-verification.mjs'
@@ -112,11 +112,13 @@ async function revertRepair(id) {
   repair.correctionId = correctionId; await save()
   await waitForExactVerification(api, { sha: correction.headCommit, baseCommit: currentCommit, id: correctionId, environment })
   // Check fresh feedback on the correction itself before applying it.
-  for (const feedback of await readTrustedFeedback(api, correction.number)) {
-    const recorded = recordFeedback(state, correctionId, feedback)
-    if (recorded.changed) { state = recorded.state; await save() }
-  }
+  const feedback = await reviewCandidateFeedback(api, state, correctionId)
+  if (feedback.state !== state) { state = feedback.state; await save() }
   if (state.repairs[correctionId].changeRequest) throw new Error('The correction itself received a change request')
+  if (feedback.needsClarification) {
+    await announce(correctionId, `${correctionId}:clarify-feedback`, 'Automatic rollback stopped for this candidate only. Please clarify whether the feedback requests changes or approves the rollback before merging this PR.')
+    return
+  }
   // An explicit trusted revert request authorizes its application, even if
   // automatic application of ordinary AI proposals is disabled.
   state.repairs[correctionId].state = 'merge-pending'; await save()
