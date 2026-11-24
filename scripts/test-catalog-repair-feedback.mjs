@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict'
+import { mkdtemp, rm } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import { effectiveHolds, interpretFeedback, projectRepairState, readTrustedFeedback, recordFeedback, reviewCandidateFeedback, scopedRevert, unresolvedFeedback } from './lib/catalog-repair-feedback.mjs'
-import { emptyRepairState } from './lib/catalog-repair-state.mjs'
+import { emptyRepairState, STATE_REF } from './lib/catalog-repair-state.mjs'
 
 const comment = { id: 10, user: { id: 1081294, login: 'TnTBass', type: 'User' }, body: 'Use a different approach.', html_url: 'https://github.com/TnTBass/UpgradeBrief/issues/3#issuecomment-10' }
 assert.equal(interpretFeedback(comment, []) , null)
@@ -69,6 +72,107 @@ const request = { ...comment, id: 112, state: 'CHANGES_REQUESTED', body: 'Looks 
 const held = await reviewCandidateFeedback(feedbackApi([], [request, approve]), candidate, 'current')
 assert.deepEqual(held.state.holds, ['current', 'kb4976'], 'Approval must not clear explicit holds')
 assert.equal(held.state.repairs.current.state, 'changes-requested')
+const informational = interpretFeedback({ ...publishedConcern, body: 'For information only.' }, [1081294])
+assert.deepEqual(recordFeedback(held.state, 'current', informational), { state: held.state, changed: false })
+
+async function testScheduledIntake() {
+  const directory = await mkdtemp(join(tmpdir(), 'catalog-feedback-'))
+  const previousDirectory = process.cwd()
+  const previousFetch = globalThis.fetch
+  const previousEnv = { GITHUB_REPOSITORY: process.env.GITHUB_REPOSITORY, GH_TOKEN: process.env.GH_TOKEN }
+  const repository = 'TnTBass/UpgradeBrief'
+  const comments = []
+  const posts = []
+  let persisted = structuredClone(applied)
+  let nextState
+  let revision = 0
+  let sequence = 0
+  let failPost = false
+  function reply(body) {
+    comments.push({ ...comment, id: ++sequence, body, created_at: new Date(sequence * 1000).toISOString() })
+  }
+  async function run() {
+    await import(`./process-catalog-repair-feedback.mjs?testRun=${++sequence}`)
+  }
+  try {
+    process.chdir(directory)
+    process.env.GITHUB_REPOSITORY = repository
+    process.env.GH_TOKEN = 'test'
+    globalThis.fetch = async (url, { method, body }) => {
+      const path = url.slice(`https://api.github.com/repos/${repository}`.length)
+      const payload = body && JSON.parse(body)
+      if (path === `/git/matching-refs/${STATE_REF}`) return Response.json([{ ref: `refs/${STATE_REF}`, object: { sha: String(revision) } }])
+      if (path === `/git/commits/${revision}`) return Response.json({ tree: { sha: 'state-tree' } })
+      if (path === '/git/trees/state-tree') return Response.json({ tree: [{ path: 'state.json', type: 'blob', sha: 'state-blob' }] })
+      if (path === '/git/blobs/state-blob') {
+        const content = Buffer.from(JSON.stringify(persisted))
+        return Response.json({ encoding: 'base64', content: content.toString('base64'), size: content.length })
+      }
+      if (path === '/git/blobs' && method === 'POST') {
+        nextState = JSON.parse(payload.content)
+        return Response.json({ sha: 'next-blob' })
+      }
+      if (path === '/git/trees' && method === 'POST') return Response.json({ sha: 'next-tree' })
+      if (path === '/git/commits' && method === 'POST') return Response.json({ sha: String(revision + 1) })
+      if (path === `/git/refs/${STATE_REF}` && method === 'PATCH') {
+        persisted = nextState
+        revision++
+        return Response.json({})
+      }
+      if (path.startsWith('/labels/') || path === '/pulls/39' || path === '/issues/39/labels') return Response.json({})
+      if (path === '/issues/39') return Response.json({ labels: [] })
+      if (path === '/pulls/39/reviews?per_page=100&page=1' || path === '/pulls/39/comments?per_page=100&page=1') return Response.json([])
+      if (path === '/issues/39/comments?per_page=100&page=1') return Response.json([...comments, ...posts])
+      if (path === '/issues/39/comments' && method === 'POST') {
+        if (failPost) return new Response(null, { status: 503 })
+        const posted = { id: ++sequence, body: payload.body, user: { type: 'Bot', login: 'github-actions[bot]' } }
+        posts.push(posted)
+        return Response.json(posted)
+      }
+      const posted = posts.find(({ id }) => path === `/issues/comments/${id}`)
+      if (posted) return Response.json(posted)
+      assert.fail(`Unexpected intake request: ${method} ${path}`)
+    }
+
+    reply(publishedConcern.body)
+    failPost = true
+    await run()
+    assert.equal(persisted.repairs.current.notification.pending, true)
+    failPost = false
+    await run()
+    await run()
+    assert.equal(posts.length, 1, 'An unresolved prompt is retried and delivered once')
+    assert.match(posts[0].body, /For information only/)
+
+    reply('For information only.')
+    await run()
+    await run()
+    assert.equal(posts.length, 1, 'An informational reply resolves the prompt across repeated runs')
+    assert.equal(persisted.repairs.current.state, 'applied-awaiting-review')
+    assert.deepEqual(persisted.holds, [])
+
+    reply('I am not sure about the updated catalog.')
+    failPost = true
+    await run()
+    assert.equal(persisted.repairs.current.notification.pending, true)
+    reply('Approved.')
+    failPost = false
+    await run()
+    await run()
+    assert.equal(posts.length, 1, 'Approval cancels a stale pending prompt before it can be posted')
+    assert.equal(persisted.repairs.current.notification, undefined)
+    assert.equal(persisted.repairs.current.state, 'reviewed')
+  } finally {
+    globalThis.fetch = previousFetch
+    for (const [name, value] of Object.entries(previousEnv)) {
+      if (value === undefined) delete process.env[name]
+      else process.env[name] = value
+    }
+    process.chdir(previousDirectory)
+    await rm(directory, { recursive: true, force: true })
+  }
+}
+await testScheduledIntake()
 
 const current = { reviewedData: { advisories: [{ articleId: 'kb1234', records: ['original'] }], observationSpecs: { kb1234: {} } }, baselines: { articles: { kb1234: { text: 'old' } } }, catalog: { generatedAt: 'today', securityFeedPageStates: [{ articleId: 'kb1234', hash: 'old' }], securityFeedRoutes: [{ articleId: 'kb1234' }], securityFindings: [{ id: 'f1', sourceIds: ['kb1234'], value: 'old' }], releases: ['new unrelated release'] } }
 const before = projectRepairState(current, ['kb1234'])

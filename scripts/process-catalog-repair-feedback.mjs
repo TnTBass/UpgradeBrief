@@ -138,7 +138,10 @@ for (const id of Object.keys(state.repairs).reverse()) {
   try {
     await recoverPublication(id)
     let repair = state.repairs[id]
-    if (repair.notification?.pending) await announce(id, repair.notification.key, repair.notification.message)
+    const clarificationPrefix = `${id}:clarify-feedback:`
+    const pending = repair.notification?.pending ? repair.notification : null
+    const pendingClarification = pending?.key.startsWith(clarificationPrefix)
+    if (pending && !pendingClarification) await announce(id, pending.key, pending.message)
     const entries = await readTrustedFeedback(api, repair.number)
     const targetId = repair.parentRepairId ?? id
     for (const feedback of entries) {
@@ -151,12 +154,15 @@ for (const id of Object.keys(state.repairs).reverse()) {
     }
     repair = state.repairs[id]
     const target = state.repairs[targetId]
-    if (['applied-awaiting-review', 'reviewed'].includes(target.state)) {
-      const unclear = unresolvedFeedback(entries, target.latestFeedbackAt)
-      const key = unclear && `${id}:clarify-feedback:${unclear.fingerprint}`
-      if (key && repair.notification?.key !== key) {
-        await announce(id, key, `Could you clarify whether [this feedback](${unclear.url}) requests changes or a revert, or is for information only? The published catalog stays in place while we clarify.`)
-      }
+    const unclear = ['applied-awaiting-review', 'reviewed'].includes(target.state)
+      ? unresolvedFeedback(entries, target.latestFeedbackAt) : null
+    const clarificationKey = unclear && clarificationPrefix + unclear.fingerprint
+    if (pendingClarification && pending.key !== clarificationKey) {
+      delete repair.notification
+      await save()
+    }
+    if (clarificationKey && (repair.notification?.key !== clarificationKey || repair.notification.pending)) {
+      await announce(id, clarificationKey, `Could you clarify whether [this feedback](${unclear.url}) requests changes or a revert? If it was informational, reply “For information only.” The published catalog stays in place while we clarify.`)
     }
     if (['changes-requested', 'revert-requested'].includes(repair.state)) {
       await setRepairStateLabel(api, repair.number, 'changes-requested')
@@ -167,7 +173,9 @@ for (const id of Object.keys(state.repairs).reverse()) {
     const repair = state.repairs[id]
     repair.lastError = error.message; await save()
     if (repair.changeRequest && !repair.correctionIssue) await requestImplementation(id, repair, error.message)
-    else await announce(id, `${id}:processing-error:${repairHash(error.message)}`, `Catalog repair follow-up needs attention: ${error.message}. The last confirmed state is retained.`)
+    else if (!(repair.notification?.pending && repair.notification.key.startsWith(`${id}:clarify-feedback:`))) {
+      await announce(id, `${id}:processing-error:${repairHash(error.message)}`, `Catalog repair follow-up needs attention: ${error.message}. The last confirmed state is retained.`)
+    }
     outcomes.push({ id, error: error.message })
   }
 }

@@ -42,6 +42,7 @@ export function interpretFeedback(comment, trustedUserIds, reviewState) {
       else if (/^(?:looks good(?: to me)?|approved|lgtm|this (?:looks|is) good|thanks,?\s+looks good)[.!\s]*$/i.test(body)) kind = 'reviewed'
       else if (/^(?:(?:please|can you|could you)\s+)?(?:revert|undo|roll back)\s+(?:this(?: change| repair)?|the (?:change|repair))(?: please)?[.!?\s]*$/i.test(body)) kind = 'revert-requested'
       else if (/(?:^|[.!?;\n]\s*|,\s+(?:and|but)\s+)(?:(?:please|can you|could you|would you)\s+)?(?:(?:do not|don't) (?:merge|publish|apply)|hold (?:this|the) (?:repair|candidate|publication)|request changes|use a different approach|that assumption is wrong|(?:change|fix|correct|update) (?:this|the))\b/i.test(body)) kind = 'changes-requested'
+      else if (/^(?:for (?:information|reference) only|fyi|(?:that was )?just (?:an fyi|a status update))[.!\s]*$/i.test(body)) kind = 'informational'
       else if (/^(?:thanks|thank you|noted|acknowledged)[.!\s]*$/i.test(body)
         || /^(?:fixed|resolved|addressed)\s+(?:in|by|via)\s+(?:commit\s+)?(?:[a-f0-9]{7,40}|#\d+)[.!]?$/i.test(body)
         || /^(?:(?:can|could|would) you (?:explain|clarify|share|tell me)|what|where|when|how)\b[^?]+\?\s*$/i.test(body)) return null
@@ -53,7 +54,7 @@ export function interpretFeedback(comment, trustedUserIds, reviewState) {
 }
 
 export function recordFeedback(state, repairId, feedback) {
-  if (feedback.kind === 'ambiguous') return { state, changed: false }
+  if (feedback.kind === 'ambiguous' || feedback.kind === 'informational') return { state, changed: false }
   const next = structuredClone(state)
   const repair = next.repairs[repairId]
   if (!repair) throw new Error('Feedback does not identify a known repair')
