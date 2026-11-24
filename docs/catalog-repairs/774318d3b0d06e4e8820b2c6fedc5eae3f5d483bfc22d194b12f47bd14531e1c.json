@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "bundle": {
+    "schemaVersion": 1,
+    "environment": "production",
+    "validatorVersion": "5-component-redeployment-and-bounded-reviews",
+    "baseCommit": "d8d42bf4bbb903924746b19749451fd02fc9a7c7",
+    "policyFingerprint": "sha256:5802d4cf75c7d4144bace21416027872843f0780da049eeb19440ef997a40119",
+    "runId": "45419017540",
+    "capturedAt": "2026-11-24T15:00:33.861Z",
+    "failure": {
+      "message": "ALL_TRANSACTIONS_BLOCKED: Security feed coverage failed with 1 finding(s); fingerprint sha256:4dae9ee514207900bcc176d3a9e2fb7b80b04f852ae8243d7f4a5ca37e1adb3f.",
+      "code": "ALL_TRANSACTIONS_BLOCKED",
+      "report": {
+        "findings": [
+          {
+            "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+            "articleId": "kb4976"
+          }
+        ]
+      }
+    },
+    "articles": [
+      {
+        "articleId": "kb4976",
+        "url": "https://www.veeam.com/kb4976",
+        "before": "NGINX2ROOT Impact Statement KB ID: 4976 Product: Veeam Backup & Replication Veeam Software Appliance Veeam Data Cloud for AWS Veeam Data Cloud for Salesforce Veeam Data Cloud for Microsoft Azure Veeam Backup for Salesforce Veeam Plug-In for AWS Veeam Plug-In for Microsoft Azure Veeam Plug-In for Google Cloud Published: 2026-11-20 Last Modified: 2026-11-20 Get weekly article updates Cheers for trusting us with the spot in your mailbox! Now you’re less likely to miss what’s been brewing in our knowledge base with this weekly digest Oops! Something went wrong. Please, try again later. Article Updates Veeam is investigating these vulnerabilities and will update this article as new information becomes available. Summary nginx2root is the common name for five memory corruption vulnerabilities in nginx: CVE-2026-123007, CVE-2026-123633, CVE-2026-121810, CVE-2026-123634, and CVE-2026-113425. They affect the HTTP/2 module, the HTTP/3 module, the DNS resolver, and the mail proxy, and can be triggered remotely. Combined with a Linux kernel vulnerability, they can lead to root access. Whether a Veeam component is affected depends on the nginx build it includes and the nginx features its configuration enables. The following table lists the status and the required action for each product. Product Affected Action Veeam Software Appliance 13.1 Yes, a fix is not yet available Restrict access to TCP port 443 to trusted networks Veeam Infrastructure Appliance 13.1 Yes, a fix is not yet available Restrict access to TCP port 443 to trusted networks Veeam Plug-In for AWS , Veeam Plug-In for Google Cloud , and Veeam Plug-In for Microsoft Azure appliances Yes, until the nginx update is installed Install all available security updates through Veeam Updater Veeam Backup for Salesforce 3.2.1 Yes, CVE-2026-123007 and CVE-2026-123633 Install the operating system vendor update or disable HTTP/2 Veeam Data Cloud for Salesforce , Veeam Data Cloud for Microsoft Azure , and Veeam Data Cloud for AWS Yes, remediation by Veeam is in progress No customer action is required Veeam Backup Enterprise Manager on Linux 13.1 No. HTTP/2 is not enabled. No action is required Workers deployed by Veeam Plug-Ins for hypervisors No. The affected nginx features are not used. No action is required Swipe to show more of the table Solution Veeam Software Appliance and Veeam Infrastructure Appliance Veeam Software Appliance and Veeam Infrastructure Appliance 13.1 include an affected nginx build with HTTP/2 enabled. A fixed nginx package is not yet available. The fixed package will be delivered through Veeam Updater , and this article will be updated when it is available. HTTP/2 cannot be disabled on these appliances because Veeam components depend on it. Until the fixed package is installed, restrict access to TCP port 443 on the appliances to trusted networks. Public Cloud Appliances The Veeam Plug-In for AWS , Veeam Plug-In for Google Cloud , and Veeam Plug-In for Microsoft Azure appliances run Ubuntu 22.04 LTS and use the nginx package provided by Ubuntu. The patched nginx package ( 1.18.0-6ubuntu14.23 ) is installed with the security updates offered through Veeam Updater . Worker instances do not include nginx and are not affected. To remediate the vulnerabilities, install all available security updates through Veeam Updater. Veeam Backup for Salesforce Veeam Backup for Salesforce 3.2.1 uses the nginx package provided by the operating system of the server where it is installed, and generates the nginx configuration. That configuration enables HTTP/2 on a listener that proxies requests to a backend, so CVE-2026-123007 and CVE-2026-123633 apply. The remaining vulnerabilities do not apply to this configuration. Veeam does not manage the operating system or the nginx package on customer-deployed Veeam Backup for Salesforce servers. Customers managing these servers are advised to review the advisory from the operating system vendor and install the nginx update when it is available. Until the nginx update is installed, HTTP/2 can be disabled to remediate the vulnerabilities: On the Veeam Backup for Salesforce server, open the following file: /etc/nginx/sites-available/vbsf-frontend.conf Remove the http2 parameter from the listen directive for port 443. Change: listen 443 ssl http2; to: listen 443 ssl; Save the file, then check the nginx configuration and restart the nginx service: sudo nginx -t sudo systemctl restart nginx.service Copy Veeam Data Cloud Veeam manages the infrastructure of Veeam Data Cloud for Salesforce , Veeam Data Cloud for Microsoft Azure , and Veeam Data Cloud for AWS , and is remediating the affected services. No customer action is required. More Information CVE-2026-123007 | NVD CVE-2026-123633 | NVD CVE-2026-121810 | NVD CVE-2026-123634 | NVD CVE-2026-113425 | NVD",
+        "after": "NGINX2ROOT Impact Statement KB ID: 4976 Product: Veeam Backup & Replication Veeam Software Appliance Veeam Data Cloud for AWS Veeam Data Cloud for Salesforce Veeam Data Cloud for Microsoft Azure Veeam Backup for Salesforce Veeam Plug-In for AWS Veeam Plug-In for Microsoft Azure Veeam Plug-In for Google Cloud Published: 2026-11-20 Last Modified: 2026-11-23 Get weekly article updates Cheers for trusting us with the spot in your mailbox! Now you’re less likely to miss what’s been brewing in our knowledge base with this weekly digest Oops! Something went wrong. Please, try again later. Article Updates Veeam is investigating these vulnerabilities and will update this article as new information becomes available. Summary nginx2root is the common name for five memory corruption vulnerabilities in nginx: CVE-2026-123007, CVE-2026-123633, CVE-2026-121810, CVE-2026-123634, and CVE-2026-113425. They affect the HTTP/2 module, the HTTP/3 module, the DNS resolver, and the mail proxy, and can be triggered remotely. Combined with a Linux kernel vulnerability, they can lead to root access. Windows-based installations of Veeam Backup & Replication and Veeam Backup Enterprise Manager do not use nginx and are not affected. Veeam Software Appliance and Veeam Infrastructure Appliance include nginx and are listed in the following table. Whether a Veeam component is affected depends on the nginx build it includes and the nginx features its configuration enables. The following table lists the status and the required action for each product. Product Affected Action Veeam Software Appliance 13.1 Yes, a fix is not yet available Restrict access to TCP port 443 to trusted networks Windows-based Veeam Backup & Replication 13.1 No. nginx is not used. No action is required Veeam Backup Enterprise Manager 13.1 on Linux No. HTTP/2 is not enabled. No action is required Veeam Backup Enterprise Manager 13.1 on Windows No. nginx is not used. No action is required Workers deployed by Veeam Plug-Ins for hypervisors No. The affected nginx features are not used. No action is required Veeam Infrastructure Appliance 13.1 Yes, a fix is not yet available Restrict access to TCP port 443 to trusted networks Veeam Plug-In for AWS , Veeam Plug-In for Google Cloud , and Veeam Plug-In for Microsoft Azure appliances Yes, until the nginx update is installed Install all available security updates through Veeam Updater Veeam Data Cloud for Salesforce , Veeam Data Cloud for Microsoft Azure , and Veeam Data Cloud for AWS Yes, remediation by Veeam is in progress No customer action is required Veeam Backup for Salesforce 3.2.1 Yes, CVE-2026-123007 and CVE-2026-123633 Install the operating system vendor update or disable HTTP/2 Swipe to show more of the table Solution Veeam Software Appliance and Veeam Infrastructure Appliance Veeam Software Appliance and Veeam Infrastructure Appliance 13.1 include an affected nginx build with HTTP/2 enabled. A fixed nginx package is not yet available. The fixed package will be delivered through Veeam Updater , and this article will be updated when it is available. HTTP/2 cannot be disabled on these appliances because Veeam components depend on it. Until the fixed package is installed, restrict access to TCP port 443 on the appliances to trusted networks. Public Cloud Appliances The Veeam Plug-In for AWS , Veeam Plug-In for Google Cloud , and Veeam Plug-In for Microsoft Azure appliances run Ubuntu 22.04 LTS and use the nginx package provided by Ubuntu. The patched nginx package ( 1.18.0-6ubuntu14.23 ) is installed with the security updates offered through Veeam Updater . Worker instances do not include nginx and are not affected. To remediate the vulnerabilities, install all available security updates through Veeam Updater. Veeam Data Cloud Veeam manages the infrastructure of Veeam Data Cloud for Salesforce , Veeam Data Cloud for Microsoft Azure , and Veeam Data Cloud for AWS , and is remediating the affected services. No customer action is required. Veeam Backup for Salesforce Veeam Backup for Salesforce 3.2.1 uses the nginx package provided by the operating system of the server where it is installed, and generates the nginx configuration. That configuration enables HTTP/2 on a listener that proxies requests to a backend, so CVE-2026-123007 and CVE-2026-123633 apply. The remaining vulnerabilities do not apply to this configuration. Veeam does not manage the operating system or the nginx package on customer-deployed Veeam Backup for Salesforce servers. Customers managing these servers are advised to review the advisory from the operating system vendor and install the nginx update when it is available. Until the nginx update is installed, HTTP/2 can be disabled to remediate the vulnerabilities: On the Veeam Backup for Salesforce server, open the following file: /etc/nginx/sites-available/vbsf-frontend.conf Remove the http2 parameter from the listen directive for port 443. Change: listen 443 ssl http2; to: listen 443 ssl; Save the file, then check the nginx configuration and restart the nginx service: sudo nginx -t sudo systemctl restart nginx.service Copy More Information CVE-2026-123007 | NVD CVE-2026-123633 | NVD CVE-2026-121810 | NVD CVE-2026-123634 | NVD CVE-2026-113425 | NVD",
+        "beforeHash": "sha256:fb042c1ca2303dd400cd9cdd83d4c67bc15f745ef5bff06d25b9e2a548009aa9",
+        "afterHash": "sha256:76608e1bb0eb0f01f819c85342b1d2e726b3644a1e33d1967e26c4c36fc2166b",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 5249
+          }
+        ],
+        "acceptedPageState": {
+          "articleId": "kb4976",
+          "productIds": [
+            "enterprise-manager",
+            "vbr"
+          ],
+          "hasOutOfScopeProduct": true,
+          "contentFingerprint": "sha256:fb042c1ca2303dd400cd9cdd83d4c67bc15f745ef5bff06d25b9e2a548009aa9"
+        },
+        "acceptedRoute": {
+          "articleId": "kb4976",
+          "classification": "dedicated",
+          "productIds": [
+            "vbr"
+          ],
+          "multiProduct": true
+        }
+      }
+    ],
+    "evidenceId": "sha256:774318d3b0d06e4e8820b2c6fedc5eae3f5d483bfc22d194b12f47bd14531e1c"
+  },
+  "proposal": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:774318d3b0d06e4e8820b2c6fedc5eae3f5d483bfc22d194b12f47bd14531e1c",
+    "baseCommit": "d8d42bf4bbb903924746b19749451fd02fc9a7c7",
+    "articles": [
+      {
+        "articleId": "kb4976",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 5249,
+            "quote": "NGINX2ROOT Impact Statement KB ID: 4976 Product: Veeam Backup & Replication Veeam Software Appliance Veeam Data Cloud for AWS Veeam Data Cloud for Salesforce Veeam Data Cloud for Microsoft Azure Veeam Backup for Salesforce Veeam Plug-In for AWS Veeam Plug-In for Microsoft Azure Veeam Plug-In for Google Cloud Published: 2026-11-20 Last Modified: 2026-11-23 Get weekly article updates Cheers for trusting us with the spot in your mailbox! Now you’re less likely to miss what’s been brewing in our knowledge base with this weekly digest Oops! Something went wrong. Please, try again later. Article Updates Veeam is investigating these vulnerabilities and will update this article as new information becomes available. Summary nginx2root is the common name for five memory corruption vulnerabilities in nginx: CVE-2026-123007, CVE-2026-123633, CVE-2026-121810, CVE-2026-123634, and CVE-2026-113425. They affect the HTTP/2 module, the HTTP/3 module, the DNS resolver, and the mail proxy, and can be triggered remotely. Combined with a Linux kernel vulnerability, they can lead to root access. Windows-based installations of Veeam Backup & Replication and Veeam Backup Enterprise Manager do not use nginx and are not affected. Veeam Software Appliance and Veeam Infrastructure Appliance include nginx and are listed in the following table. Whether a Veeam component is affected depends on the nginx build it includes and the nginx features its configuration enables. The following table lists the status and the required action for each product. Product Affected Action Veeam Software Appliance 13.1 Yes, a fix is not yet available Restrict access to TCP port 443 to trusted networks Windows-based Veeam Backup & Replication 13.1 No. nginx is not used. No action is required Veeam Backup Enterprise Manager 13.1 on Linux No. HTTP/2 is not enabled. No action is required Veeam Backup Enterprise Manager 13.1 on Windows No. nginx is not used. No action is required Workers deployed by Veeam Plug-Ins for hypervisors No. The affected nginx features are not used. No action is required Veeam Infrastructure Appliance 13.1 Yes, a fix is not yet available Restrict access to TCP port 443 to trusted networks Veeam Plug-In for AWS , Veeam Plug-In for Google Cloud , and Veeam Plug-In for Microsoft Azure appliances Yes, until the nginx update is installed Install all available security updates through Veeam Updater Veeam Data Cloud for Salesforce , Veeam Data Cloud for Microsoft Azure , and Veeam Data Cloud for AWS Yes, remediation by Veeam is in progress No customer action is required Veeam Backup for Salesforce 3.2.1 Yes, CVE-2026-123007 and CVE-2026-123633 Install the operating system vendor update or disable HTTP/2 Swipe to show more of the table Solution Veeam Software Appliance and Veeam Infrastructure Appliance Veeam Software Appliance and Veeam Infrastructure Appliance 13.1 include an affected nginx build with HTTP/2 enabled. A fixed nginx package is not yet available. The fixed package will be delivered through Veeam Updater , and this article will be updated when it is available. HTTP/2 cannot be disabled on these appliances because Veeam components depend on it. Until the fixed package is installed, restrict access to TCP port 443 on the appliances to trusted networks. Public Cloud Appliances The Veeam Plug-In for AWS , Veeam Plug-In for Google Cloud , and Veeam Plug-In for Microsoft Azure appliances run Ubuntu 22.04 LTS and use the nginx package provided by Ubuntu. The patched nginx package ( 1.18.0-6ubuntu14.23 ) is installed with the security updates offered through Veeam Updater . Worker instances do not include nginx and are not affected. To remediate the vulnerabilities, install all available security updates through Veeam Updater. Veeam Data Cloud Veeam manages the infrastructure of Veeam Data Cloud for Salesforce , Veeam Data Cloud for Microsoft Azure , and Veeam Data Cloud for AWS , and is remediating the affected services. No customer action is required. Veeam Backup for Salesforce Veeam Backup for Salesforce 3.2.1 uses the nginx package provided by the operating system of the server where it is installed, and generates the nginx configuration. That configuration enables HTTP/2 on a listener that proxies requests to a backend, so CVE-2026-123007 and CVE-2026-123633 apply. The remaining vulnerabilities do not apply to this configuration. Veeam does not manage the operating system or the nginx package on customer-deployed Veeam Backup for Salesforce servers. Customers managing these servers are advised to review the advisory from the operating system vendor and install the nginx update when it is available. Until the nginx update is installed, HTTP/2 can be disabled to remediate the vulnerabilities: On the Veeam Backup for Salesforce server, open the following file: /etc/nginx/sites-available/vbsf-frontend.conf Remove the http2 parameter from the listen directive for port 443. Change: listen 443 ssl http2; to: listen 443 ssl; Save the file, then check the nginx configuration and restart the nginx service: sudo nginx -t sudo systemctl restart nginx.service Copy More Information CVE-2026-123007 | NVD CVE-2026-123633 | NVD CVE-2026-121810 | NVD CVE-2026-123634 | NVD CVE-2026-113425 | NVD"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change.",
+          "A durable review state or hold prevents repeated inference."
+        ]
+      }
+    ]
+  },
+  "extractions": {},
+  "result": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:774318d3b0d06e4e8820b2c6fedc5eae3f5d483bfc22d194b12f47bd14531e1c",
+    "baseCommit": "d8d42bf4bbb903924746b19749451fd02fc9a7c7",
+    "status": "blocked",
+    "eligibleForPublication": false,
+    "blocked": [
+      {
+        "code": "REVIEW_CHANGE_REQUEST_HOLD"
+      },
+      {
+        "code": "UNRESOLVED_CLAIMS",
+        "articleId": "kb4976"
+      },
+      {
+        "code": "SEMANTIC_ADAPTER_REQUIRED",
+        "articleId": "kb4976",
+        "kind": "classification"
+      }
+    ],
+    "checks": {
+      "passed": [
+        "evidence-integrity",
+        "proposal-schema",
+        "base-and-policy-continuity"
+      ],
+      "notRun": [
+        "full-catalog-validation",
+        "live-refresh",
+        "fresh-source-verification",
+        "github-checks",
+        "publication",
+        "notification-delivery"
+      ]
+    },
+    "files": {}
+  }
+}
