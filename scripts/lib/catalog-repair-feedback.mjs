@@ -43,7 +43,7 @@ export function interpretFeedback(comment, trustedUserIds, reviewState) {
       else if (/^(?:(?:please|can you|could you)\s+)?(?:revert|undo|roll back)\s+(?:this(?: change| repair)?|the (?:change|repair))(?: please)?[.!?\s]*$/i.test(body)) kind = 'revert-requested'
       else if (/(?:^|[.!?;\n]\s*|,\s+(?:and|but)\s+)(?:(?:please|can you|could you|would you)\s+)?(?:(?:do not|don't) (?:merge|publish|apply)|hold (?:this|the) (?:repair|candidate|publication)|request changes|use a different approach|that assumption is wrong|(?:change|fix|correct|update) (?:this|the))\b/i.test(body)) kind = 'changes-requested'
       else if (/^(?:thanks|thank you|noted|acknowledged)[.!\s]*$/i.test(body)
-        || (/^(?:fixed|resolved|addressed)\s+(?:in|by|via)\b/i.test(body) && !/\b(?:but|however|except|revert|undo|roll back)\b/i.test(body))
+        || /^(?:fixed|resolved|addressed)\s+(?:in|by|via)\s+(?:commit\s+)?(?:[a-f0-9]{7,40}|#\d+)[.!]?$/i.test(body)
         || /^(?:(?:can|could|would) you (?:explain|clarify|share|tell me)|what|where|when|how)\b[^?]+\?\s*$/i.test(body)) return null
       else kind = 'ambiguous'
     }
@@ -70,18 +70,23 @@ export function recordFeedback(state, repairId, feedback) {
   return { state: next, changed: true }
 }
 
+export function unresolvedFeedback(entries, latestDecisionAt = -Infinity) {
+  let ambiguous = null
+  for (const entry of entries) {
+    if (entry.kind !== 'ambiguous') latestDecisionAt = Math.max(latestDecisionAt, entry.updatedAt)
+    else if (!ambiguous || entry.updatedAt >= ambiguous.updatedAt) ambiguous = entry
+  }
+  return ambiguous && ambiguous.updatedAt >= latestDecisionAt ? ambiguous : null
+}
+
 export async function reviewCandidateFeedback(api, state, repairId) {
   const feedback = await readTrustedFeedback(api, state.repairs[repairId].number)
   let next = state
-  let lastAmbiguous = -Infinity
-  let lastApproval = -Infinity
   for (const entry of feedback) {
-    if (entry.kind === 'ambiguous') lastAmbiguous = Math.max(lastAmbiguous, entry.updatedAt)
-    else if (entry.kind === 'reviewed') lastApproval = Math.max(lastApproval, entry.updatedAt)
     const recorded = recordFeedback(next, repairId, entry)
     if (recorded.changed) next = recorded.state
   }
-  return { state: next, needsClarification: lastAmbiguous !== -Infinity && lastAmbiguous >= lastApproval }
+  return { state: next, needsClarification: Boolean(unresolvedFeedback(feedback, next.repairs[repairId].latestFeedbackAt)) }
 }
 
 // Only restore the affected security records. Keep newer releases, capabilities,

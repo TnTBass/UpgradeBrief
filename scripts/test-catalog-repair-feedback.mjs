@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { effectiveHolds, interpretFeedback, projectRepairState, recordFeedback, reviewCandidateFeedback, scopedRevert } from './lib/catalog-repair-feedback.mjs'
+import { effectiveHolds, interpretFeedback, projectRepairState, readTrustedFeedback, recordFeedback, reviewCandidateFeedback, scopedRevert, unresolvedFeedback } from './lib/catalog-repair-feedback.mjs'
 import { emptyRepairState } from './lib/catalog-repair-state.mjs'
 
 const comment = { id: 10, user: { id: 1081294, login: 'TnTBass', type: 'User' }, body: 'Use a different approach.', html_url: 'https://github.com/TnTBass/UpgradeBrief/issues/3#issuecomment-10' }
@@ -41,9 +41,13 @@ function feedbackApi(comments = [], reviews = []) {
     return routes[path]
   }
 }
-const info = [novemberStatus, 'Thanks', 'Can you explain the mitigation?', 'What changed?']
+const info = ['Fixed in db4a09d.', 'Resolved by #40.', 'Thanks', 'Can you explain the mitigation?', 'What changed?']
   .map((body, i) => ({ ...comment, id: 100 + i, body, created_at: '2026-11-22T14:03:20Z' }))
 assert.deepEqual(await reviewCandidateFeedback(feedbackApi(info), candidate, 'current'), { state: candidate, needsClarification: false })
+for (const body of ['Fixed in abc1234. This repair is still wrong.', 'Fixed in abc123. This repair is still wrong.', novemberStatus]) {
+  const mixed = { ...comment, id: 109, body, created_at: '2026-11-22T14:03:30Z' }
+  assert.deepEqual(await reviewCandidateFeedback(feedbackApi([mixed]), candidate, 'current'), { state: candidate, needsClarification: true })
+}
 const unclear = { ...comment, id: 110, body: 'I am not sure about this yet.', created_at: '2026-11-22T14:04:00Z' }
 assert.deepEqual(await reviewCandidateFeedback(feedbackApi([...info, unclear]), candidate, 'current'), { state: candidate, needsClarification: true })
 const approve = { ...comment, id: 111, state: 'APPROVED', body: 'The verification checks are clean.', submitted_at: '2026-11-22T14:05:00Z' }
@@ -52,6 +56,13 @@ assert.equal(approved.needsClarification, false)
 assert.deepEqual(approved.state.holds, [])
 const applied = { ...candidate, repairs: { current: { ...candidate.repairs.current, state: 'applied-awaiting-review' } } }
 assert.equal((await reviewCandidateFeedback(feedbackApi([], [approve]), applied, 'current')).state.repairs.current.state, 'reviewed')
+const publishedConcern = { ...unclear, body: 'Please leave the existing catalog in place.' }
+const publishedEntries = await readTrustedFeedback(feedbackApi([publishedConcern]), 39)
+const clarification = unresolvedFeedback(publishedEntries)
+assert.equal(clarification.text, publishedConcern.body)
+assert.deepEqual(recordFeedback(applied, 'current', clarification), { state: applied, changed: false })
+assert.equal(unresolvedFeedback(publishedEntries, Date.parse(approve.submitted_at)), null)
+assert.equal(unresolvedFeedback(await readTrustedFeedback(feedbackApi([publishedConcern], [approve]), 39)), null)
 assert.equal((await reviewCandidateFeedback(feedbackApi([unclear], [{ ...approve, submitted_at: unclear.created_at }]), candidate, 'current')).needsClarification, true)
 assert.equal((await reviewCandidateFeedback(feedbackApi([unclear], [{ ...approve, user: { ...approve.user, id: 17 } }]), candidate, 'current')).needsClarification, true)
 const request = { ...comment, id: 112, state: 'CHANGES_REQUESTED', body: 'Looks good!', submitted_at: '2026-11-22T14:04:30Z' }

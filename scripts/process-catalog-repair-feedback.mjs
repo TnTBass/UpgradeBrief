@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { execFileSync } from 'node:child_process'
 import { resolve, join } from 'node:path'
 import { githubClient, githubStateStore } from './lib/catalog-repair-state.mjs'
-import { projectRepairState, readTrustedFeedback, recordFeedback, reviewCandidateFeedback, scopedRevert } from './lib/catalog-repair-feedback.mjs'
+import { projectRepairState, readTrustedFeedback, recordFeedback, reviewCandidateFeedback, scopedRevert, unresolvedFeedback } from './lib/catalog-repair-feedback.mjs'
 import { createRepairPullRequest, ensureInvestigation, ensureLabels, manifestPath, mergeCandidateCAS, notifyOnce, REPAIR_DATA_PATHS, repairBaseBranch, repairBrief, setRepairStateLabel, waitForExactVerification } from './lib/catalog-repair-publication.mjs'
 import { canonicalJson, repairHash } from './lib/catalog-repair-evidence.mjs'
 import { snapshotHash, verifyCatalogCheckout, verifyRepairDeployment } from './lib/catalog-repair-verification.mjs'
@@ -139,15 +139,25 @@ for (const id of Object.keys(state.repairs).reverse()) {
     await recoverPublication(id)
     let repair = state.repairs[id]
     if (repair.notification?.pending) await announce(id, repair.notification.key, repair.notification.message)
-    for (const feedback of await readTrustedFeedback(api, repair.number)) {
-      const recorded = recordFeedback(state, repair.parentRepairId ?? id, feedback)
+    const entries = await readTrustedFeedback(api, repair.number)
+    const targetId = repair.parentRepairId ?? id
+    for (const feedback of entries) {
+      const recorded = recordFeedback(state, targetId, feedback)
       if (recorded.changed) {
         state = recorded.state; await save(); outcomes.push({ id, event: feedback.kind })
-        const target = state.repairs[repair.parentRepairId ?? id]
+        const target = state.repairs[targetId]
         if (target.state === 'reviewed') await setRepairStateLabel(api, target.number, 'reviewed')
       }
     }
     repair = state.repairs[id]
+    const target = state.repairs[targetId]
+    if (['applied-awaiting-review', 'reviewed'].includes(target.state)) {
+      const unclear = unresolvedFeedback(entries, target.latestFeedbackAt)
+      const key = unclear && `${id}:clarify-feedback:${unclear.fingerprint}`
+      if (key && repair.notification?.key !== key) {
+        await announce(id, key, `Could you clarify whether [this feedback](${unclear.url}) requests changes or a revert, or is for information only? The published catalog stays in place while we clarify.`)
+      }
+    }
     if (['changes-requested', 'revert-requested'].includes(repair.state)) {
       await setRepairStateLabel(api, repair.number, 'changes-requested')
       if (repair.state === 'revert-requested' && !repair.correctionId) await revertRepair(id)
