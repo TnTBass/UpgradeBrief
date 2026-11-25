@@ -9,7 +9,7 @@ export default function NotFoundPreview() {
   function honk() {
     setHonked(true)
     window.clearTimeout(resetTimer.current)
-    resetTimer.current = window.setTimeout(() => setHonked(false), 1000)
+    resetTimer.current = window.setTimeout(() => setHonked(false), 250)
   }
 
   return (
