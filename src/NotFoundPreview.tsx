@@ -1,7 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function NotFoundPreview() {
   const [honked, setHonked] = useState(false)
+  const resetTimer = useRef<number | undefined>(undefined)
+
+  useEffect(() => () => window.clearTimeout(resetTimer.current), [])
+
+  function honk() {
+    setHonked(true)
+    window.clearTimeout(resetTimer.current)
+    resetTimer.current = window.setTimeout(() => setHonked(false), 1000)
+  }
 
   return (
     <main className="not-found-preview">
@@ -26,7 +35,7 @@ export default function NotFoundPreview() {
           className="not-found-goose"
           type="button"
           aria-label="Make the goose honk"
-          onClick={() => setHonked((previous) => !previous)}
+          onClick={honk}
         />
         <a className="not-found-home" href="/" aria-label="Back to Upgrade Brief" />
       </div>
