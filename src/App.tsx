@@ -12,16 +12,10 @@ import UpgradeJourneyPage from './UpgradeJourney'
 import SecurityNotices from './SecurityNotices'
 import { trackEvent } from './lib/analytics'
 import { selectionUrl } from './lib/selection-url'
+import { initialTheme, type Theme } from './lib/theme'
 
 const initialProduct = (new URLSearchParams(window.location.search).get('product') as ProductId) || 'vbr'
 const initialVersion = new URLSearchParams(window.location.search).get('version') || ''
-type Theme = 'light' | 'dark'
-
-function initialTheme(): Theme {
-  const savedTheme = window.localStorage.getItem('upgrade-brief-theme')
-  if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
 
 const versionHelp: Record<ProductId, { instruction: string; sourceIds: string[] }> = {
   vbr: {
