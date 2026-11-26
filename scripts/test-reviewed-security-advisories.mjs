@@ -246,7 +246,16 @@ const nginxOptions = { equivalentFingerprint: reviewBaselines.articles.kb4976.co
 const nginxObservation = observeReviewedSecurityArticle('kb4976', nginxText, nginxOptions)
 assert.throws(() => observeReviewedSecurityArticle('kb4976', nginxText + ' CVE-2099-12345', nginxOptions), ReviewedSecurityObservationError)
 assert.throws(() => observeReviewedSecurityArticle('kb4976', nginxText.replace('CVE-2026-123007', 'CVE-2026-999999'), nginxOptions), ReviewedSecurityObservationError)
-assert.throws(() => observeReviewedSecurityArticle('kb4976', nginxText.replace('a fix is not yet available', 'a fix is available'), nginxOptions), ReviewedSecurityObservationError)
+assert.throws(() => observeReviewedSecurityArticle('kb4976', nginxText.replaceAll('CVE-2026-113425', ''), nginxOptions), ReviewedSecurityObservationError)
+for (const [reviewed, changed] of [
+  ['nginx-1.20.1-22.8.el9_6_ciq.3', 'nginx-1.20.1-22.8.el9_6_ciq.4'],
+  ['Until the update is installed, restrict access', 'After the update is installed, restrict access'],
+  ['The remaining vulnerabilities do not apply to the appliance configuration.', 'The remaining vulnerabilities also apply to the appliance configuration.'],
+]) {
+  assert.ok(nginxText.includes(reviewed))
+  assert.throws(() => observeReviewedSecurityArticle('kb4976', nginxText.replace(reviewed, changed), nginxOptions),
+    (error) => error instanceof ReviewedSecurityObservationError && !error.missingCveIds.length && !error.unexpectedCveIds.length)
+}
 assert.deepEqual(nginxObservation.observedCves.slice().sort(), [
   'CVE-2026-113425',
   'CVE-2026-121810',
@@ -254,30 +263,24 @@ assert.deepEqual(nginxObservation.observedCves.slice().sort(), [
   'CVE-2026-123633',
   'CVE-2026-123634',
 ])
-assert.deepEqual(nginxObservation.observedCvesByProduct, {
-  vbr: [
-    'CVE-2026-113425',
-    'CVE-2026-121810',
-    'CVE-2026-123007',
-    'CVE-2026-123633',
-    'CVE-2026-123634',
-  ],
-})
+const nginxApplianceCves = ['CVE-2026-123007', 'CVE-2026-123633']
+assert.deepEqual(nginxObservation.observedCvesByProduct, { vbr: nginxApplianceCves })
 const nginxHtmlFixture = await readFile(new URL('./fixtures/security-notices/kb4976.html', import.meta.url), 'utf8')
-const fixtureObservation = observeReviewedSecurityArticle('kb4976', nginxHtmlFixture, nginxOptions)
-assert.deepEqual(fixtureObservation.observedCves.slice().sort(), nginxObservation.observedCves.slice().sort())
+assert.deepEqual(observeReviewedSecurityArticle('kb4976', nginxHtmlFixture), nginxObservation)
 
 const nginxFindings = merged.catalog.securityFindings.filter((finding) => finding.sourceIds.includes('kb4976'))
-assert.equal(nginxFindings.length, 5)
+assert.deepEqual(nginxFindings.map((finding) => finding.cves).sort(), nginxApplianceCves.map((cve) => [cve]))
 for (const finding of nginxFindings) {
   assert.equal(finding.productId, 'vbr')
   assert.equal(finding.title, 'nginx memory corruption vulnerability (nginx2root) in Veeam appliances.')
   assert.equal(finding.cvssScore, undefined)
   assert.equal(finding.fixedReleaseId, undefined)
+  assert.deepEqual(finding.affectedReleaseIds, [])
+  assert.equal(finding.affectedBuildRanges, undefined)
   assert.deepEqual(finding.affectedVersionPrefixes, ['13.1.'])
   assert.match(finding.remediation, /Veeam Software Appliance 13\.1 and Veeam Infrastructure Appliance 13\.1/)
-  assert.match(finding.remediation, /a fixed nginx package is not yet available/)
-  assert.match(finding.remediation, /restrict access to TCP port 443/)
+  assert.match(finding.remediation, /Veeam Updater.*nginx-1\.20\.1-22\.8\.el9_6_ciq\.3/)
+  assert.match(finding.remediation, /Until the update is installed, restrict access to TCP port 443 on the appliances to trusted networks/)
   assert.ok(finding.conditions.some((c) => /Applies only to Veeam Software Appliance 13\.1/.test(c)))
+  assert.ok(finding.conditions.some((c) => /HTTP\/2 cannot be disabled/.test(c)))
 }
-assert.equal(merged.catalog.securityFindings.some((finding) => finding.sourceIds.includes('kb4976') && finding.productId === 'enterprise-manager'), false)
