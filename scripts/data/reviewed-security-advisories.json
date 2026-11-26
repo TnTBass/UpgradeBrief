@@ -891,31 +891,19 @@
       "affectedVersionPrefixes": [
         "13.1."
       ],
-      "remediation": "For Veeam Software Appliance 13.1 and Veeam Infrastructure Appliance 13.1, a fixed nginx package is not yet available. Until the fixed package is delivered through Veeam Updater, restrict access to TCP port 443 on the appliances to trusted networks. This article will be updated when the fix is available.",
+      "remediation": "For Veeam Software Appliance 13.1 and Veeam Infrastructure Appliance 13.1, install the latest security updates through Veeam Updater to apply the fixed package (nginx-1.20.1-22.8.el9_6_ciq.3). Until the update is installed, restrict access to TCP port 443 on the appliances to trusted networks.",
       "conditions": [
         "Applies only to Veeam Software Appliance 13.1 and Veeam Infrastructure Appliance 13.1 deployments. Windows-based Veeam Backup & Replication 13.1 installations do not use nginx and are not affected.",
-        "HTTP/2 cannot be disabled on affected appliances because Veeam components depend on it. A fixed nginx package is not yet available; restrict access to TCP port 443 to trusted networks.",
+        "HTTP/2 cannot be disabled on affected appliances because Veeam components depend on it.",
         "Cloud plug-in appliances, Veeam Backup for Salesforce, and Veeam Data Cloud entries are out of scope for this catalog."
       ],
       "records": [
-        {
-          "cve": "CVE-2026-113425",
-          "title": "nginx memory corruption vulnerability (nginx2root) in Veeam appliances."
-        },
-        {
-          "cve": "CVE-2026-121810",
-          "title": "nginx memory corruption vulnerability (nginx2root) in Veeam appliances."
-        },
         {
           "cve": "CVE-2026-123007",
           "title": "nginx memory corruption vulnerability (nginx2root) in Veeam appliances."
         },
         {
           "cve": "CVE-2026-123633",
-          "title": "nginx memory corruption vulnerability (nginx2root) in Veeam appliances."
-        },
-        {
-          "cve": "CVE-2026-123634",
           "title": "nginx memory corruption vulnerability (nginx2root) in Veeam appliances."
         }
       ]
@@ -1453,16 +1441,17 @@
       "classification": "dedicated",
       "productCves": {
         "vbr": [
-          "CVE-2026-113425",
-          "CVE-2026-121810",
           "CVE-2026-123007",
-          "CVE-2026-123633",
-          "CVE-2026-123634"
+          "CVE-2026-123633"
         ]
       },
-      "ignoredCveIds": [],
+      "ignoredCveIds": [
+        "CVE-2026-113425",
+        "CVE-2026-121810",
+        "CVE-2026-123634"
+      ],
       "multiProduct": true,
-      "contentFingerprint": "sha256:76608e1bb0eb0f01f819c85342b1d2e726b3644a1e33d1967e26c4c36fc2166b"
+      "contentFingerprint": "sha256:514a783122350a76938acb2c28571d2f55531287bc8a592097e5febeb3e629f6"
     },
     "kb4966": {
       "classification": "dedicated",

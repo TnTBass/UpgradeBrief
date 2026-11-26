@@ -194,6 +194,7 @@ const nginxPersisted = persisted.articles.kb4976
 assert.ok(nginxPersisted)
 assert.equal(nginxPersisted.contentFingerprint, REVIEWED_SECURITY_OBSERVATION_POLICY.kb4976.contentFingerprint)
 assert.equal(nginxPersisted.reviewedFingerprint, REVIEWED_SECURITY_OBSERVATION_POLICY.kb4976.contentFingerprint)
+assert.equal(catalog.securityFeedPageStates.find(({ articleId }) => articleId === 'kb4976').contentFingerprint, nginxPersisted.contentFingerprint)
 const nginxReconciled = createSecurityReviewBaseline('kb4976', nginxPersisted.normalizedText, nginxPersisted.reviewedFingerprint)
 assert.equal(nginxReconciled.contentFingerprint, nginxPersisted.contentFingerprint)
 assert.equal(nginxReconciled.comparisonFingerprint, nginxPersisted.comparisonFingerprint)
