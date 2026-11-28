@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "bundle": {
+    "schemaVersion": 1,
+    "environment": "production",
+    "validatorVersion": "5-component-redeployment-and-bounded-reviews",
+    "baseCommit": "fee2fb28f0c7a4722e1c98c9ad8c4ef863d4e53d",
+    "policyFingerprint": "sha256:bca01d1fad03debf5b9c4112026a2109501a0c9388bbf97c6b64bbdae4d09576",
+    "runId": "46147377017",
+    "capturedAt": "2026-11-28T13:07:12.553Z",
+    "failure": {
+      "message": "ALL_TRANSACTIONS_BLOCKED: Security feed coverage failed with 2 finding(s); fingerprint sha256:f0d137e362f87679e516ee46314f76094cd1ae2cf61a5466a37a00fcbb6bd2f8.",
+      "code": "ALL_TRANSACTIONS_BLOCKED",
+      "report": {
+        "findings": [
+          {
+            "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+            "articleId": "kb4575"
+          },
+          {
+            "code": "REVIEWED_ARTICLE_CONTENT_CHANGED",
+            "articleId": "kb4856"
+          }
+        ]
+      }
+    },
+    "articles": [
+      {
+        "articleId": "kb4575",
+        "url": "https://www.veeam.com/kb4575",
+        "before": "Veeam Service Provider Console Vulnerability ( CVE-2024-29212 ) KB ID: 4575 Product: Veeam Service Provider Console | 4.0 | 5.0 | 6.0 | 7.0 | 8.0 | 8.1 | 9 | 9.1 | 9.2 | 9.3 Published: 2024-05-07 Last Modified: 2024-09-12 Veeam Software Security Commitment Veeam® is committed to ensuring its products protect customers from potential risks. As part of that commitment, we operate a Vulnerability Disclosure Program (VDP) for all Veeam products and perform extensive internal code audits. When a vulnerability is identified, our team promptly develops a patch to address and mitigate the risk. In line with our dedication to transparency, we publicly disclose the vulnerability and provide detailed mitigation information. This approach ensures that all potentially affected customers can quickly implement the necessary measures to safeguard their systems. It’s important to note that once a vulnerability and its associated patch are disclosed, attackers will likely attempt to reverse-engineer the patch to exploit unpatched deployments of Veeam software. This reality underscores the critical importance of ensuring that all customers use the latest versions of our software and install all updates and patches without delay. Article Applicability This article documents a vulnerability discovered in Veeam Service Provider Console. This vulnerability does not affect other Veeam products (e.g., Veeam Backup & Replication, Veeam Agent for Microsoft Windows , Veeam ONE). Issue Details CVE-2024-29212 Due to an unsafe deserialization method used by the Veeam Service Provider Console (VSPC) server in communication between the management agent and its components, under certain conditions, it is possible to perform Remote Code Execution (RCE) on the VSPC server machine. This vulnerability was detected during internal testing. Severity: Critical CVSS v3.1 Score: 9.9 CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H Solution The vulnerability documented in this article was fixed starting in the following builds of Veeam Service Provider Console: Veeam Service Provider Console 7.0.0.19551 Veeam Service Provider Console 8.0.0.19552 Critical Update We encourage service providers using supported versions of Veeam Service Provider Console (versions 7 & 8) to update to the latest cumulative patch. Service Providers using unsupported versions are strongly encouraged to upgrade to the latest version of Veeam Service Provider Console .",
+        "after": "Veeam Service Provider Console Vulnerability ( CVE-2024-29212 ) KB ID: 4575 Product: Veeam Service Provider Console | 4.0 | 5.0 | 6.0 | 7.0 | 8.0 | 8.1 | 9 | 9.1 | 9.2 | 9.3 | 9.4 Published: 2024-05-07 Last Modified: 2024-09-12 Veeam Software Security Commitment Veeam® is committed to ensuring its products protect customers from potential risks. As part of that commitment, we operate a Vulnerability Disclosure Program (VDP) for all Veeam products and perform extensive internal code audits. When a vulnerability is identified, our team promptly develops a patch to address and mitigate the risk. In line with our dedication to transparency, we publicly disclose the vulnerability and provide detailed mitigation information. This approach ensures that all potentially affected customers can quickly implement the necessary measures to safeguard their systems. It’s important to note that once a vulnerability and its associated patch are disclosed, attackers will likely attempt to reverse-engineer the patch to exploit unpatched deployments of Veeam software. This reality underscores the critical importance of ensuring that all customers use the latest versions of our software and install all updates and patches without delay. Article Applicability This article documents a vulnerability discovered in Veeam Service Provider Console. This vulnerability does not affect other Veeam products (e.g., Veeam Backup & Replication, Veeam Agent for Microsoft Windows , Veeam ONE). Issue Details CVE-2024-29212 Due to an unsafe deserialization method used by the Veeam Service Provider Console (VSPC) server in communication between the management agent and its components, under certain conditions, it is possible to perform Remote Code Execution (RCE) on the VSPC server machine. This vulnerability was detected during internal testing. Severity: Critical CVSS v3.1 Score: 9.9 CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H Solution The vulnerability documented in this article was fixed starting in the following builds of Veeam Service Provider Console: Veeam Service Provider Console 7.0.0.19551 Veeam Service Provider Console 8.0.0.19552 Critical Update We encourage service providers using supported versions of Veeam Service Provider Console (versions 7 & 8) to update to the latest cumulative patch. Service Providers using unsupported versions are strongly encouraged to upgrade to the latest version of Veeam Service Provider Console .",
+        "beforeHash": "sha256:3e746b5e22af159c433b0e94f33fcb05debbaaafb905eac1d7be53f1ac25feb9",
+        "afterHash": "sha256:bef5c56643efe3cfe199eaaec231455971ff1219f6a6b8c124ae35f51daa7339",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 2444
+          }
+        ],
+        "acceptedPageState": {
+          "articleId": "kb4575",
+          "productIds": [
+            "vbr",
+            "veeam-one",
+            "vspc"
+          ],
+          "hasOutOfScopeProduct": true,
+          "contentFingerprint": "sha256:3e746b5e22af159c433b0e94f33fcb05debbaaafb905eac1d7be53f1ac25feb9"
+        },
+        "acceptedRoute": {
+          "articleId": "kb4575",
+          "classification": "dedicated",
+          "productIds": [
+            "vspc"
+          ],
+          "multiProduct": false
+        }
+      },
+      {
+        "articleId": "kb4856",
+        "url": "https://www.veeam.com/kb4856",
+        "before": "List of Security Fixes and Improvements in Veeam Service Provider Console KB ID: 4856 Product: Veeam Service Provider Console | 9.2 | 9.3 Published: 2026-05-27 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Service Provider Console . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Service Provider Console version to a later one. Security Fixes and Improvements 9.3.0.35057 CVE-2026-58073 vulnerability was fixed. CVE-2026-58072 vulnerability was fixed. CVE-2026-58067 vulnerability was fixed. CVE-2026-58071 vulnerability was fixed. @babel/runtime upgraded to version 7.29.7 axios upgraded to version 1.16.1 axios-cache-interceptor upgraded to version 1.12.0 dompurify upgraded to version 3.4.11 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.9.0 i18next-http-backend upgraded to version 4.0.0 linkify-it upgraded to version 5.0.2 lodash upgraded to version 4.18.1 MailKit upgraded to version 4.16.0 MimeKit upgraded to version 4.16.0 OpenTelemetry.Api upgraded to version 1.16.0 picomatch upgraded to version 4.0.4 SkiaSharp upgraded to version 3.119.4 System.Security.Cryptography.Xml upgraded to version 10.0.10 uuid upgraded to version 14.0.0 vite upgraded to version 8.0.15 ws upgraded to version 8.21.1 yaml upgraded to version 2.9.0 9.2.1.33875 CVE-2026-32998 vulnerability was fixed. CVE-2026-64635 vulnerability was fixed. AutoMapper was replaced with MagicMapper 14.0.1. axios upgraded to version 1.15.2 happy-dom upgraded to version 20.9.0 lodash upgraded to version 4.17.24 picomatch upgraded to version 4.0.4 System.Security.Cryptography.Xml upgraded to version 8.0.3 System.Text.RegularExpressions upgraded to version 4.3.1 uuid upgraded to version 14.0.0 vite upgraded to version 7.3.2 More Information",
+        "after": "List of Security Fixes and Improvements in Veeam Service Provider Console KB ID: 4856 Product: Veeam Service Provider Console | 9.2 | 9.3 | 9.4 Published: 2026-05-27 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Service Provider Console . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Service Provider Console version to a later one. Security Fixes and Improvements 9.3.0.35057 CVE-2026-58073 vulnerability was fixed. CVE-2026-58072 vulnerability was fixed. CVE-2026-58067 vulnerability was fixed. CVE-2026-58071 vulnerability was fixed. @babel/runtime upgraded to version 7.29.7 axios upgraded to version 1.16.1 axios-cache-interceptor upgraded to version 1.12.0 dompurify upgraded to version 3.4.11 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.9.0 i18next-http-backend upgraded to version 4.0.0 linkify-it upgraded to version 5.0.2 lodash upgraded to version 4.18.1 MailKit upgraded to version 4.16.0 MimeKit upgraded to version 4.16.0 OpenTelemetry.Api upgraded to version 1.16.0 picomatch upgraded to version 4.0.4 SkiaSharp upgraded to version 3.119.4 System.Security.Cryptography.Xml upgraded to version 10.0.10 uuid upgraded to version 14.0.0 vite upgraded to version 8.0.15 ws upgraded to version 8.21.1 yaml upgraded to version 2.9.0 9.2.1.33875 CVE-2026-32998 vulnerability was fixed. CVE-2026-64635 vulnerability was fixed. AutoMapper was replaced with MagicMapper 14.0.1. axios upgraded to version 1.15.2 happy-dom upgraded to version 20.9.0 lodash upgraded to version 4.17.24 picomatch upgraded to version 4.0.4 System.Security.Cryptography.Xml upgraded to version 8.0.3 System.Text.RegularExpressions upgraded to version 4.3.1 uuid upgraded to version 14.0.0 vite upgraded to version 7.3.2 More Information",
+        "beforeHash": "sha256:5c7ba38e63f4aa2b76488196d61a354fe2a9be1398e454ce49f52366c32b4b81",
+        "afterHash": "sha256:fe76416ebe76c1be97d3d7b717bdd4ed6d06556b5076536da47d83720d4949ff",
+        "sections": [
+          {
+            "id": "article",
+            "start": 0,
+            "end": 2086
+          }
+        ],
+        "acceptedPageState": {
+          "articleId": "kb4856",
+          "productIds": [
+            "vspc"
+          ],
+          "hasOutOfScopeProduct": false,
+          "contentFingerprint": "sha256:5c7ba38e63f4aa2b76488196d61a354fe2a9be1398e454ce49f52366c32b4b81",
+          "observedCveIds": [
+            "CVE-2026-32998",
+            "CVE-2026-58067",
+            "CVE-2026-58071",
+            "CVE-2026-58072",
+            "CVE-2026-58073",
+            "CVE-2026-64635"
+          ]
+        },
+        "acceptedRoute": {
+          "articleId": "kb4856",
+          "classification": "inventory",
+          "productIds": [
+            "vspc"
+          ],
+          "multiProduct": false
+        }
+      }
+    ],
+    "evidenceId": "sha256:b6a75abe629f5d7f7b6c6786fb2a92d94d8ac71d1880bb13bb1f92789abcb570"
+  },
+  "proposal": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:b6a75abe629f5d7f7b6c6786fb2a92d94d8ac71d1880bb13bb1f92789abcb570",
+    "baseCommit": "fee2fb28f0c7a4722e1c98c9ad8c4ef863d4e53d",
+    "articles": [
+      {
+        "articleId": "kb4575",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 2444,
+            "quote": "Veeam Service Provider Console Vulnerability ( CVE-2024-29212 ) KB ID: 4575 Product: Veeam Service Provider Console | 4.0 | 5.0 | 6.0 | 7.0 | 8.0 | 8.1 | 9 | 9.1 | 9.2 | 9.3 | 9.4 Published: 2024-05-07 Last Modified: 2024-09-12 Veeam Software Security Commitment Veeam® is committed to ensuring its products protect customers from potential risks. As part of that commitment, we operate a Vulnerability Disclosure Program (VDP) for all Veeam products and perform extensive internal code audits. When a vulnerability is identified, our team promptly develops a patch to address and mitigate the risk. In line with our dedication to transparency, we publicly disclose the vulnerability and provide detailed mitigation information. This approach ensures that all potentially affected customers can quickly implement the necessary measures to safeguard their systems. It’s important to note that once a vulnerability and its associated patch are disclosed, attackers will likely attempt to reverse-engineer the patch to exploit unpatched deployments of Veeam software. This reality underscores the critical importance of ensuring that all customers use the latest versions of our software and install all updates and patches without delay. Article Applicability This article documents a vulnerability discovered in Veeam Service Provider Console. This vulnerability does not affect other Veeam products (e.g., Veeam Backup & Replication, Veeam Agent for Microsoft Windows , Veeam ONE). Issue Details CVE-2024-29212 Due to an unsafe deserialization method used by the Veeam Service Provider Console (VSPC) server in communication between the management agent and its components, under certain conditions, it is possible to perform Remote Code Execution (RCE) on the VSPC server machine. This vulnerability was detected during internal testing. Severity: Critical CVSS v3.1 Score: 9.9 CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H Solution The vulnerability documented in this article was fixed starting in the following builds of Veeam Service Provider Console: Veeam Service Provider Console 7.0.0.19551 Veeam Service Provider Console 8.0.0.19552 Critical Update We encourage service providers using supported versions of Veeam Service Provider Console (versions 7 & 8) to update to the latest cumulative patch. Service Providers using unsupported versions are strongly encouraged to upgrade to the latest version of Veeam Service Provider Console ."
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change."
+        ]
+      },
+      {
+        "articleId": "kb4856",
+        "kind": "classification",
+        "rationale": "Unsupported change requires investigation.",
+        "evidence": [
+          {
+            "sectionId": "article",
+            "start": 0,
+            "end": 2086,
+            "quote": "List of Security Fixes and Improvements in Veeam Service Provider Console KB ID: 4856 Product: Veeam Service Provider Console | 9.2 | 9.3 | 9.4 Published: 2026-05-27 Last Modified: 2026-09-09 Purpose This article describes all security-related fixes and improvements introduced in each release or update of Veeam Service Provider Console . This article aims to provide our customers' security and compliance teams with detailed information on security improvements between releases to help them make an informed decision on whether it is critical to upgrade from their current Veeam Service Provider Console version to a later one. Security Fixes and Improvements 9.3.0.35057 CVE-2026-58073 vulnerability was fixed. CVE-2026-58072 vulnerability was fixed. CVE-2026-58067 vulnerability was fixed. CVE-2026-58071 vulnerability was fixed. @babel/runtime upgraded to version 7.29.7 axios upgraded to version 1.16.1 axios-cache-interceptor upgraded to version 1.12.0 dompurify upgraded to version 3.4.11 follow-redirects upgraded to version 1.16.0 form-data upgraded to version 4.0.6 happy-dom upgraded to version 20.9.0 i18next-http-backend upgraded to version 4.0.0 linkify-it upgraded to version 5.0.2 lodash upgraded to version 4.18.1 MailKit upgraded to version 4.16.0 MimeKit upgraded to version 4.16.0 OpenTelemetry.Api upgraded to version 1.16.0 picomatch upgraded to version 4.0.4 SkiaSharp upgraded to version 3.119.4 System.Security.Cryptography.Xml upgraded to version 10.0.10 uuid upgraded to version 14.0.0 vite upgraded to version 8.0.15 ws upgraded to version 8.21.1 yaml upgraded to version 2.9.0 9.2.1.33875 CVE-2026-32998 vulnerability was fixed. CVE-2026-64635 vulnerability was fixed. AutoMapper was replaced with MagicMapper 14.0.1. axios upgraded to version 1.15.2 happy-dom upgraded to version 20.9.0 lodash upgraded to version 4.17.24 picomatch upgraded to version 4.0.4 System.Security.Cryptography.Xml upgraded to version 8.0.3 System.Text.RegularExpressions upgraded to version 4.3.1 uuid upgraded to version 14.0.0 vite upgraded to version 7.3.2 More Information"
+          }
+        ],
+        "unresolved": [
+          "The maintained validator cannot establish a supported semantic change.",
+          "Review section 1 of 1: Workers AI returned an invalid or unsupported extraction"
+        ]
+      }
+    ]
+  },
+  "extractions": {
+    "kb4575": {
+      "kind": "review-batch",
+      "complete": true,
+      "sourceLength": 2444,
+      "plannedParts": 1,
+      "parts": [
+        {
+          "start": 0,
+          "end": 2444,
+          "proposal": {
+            "kind": "review",
+            "summary": "Veeam Service Provider Console vulnerability",
+            "claims": [
+              {
+                "field": "product",
+                "quote": "Veeam Service Provider Console | 4.0 | 5.0 | 6.0 | 7.0 | 8.0 | 8.1 | 9 | 9.1 | 9.2 | 9.3 | 9.4",
+                "interpretation": "Multiple versions of Veeam Service Provider Console are affected"
+              },
+              {
+                "field": "affected",
+                "quote": "This vulnerability does not affect other Veeam products (e.g., Veeam Backup & Replication, Veeam Agent for Microsoft Windows , Veeam ONE)",
+                "interpretation": "Only Veeam Service Provider Console is affected"
+              },
+              {
+                "field": "prerequisite",
+                "quote": "Service Providers using unsupported versions are strongly encouraged to upgrade to the latest version of Veeam Service Provider Console",
+                "interpretation": "Upgrade to the latest version is required for unsupported versions"
+              },
+              {
+                "field": "recovery-media",
+                "quote": "update to the latest cumulative patch",
+                "interpretation": "Update to the latest cumulative patch is recommended for supported versions"
+              },
+              {
+                "field": "patch",
+                "quote": "The vulnerability documented in this article was fixed starting in the following builds of Veeam Service Provider Console: Veeam Service Provider Console 7.0.0.19551 Veeam Service Provider Console 8.0.0.19552",
+                "interpretation": "Specific builds of Veeam Service Provider Console have the vulnerability fixed"
+              }
+            ],
+            "unresolved": [
+              "exact private fixes or recovery media details not provided",
+              "no catalogue change authorized"
+            ]
+          }
+        }
+      ],
+      "unresolved": []
+    },
+    "kb4856": {
+      "kind": "review-batch",
+      "complete": false,
+      "sourceLength": 2086,
+      "plannedParts": 1,
+      "parts": [],
+      "unresolved": [
+        "Review section 1 of 1: Workers AI returned an invalid or unsupported extraction"
+      ]
+    }
+  },
+  "result": {
+    "schemaVersion": 1,
+    "evidenceId": "sha256:b6a75abe629f5d7f7b6c6786fb2a92d94d8ac71d1880bb13bb1f92789abcb570",
+    "baseCommit": "fee2fb28f0c7a4722e1c98c9ad8c4ef863d4e53d",
+    "status": "blocked",
+    "eligibleForPublication": false,
+    "blocked": [
+      {
+        "code": "UNRESOLVED_CLAIMS",
+        "articleId": "kb4575"
+      },
+      {
+        "code": "SEMANTIC_ADAPTER_REQUIRED",
+        "articleId": "kb4575",
+        "kind": "classification"
+      },
+      {
+        "code": "UNRESOLVED_CLAIMS",
+        "articleId": "kb4856"
+      },
+      {
+        "code": "SEMANTIC_ADAPTER_REQUIRED",
+        "articleId": "kb4856",
+        "kind": "classification"
+      }
+    ],
+    "checks": {
+      "passed": [
+        "evidence-integrity",
+        "proposal-schema",
+        "base-and-policy-continuity"
+      ],
+      "notRun": [
+        "full-catalog-validation",
+        "live-refresh",
+        "fresh-source-verification",
+        "github-checks",
+        "publication",
+        "notification-delivery"
+      ]
+    },
+    "files": {}
+  }
+}
